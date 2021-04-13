@@ -2,7 +2,11 @@
 
 #importowanie numpy
 import numpy as np
-
+#
+#
+#
+#FUNKCJE
+#
 #funkcja sprawdza czy symbol jest numerem   
 def is_number(s):
     try:
@@ -346,7 +350,12 @@ def rzadwiazania_dlugoscwiazania(nazwa1, nazwa2, promien_od_rzad_wiazania, pocza
         print()
         print()
         
-                        
+#       
+#       
+#
+#Program    
+#
+                     
 #Wpisyawnie w pierszu poleceń komend 
 a = input()
 mmm = a.split()
@@ -391,15 +400,12 @@ print()
 f = open(a, "r")
 c = " POPULATION ANALYSIS FROM PROJECTED WAVEFUNCTIONS"
 d = " MAYER BOND ORDERS FROM PROJECTED WAVEFUNCTIONS"
-i=1
 b = "0"
 
 tablicamulikenlowdinvalence = []
 while "SYMMETRY:                                           SIMPLE CUBIC" not in b:
-    b = f.readline(i)
-    i +=1
-i +=1
-informacja_o_komurce = f.readline(i)
+    b = f.readline()
+informacja_o_komurce = f.readline()
 
 splitted = informacja_o_komurce.split()
 kolumna = 0 
@@ -409,34 +415,25 @@ for symbol in splitted:
         krawendz = float(symbol)
 
 while c not in b:
-    b = f.readline(i)
-    i +=1
-
-i +=1 
-b =f.readline(i)    
-i +=1 
-b =f.readline(i)  
-i +=1 
-b =f.readline(i) 
+    b = f.readline()
+ 
+b =f.readline()     
+b =f.readline()   
+b =f.readline() 
 while "\n" != b:
     tablicamulikenlowdinvalence.append(b)
-    b = f.readline(i)
-    i +=1
+    b = f.readline()
     
     
 #Wczytywanie tablicy z rzedami wiazania-linijkami 
 tablicamayerbondorders = []
 
 while d not in b:
-    i +=1
-    b=f.readline(i)
+    b=f.readline()
     
-i +=1
-f.readline(i)
-i +=1 
-b = f.readline(i)
-i +=1 
-b = f.readline(i)
+f.readline()
+b = f.readline()
+b = f.readline()
 
 ilelinijek =0 #ile linijek w stringu tablicamayerbondorders
 while "\n" != b:
@@ -444,28 +441,23 @@ while "\n" != b:
     while "\n" != b:
         tablicamayerbondorders.append(b)
         ilelinijek += 1
-        b = f.readline(i)
-        i +=1
+        b = f.readline()
         j +=1
         
-    b = f.readline(i)
-    i += 1 
-    b = f.readline(i)
+    b = f.readline()
+    b = f.readline()
 
     
 while "ATOM             COORDINATES                   CHARGES" not in b:
-    b = f.readline(i)
-    i +=1   
+    b = f.readline()   
 
 tablicacordinates = []
-b = f.readline(i)
-i +=1
-b = f.readline(i)
+b = f.readline()
+b = f.readline()
 
 while "ChkSum" not in b:
     tablicacordinates.append(b)
-    b = f.readline(i)
-    i +=1
+    b = f.readline()
 
 Tabelarzadwiazania = np.zeros(shape=(2*j,j + 2*j))
 
