@@ -1,0 +1,73 @@
+#:import switchButton switchButton
+#:set row_height dp(40)
+#:set spacing_padding dp(10)
+
+<ComponentChoseCalculations>:
+    row_default_height: row_height
+    padding: [spacing_padding, spacing_padding, spacing_padding, spacing_padding]
+    spacing: spacing_padding
+    cols: 3
+    rows: 4
+    height: 4 * row_height  + 6 * spacing_padding
+
+    MDLabel: 
+        size_hint_x: 1.5
+        valign: 'middle'
+        text: "Q^i units calculations: "
+
+    SwithButtonWidget:
+
+    MDRelativeLayout:
+        width: row_height
+        MDTextField:
+            helper_text: "ID eg. '=', 'my bond' ...."
+            helper_text_mode: "persistent"
+            height: '30dp'
+            pos_hint: {"center_x": 0.5, "center_y": 0.66}
+            #canvas.before:
+            #    Color:
+            #        rgba: 0, 0, 1, 1
+            #    Rectangle:
+            #        # self here refers to the widget i.e FloatLayout
+            #        pos: self.pos
+            #        size: self.size
+
+    MDLabel: 
+        size_hint_x: 1.5
+        valign: 'middle'
+        text: "cordination numbers: "
+        height: row_height
+
+    SwithButtonWidget:
+
+    MDLabel: 
+        valign: 'middle'
+        text: " "
+        height: row_height
+
+    MDLabel: 
+        size_hint_x: 1.5
+        valign: 'middle'
+        text: "conections betwen atoms: "
+        height: row_height
+    
+    SwithButtonWidget:
+
+    MDLabel: 
+        valign: 'middle'
+        text: " "
+        height: row_height
+
+    MDLabel: 
+        size_hint_x: 1.5
+        valign: 'middle'
+        text: "Relation between bond order and bond lenght: "
+        height: row_height
+
+    SwithButtonWidget:
+
+    MDLabel: 
+        valign: 'middle'
+        text: " "
+        height: row_height
+

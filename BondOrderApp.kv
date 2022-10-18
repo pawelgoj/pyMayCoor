@@ -1,0 +1,124 @@
+#:import componentAddPairsOfAtoms componentAddPairsOfAtoms
+#:import componentChoseCalculations componentChoseCalculations
+#:import switchButton switchButton
+#:set paddings_histogram dp(10) 
+#:set header_label_paddings [dp(10), dp(10), dp(10), dp(20)]
+
+MainFrameOfApp:
+
+<MainFrameOfApp>:
+    MDWidget: 
+        pos_hint: {'bottom': 0, 'left': 0}
+        MDScrollView:
+            height: root.height - bar_of_app.height
+            width: root.width
+            do_scroll_x: False
+            do_scroll_y: True
+            bar_width: dp(10)
+
+            MDStackLayout:
+                size_hint: 1, None
+                height: self.minimum_height
+                orientation: "lr-tb"
+                spacing: "10dp"
+
+                MDBoxLayout:
+                    adaptive_height: True
+                    padding: header_label_paddings
+                    MDLabel: 
+                        adaptive_height: True
+                        text: "Histogram: "
+                        font_style: "H5"
+                        theme_text_color: "Primary"
+
+                MDGridLayout:
+                    size_hint: (None, None)
+                    width: root.width
+                    adaptive_height: True
+                    row_default_height: '40dp'
+                    padding: [paddings_histogram, paddings_histogram, self.width * 0.6 , paddings_histogram]
+                    cols: 2
+                    rows: 1
+                    SwithButtonWidget:
+                        adaptive_height: True
+
+                    MDRelativeLayout:
+                        height: '40dp'
+                        MDTextField:
+                            height: '30dp'
+                            pos_hint: {'center_x': .5, 'center_y': .6}
+                            hint_text: "Number of bars in hostograms: "
+                            helper_text: "int number"
+                            helper_text_mode: "persistent"
+                
+                MDBoxLayout:
+                    adaptive_height: True
+                    padding: header_label_paddings
+                    MDLabel:
+                        size_hint: (None, None)
+                        width: root.width
+                        adaptive_height: True
+                        valign: 'middle'
+                        text: "Enter the pairs of atoms for which the calculations will be performed: "
+                        font_style: "H5"
+                        theme_text_color: "Primary"
+
+                ComponentAddPairsOfAtoms:
+                    size_hint: (None, None)
+                    height: self.height 
+                    width: root.width * 0.95
+
+                MDBoxLayout:
+                    adaptive_height: True
+                    padding: header_label_paddings
+                    MDLabel:
+                        size_hint: (None, None)
+                        width: root.width
+                        adaptive_height: True
+                        text: "Chose type of calculations: "
+                        font_style: "H5"
+                        theme_text_color: "Primary"
+
+                ComponentChoseCalculations:
+                    size_hint: (None, None)
+                    width: root.width * 0.90
+                    height: self.height 
+                    padding: [dp(10), dp(10), root.width * 0.4, dp(10)]
+
+                MDGridLayout:
+                    adaptive_height: True
+                    size_hint: (None, None)
+                    width: root.width
+                    row_default_height: '30dp'
+                    cols: 2
+                    padding: header_label_paddings
+
+                    MDLabel:
+                        adaptive_height: True
+                        valign: 'middle'
+                        text: "Nie wiem czy nie usunąć ten label"
+
+                    RelativeLayout:
+                        MDFillRoundFlatIconButton:
+                            text: "Faind File"
+                            icon: "android"
+                            text_color: "white"
+                
+                MDBoxLayout:
+                    size_hint: (None, None)
+                    width: root.width * 0.98
+                    adaptive_height: True
+                    padding: header_label_paddings
+                    MDProgressBar:
+                        value: 50
+                        color: "red"
+                        size_hint: 0.5, None 
+                        height: "10dp"
+
+    MDTopAppBar:
+        id: bar_of_app
+        pos_hint: {'top': 1, 'left': 0}
+        adaptive_height: True
+        title: "MDTopAppBar"
+        right_action_items: [["dots-vertical", lambda x: app.callback_1()], ["clock", lambda x: app.callback_2()]]
+    
