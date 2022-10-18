@@ -14,6 +14,8 @@
         size_hint_x: 1.5
         valign: 'middle'
         text: "Q^i units calculations: "
+        theme_text_color: "Custom"
+        text_color: app.theme_cls.text_color
 
     SwithButtonWidget:
 
@@ -24,19 +26,20 @@
             helper_text_mode: "persistent"
             height: '30dp'
             pos_hint: {"center_x": 0.5, "center_y": 0.66}
-            #canvas.before:
-            #    Color:
-            #        rgba: 0, 0, 1, 1
-            #    Rectangle:
-            #        # self here refers to the widget i.e FloatLayout
-            #        pos: self.pos
-            #        size: self.size
+            text_color_normal: app.theme_cls.text_color
+            helper_text_color_normal: app.theme_cls.text_color
+            hint_text_color_normal: app.theme_cls.text_color
+            helper_text_color_focus: "red"
+            line_color_normal: app.theme_cls.text_color
+            on_focus: app.change_state(self)
 
     MDLabel: 
         size_hint_x: 1.5
         valign: 'middle'
         text: "cordination numbers: "
         height: row_height
+        theme_text_color: "Custom"
+        text_color: app.theme_cls.text_color
 
     SwithButtonWidget:
 
@@ -44,12 +47,16 @@
         valign: 'middle'
         text: " "
         height: row_height
+        theme_text_color: "Custom"
+        text_color: app.theme_cls.text_color
 
     MDLabel: 
         size_hint_x: 1.5
         valign: 'middle'
         text: "conections betwen atoms: "
         height: row_height
+        theme_text_color: "Custom"
+        text_color: app.theme_cls.text_color
     
     SwithButtonWidget:
 
@@ -57,12 +64,16 @@
         valign: 'middle'
         text: " "
         height: row_height
+        theme_text_color: "Custom"
+        text_color: app.theme_cls.text_color
 
     MDLabel: 
         size_hint_x: 1.5
         valign: 'middle'
         text: "Relation between bond order and bond lenght: "
         height: row_height
+        theme_text_color: "Custom"
+        text_color: app.theme_cls.text_color
 
     SwithButtonWidget:
 
@@ -70,4 +81,5 @@
         valign: 'middle'
         text: " "
         height: row_height
+
 

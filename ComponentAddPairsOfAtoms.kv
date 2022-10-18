@@ -15,7 +15,7 @@
         width: grid_with_atoms.width
         canvas.before:
             Color:
-                rgba: 0, 0, 1, 1
+                rgba: app.theme_cls.primary_color
             Line:
                 width: width_of_line
                 points:
@@ -56,57 +56,96 @@
             adaptive_height: True
             text: "first atom: "
             valign: 'middle'
+            theme_text_color: "Custom"
+            text_color: app.theme_cls.text_color
 
         MDLabel:
             adaptive_height: True
             text: "second atom: "
             valign: 'middle'
+            theme_text_color: "Custom"
+            text_color: app.theme_cls.text_color
 
         MDLabel:
             adaptive_height: True
             text: "MBO min: "
             valign: 'middle'
+            theme_text_color: "Custom"
+            text_color: app.theme_cls.text_color
 
         MDLabel:
             adaptive_height: True
             text: "MBO max: "
             valign: 'middle'
+            theme_text_color: "Custom"
+            text_color: app.theme_cls.text_color
 
         MDLabel:
             adaptive_height: True
             text: "ID od bond: "
             valign: 'middle'
-
+            theme_text_color: "Custom"
+            text_color: app.theme_cls.text_color
 
         MDTextField:
             id: text_field
             helper_text: "Eg. P, Fe ..."
             helper_text_mode: "persistent"
             valign: 'middle'
+            text_color_normal: app.theme_cls.text_color
+            helper_text_color_normal: app.theme_cls.text_color
+            hint_text_color_normal: app.theme_cls.text_color
+            helper_text_color_focus: "red"
+            line_color_normal: app.theme_cls.text_color
+            on_focus: app.change_state(self)
 
         MDTextField:
             helper_text: "Eg. P, Fe ..."
             helper_text_mode: "persistent"
             valign: 'middle'
+            text_color_normal: app.theme_cls.text_color
+            helper_text_color_normal: app.theme_cls.text_color
+            hint_text_color_normal: app.theme_cls.text_color
+            helper_text_color_focus: "red"
+            line_color_normal: app.theme_cls.text_color
+            on_focus: app.change_state(self)
 
         MDTextField:
             helper_text: "float number"
             helper_text_mode: "persistent"
             valign: 'middle'
+            text_color_normal: app.theme_cls.text_color
+            helper_text_color_normal: app.theme_cls.text_color
+            hint_text_color_normal: app.theme_cls.text_color
+            helper_text_color_focus: "red"
+            line_color_normal: app.theme_cls.text_color
+            on_focus: app.change_state(self)
 
         MDTextField:
             helper_text: "float number"
             helper_text_mode: "persistent"
             valign: 'middle'
+            text_color_normal: app.theme_cls.text_color
+            helper_text_color_normal: app.theme_cls.text_color
+            hint_text_color_normal: app.theme_cls.text_color
+            helper_text_color_focus: "red"
+            line_color_normal: app.theme_cls.text_color
+            on_focus: app.change_state(self)
 
         MDTextField:
             adaptive_height: True
             helper_text: "ID eg. '=', 'my bond' ...."
             helper_text_mode: "persistent"
             valign: 'middle'
+            text_color_normal: app.theme_cls.text_color
+            helper_text_color_normal: app.theme_cls.text_color
+            hint_text_color_normal: app.theme_cls.text_color
+            helper_text_color_focus: "red"
+            line_color_normal: app.theme_cls.text_color
+            on_focus: app.change_state(self)
     
     MDFloatingActionButton:
-        icon: "android"
+        icon: "plus-thick"
         md_bg_color: app.theme_cls.primary_color
         pos: grid_with_atoms.width * 0.99 - position_of_circle , 0
 
