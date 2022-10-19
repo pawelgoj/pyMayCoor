@@ -7,7 +7,6 @@ from kivymd.app import MDApp
 from kivymd.uix.floatlayout import FloatLayout
 from kivy.lang.builder import Builder
 
-
 Builder.load_file("ComponentAddPairsOfAtoms.kv")
 Builder.load_file("ComponentChoseCalculations.kv")
 Builder.load_file("SwitchButton.kv")
@@ -20,6 +19,9 @@ class BondOrderApp(MDApp):
 
     text_input = None
     count = 0 
+    
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
     
     def on_start(self):
         #chose theme of app
@@ -49,4 +51,5 @@ class BondOrderApp(MDApp):
 
 
 if __name__ == '__main__':
-    BondOrderApp().run()
+    myApp = BondOrderApp()
+    myApp.run()
