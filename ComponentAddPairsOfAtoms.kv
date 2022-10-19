@@ -1,3 +1,5 @@
+#:import myRectangelButton myRectangelButton
+
 #:set label_height dp(20)
 #:set spacing_padding dp(0)
 #:set position_of_circle dp(20)
@@ -144,25 +146,13 @@
             line_color_normal: app.theme_cls.text_color
             on_focus: app.change_state(self)
     
-    MDIconButton:
-        canvas.before:
-            Color:
-                rgba: app.theme_cls.primary_color
-            Ellipse:
-                pos: self.pos
-                size: self.size
+    MyRectangleButton:
         id: Button_x
         icon: "plus-thick"
         pos: grid_with_atoms.width - position_of_circle - dp(6) , 0
         on_press: component_add_pairs_of_atoms.add_row_of_text_input()
     
-    MDIconButton:
-        canvas.before:
-            Color:
-                rgba: app.theme_cls.primary_color
-            Ellipse:
-                pos: self.pos
-                size: self.size
+    MyRectangleButton:
         id: Button_delete
         disabled: True
         opacity: 0

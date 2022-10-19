@@ -11,6 +11,7 @@ from kivy.lang.builder import Builder
 Builder.load_file("ComponentAddPairsOfAtoms.kv")
 Builder.load_file("ComponentChoseCalculations.kv")
 Builder.load_file("SwitchButton.kv")
+Builder.load_file("MyRectangleButton.kv")
 
 class MainFrameOfApp(FloatLayout):
     pass
