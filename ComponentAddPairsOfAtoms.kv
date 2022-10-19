@@ -48,7 +48,6 @@
         size_hint_y: None
         height: component_add_pairs_of_atoms.grid_height + text_field.height
         pos_hint: {'x': 0, 'top': 1}
-        
         padding: ["10dp", "10dp", "10dp", "10dp"]
         spacing: spacing_padding
         cols: 5
@@ -145,10 +144,29 @@
             line_color_normal: app.theme_cls.text_color
             on_focus: app.change_state(self)
     
-    MDFloatingActionButton:
+    MDIconButton:
+        canvas.before:
+            Color:
+                rgba: app.theme_cls.primary_color
+            Ellipse:
+                pos: self.pos
+                size: self.size
         id: Button_x
         icon: "plus-thick"
-        md_bg_color: app.theme_cls.primary_color
-        pos: grid_with_atoms.width * 0.99 - position_of_circle , 0
+        pos: grid_with_atoms.width - position_of_circle - dp(6) , 0
         on_press: component_add_pairs_of_atoms.add_row_of_text_input()
+    
+    MDIconButton:
+        canvas.before:
+            Color:
+                rgba: app.theme_cls.primary_color
+            Ellipse:
+                pos: self.pos
+                size: self.size
+        id: Button_delete
+        disabled: True
+        opacity: 0
+        icon: "minus-thick"
+        pos: grid_with_atoms.width - position_of_circle - dp(66) , 0
+        on_press: component_add_pairs_of_atoms.delete_rows()
 

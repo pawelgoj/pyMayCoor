@@ -3,6 +3,7 @@ from kivy.config import Config
 Config.set('graphics', 'width', '1000')
 Config.set('graphics', 'height', '700')
 
+
 from kivymd.app import MDApp
 from kivymd.uix.floatlayout import FloatLayout
 from kivy.lang.builder import Builder
@@ -14,7 +15,6 @@ Builder.load_file("SwitchButton.kv")
 class MainFrameOfApp(FloatLayout):
     pass
 
-
 class BondOrderApp(MDApp):
 
     text_input = None
@@ -22,7 +22,7 @@ class BondOrderApp(MDApp):
     
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-    
+        
     def on_start(self):
         #chose theme of app
         self.theme_cls.theme_style_switch_animation = True
@@ -47,9 +47,6 @@ class BondOrderApp(MDApp):
         self.text_input = widget
 
         
-
-
-
 if __name__ == '__main__':
     myApp = BondOrderApp()
     myApp.run()
