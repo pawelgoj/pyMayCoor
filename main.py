@@ -1,8 +1,6 @@
-import time
 from kivy.config import Config
 Config.set('graphics', 'width', '1000')
 Config.set('graphics', 'height', '700')
-
 
 from kivymd.app import MDApp
 from kivymd.uix.floatlayout import FloatLayout
@@ -12,6 +10,7 @@ Builder.load_file("ComponentAddPairsOfAtoms.kv")
 Builder.load_file("ComponentChoseCalculations.kv")
 Builder.load_file("SwitchButton.kv")
 Builder.load_file("MyRectangleButton.kv")
+Builder.load_file("MytextInput.kv")
 
 class MainFrameOfApp(FloatLayout):
     pass
@@ -37,10 +36,10 @@ class BondOrderApp(MDApp):
         self.theme_cls.primary_palette = (
             "Orange" if self.theme_cls.primary_palette == "Purple" else "Purple"
         )
-
         self.theme_cls.theme_style = (
             "Dark" if self.theme_cls.theme_style == "Light" else "Light"
         )
+        
         if self.text_input != None:
             self.text_input.focus = False
             
