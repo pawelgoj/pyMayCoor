@@ -4,6 +4,8 @@ from kivy.metrics import dp
 from kivymd.uix.widget import Widget 
 from mytextInput import MyTextInput
 
+
+
 class ComponentAddPairsOfAtoms(RelativeLayout):
     label_height: dp = dp(20)
     spacing_padding: dp = dp(0)
@@ -17,7 +19,7 @@ class ComponentAddPairsOfAtoms(RelativeLayout):
     
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        
+            
         self.grid_height = self.label_height \
             + self.text_field_height + self.spacing_padding + 2 * dp(10)
             
@@ -53,4 +55,12 @@ class ComponentAddPairsOfAtoms(RelativeLayout):
         
         if self.number_of_add_rows_to_widget == 0:
             self.hide_button_delete_row()
-        
+            
+    def jump_to_the_next_text_field(self):
+        #TODO
+        '''bind-keybord with this function
+            check, that text field is clicked and active
+            app.chenck_state_function have information of clicked text_field
+            how check next text field in list'''
+        pass
+    

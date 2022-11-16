@@ -2,10 +2,13 @@ from kivy.config import Config
 Config.set('graphics', 'width', '1000')
 Config.set('graphics', 'height', '700')
 
+from pprint import pprint
 from kivymd.app import MDApp
 from kivymd.uix.floatlayout import FloatLayout
 from kivy.lang.builder import Builder
 from pprint import pprint
+from kivy.utils import platform
+from kivy.core.window import Window
 from kivymd.color_definitions import colors
 
 Builder.load_file("ComponentAddPairsOfAtoms.kv")
@@ -24,6 +27,12 @@ class BondOrderApp(MDApp):
     
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        
+        if self.is_desktop():
+            self._keyboard = Window.request_keyboard(self.keyboard_closed, self)
+            self._keyboard.bind(on_key_down=self.on_keyboard_down)
+            self._keyboard.bind(on_key_up=self.on_keyboard_up)
+            pprint(dir(self._keyboard.bind))
         
     def on_start(self):
         #chose theme of app
@@ -67,7 +76,26 @@ class BondOrderApp(MDApp):
             
     def change_state(self, widget):
         self.text_input = widget
-
+        
+    def is_desktop(self):
+        #which platform
+        if platform in ('linux', 'win', 'macosx'):
+            return True
+        else: 
+            return False
+    
+    def keyboard_closed(self):
+        if self._keyboard:
+            self._keyboard.unbind(on_key_down=self.on_keyboard_down)
+            self._keyboard.unbind(on_key_up=self.on_keyboard_up)
+            self._keyboard = None
+            
+    def on_keyboard_down(self):
+        pass
+    
+    def on_keyboard_up(self):
+        pass
+    
         
 if __name__ == '__main__':
     myApp = BondOrderApp()
