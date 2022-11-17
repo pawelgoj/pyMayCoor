@@ -5,7 +5,9 @@ Config.set('graphics', 'height', '700')
 from kivymd.app import MDApp
 from kivymd.uix.floatlayout import FloatLayout
 from kivy.lang.builder import Builder
+from kivy.core.window import Window
 from pprint import pprint
+from kivy.utils import platform
 from kivymd.color_definitions import colors
 
 Builder.load_file("ComponentAddPairsOfAtoms.kv")
@@ -16,17 +18,16 @@ Builder.load_file("MytextInput.kv")
 
 
 class MainFrameOfApp(FloatLayout):
-    pass
+    
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
 
 class BondOrderApp(MDApp):
 
     text_input = None
-    
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
         
     def on_start(self):
-        #chose theme of app
+        #chose theme of app it must be in app object not in mainWidget
         temp = self.theme_cls.colors
         temp["Dark"] = {
                 "StatusBar": "E0E0E0",
@@ -67,7 +68,6 @@ class BondOrderApp(MDApp):
             
     def change_state(self, widget):
         self.text_input = widget
-
         
 if __name__ == '__main__':
     myApp = BondOrderApp()

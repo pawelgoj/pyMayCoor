@@ -1,8 +1,9 @@
-import pprint
+from pprint import pprint
 from kivymd.uix.relativelayout import RelativeLayout
 from kivy.metrics import dp
-from kivymd.uix.widget import Widget 
-from mytextInput import MyTextInput
+from kivymd.uix.widget import Widget
+from MyTextInputAtomList import MyTextInputAtomList
+
 
 class ComponentAddPairsOfAtoms(RelativeLayout):
     label_height: dp = dp(20)
@@ -14,43 +15,50 @@ class ComponentAddPairsOfAtoms(RelativeLayout):
     grid_height: dp = dp(0)
     widget: Widget = None
     number_of_add_rows_to_widget: int = 0
-    
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        
+        widget = MyTextInputAtomList()
+        pprint(dir(widget))
         self.grid_height = self.label_height \
             + self.text_field_height + self.spacing_padding + 2 * dp(10)
-            
+
     def add_row_of_text_input(self):
         """ Function adding rows of MDTextField into widget
         """
-        self.ids.grid_with_atoms.height += (self.ids.text_field.height + dp(10))
-        
+        self.ids.grid_with_atoms.height += (
+            self.ids.text_field.height + dp(10))
+
         for _ in range(5):
-            widget = MyTextInput()
+            widget = MyTextInputAtomList()
             self.ids.grid_with_atoms.add_widget(widget)
 
         if self.number_of_add_rows_to_widget == 0:
             self.show_button_delete_row()
-            
+
         self.number_of_add_rows_to_widget += 1
-        
+
     def show_button_delete_row(self):
         self.ids.Button_delete.disabled = False
         self.ids.Button_delete.opacity = 1
-        
+
     def hide_button_delete_row(self):
         self.ids.Button_delete.disabled = True
         self.ids.Button_delete.opacity = 0
-        
+
     def delete_rows(self):
-        for _ in range(5): 
+        for _ in range(5):
             self.ids.grid_with_atoms.remove_widget(
                 self.ids.grid_with_atoms.children[0]
-                )
-        self.ids.grid_with_atoms.height -= (self.ids.text_field.height + dp(10))
+            )
+        self.ids.grid_with_atoms.height -= (
+            self.ids.text_field.height + dp(10))
         self.number_of_add_rows_to_widget -= 1
-        
+
         if self.number_of_add_rows_to_widget == 0:
             self.hide_button_delete_row()
-        
+
+    def go_to_the_next_text_input(self, text_input: MyTextInputAtomList) -> None:
+        # TODO
+        # Implement check that MyTextInput place in list and go to next box
+        print("go next!!!")

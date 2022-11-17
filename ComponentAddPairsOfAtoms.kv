@@ -1,5 +1,5 @@
 #:import myRectangelButton myRectangelButton
-#:import mytextInput mytextInput
+#:import MyTextInputAtomList MyTextInputAtomList
 
 #:set label_height dp(20)
 #:set spacing_padding dp(0)
@@ -89,36 +89,31 @@
             theme_text_color: "Custom"
             text_color: app.theme_cls.text_color
 
-        MyTextInput:
+        MyTextInputAtomList:
             id: text_field
             helper_text: "Eg. P, Fe ..."
             helper_text_mode: "persistent"
             valign: 'middle'
-            on_focus: app.change_state(self)
 
-        MyTextInput:
+        MyTextInputAtomList:
             helper_text: "Eg. P, Fe ..."
             helper_text_mode: "persistent"
             valign: 'middle'
-            on_focus: app.change_state(self)
 
-        MyTextInput:
+        MyTextInputAtomList:
             helper_text: "float number"
             helper_text_mode: "persistent"
             valign: 'middle'
-            on_focus: app.change_state(self)
 
-        MyTextInput:
+        MyTextInputAtomList:
             helper_text: "float number"
             helper_text_mode: "persistent"
             valign: 'middle'
-            on_focus: app.change_state(self)
 
-        MyTextInput:
+        MyTextInputAtomList:
             helper_text: "ID eg. '=', 'my bond' ...."
             helper_text_mode: "persistent"
             valign: 'middle'
-            on_focus: app.change_state(self)
     
     MyRectangleButton:
         id: Button_x
