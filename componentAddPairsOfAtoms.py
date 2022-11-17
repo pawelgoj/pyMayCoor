@@ -3,9 +3,11 @@ from kivymd.uix.relativelayout import RelativeLayout
 from kivy.metrics import dp
 from kivymd.uix.widget import Widget
 from MyTextInputAtomList import MyTextInputAtomList
+from enum import Enum
 
-
-
+class Direction(Enum):
+    FOREWARD = 1
+    BACKWORD = 2
 
 class ComponentAddPairsOfAtoms(RelativeLayout):
     label_height: dp = dp(20)
@@ -17,10 +19,13 @@ class ComponentAddPairsOfAtoms(RelativeLayout):
     grid_height: dp = dp(0)
     widget: Widget = None
     number_of_add_rows_to_widget: int = 0
+    NUMBER_OF_COLUMNS: int = 5
+    
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         widget = MyTextInputAtomList()
+
         pprint(dir(widget))
         self.grid_height = self.label_height \
             + self.text_field_height + self.spacing_padding + 2 * dp(10)
@@ -33,6 +38,7 @@ class ComponentAddPairsOfAtoms(RelativeLayout):
 
         for _ in range(5):
             widget = MyTextInputAtomList()
+            widget.parent_widget = self
             self.ids.grid_with_atoms.add_widget(widget)
 
         if self.number_of_add_rows_to_widget == 0:
@@ -60,7 +66,38 @@ class ComponentAddPairsOfAtoms(RelativeLayout):
         if self.number_of_add_rows_to_widget == 0:
             self.hide_button_delete_row()
 
-    def go_to_the_next_text_input(self, text_input: MyTextInputAtomList) -> None:
-        # TODO
-        # Implement check that MyTextInput place in list and go to next box
-        print("go next!!!")
+    def go_to_the_next_text_input(self) -> None:
+        self._change_cursor_position_in_text_input_list(Direction.FOREWARD)
+            
+    def go_to_the_previous_text_input(self) -> None:
+        self._change_cursor_position_in_text_input_list(Direction.BACKWORD)
+
+            
+    def _change_cursor_position_in_text_input_list(self, direction: Direction):
+        
+        length = (self.number_of_add_rows_to_widget + 1) * \
+            self.NUMBER_OF_COLUMNS
+            
+        if direction == Direction.BACKWORD: 
+            last_element = length -1
+            j = 1
+        elif direction == Direction.FOREWARD:
+            last_element = 0
+            j = -1
+            
+        for i in range(length):
+                
+            if self.ids.grid_with_atoms.children[i].focus and i == last_element:
+                self.ids.grid_with_atoms.children[i].focus = False
+                break
+            
+            elif self.ids.grid_with_atoms.children[i].focus:
+                
+                self.ids.grid_with_atoms.children[i].focus = False
+                self.ids.grid_with_atoms.children[i+j].focus = True
+                break
+            
+            else:
+                continue
+            
+            
