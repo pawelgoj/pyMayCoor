@@ -2,6 +2,7 @@ from kivy.config import Config
 Config.set('graphics', 'width', '1000')
 Config.set('graphics', 'height', '700')
 
+from pprint import pprint
 from kivymd.app import MDApp
 from kivymd.uix.floatlayout import FloatLayout
 from kivy.lang.builder import Builder
