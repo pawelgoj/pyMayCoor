@@ -2,6 +2,8 @@
 #:import componentChoseCalculations componentChoseCalculations
 #:import switchButton switchButton
 #:import mytextInput mytextInput
+#:import NavButton NavBar.navButton
+#:import NavBar NavBar.navBar
 #:set paddings_histogram dp(10) 
 #:set header_label_paddings [dp(10), dp(10), dp(10), dp(10)]
 
@@ -60,12 +62,10 @@ MainFrameOfApp:
                             helper_text: "int number"
                             helper_text_mode: "persistent"
 
-                    MDFillRoundFlatIconButton:
-                        md_bg_color: app.theme_cls.primary_color
+                    NavButton:
                         pos_hint: {'center_x': .5, 'center_y': .6}
                         text: "Calculate/show histograms"
                         icon: "chart-histogram"
-                        text_color: "white"
 
                 MDBoxLayout:
                     adaptive_height: True
@@ -122,52 +122,5 @@ MainFrameOfApp:
                         color: "red"
                         size_hint: 0.5, None 
                         height: "10dp"
-
-
-    MDRelativeLayout:
+    NavBar:
         id: bar_of_app
-        pos_hint: {'top': 1, 'left': 0}
-        elevation: 10
-        shadow_offset: 2, 6
-        size_hint_y: None
-        height: dp(95)
-        md_bg_color: app.theme_cls.primary_color
-        MDTopAppBar:
-            md_bg_color: app.theme_cls.primary_color
-            pos_hint: {'top': 1, 'left': 0}
-            elevation: 0
-            title: "pyMayCoor"
-            type_height: 'large'
-            right_action_items: [["brightness-4", lambda x: app.switch_theme_style()], ["menu", lambda x: True]]
-        MDBoxLayout:
-            orientation: 'horizontal'
-            MDFillRoundFlatIconButton:
-                md_bg_color: app.theme_cls.primary_color
-                pos: dp(10), dp(0)
-                text: "Find input file"
-                icon: "text-box-search-outline"
-                text_color: "white"
-
-            MDFillRoundFlatIconButton:
-                md_bg_color: app.theme_cls.primary_color
-                pos: dp(156), dp(0)
-                text: "Save settings"
-                icon: "content-save-settings"
-                text_color: "white"
-            
-            MDFillRoundFlatIconButton:
-                md_bg_color: app.theme_cls.primary_color
-                pos: dp(300), dp(0)
-                text: "Load settings"
-                icon: "upload"
-                text_color: "white"
-            MDFillRoundFlatIconButton:
-                md_bg_color: app.theme_cls.primary_color
-                text: "Chose output file directory"
-                icon: "download"
-                text_color: "white"
-            MDFillRoundFlatIconButton:
-                md_bg_color: app.theme_cls.primary_color
-                text: "Run program"
-                icon: "reload"
-                text_color: "white"

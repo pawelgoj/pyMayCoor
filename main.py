@@ -6,6 +6,7 @@ from kivymd.uix.floatlayout import FloatLayout
 from kivymd.app import MDApp
 from pprint import pprint
 from kivy.config import Config
+from NavBar import navBar
 Config.set('graphics', 'width', '1000')
 Config.set('graphics', 'height', '700')
 
@@ -16,7 +17,6 @@ Builder.load_file("SwitchButton.kv")
 Builder.load_file("MyRectangleButton.kv")
 Builder.load_file("MytextInput.kv")
 
-
 class MainFrameOfApp(FloatLayout):
 
     def __init__(self, **kwargs):
@@ -25,7 +25,8 @@ class MainFrameOfApp(FloatLayout):
 
 class BondOrderApp(MDApp):
 
-    text_input = None
+    text_input: str = None
+    hover_color: tuple[float, float, float, float] = None
 
     def on_start(self):
         # chose theme of app it must be in app object not in mainWidget
@@ -43,6 +44,7 @@ class BondOrderApp(MDApp):
         self.theme_cls.primary_hue = "400"
         self.theme_cls.primary_dark_hue = "600"
         self.theme_cls.theme_style = "Light"
+        self.theme_cls.hover_color = (0.63, 0.56, 0.76, 1)
 
     def switch_theme_style(self):
         if self.text_input != None:
@@ -53,13 +55,19 @@ class BondOrderApp(MDApp):
             except:
                 # If ocurred: ReferenceError: weakly-referenced object no longer exists
                 self.text_input = None
+                
+
 
         self.theme_cls.primary_palette = (
             "DeepOrange" if self.theme_cls.primary_palette == "DeepPurple" else "DeepPurple"
         )
-        self.theme_cls.theme_style = (
-            "Dark" if self.theme_cls.theme_style == "Light" else "Light"
-        )
+        
+        if self.theme_cls.theme_style == "Light":
+            self.theme_cls.theme_style = "Dark"
+            self.theme_cls.hover_color = (1, 0.57, 0.43, 1)
+        else:
+            self.theme_cls.theme_style = "Light"
+            self.theme_cls.hover_color = (0.63, 0.56, 0.76, 1)
 
         if self.text_input != None:
             try:
