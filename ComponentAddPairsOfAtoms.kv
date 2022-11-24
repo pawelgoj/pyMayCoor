@@ -106,12 +106,12 @@
             valign: 'middle'
 
         MyTextInputAtomList:
-            helper_text: "float number"
+            helper_text: "float number or 'INF'"
             helper_text_mode: "persistent"
             valign: 'middle'
 
         MyTextInputAtomList:
-            helper_text: "ID eg. '=', 'my bond' ...."
+            helper_text: "ID eg. 'P=O', 'my bond' ...."
             helper_text_mode: "persistent"
             valign: 'middle'
 
@@ -128,4 +128,3 @@
         icon: "minus-thick"
         pos: grid_with_atoms.width - position_of_circle - dp(60) , 0
         on_press: component_add_pairs_of_atoms.delete_rows()
-
