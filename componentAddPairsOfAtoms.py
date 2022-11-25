@@ -3,8 +3,8 @@ from kivymd.uix.relativelayout import RelativeLayout
 from kivy.metrics import dp
 from kivymd.uix.widget import Widget
 from MyTextInputAtomList import MyTextInputAtomList
+from kivymd.uix.scrollview import ScrollView
 from enum import Enum
-
 
 
 class Direction(Enum):
@@ -23,6 +23,9 @@ class ComponentAddPairsOfAtoms(RelativeLayout):
     widget: Widget = None
     number_of_add_rows_to_widget: int = 0
     NUMBER_OF_COLUMNS: int = 5
+    content_in_MDScrollView_height: float = None
+    content_outside_MDScrollView_height: float = None
+    scroll_view: ScrollView = None
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

@@ -13,6 +13,7 @@ MainFrameOfApp:
     MDWidget: 
         pos_hint: {'bottom': 0, 'left': 0}
         MDScrollView:
+            id: my_MDScrollView
             height: root.height - bar_of_app.height
             width: root.width
             do_scroll_x: False
@@ -83,7 +84,10 @@ MainFrameOfApp:
                 ComponentAddPairsOfAtoms:
                     size_hint: (None, None)
                     height: self.height 
-                    width: content_in_MDScrollView.width * 0.95
+                    width: content_in_MDScrollView.width * 0.95 
+                    content_in_MDScrollView_height: content_in_MDScrollView.height
+                    content_outside_MDScrollView_height: bar_of_app.height
+                    scroll_view: my_MDScrollView
 
                 MDBoxLayout:
                     adaptive_height: True

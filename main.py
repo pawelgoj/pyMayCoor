@@ -77,6 +77,7 @@ class BondOrderApp(MDApp):
 
     def change_state(self, widget):
         self.text_input = widget
+        
 
 
 if __name__ == '__main__':
