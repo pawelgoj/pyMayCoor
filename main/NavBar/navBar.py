@@ -8,5 +8,5 @@ Builder.load_file("NavBar/NavBar.kv")
 from .navButton import NavButton
 
 class NavBar(MDRelativeLayout, CommonElevationBehavior):
-    from NavBar.user_actions import on_touch_up_find_input_file, on_touch_up_chose_output_file_directory,\
+    from NavBar.user_actions import on_touch_up_find_input_file, on_touch_up_chose_export_file,\
         on_touch_up_load_settings, on_touch_up_save_settings, on_enters

@@ -1,6 +1,5 @@
 from .myRectangelButton import MyRectangleButton
 from .MyTextInputAtomList import MyTextInputAtomList
-from pprint import pprint
 from kivymd.uix.relativelayout import RelativeLayout
 from kivy.metrics import dp
 from kivymd.uix.widget import Widget
@@ -36,7 +35,6 @@ class ComponentAddPairsOfAtoms(RelativeLayout):
         super().__init__(**kwargs)
         widget = MyTextInputAtomList()
 
-        pprint(dir(widget))
         self.grid_height = self.label_height \
             + self.text_field_height + self.spacing_padding + 2 * dp(10)
 

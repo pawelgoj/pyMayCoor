@@ -1,6 +1,6 @@
 from kivymd.uix.button import MDIconButton
 from kivy.core.window import Window
-
+from kivymd.color_definitions import colors
 
 class MyRectangleButton(MDIconButton):
 
@@ -22,6 +22,6 @@ class MyRectangleButton(MDIconButton):
                                   corrected_pos[1] - self.parent.pos[1])
 
         if self.collide_point(pos_relative_to_parent[0], pos_relative_to_parent[1]):
-            self.icon_color = (0.11, 0.13, 0.16, 1)
+            self.icon_color = colors['Gray']['800']
         else:
-            self.icon_color = 'white'
+            self.icon_color = colors['Gray']['200']
