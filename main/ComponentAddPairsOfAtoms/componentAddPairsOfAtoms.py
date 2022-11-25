@@ -1,10 +1,15 @@
+from .myRectangelButton import MyRectangleButton
+from .MyTextInputAtomList import MyTextInputAtomList
 from pprint import pprint
 from kivymd.uix.relativelayout import RelativeLayout
 from kivy.metrics import dp
 from kivymd.uix.widget import Widget
-from MyTextInputAtomList import MyTextInputAtomList
 from kivymd.uix.scrollview import ScrollView
+from kivy.lang.builder import Builder
 from enum import Enum
+
+Builder.load_file("ComponentAddPairsOfAtoms/ComponentAddPairsOfAtoms.kv")
+Builder.load_file("ComponentAddPairsOfAtoms/MyRectangleButton.kv")
 
 
 class Direction(Enum):

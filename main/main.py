@@ -6,16 +6,17 @@ from kivymd.uix.floatlayout import FloatLayout
 from kivymd.app import MDApp
 from pprint import pprint
 from kivy.config import Config
+
 from NavBar import navBar
+from ComponentAddPairsOfAtoms import componentAddPairsOfAtoms
+from mytextInput import mytextInput
+from ComponentChoseCalculations import componentChoseCalculations
+from switchButton import switchButton
+
 Config.set('graphics', 'width', '1000')
 Config.set('graphics', 'height', '700')
 
 
-Builder.load_file("ComponentAddPairsOfAtoms.kv")
-Builder.load_file("ComponentChoseCalculations.kv")
-Builder.load_file("SwitchButton.kv")
-Builder.load_file("MyRectangleButton.kv")
-Builder.load_file("MytextInput.kv")
 
 class MainFrameOfApp(FloatLayout):
 

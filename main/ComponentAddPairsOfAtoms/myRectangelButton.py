@@ -22,6 +22,6 @@ class MyRectangleButton(MDIconButton):
                                   corrected_pos[1] - self.parent.pos[1])
 
         if self.collide_point(pos_relative_to_parent[0], pos_relative_to_parent[1]):
-            self.icon_color = 'black'
+            self.icon_color = (0.11, 0.13, 0.16, 1)
         else:
             self.icon_color = 'white'

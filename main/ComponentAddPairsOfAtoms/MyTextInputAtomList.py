@@ -1,4 +1,4 @@
-from mytextInput import MyTextInput
+from mytextInput.mytextInput import MyTextInput
 from kivy.core.window import Window
 from kivy.utils import platform
 #from componentAddPairsOfAtoms import ComponentAddPairsOfAtoms
