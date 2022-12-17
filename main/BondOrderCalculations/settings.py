@@ -18,9 +18,13 @@ class Settings:
                        'connections': bool,
                        'bond_length': bool,
                        'CN': bool]
+    types_of_calculations: set[str] = {
+        'Q_i', 'connections', 'bond_length', 'CN'}
 
     def __init__(self, data: dict) -> None:
         self.pairs_atoms_list = []
+        self.calculations = {}
+
         for item in data.get("pairs_atoms_list"):
             self.pairs_atoms_list.append(PairOfAtoms(item.get('atom_1'), item.get('atom_1'),
                                                      item.get('mbo_min'),
@@ -38,9 +42,21 @@ class Settings:
                 self.histogram = {
                     'calc': False, 'nr_bars': None}
 
-        if data.get('calculations') is not None:
-            # TODO
-            pass
+        if (calculations := data.get('calculations')) is not None:
+            for key in self.types_of_calculations:
+                if type(item := calculations.get(key)) is dict and (key is 'Q_i'):
+                    if item.get('calc') and (item.get('bond_id') is not None):
+                        self.calculations.update(
+                            {key: {'calc': True, 'bond_id': item.get('bond_id')}})
+                    elif item.get('calc') == False:
+                        self.calculations.update(
+                            {key: {'calc': False, 'bond_id': None}})
+                    else:
+                        raise ValueError('Wrong calculations settings!!!!')
+                elif type(calculations.get(key)) is dict:
+                    raise ValueError('Wrong calculations settings!!!!')
+                else:
+                    self.calculations.update({key: calculations.get(key)})
         else:
             self.calculations = {'Q_i': {'calc': False, 'bond_id': None},
                                  'connections': False,
