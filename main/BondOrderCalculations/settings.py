@@ -24,6 +24,10 @@ class Settings:
     def __init__(self, data: dict) -> None:
         self.pairs_atoms_list = []
         self.calculations = {}
+        valid_keys = ['histogram', 'pairs_atoms_list', 'calculations']
+
+        if check_keys_correct(data.keys(), valid_keys) is False:
+            raise ValueError("Wrong keywords in yaml file!")
 
         for item in data.get("pairs_atoms_list"):
             self.pairs_atoms_list.append(PairOfAtoms(item.get('atom_1'), item.get('atom_1'),
@@ -62,3 +66,12 @@ class Settings:
                                  'connections': False,
                                  'bond_length': False,
                                  'CN': False}
+
+        @staticmethod
+        def check_keys_correct(keys: list[str], ref: list[str]) -> bool:
+            for key in keys:
+                if key in ref:
+                    pass
+                else:
+                    return False
+            return True
