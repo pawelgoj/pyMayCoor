@@ -1,13 +1,6 @@
-# -*- coding: utf-8 -*-
 
-#importowanie numpy
 import numpy as np
-#
-#
-#
-#FUNKCJE
-#
-#funkcja sprawdza czy symbol jest numerem   
+
 def is_number(s):
     try:
         float(s)
@@ -15,8 +8,7 @@ def is_number(s):
     except ValueError:
         return False
     
-#funkcja procent 
-def procent(s, suma):
+def percent(s, suma):
    x = 0.0
    x = (s/suma)*100
    return x
@@ -200,11 +192,11 @@ def koordynacja(poczatek, koniec, poczatek2, koniec2, promienodciecia, s):
         if poczatek == poczatekP and koniec == koniecP:
             suma = Q1 + Q2 + Q3 + Q4 + Q0
             
-            Q0 = round(procent(Q0, suma),5)
-            Q1 = round(procent(Q1, suma),5)
-            Q2 = round(procent(Q2, suma),5) 
-            Q3 = round(procent(Q3, suma),5)
-            Q4 = round(procent(Q4, suma),5) 
+            Q0 = round(percent(Q0, suma),5)
+            Q1 = round(percent(Q1, suma),5)
+            Q2 = round(percent(Q2, suma),5) 
+            Q3 = round(percent(Q3, suma),5)
+            Q4 = round(percent(Q4, suma),5) 
     
         print ()
         print ("koordynacja, procent")
@@ -350,13 +342,11 @@ def rzadwiazania_dlugoscwiazania(nazwa1, nazwa2, promien_od_rzad_wiazania, pocza
         print()
         print()
         
-#       
-#       
-#
-#Program    
-#
-                     
-#Wpisyawnie w pierszu poleceń komend 
+        
+        
+        
+#TODO dane 
+#Plik Yaml 
 a = input()
 mmm = a.split()
 a = mmm[0]

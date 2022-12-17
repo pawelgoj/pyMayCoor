@@ -1,0 +1,26 @@
+histogram:
+  calc: true
+  nr_bars: 10
+pairs_atoms_list:
+  - atom_1: P
+    atom_2: O
+    mbo_min: 1.2
+    mbo_max: INF
+    id: P=O
+  - atom_1: P
+    atom_2: O
+    mbo_min: 0.02
+    mbo_max: INF
+    id: P-O
+  - atom_1: Al
+    atom_2: O
+    mbo_min: 0.02
+    mbo_max: INF
+    id: Al-O
+calculations:
+  q_i:
+    calc: true
+    bond_id: P=O
+  cn: true
+  connections: true
+  bond_length: true
