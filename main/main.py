@@ -3,14 +3,15 @@ import argparse
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("-i", "--input_file",
-                        dest="input_file", default='', help="Server name")
+                        dest="input_file", default='', help="input file")
     parser.add_argument("-s", "--file_with_settings",
-                        dest="file_with_settings", default='', help="Server name")
+                        dest="file_with_settings", default='', help="file with settings")
 
     if parser.parse_args().input_file != '' and parser.parse_args().file_with_settings != '':
         import main_yaml
         data = parser.parse_args()
-        main_yaml.perform_calculations(data.file_with_settings)
+        main_yaml.perform_calculations(
+            data.file_with_settings, data.input_file)
 
     elif parser.parse_args().input_file != '':
         parser.error("Chose settings file!!! eg. -s settings.yaml")
