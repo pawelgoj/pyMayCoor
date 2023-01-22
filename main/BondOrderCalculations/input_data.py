@@ -40,20 +40,76 @@ class Populations:
 
 
 class MayerBondOrders:
-    mayer_bond_orders: list[list[float]] = []
+    """Mayer bond orders of atoms pairs."""
+    rows = list[float]
+    mayer_bond_orders: list[rows] = []
     horizontal_atom_id: list[int] = []
     horizontal_atom_symbol: dict[int: str] = {}
     vertical_atom_id: list[int] = []
     vertical_atom_symbol: dict[int: str] = {}
 
-    def __init__(self):
-        pass
-        # TODO
+    def __init__(self, mayer_bond_orders: list[rows],
+                 horizontal_atom_id: list[int],
+                 vertical_atom_id: list[int],
+                 horizontal_atom_symbol: dict[int: str] = {},
+                 vertical_atom_symbol: dict[int: str] = {}):
+
+        if (len(mayer_bond_orders) == len(horizontal_atom_id) or
+           len(mayer_bond_orders[0]) == len(vertical_atom_id)):
+            self.mayer_bond_orders = mayer_bond_orders
+            self.horizontal_atom_id = horizontal_atom_id
+            self.vertical_atom_id = vertical_atom_id
+        else:
+            raise ValueError("Size of mayer_bond_orders must fit"
+                             + "to horizontal_atom_id and "
+                             + "vertical_atom_id!!!")
+
+        if (horizontal_atom_symbol != {} and vertical_atom_symbol != {}
+            and len(horizontal_atom_symbol) == len(mayer_bond_orders)
+                and len(vertical_atom_symbol) == len(mayer_bond_orders[0])):
+            self.horizontal_atom_symbol = horizontal_atom_symbol
+            self.vertical_atom_symbol = vertical_atom_symbol
+        elif (horizontal_atom_symbol == {}
+              and vertical_atom_symbol == {}):
+            pass
+        else:
+            raise ValueError("Size of mayer_bond_orders must fit"
+                             + "to horizontal_atom_symbol and "
+                             + "vertical_atom_symbol!!!")
 
     def get_mayer_bond_order_between_atoms(self, atom_id_1: int, atom_id_2:
                                            int) -> float:
-        # TODO
-        pass
+        """Get mayer bond order between atoms.
+
+        Args:
+            atom_id_1 (int): first atom id (row)
+            atom_id_2 (int): second atom id (column)
+
+        Returns:
+            float: bond order
+        """
+
+        row = self.mayer_bond_orders[self.horizontal_atom_id.index(atom_id_2)]
+        return row[self.vertical_atom_id.index(atom_id_1)]
+
+    def get_atom_symbols(self, atom_id_1: int, atom_id_2:
+                         int) -> tuple(str, str) | None:
+        """Get atom symbols
+        Args:
+            atom_id_1 (int): atom 1 id
+            atom_id_2 (int): atom 2 id
+        Returns:
+            tuple(str, str) | None: Symbol of atom 1 and atom 2,
+                                    if wrong id of atoms returns None or
+                                    atoms symbols have not been used.
+        """
+        atom_1 = self.horizontal_atom_symbol.get(atom_id_1, None)
+        atom_2 = self.vertical_atom_symbol.get(atom_id_2, None)
+
+        if atom_1 is None or atom_2 is None:
+            return None
+        else:
+            return (atom_1, atom_2)
 
 
 class CoordinatesOfAtoms:
