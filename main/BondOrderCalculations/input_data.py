@@ -172,22 +172,25 @@ class InputData(ABC):
     populations: Populations | None = None
     unit_cell: UnitCell | None = None
     mayer_bond_orders: MayerBondOrders | None = None
+    CoordinatesOfAtoms: CoordinatesOfAtoms | None = None
 
     def __init__(self, Populations: type = Populations,
                  UnitCell: type = UnitCell,
-                 MayerBondOrders: type = MayerBondOrders):
+                 MayerBondOrders: type = MayerBondOrders,
+                 CoordinatesOfAtoms: type = CoordinatesOfAtoms):
         """Construct.
 
         Args:
-            Populations (type, optional): _description_. Defaults to Populations.
-            UnitCell (type, optional): _description_. Defaults to UnitCell.
-            MayerBondOrders (type, optional): _description_. Defaults to MayerBondOrders.
-
+            Populations (type, optional): Defaults to Populations.
+            UnitCell (type, optional): Defaults to UnitCell.
+            MayerBondOrders (type, optional): Defaults to MayerBondOrders.
+            CoordinatesOfAtoms (type, optional): Defaults to CoordinatesOfAtoms.
         """
 
         self.Populations = Populations
         self.UnitCell = UnitCell
         self.MayerBondOrders = MayerBondOrders
+        self.CoordinatesOfAtoms = CoordinatesOfAtoms
 
     @abstractmethod
     def load_input_data_from_file(self, path: str) -> None:
@@ -199,6 +202,7 @@ class InputData(ABC):
         Return:
             None
         """
+        # TODO
         pass
 
 
