@@ -1,6 +1,7 @@
 """Input data module."""
 from abc import ABC
 from abc import abstractmethod
+import re
 
 
 class UnitCell:
@@ -93,7 +94,7 @@ class MayerBondOrders:
         return row[self.vertical_atom_id.index(atom_id_1)]
 
     def get_atom_symbols(self, atom_id_1: int, atom_id_2:
-                         int) -> tuple(str, str) | None:
+                         int) -> tuple[str, str] | None:
         """Get atom symbols
         Args:
             atom_id_1 (int): atom 1 id
@@ -172,7 +173,7 @@ class InputData(ABC):
     populations: Populations | None = None
     unit_cell: UnitCell | None = None
     mayer_bond_orders: MayerBondOrders | None = None
-    CoordinatesOfAtoms: CoordinatesOfAtoms | None = None
+    coordinates_of_atoms: CoordinatesOfAtoms | None = None
 
     def __init__(self, Populations: type = Populations,
                  UnitCell: type = UnitCell,
@@ -188,9 +189,9 @@ class InputData(ABC):
         """
 
         self.Populations = Populations
-        self.UnitCell = UnitCell
+        self.UnitCell_Constructor = UnitCell
         self.MayerBondOrders = MayerBondOrders
-        self.CoordinatesOfAtoms = CoordinatesOfAtoms
+        self.CoordinatesOfAtomsConstructor = CoordinatesOfAtoms
 
     @abstractmethod
     def load_input_data_from_file(self, path: str) -> None:
@@ -202,8 +203,14 @@ class InputData(ABC):
         Return:
             None
         """
-        # TODO
         pass
+
+    @staticmethod
+    def check_is_correct_file(data_in_file: str, fingerprint: str) -> bool:
+        if fingerprint in data_in_file:
+            return True
+        else:
+            return False
 
 
 class InputDataFromCPMD(InputData):
@@ -212,5 +219,54 @@ class InputDataFromCPMD(InputData):
     Args:
         InputData (_type_): _description_
     """
-    pass
-    # TODO
+    _fingerprint: str = "The CPMD consortium"
+    _fingerprint_beginning_populations: str = "POPULATION ANALYSIS FROM PROJECTED"\
+        + " WAVEFUNCTIONS"
+    _fingerprint_end_populations: str = "ChkSum\(POP_MUL\)"
+    _fingerprint_coordinates_of_atoms: str = "ATOM             COORDINATES"\
+        + "                   CHARGES"
+    _fingerprint_mayer_bond_orders: str = "MAYER BOND ORDERS FROM PROJECTED"\
+        + " WAVEFUNCTIONS"
+    _fingerprint_unit_cell: str = "SUPERCELL"
+
+    def load_input_data_from_file(self, path: str) -> None:
+        with open(path, 'r') as file:
+            data = file.read()
+
+        if self.check_is_correct_file(data, self._fingerprint) is not True:
+            raise Exception("Wrong input file!")
+        else:
+            # TODO
+            pass
+
+    @classmethod
+    def _return_populations_from_file(cls, file: str):
+        regex = f'(?<={cls._fingerprint_beginning_populations})[\s\S]*' \
+            + f'(?={cls._fingerprint_end_populations})'
+
+        match = re.search(regex, file)
+        rows = match[0].split('\n')
+        for row in rows:
+            # TODO
+            # delete rows with only whitesigns
+            pass
+
+        # Not done yet
+        # TODO
+        # Method must return populations
+        return rows
+
+    @classmethod
+    def _return_coordinates_of_atoms_from_file(file: str):
+        # TODO
+        pass
+
+    @classmethod
+    def _return_mayer_bond_orders_from_file(file: str):
+        # TODO
+        pass
+
+    @classmethod
+    def _return_unit_cell(file: str):
+        # TODO
+        pass
