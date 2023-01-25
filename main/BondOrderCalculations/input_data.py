@@ -31,13 +31,12 @@ class UnitCell:
 class Populations:
     """Populations from MULLIKEN, LOWDIN analysis."""
 
-    mulliken: dict[str: tuple[str, float]] | None = None
-    lodwin: dict[str: tuple[str, float]] | None = None
-    valence: dict[str: tuple[str, float]] | None = None
+    mulliken: dict[int: tuple[str, float]] = {}
+    lodwin: dict[int: tuple[str, float]] = {}
+    valence: dict[int: tuple[str, float]] = {}
 
     def __init__(self):
         pass
-        # TODO
 
 
 class MayerBondOrders:
@@ -229,6 +228,9 @@ class InputDataFromCPMD(InputData):
         + " WAVEFUNCTIONS"
     _fingerprint_unit_cell: str = "SUPERCELL"
 
+    _valid_population_columns_names: tuple[str] = (
+        'ATOM', 'MULLIKEN', 'LOWDIN', 'VALENCE')
+
     def load_input_data_from_file(self, path: str) -> None:
         with open(path, 'r') as file:
             data = file.read()
@@ -239,22 +241,55 @@ class InputDataFromCPMD(InputData):
             # TODO
             pass
 
-    @classmethod
-    def _return_populations_from_file(cls, file: str):
-        regex = f'(?<={cls._fingerprint_beginning_populations})[\s\S]*' \
-            + f'(?={cls._fingerprint_end_populations})'
+    def _load_populations_from_file(self, file: str) -> Populations:
+        regex = f'(?<={self._fingerprint_beginning_populations})[\s\S]*' \
+            + f'(?={self._fingerprint_end_populations})'
 
         match = re.search(regex, file)
         rows = match[0].split('\n')
+        labels = []
         for row in rows:
-            # TODO
-            # delete rows with only whitesigns
-            pass
+            have_string = True if re.search('[a-zA-Z]+', row) is \
+                not None else False
 
-        # Not done yet
-        # TODO
-        # Method must return populations
-        return rows
+            have_number = True if re.search('[0-9]+', row) is \
+                not None else False
+
+            if have_string and not have_number:
+                labels = row.split()
+                populations = Populations()
+                continue
+            elif have_string and have_number:
+                splited = row.split()
+                if len(labels) + 1 != len(splited):
+                    raise Exception('Wrong quantity of columns in input file!')
+                else:
+                    populations = self._add_populations_attributes(
+                        populations, splited, labels)
+
+        return populations
+
+    def _add_populations_attributes(self, populations: Populations,
+                                    splited: list, labels: list[str]) -> None:
+        i = 0
+        for item in splited:
+            if i == 0:
+                id = int(item)
+            elif labels[i-1] == self._valid_population_columns_names[0]:
+                symbol = item
+            elif labels[i-1] == self._valid_population_columns_names[1]:
+                mulliken_value = float(item)
+            elif labels[i-1] == self._valid_population_columns_names[2]:
+                lowdin_value = float(item)
+            elif labels[i-1] == self._valid_population_columns_names[3]:
+                valence_value = float(item)
+            i += 1
+
+        populations.lodwin.update({id: (symbol, lowdin_value)})
+        populations.mulliken.update({id: (symbol, mulliken_value)})
+        populations.valence.update({id: (symbol, valence_value)})
+
+        return populations
 
     @classmethod
     def _return_coordinates_of_atoms_from_file(file: str):
