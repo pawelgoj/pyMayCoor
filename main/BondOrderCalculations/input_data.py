@@ -120,6 +120,7 @@ class CoordinatesOfAtoms:
     ids: list[atom_id] = []
     _coordinates: dict[atom_id: tuple[x, y, z]] = {}
     atom_symbols: dict[atom_id: str] = {}
+    _CONSTANT_TO_CALCULATE_ANGSTROMS_FROM_BOHR: float = 0.52917720859
 
     def __init__(self, atom_coordinates_table: list[tuple[atom_id, str, x, y,
                                                           z]] = []) -> None:
@@ -147,6 +148,36 @@ class CoordinatesOfAtoms:
                                    given id does not exist.
         """
         return self._coordinates.get(id, None)
+
+    def get_atom_coordinates_converted_in_angstrom(self, id: int)\
+            -> tuple[x, y, z]:
+        """Get atom coordinates converted in angstroms if they were stored as 
+        Bohr units.
+
+        Example:
+        >>> coordinates_of_atoms = CoordinatesOfAtoms()
+        >>> coordinates_of_atoms.add_new_atom(1, 'P', (1, 1, 1))
+        >>> coordinates_of_atoms.get_atom_coordinates_converted_in_angstrom(1)
+        (0.52917720859, 0.52917720859, 0.52917720859)
+
+        Args:
+            id (int): atom id
+
+        Returns:
+            tuple[x, y, z]: coordinates in angstroms
+        """
+        temp_coordinates = self._coordinates.get(id, None)
+        if temp_coordinates is not None:
+            coordinates = (self._CONSTANT_TO_CALCULATE_ANGSTROMS_FROM_BOHR
+                           * temp_coordinates[0],
+                           self._CONSTANT_TO_CALCULATE_ANGSTROMS_FROM_BOHR
+                           * temp_coordinates[1],
+                           self._CONSTANT_TO_CALCULATE_ANGSTROMS_FROM_BOHR
+                           * temp_coordinates[2])
+        else:
+            coordinates = temp_coordinates
+
+        return coordinates
 
     def get_atom_symbol(self, id: int) -> str | None:
         """Get atom symbol

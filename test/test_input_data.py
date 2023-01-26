@@ -43,3 +43,4 @@ class TestInputDataFromCPMD:
         atom_name = atom_coordinates.get_atom_symbol(id)
         
         assert coordinates == response[1] and atom_name == response[0]
+        
