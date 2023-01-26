@@ -188,9 +188,9 @@ class InputData(ABC):
         """
 
         self.Populations = Populations
-        self.UnitCell_Constructor = UnitCell
+        self.UnitCell = UnitCell
         self.MayerBondOrders = MayerBondOrders
-        self.CoordinatesOfAtomsConstructor = CoordinatesOfAtoms
+        self.CoordinatesOfAtoms = CoordinatesOfAtoms
 
     @abstractmethod
     def load_input_data_from_file(self, path: str) -> None:
@@ -224,12 +224,16 @@ class InputDataFromCPMD(InputData):
     _fingerprint_end_populations: str = "ChkSum\(POP_MUL\)"
     _fingerprint_coordinates_of_atoms: str = "ATOM             COORDINATES"\
         + "                   CHARGES"
+    _fingerprint_end_coordinates_of_atoms: str = "ChkSum\(CHARGES\)"
     _fingerprint_mayer_bond_orders: str = "MAYER BOND ORDERS FROM PROJECTED"\
         + " WAVEFUNCTIONS"
     _fingerprint_unit_cell: str = "SUPERCELL"
 
     _valid_population_columns_names: tuple[str] = (
         'ATOM', 'MULLIKEN', 'LOWDIN', 'VALENCE')
+
+    _valid_coordinatios_columns_names: tuple[str] = (
+        'X', 'Y', 'Z')
 
     def load_input_data_from_file(self, path: str) -> None:
         with open(path, 'r') as file:
@@ -242,11 +246,9 @@ class InputDataFromCPMD(InputData):
             pass
 
     def _load_populations_from_file(self, file: str) -> Populations:
-        regex = f'(?<={self._fingerprint_beginning_populations})[\s\S]*' \
-            + f'(?={self._fingerprint_end_populations})'
 
-        match = re.search(regex, file)
-        rows = match[0].split('\n')
+        rows = self._get_rows_of_data_from_file(file, self._fingerprint_beginning_populations,
+                                                self._fingerprint_end_populations)
         labels = []
         for row in rows:
             have_string = True if re.search('[a-zA-Z]+', row) is \
@@ -269,19 +271,20 @@ class InputDataFromCPMD(InputData):
 
         return populations
 
-    def _add_populations_attributes(self, populations: Populations,
-                                    splited: list, labels: list[str]) -> None:
+    @classmethod
+    def _add_populations_attributes(cls, populations: Populations,
+                                    splited: list, labels: list[str]) -> Populations:
         i = 0
         for item in splited:
             if i == 0:
                 id = int(item)
-            elif labels[i-1] == self._valid_population_columns_names[0]:
+            elif labels[i-1] == cls._valid_population_columns_names[0]:
                 symbol = item
-            elif labels[i-1] == self._valid_population_columns_names[1]:
+            elif labels[i-1] == cls._valid_population_columns_names[1]:
                 mulliken_value = float(item)
-            elif labels[i-1] == self._valid_population_columns_names[2]:
+            elif labels[i-1] == cls._valid_population_columns_names[2]:
                 lowdin_value = float(item)
-            elif labels[i-1] == self._valid_population_columns_names[3]:
+            elif labels[i-1] == cls._valid_population_columns_names[3]:
                 valence_value = float(item)
             i += 1
 
@@ -291,10 +294,61 @@ class InputDataFromCPMD(InputData):
 
         return populations
 
+    def _load_coordinates_of_atoms_from_file(self, file: str):
+        rows = self._get_rows_of_data_from_file(file, self._fingerprint_coordinates_of_atoms,
+                                                self._fingerprint_end_coordinates_of_atoms)
+        for row in rows:
+            have_string = True if re.search('[a-zA-Z]+', row) is \
+                not None else False
+
+            have_number = True if re.search('[0-9]+', row) is \
+                not None else False
+
+            if have_string and not have_number:
+                labels = row.split()
+                coordinates_of_atoms = self.CoordinatesOfAtoms()
+                continue
+            elif have_string and have_number:
+                splited = row.split()
+                if len(labels) + 2 != len(splited):
+                    raise Exception('Wrong quantity of columns in input file!')
+                else:
+                    coordinates_of_atoms = self._add_coordinations_attributes(
+                        coordinates_of_atoms, splited, labels
+                    )
+        return coordinates_of_atoms
+
     @classmethod
-    def _return_coordinates_of_atoms_from_file(file: str):
-        # TODO
-        pass
+    def _add_coordinations_attributes(cls, coordinates_of_atoms:
+                                      CoordinatesOfAtoms,
+                                      splited: list, labels: list[str])\
+            -> CoordinatesOfAtoms:
+        i = 0
+        for item in splited:
+            if i == 0:
+                atom_id = int(item)
+            elif i == 1:
+                atom_symbol = item
+            elif labels[i - 2] == cls._valid_coordinatios_columns_names[0]:
+                x = float(item)
+            elif labels[i - 2] == cls._valid_coordinatios_columns_names[1]:
+                y = float(item)
+            elif labels[i - 2] == cls._valid_coordinatios_columns_names[2]:
+                z = float(item)
+            i += 1
+
+        coordinates_of_atoms.add_new_atom(atom_id, atom_symbol, (x, y, z))
+        return coordinates_of_atoms
+
+    @staticmethod
+    def _get_rows_of_data_from_file(file: str,
+                                    finger_print_begin: str, finger_print_end) -> list[str]:
+
+        regex = f'(?<={finger_print_begin})[\s\S]*' \
+            + f'(?={finger_print_end})'
+
+        match = re.search(regex, file)
+        return match[0].split('\n')
 
     @classmethod
     def _return_mayer_bond_orders_from_file(file: str):
