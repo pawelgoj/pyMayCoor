@@ -258,6 +258,7 @@ class InputDataFromCPMD(InputData):
     _fingerprint_end_coordinates_of_atoms: str = "ChkSum\(CHARGES\)"
     _fingerprint_mayer_bond_orders: str = "MAYER BOND ORDERS FROM PROJECTED"\
         + " WAVEFUNCTIONS"
+
     _fingerprint_unit_cell: str = "SUPERCELL"
 
     _valid_population_columns_names: tuple[str] = (
@@ -304,7 +305,8 @@ class InputDataFromCPMD(InputData):
 
     @classmethod
     def _add_populations_attributes(cls, populations: Populations,
-                                    splited: list, labels: list[str]) -> Populations:
+                                    splited: list, labels: list[str])\
+            -> Populations:
         i = 0
         for item in splited:
             if i == 0:
@@ -325,7 +327,8 @@ class InputDataFromCPMD(InputData):
 
         return populations
 
-    def _load_coordinates_of_atoms_from_file(self, file: str):
+    def _load_coordinates_of_atoms_from_file(self, file: str)\
+            -> CoordinatesOfAtoms:
         rows = self._get_rows_of_data_from_file(file, self._fingerprint_coordinates_of_atoms,
                                                 self._fingerprint_end_coordinates_of_atoms)
         for row in rows:
@@ -373,7 +376,15 @@ class InputDataFromCPMD(InputData):
 
     @staticmethod
     def _get_rows_of_data_from_file(file: str,
-                                    finger_print_begin: str, finger_print_end) -> list[str]:
+                                    finger_print_begin: str, finger_print_end)\
+            -> list[str]:
+        """Get rows fo data from file
+        Args:
+            finger_print_begin (str): fingerprint on beginning of data
+            finger_print_end (str): fingerprint on end of data
+        Returns:
+            list[str]: rows of string data
+        """
 
         regex = f'(?<={finger_print_begin})[\s\S]*' \
             + f'(?={finger_print_end})'
@@ -381,10 +392,69 @@ class InputDataFromCPMD(InputData):
         match = re.search(regex, file)
         return match[0].split('\n')
 
-    @classmethod
-    def _return_mayer_bond_orders_from_file(file: str):
-        # TODO
-        pass
+    def _load_mayer_bond_orders_from_file(self, file: str) -> MayerBondOrders:
+        match = re.search(
+            f"(?<={self._fingerprint_mayer_bond_orders}\n\n)([\S ]+\n)*", file)
+        rows = match[0].split('\n')
+        rows = [row for row in rows if row != '']
+        number_of_atoms = int(rows[-1].split()[0])
+        n = number_of_atoms // 8
+        m = 1 if number_of_atoms % 8 > 0 else 0
+        number_of_tables = m + n
+
+        number_of_rows = (len(rows)) * number_of_tables
+        match = re.search(
+            f"(?<={self._fingerprint_mayer_bond_orders}\n\n)([\S ]+\n*){{{number_of_rows}}}", file)
+
+        rows_full_table = []
+        tables = match[0].split('\n\n')
+        first_table = True
+        for table in tables:
+            splited = table.split('\n')
+            i = 0
+            for item in splited:
+                if first_table:
+                    row = item.split()
+                    rows_full_table.append(row)
+                elif i == 0:
+                    row = item.split()
+                    rows_full_table[i].extend(row)
+                else:
+                    row = item.split()
+                    rows_full_table[i].extend(row[2:])
+                i += 1
+            first_table = False
+
+        row_horizontal = rows_full_table.pop(0)
+        i = 0
+        j = 0
+        horizontal_atom_symbol = {}
+        horizontal_atom_id = []
+        for item in row_horizontal:
+            if i % 2 == 0:
+                j += 1
+                horizontal_atom_id.append(int(item))
+            else:
+                horizontal_atom_symbol.update(
+                    {horizontal_atom_id[j - 1]: str(item)})
+            i += 1
+
+        vertical_atom_symbol = {}
+        vertical_atom_id = []
+        new_rows_full_table = []
+        for row in rows_full_table:
+            vertical_atom_id.append(int(row.pop(0)))
+            vertical_atom_symbol.update(
+                {vertical_atom_id[-1]: str(row.pop(0))})
+            row = [float(item) for item in row]
+            new_rows_full_table.append(row)
+
+        mayer_bond_order = self.MayerBondOrders(new_rows_full_table,
+                                                horizontal_atom_id,
+                                                vertical_atom_id,
+                                                horizontal_atom_symbol,
+                                                vertical_atom_symbol)
+        return mayer_bond_order
 
     @classmethod
     def _return_unit_cell(file: str):
