@@ -192,22 +192,19 @@ class MayerBondOrders:
     """Mayer bond orders of atoms pairs."""
     rows = list[float]
     mayer_bond_orders: list[rows] = []
-    horizontal_atom_id: list[int] = []
     horizontal_atom_symbol: dict[int: str] = {}
-    vertical_atom_id: list[int] = []
+    atom_id: list[int] = []
     vertical_atom_symbol: dict[int: str] = {}
 
     def __init__(self, mayer_bond_orders: list[rows],
-                 horizontal_atom_id: list[int],
-                 vertical_atom_id: list[int],
+                 atom_id: list[int],
                  horizontal_atom_symbol: dict[int: str] = {},
                  vertical_atom_symbol: dict[int: str] = {}):
 
-        if (len(mayer_bond_orders) == len(horizontal_atom_id) or
-           len(mayer_bond_orders[0]) == len(vertical_atom_id)):
+        if (len(mayer_bond_orders) == len(atom_id) and
+           len(mayer_bond_orders[0]) == len(atom_id)):
             self.mayer_bond_orders = mayer_bond_orders
-            self.horizontal_atom_id = horizontal_atom_id
-            self.vertical_atom_id = vertical_atom_id
+            self.atom_id = atom_id
         else:
             raise ValueError("Size of mayer_bond_orders must fit"
                              + "to horizontal_atom_id and "
@@ -238,8 +235,8 @@ class MayerBondOrders:
             float: bond order
         """
 
-        row = self.mayer_bond_orders[self.horizontal_atom_id.index(atom_id_2)]
-        return row[self.vertical_atom_id.index(atom_id_1)]
+        row = self.mayer_bond_orders[self.atom_id.index(atom_id_2)]
+        return row[self.atom_id.index(atom_id_1)]
 
     def get_atom_symbols(self, atom_id_1: int, atom_id_2:
                          int) -> tuple[str, str] | None:
@@ -259,6 +256,29 @@ class MayerBondOrders:
             return None
         else:
             return (atom_1, atom_2)
+
+    def get_mayer_bond_orders_list_between_to_atoms(self, atom_symbol_1: str,
+                                                    atom_symbol_2: str
+                                                    ) -> list[float]:
+        """Get Mayer bond orders list between to atoms.
+
+        Args:
+            atom_symbol_1 (str): atom symbol eg. "Fe"
+            atom_symbol_2 (str): atom symbol eg. "Fe"
+
+        Returns:
+            list[float]: list of mayer bond orders
+        """
+        mayer_bond_orders = []
+        for atom_id_1 in self.atom_id:
+            if atom_symbol_1 == self.vertical_atom_symbol.get(atom_id_1):
+                for atom_id_2 in range(atom_id_1 + 1, len(self.atom_id) + 1):
+                    if atom_symbol_2 == self.vertical_atom_symbol.get(atom_id_2):
+                        mayer_bond_orders.append(
+                            self.get_mayer_bond_order_between_atoms(atom_id_1,
+                                                                    atom_id_2))
+
+        return mayer_bond_orders
 
 
 class CoordinatesOfAtoms(Constants):
@@ -631,11 +651,15 @@ class InputDataFromCPMD(InputData):
             row = [float(item) for item in row]
             new_rows_full_table.append(row)
 
-        mayer_bond_order = self.MayerBondOrders(new_rows_full_table,
-                                                horizontal_atom_id,
-                                                vertical_atom_id,
-                                                horizontal_atom_symbol,
-                                                vertical_atom_symbol)
+        if horizontal_atom_id == vertical_atom_id:
+            mayer_bond_order = self.MayerBondOrders(new_rows_full_table,
+                                                    horizontal_atom_id,
+                                                    horizontal_atom_symbol,
+                                                    vertical_atom_symbol)
+        else:
+            raise Exception(
+                "The condition: 'horizontal_atom_id == vertical_atom_id' "
+                + "must be met ")
         return mayer_bond_order
 
     @classmethod

@@ -1,5 +1,6 @@
 import pytest
 from main.BondOrderCalculations.input_data import InputDataFromCPMD
+from main.BondOrderCalculations.input_data import MayerBondOrders
 from pprint import pprint
 from enum import Enum
 
@@ -100,3 +101,28 @@ class TestInputDataFromCPMD:
         mayer_bond_orders = input_data.return_data(LoadedData.MayerBondOrders)
         value = mayer_bond_orders.get_mayer_bond_order_between_atoms(12, 16)
         assert value == 0.015
+
+
+class TestMayerBondOrders:
+    def test_get_mayer_bond_orders_list_between_to_atoms(self):
+        # Given
+        test_data = [
+            [0, 2, 3, 2],
+            [2, 0, 1, 2],
+            [3, 1, 0, 1],
+            [2, 2, 1, 0]
+        ]
+        atom_id = [1, 2, 3, 4]
+        horizontal_atom_symbol = {1: "Fe", 2: "Fe",
+                                  3: "O", 4: "O"}
+        vertical_atom_symbol = {1: "Fe", 2: "Fe",
+                                3: "O", 4: "O"}
+
+        # When
+        mayer_bond_order = MayerBondOrders(test_data, atom_id,
+                                           horizontal_atom_symbol,
+                                           vertical_atom_symbol)
+        result = mayer_bond_order\
+            .get_mayer_bond_orders_list_between_to_atoms("Fe", "O")
+        # Then
+        assert result == [3, 2, 1, 2]
