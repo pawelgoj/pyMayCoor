@@ -14,5 +14,3 @@ class Histogram:
             -> tuple(list(float), list(int)):
         # TODO
         pass
-    
-    def get_mayer_bond_orders_list_of_atoms()
