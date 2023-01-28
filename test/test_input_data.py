@@ -11,13 +11,13 @@ class TestInputDataFromCPMD:
                               (253, (('O', -0.456), ('O', -0.537), ('O', 1.781))),
                               (254, (None, None, None))])
     @pytest.mark.usefixtures("path_to_input_file")
-    def test_load_populations_from_file(self, path_to_input_file, id,
-                                        response):
+    def test_load_populations(self, path_to_input_file, id,
+                              response):
         with open(path_to_input_file, "r") as file:
             data = file.read()
 
         input_data = InputDataFromCPMD()
-        populations = input_data._load_populations_from_file(data)
+        populations = input_data._load_populations(data)
         val_1 = populations.lodwin
         val_2 = populations.mulliken
         val_3 = populations.valence
@@ -32,13 +32,13 @@ class TestInputDataFromCPMD:
                               (253, ('O', (0.1590, 2.0245, 16.6981))),
                               (254, (None, None))])
     @pytest.mark.usefixtures("path_to_input_file")
-    def test_load_coordinates_of_atoms_from_file(self, path_to_input_file,
-                                                 id, response):
+    def test_load_coordinates_of_atoms(self, path_to_input_file,
+                                       id, response):
         with open(path_to_input_file, "r") as file:
             data = file.read()
 
         input_data = InputDataFromCPMD()
-        atom_coordinates = input_data._load_coordinates_of_atoms_from_file(
+        atom_coordinates = input_data._load_coordinates_of_atoms(
             data)
         coordinates = atom_coordinates.get_atom_coordinates(id)
         atom_name = atom_coordinates.get_atom_symbol(id)
@@ -46,12 +46,12 @@ class TestInputDataFromCPMD:
         assert coordinates == response[1] and atom_name == response[0]
 
     @pytest.mark.usefixtures("path_to_input_file")
-    def test_load_mayer_bond_orders_from_file(self, path_to_input_file):
+    def test_load_mayer_bond_orders(self, path_to_input_file):
         with open(path_to_input_file, "r") as file:
             data = file.read()
 
         input_data = InputDataFromCPMD()
-        mayer_bond_order = input_data._load_mayer_bond_orders_from_file(data)
+        mayer_bond_order = input_data._load_mayer_bond_orders(data)
         value = mayer_bond_order.get_mayer_bond_order_between_atoms(12, 16)
         symbols = mayer_bond_order.get_atom_symbols(12, 16)
         assert value == 0.015 and symbols == ('P', 'P')
@@ -91,3 +91,12 @@ class TestInputDataFromCPMD:
                 and
                 input_data.coordinates_of_atoms.get_atom_coordinates(1)
                 == (1.9950, 13.2541, 3.2454))
+
+    @pytest.mark.usefixtures("input_data_object_with_loaded_data")
+    def test_return_data(self, input_data_object_with_loaded_data):
+        from main.BondOrderCalculations.input_data import LoadedData
+
+        input_data = input_data_object_with_loaded_data
+        mayer_bond_orders = input_data.return_data(LoadedData.MayerBondOrders)
+        value = mayer_bond_orders.get_mayer_bond_order_between_atoms(12, 16)
+        assert value == 0.015

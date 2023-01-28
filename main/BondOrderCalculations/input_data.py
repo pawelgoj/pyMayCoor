@@ -396,11 +396,7 @@ class InputData(ABC):
 
 
 class InputDataFromCPMD(InputData):
-    """Loads data from CPMD file and create objects
-
-    Args:
-        InputData (_type_): _description_
-    """
+    """Loads data from CPMD file and create objects."""
     _fingerprint: str = "The CPMD consortium"
     _fingerprint_beginning_populations: str = "POPULATION ANALYSIS FROM PROJECTED"\
         + " WAVEFUNCTIONS"
@@ -422,6 +418,14 @@ class InputDataFromCPMD(InputData):
         'X', 'Y', 'Z')
 
     def load_input_data(self, path: str, *args) -> None:
+        """Loads input data from CPMD file.
+
+        Args:
+            path (str): path to file
+            *args: LoadData.UnitCell, LoadedData.MayerBondOrders,
+            LoadData.Populations or LoadData.CoordinatesOfAtoms
+
+        """
         with open(path, 'r') as file:
             data = file.read()
 
@@ -432,14 +436,20 @@ class InputDataFromCPMD(InputData):
                 self.unit_cell = self._load_unit_cell(data)
             if self.LoadedData.MayerBondOrders in args:
                 self.mayer_bond_orders = \
-                    self._load_mayer_bond_orders_from_file(data)
+                    self._load_mayer_bond_orders(data)
             if self.LoadedData.Populations in args:
-                self.populations = self._load_populations_from_file(data)
+                self.populations = self._load_populations(data)
             if self.LoadedData.CoordinatesOfAtoms in args:
                 self.coordinates_of_atoms = \
-                    self._load_coordinates_of_atoms_from_file(data)
+                    self._load_coordinates_of_atoms(data)
 
-    def return_data(self, loaded_data: LoadedData):
+    def return_data(self, loaded_data: LoadedData)\
+            -> Populations | UnitCell | MayerBondOrders | CoordinatesOfAtoms:
+        """ Returns loaded data.
+        Args:
+        Returns:
+            Populations | UnitCell | MayerBondOrders | CoordinatesOfAtoms
+        """
         if loaded_data is LoadedData.UnitCell:
             return self.unit_cell
         elif loaded_data is LoadedData.MayerBondOrders:
@@ -449,7 +459,7 @@ class InputDataFromCPMD(InputData):
         if loaded_data is LoadedData.CoordinatesOfAtoms:
             return self.coordinates_of_atoms
 
-    def _load_populations_from_file(self, file: str) -> Populations:
+    def _load_populations(self, file: str) -> Populations:
 
         rows = self._get_rows_of_data_from_file(file, self._fingerprint_beginning_populations,
                                                 self._fingerprint_end_populations)
@@ -499,7 +509,7 @@ class InputDataFromCPMD(InputData):
 
         return populations
 
-    def _load_coordinates_of_atoms_from_file(self, file: str)\
+    def _load_coordinates_of_atoms(self, file: str)\
             -> CoordinatesOfAtoms:
         rows = self._get_rows_of_data_from_file(file, self._fingerprint_coordinates_of_atoms,
                                                 self._fingerprint_end_coordinates_of_atoms)
@@ -564,7 +574,7 @@ class InputDataFromCPMD(InputData):
         match = re.search(regex, file)
         return match[0].split('\n')
 
-    def _load_mayer_bond_orders_from_file(self, file: str) -> MayerBondOrders:
+    def _load_mayer_bond_orders(self, file: str) -> MayerBondOrders:
         match = re.search(
             f"(?<={self._fingerprint_mayer_bond_orders}\n\n)([\S ]+\n)*", file)
         rows = match[0].split('\n')
