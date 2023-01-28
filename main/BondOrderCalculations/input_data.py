@@ -2,30 +2,179 @@
 from abc import ABC
 from abc import abstractmethod
 import re
+from dataclasses import dataclass
+from math import degrees
+from math import acos
+from enum import Enum
 
 
-class UnitCell:
+class LoadedData(Enum):
+    UnitCell = 1
+    MayerBondOrders = 2
+    Populations = 3
+    CoordinatesOfAtoms = 4
+
+
+class Constants:
+    _CONSTANT_TO_CALCULATE_ANGSTROMS_FROM_BOHR: float = 0.52917720859
+
+
+@dataclass
+class UnitCell(Constants):
     """Unit cell.
+
+    Object represent unit cell.
 
     Attributes:
         a (float): Angstroms
         b (float): Angstroms
         c (float): Angstroms
-        alfa (float): deg
-        beta (float): deg
-        gamma (float): deg
+        lattice_vectors (tuple[vector])
+        alfa (deg): deg
+        beta (deg): deg
+        gamma (deg): deg
 
+    Types:
+        x, y, z = float, float, float
+        vector = (x, y, z)
+        deg = float
     """
+    x, y, z = float, float, float
+    vector = (x, y, z)
+    lattice_vectors: tuple[vector] = ()
+    converted_to_angstroms: bool = False
 
     a: float = 0
     b: float = 0
     c: float = 0
-    alfa: float = 0
-    beta: float = 0
-    gamma: float = 0
 
-    def __init__(self):
-        pass
+    deg = float
+    alfa: deg = 0
+    beta: deg = 0
+    gamma: deg = 0
+
+    def calculate_edges_lengths(self) -> tuple[x, y, z] | None:
+        """Calculate edge lengths
+
+        Example:
+        >>> unit_cell = UnitCell()
+        >>> unit_cell.lattice_vectors = ((1, 0, 0),\
+                                         (0, 1, 0),\
+                                         (0, 0, 1))
+        >>> unit_cell.calculate_edges_lengths()
+        (1.0, 1.0, 1.0)
+        >>> unit_cell.a
+        1.0
+
+        Returns:
+            tuple[x, y, z] | None: To calculate edges lattice_vectors
+                                   are required else returns None
+        """
+        if self.lattice_vectors == ():
+            return None
+        else:
+            self.a = (self.lattice_vectors[0][0] ** 2
+                      + self.lattice_vectors[0][1] ** 2
+                      + self.lattice_vectors[0][2] ** 2) ** (1/2)
+            self.b = (self.lattice_vectors[1][0] ** 2
+                      + self.lattice_vectors[1][1] ** 2
+                      + self.lattice_vectors[1][2] ** 2) ** (1/2)
+            self.c = (self.lattice_vectors[2][0] ** 2
+                      + self.lattice_vectors[2][1] ** 2
+                      + self.lattice_vectors[2][2] ** 2) ** (1/2)
+            return (self.a, self.b, self.c)
+
+    def calculate_interaxial_angles(self) -> tuple[deg, deg, deg] | None:
+        """Calculate interaxial angles.
+
+        Example:
+        >>> unit_cell = UnitCell()
+        >>> unit_cell.lattice_vectors = ((1, 1, 0),\
+                                         (0, 1, 0),\
+                                         (0, 0, 1))
+        >>> angles = unit_cell.calculate_interaxial_angles()
+        >>> round(angles[0], 1)
+        90.0
+        >>> round(angles[1], 1)
+        90.0
+        >>> round(angles[2], 1)
+        45.0
+
+        Returns:
+            tuple[deg, deg, deg] | None: To calculate angles lattice_vectors
+                                         are required else returns None
+        """
+        if self.lattice_vectors == ():
+            return None
+        else:
+            if self.a == 0 or self.b == 0 or self.c == 0:
+                self.calculate_edges_lengths()
+
+            self.alfa = degrees(acos((
+                self.lattice_vectors[1][0]
+                * self.lattice_vectors[2][0]
+                + self.lattice_vectors[1][1]
+                * self.lattice_vectors[2][1]
+                + self.lattice_vectors[1][2]
+                * self.lattice_vectors[2][2])
+                / (self.b * self.c)))
+
+            self.beta = degrees(acos((
+                self.lattice_vectors[0][0]
+                * self.lattice_vectors[2][0]
+                + self.lattice_vectors[0][1]
+                * self.lattice_vectors[2][1]
+                + self.lattice_vectors[0][2]
+                * self.lattice_vectors[2][2])
+                / (self.a * self.c)))
+
+            self.gamma = degrees(acos((
+                self.lattice_vectors[0][0]
+                * self.lattice_vectors[1][0]
+                + self.lattice_vectors[0][1]
+                * self.lattice_vectors[1][1]
+                + self.lattice_vectors[0][2]
+                * self.lattice_vectors[1][2])
+                / (self.a * self.b)))
+
+            return (self.alfa, self.beta, self.gamma)
+
+    def convert_cell_data_to_angstroms(self) -> None:
+        """Convert cell data to angstroms.
+
+        You can use it to cover data in lattice_vectors, a, b and c
+        from Bohr units to angstrom.
+
+        Example:
+        >>> unit_cell = UnitCell()
+        >>> unit_cell.lattice_vectors = ((1, 1, 0),\
+                                         (0, 1, 0),\
+                                         (0, 0, 1))
+        >>> unit_cell.convert_cell_data_to_angstroms()
+        >>> unit_cell.lattice_vectors
+        ((0.52917720859, 0.52917720859, 0.0), (0.0, 0.52917720859, 0.0), \
+(0.0, 0.0, 0.52917720859))
+
+        """
+        if self.converted_to_angstroms is False:
+            new_lattice_vectors = []
+            for vector in self.lattice_vectors:
+                new_lattice_vectors.append((
+                    vector[0] * self._CONSTANT_TO_CALCULATE_ANGSTROMS_FROM_BOHR,
+                    vector[1] * self._CONSTANT_TO_CALCULATE_ANGSTROMS_FROM_BOHR,
+                    vector[2] * self._CONSTANT_TO_CALCULATE_ANGSTROMS_FROM_BOHR))
+
+            self.lattice_vectors = tuple(new_lattice_vectors)
+
+            if self.a != 0 and self.b != 0 and self.c != 0:
+                self.a = self.a\
+                    * self._CONSTANT_TO_CALCULATE_ANGSTROMS_FROM_BOHR
+                self.b = self.b\
+                    * self._CONSTANT_TO_CALCULATE_ANGSTROMS_FROM_BOHR
+                self.c = self.c\
+                    * self._CONSTANT_TO_CALCULATE_ANGSTROMS_FROM_BOHR
+
+            self.converted_to_angstroms = True
 
 
 class Populations:
@@ -35,7 +184,7 @@ class Populations:
     lodwin: dict[int: tuple[str, float]] = {}
     valence: dict[int: tuple[str, float]] = {}
 
-    def __init__(self):
+    def __init__(self) -> None:
         pass
 
 
@@ -112,7 +261,7 @@ class MayerBondOrders:
             return (atom_1, atom_2)
 
 
-class CoordinatesOfAtoms:
+class CoordinatesOfAtoms(Constants):
     atom_id = int
     x = float
     y = float
@@ -120,7 +269,6 @@ class CoordinatesOfAtoms:
     ids: list[atom_id] = []
     _coordinates: dict[atom_id: tuple[x, y, z]] = {}
     atom_symbols: dict[atom_id: str] = {}
-    _CONSTANT_TO_CALCULATE_ANGSTROMS_FROM_BOHR: float = 0.52917720859
 
     def __init__(self, atom_coordinates_table: list[tuple[atom_id, str, x, y,
                                                           z]] = []) -> None:
@@ -198,7 +346,10 @@ class CoordinatesOfAtoms:
 
 
 class InputData(ABC):
-    """Input data."""
+    """Input data.
+
+    Load data from file and create objects.
+    """
 
     populations: Populations | None = None
     unit_cell: UnitCell | None = None
@@ -208,7 +359,8 @@ class InputData(ABC):
     def __init__(self, Populations: type = Populations,
                  UnitCell: type = UnitCell,
                  MayerBondOrders: type = MayerBondOrders,
-                 CoordinatesOfAtoms: type = CoordinatesOfAtoms):
+                 CoordinatesOfAtoms: type = CoordinatesOfAtoms,
+                 LoadedData: type = LoadedData):
         """Construct.
 
         Args:
@@ -222,16 +374,16 @@ class InputData(ABC):
         self.UnitCell = UnitCell
         self.MayerBondOrders = MayerBondOrders
         self.CoordinatesOfAtoms = CoordinatesOfAtoms
+        self.LoadedData = LoadedData
 
     @abstractmethod
-    def load_input_data_from_file(self, path: str) -> None:
+    def load_input_data(self, path: str, *args) -> None:
         """Load input data from file.
 
         Args:
-            path (str): path to file.
-
-        Return:
-            None
+            path (str): Path to file.
+            *args: LoadData.UnitCell, LoadedData.MayerBondOrders,
+            LoadData.Populations or LoadData.CoordinatesOfAtoms
         """
         pass
 
@@ -244,7 +396,7 @@ class InputData(ABC):
 
 
 class InputDataFromCPMD(InputData):
-    """_summary_
+    """Loads data from CPMD file and create objects
 
     Args:
         InputData (_type_): _description_
@@ -259,7 +411,9 @@ class InputDataFromCPMD(InputData):
     _fingerprint_mayer_bond_orders: str = "MAYER BOND ORDERS FROM PROJECTED"\
         + " WAVEFUNCTIONS"
 
-    _fingerprint_unit_cell: str = "SUPERCELL"
+    _fingerprints_unit_cell: tuple[str] = ("LATTICE VECTOR A1\(BOHR\):",
+                                           "LATTICE VECTOR A2\(BOHR\):",
+                                           "LATTICE VECTOR A3\(BOHR\):")
 
     _valid_population_columns_names: tuple[str] = (
         'ATOM', 'MULLIKEN', 'LOWDIN', 'VALENCE')
@@ -267,15 +421,33 @@ class InputDataFromCPMD(InputData):
     _valid_coordinatios_columns_names: tuple[str] = (
         'X', 'Y', 'Z')
 
-    def load_input_data_from_file(self, path: str) -> None:
+    def load_input_data(self, path: str, *args) -> None:
         with open(path, 'r') as file:
             data = file.read()
 
         if self.check_is_correct_file(data, self._fingerprint) is not True:
             raise Exception("Wrong input file!")
         else:
-            # TODO
-            pass
+            if self.LoadedData.UnitCell in args:
+                self.unit_cell = self._load_unit_cell(data)
+            if self.LoadedData.MayerBondOrders in args:
+                self.mayer_bond_orders = \
+                    self._load_mayer_bond_orders_from_file(data)
+            if self.LoadedData.Populations in args:
+                self.populations = self._load_populations_from_file(data)
+            if self.LoadedData.CoordinatesOfAtoms in args:
+                self.coordinates_of_atoms = \
+                    self._load_coordinates_of_atoms_from_file(data)
+
+    def return_data(self, loaded_data: LoadedData):
+        if loaded_data is LoadedData.UnitCell:
+            return self.unit_cell
+        elif loaded_data is LoadedData.MayerBondOrders:
+            return self.mayer_bond_orders
+        if loaded_data is LoadedData.Populations:
+            return self.Populations
+        if loaded_data is LoadedData.CoordinatesOfAtoms:
+            return self.coordinates_of_atoms
 
     def _load_populations_from_file(self, file: str) -> Populations:
 
@@ -457,6 +629,15 @@ class InputDataFromCPMD(InputData):
         return mayer_bond_order
 
     @classmethod
-    def _return_unit_cell(file: str):
-        # TODO
-        pass
+    def _load_unit_cell(cls, file: str):
+        vectors = []
+        for item in cls._fingerprints_unit_cell:
+            regex = f'(?<={item})[ \S]+'
+            match = re.search(regex, file)
+            row = match[0].split()
+            row = [float(item) for item in row]
+            vectors.append(row)
+        unit_cell = UnitCell()
+        unit_cell.lattice_vectors = tuple(item
+                                          for item in vectors)
+        return unit_cell

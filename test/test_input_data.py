@@ -1,6 +1,7 @@
 import pytest
 from main.BondOrderCalculations.input_data import InputDataFromCPMD
 from pprint import pprint
+from enum import Enum
 
 
 class TestInputDataFromCPMD:
@@ -54,3 +55,39 @@ class TestInputDataFromCPMD:
         value = mayer_bond_order.get_mayer_bond_order_between_atoms(12, 16)
         symbols = mayer_bond_order.get_atom_symbols(12, 16)
         assert value == 0.015 and symbols == ('P', 'P')
+
+    @pytest.mark.usefixtures("path_to_input_file")
+    def test_load_unit_cell(self, path_to_input_file):
+        with open(path_to_input_file, "r") as file:
+            data = file.read()
+
+        input_data = InputDataFromCPMD()
+        unit_cell = input_data._load_unit_cell(data)
+        assert unit_cell.lattice_vectors == ([28.7812, 0.0, 0.0],
+                                             [0.0, 28.7812, 0.0],
+                                             [0.0, 0.0, 28.7812])
+
+    @pytest.mark.usefixtures("path_to_input_file")
+    def test_load_input_data(self, path_to_input_file):
+
+        input_data = InputDataFromCPMD()
+
+        from main.BondOrderCalculations.input_data import LoadedData
+
+        input_data.load_input_data(path_to_input_file,
+                                   LoadedData.UnitCell,
+                                   LoadedData.MayerBondOrders,
+                                   LoadedData.Populations,
+                                   LoadedData.CoordinatesOfAtoms)
+
+        assert (input_data.unit_cell.lattice_vectors == ([28.7812, 0.0, 0.0],
+                [0.0, 28.7812, 0.0], [0.0, 0.0, 28.7812])
+                and
+                input_data.mayer_bond_orders.get_mayer_bond_order_between_atoms(
+                    12, 16)
+                == 0.015
+                and
+                input_data.populations.lodwin.get(1) != None
+                and
+                input_data.coordinates_of_atoms.get_atom_coordinates(1)
+                == (1.9950, 13.2541, 3.2454))
