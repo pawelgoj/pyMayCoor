@@ -238,6 +238,12 @@ class MayerBondOrders:
         row = self.mayer_bond_orders[self.atom_id.index(atom_id_2)]
         return row[self.atom_id.index(atom_id_1)]
 
+    def get_atoms_ids(self, atom_symbol: str) -> list[int]:
+        for key, value in self.horizontal_atom_symbol.items():
+            if value == atom_symbol:
+                # TODO
+                pass
+
     def get_atom_symbols(self, atom_id_1: int, atom_id_2:
                          int) -> tuple[str, str] | None:
         """Get atom symbols
