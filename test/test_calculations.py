@@ -55,6 +55,25 @@ class TestCoordinationNumbers:
         for item in value:
             values.append((item.id_atom_1, item.cn, item.bonds))
 
-        assert values == [(1, 2, {2: 0.5, 3: 0.4}),
-                          (2, 1, {1: 0.5}),
-                          (3, 1, {1: 0.5})]
+        print(result.to_string())
+        assert (values == [(1, 2, {2: 0.5, 3: 0.4}),
+                           (2, 1, {1: 0.5}),
+                           (3, 1, {1: 0.5})]
+                and result.id_of_bond == 'P-O'
+                and result.atom_symbol == 'P'
+                )
+
+    def test_to_string(self):
+        mock_mayer_bond_orders = MayerBondOrders()
+
+        string = CoordinationNumbers.calculate(mock_mayer_bond_orders,
+                                               'P', 'O', 1.7, 0.2, 'P-O')\
+            .to_string()
+
+        assert string == "CN of P bond: P-O\n\n"\
+            + "id: 1 CN: 2\n"\
+            + "Bond orders: 2 0.53 0.4\n"\
+            + "id: 2 CN: 1\n"\
+            + "Bond orders: 1 0.5\n"\
+            + "id: 3 CN: 1\n"\
+            + "Bond orders: 1 0.5\n\n"

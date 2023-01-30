@@ -90,6 +90,7 @@ class CoordinationNumbers(Calculations):
     CoordinationNumber: type = CoordinationNumber
     list_coordinations_number: list[CoordinationNumber]
     id_of_bond: str
+    atom_symbol: str
 
     @classmethod
     def calculate(cls, mayer_bond_orders: MayerBondOrders,
@@ -123,10 +124,29 @@ class CoordinationNumbers(Calculations):
 
         self = cls()
         self.id_of_bond = id_of_bond
+        self.atom_symbol = atom_symbol_1
         self.list_coordinations_number = list_coordinations_number
 
         return self
 
-    def to_string(self) -> str:
+    def calculate_statistics(self) -> None:
         pass
         # TODO
+
+    def get_statistics(self):
+        pass
+        # TODO
+
+    def to_string(self) -> str:
+        string = "CN of " + str(self.atom_symbol) + " bond: "\
+            + str(self.id_of_bond) + "\n\n"
+        for item in self.list_coordinations_number:
+            string = string + "id: " + str(item.id_atom_1) + " "\
+                + "CN: " + str(item.cn) + "\n" + "Bond orders: "
+
+            for key, value in item.bonds.items():
+                string += str(key) + ' ' + str(value)
+
+            string += '\n'
+        string += '\n'
+        return string
