@@ -104,25 +104,35 @@ class TestInputDataFromCPMD:
 
 
 class TestMayerBondOrders:
+    # Given
+    test_data = [
+        [0, 2, 3, 2],
+        [2, 0, 1, 2],
+        [3, 1, 0, 1],
+        [2, 2, 1, 0]
+    ]
+    atom_id = [1, 2, 3, 4]
+    horizontal_atom_symbol = {1: "Fe", 2: "Fe",
+                              3: "O", 4: "O"}
+    vertical_atom_symbol = {1: "Fe", 2: "Fe",
+                            3: "O", 4: "O"}
+
     def test_get_mayer_bond_orders_list_between_to_atoms(self):
-        # Given
-        test_data = [
-            [0, 2, 3, 2],
-            [2, 0, 1, 2],
-            [3, 1, 0, 1],
-            [2, 2, 1, 0]
-        ]
-        atom_id = [1, 2, 3, 4]
-        horizontal_atom_symbol = {1: "Fe", 2: "Fe",
-                                  3: "O", 4: "O"}
-        vertical_atom_symbol = {1: "Fe", 2: "Fe",
-                                3: "O", 4: "O"}
 
         # When
-        mayer_bond_order = MayerBondOrders(test_data, atom_id,
-                                           horizontal_atom_symbol,
-                                           vertical_atom_symbol)
+        mayer_bond_order = MayerBondOrders(self.test_data, self.atom_id,
+                                           self.horizontal_atom_symbol,
+                                           self.vertical_atom_symbol)
         result = mayer_bond_order\
             .get_mayer_bond_orders_list_between_to_atoms("Fe", "O")
         # Then
         assert result == [3, 2, 1, 2]
+
+    def test_get_atoms_ids(self):
+        # When
+        mayer_bond_order = MayerBondOrders(self.test_data, self.atom_id,
+                                           self.horizontal_atom_symbol,
+                                           self.vertical_atom_symbol)
+        result = mayer_bond_order.get_atoms_ids('Fe')
+
+        assert set(result) == {1, 2}

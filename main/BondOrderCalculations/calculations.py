@@ -2,14 +2,13 @@ import numpy as np
 from typing import Callable
 from abc import ABC
 from abc import abstractmethod
-from input_data import MayerBondOrders
+from ..BondOrderCalculations.input_data import MayerBondOrders
 from dataclasses import dataclass
 
 
 class Calculations(ABC):
 
     @abstractmethod
-    @classmethod
     def calculate() -> type:
         pass
 
