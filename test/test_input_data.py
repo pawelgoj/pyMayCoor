@@ -134,5 +134,5 @@ class TestMayerBondOrders:
                                            self.horizontal_atom_symbol,
                                            self.vertical_atom_symbol)
         result = mayer_bond_order.get_atoms_ids('Fe')
-
+        # Then
         assert set(result) == {1, 2}

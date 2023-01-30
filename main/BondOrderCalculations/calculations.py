@@ -53,7 +53,7 @@ class Histogram(Calculations):
                               + previous) / 2)
                 previous = item
 
-        histogram = Histogram()
+        histogram = cls()
         histogram.x = new_x
         histogram.y = y
         return histogram
@@ -77,16 +77,18 @@ class Histogram(Calculations):
 
 @dataclass
 class CoordinationNumber:
-    id_atom_1: int
-    cn: int
     id_atom_2 = int
     mayer_bond_order = float
+
+    id_atom_1: int
+    cn: int
     bonds: dict[id_atom_2: mayer_bond_order]
 
 
 class CoordinationNumbers(Calculations):
     mayer_bond_orders: MayerBondOrders
     CoordinationNumber: type = CoordinationNumber
+    list_coordinations_number: list[CoordinationNumber]
     id_of_bond: str
 
     @classmethod
@@ -96,4 +98,35 @@ class CoordinationNumbers(Calculations):
                   min_mayer_bond_order: float,
                   id_of_bond: str) -> type:
 
+        atom_1_ids = mayer_bond_orders.get_atoms_ids(atom_symbol_1)
+        atom_2_ids = mayer_bond_orders.get_atoms_ids(atom_symbol_2)
+
+        list_coordinations_number = []
+        for atom_1_id in atom_1_ids:
+
+            coordination_number = cls.CoordinationNumber(atom_1_id, 0, {})
+
+            for atom_2_id in atom_2_ids:
+                if atom_1_id != atom_2_id:
+
+                    mbo = mayer_bond_orders\
+                        .get_mayer_bond_order_between_atoms(atom_1_id,
+                                                            atom_2_id)
+                    if (mbo > min_mayer_bond_order
+                            and mbo < max_mayer_bond_order):
+                        coordination_number.bonds.update({atom_2_id: mbo})
+                        coordination_number.cn += 1
+                    else:
+                        continue
+
+            list_coordinations_number.append(coordination_number)
+
+        self = cls()
+        self.id_of_bond = id_of_bond
+        self.list_coordinations_number = list_coordinations_number
+
+        return self
+
+    def to_string(self) -> str:
         pass
+        # TODO

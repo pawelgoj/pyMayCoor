@@ -1,5 +1,6 @@
 import pytest
 from main.BondOrderCalculations.calculations import Histogram
+from main.BondOrderCalculations.calculations import CoordinationNumbers
 
 from pprint import pprint
 
@@ -24,3 +25,36 @@ class TestHistogram:
                           + "2.8333333333333335 5\n"
                           + "4.5 2\n"
                           + "6.166666666666667 3\n\n")
+
+
+class MayerBondOrders:
+    """Mock class"""
+    mbo = {1: {1: 0.5, 2: 0.5, 3: 0.4},
+           2: {1: 0.5, 2: 0.1, 3: 0.05},
+           3: {1: 0.5, 2: 0.1, 3: 0.05}}
+
+    def get_mayer_bond_order_between_atoms(self, atom_id_1: int, atom_id_2:
+                                           int) -> float:
+        return self.mbo.get(atom_id_1).get(atom_id_2)
+
+    def get_atoms_ids(self, atom_symbol_1):
+        return [1, 2, 3]
+
+
+class TestCoordinationNumbers:
+    def test_calculate(self):
+
+        mock_mayer_bond_orders = MayerBondOrders()
+
+        result = CoordinationNumbers.calculate(mock_mayer_bond_orders,
+                                               'P', 'O', 1.7, 0.2, 'P-O')
+
+        value = result.list_coordinations_number
+
+        values = []
+        for item in value:
+            values.append((item.id_atom_1, item.cn, item.bonds))
+
+        assert values == [(1, 2, {2: 0.5, 3: 0.4}),
+                          (2, 1, {1: 0.5}),
+                          (3, 1, {1: 0.5})]
