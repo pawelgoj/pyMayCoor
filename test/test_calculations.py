@@ -55,7 +55,6 @@ class TestCoordinationNumbers:
         for item in value:
             values.append((item.id_atom_1, item.cn, item.bonds))
 
-        print(result.to_string())
         assert (values == [(1, 2, {2: 0.5, 3: 0.4}),
                            (2, 1, {1: 0.5}),
                            (3, 1, {1: 0.5})]
@@ -68,12 +67,36 @@ class TestCoordinationNumbers:
 
         string = CoordinationNumbers.calculate(mock_mayer_bond_orders,
                                                'P', 'O', 1.7, 0.2, 'P-O')\
+            .calculate_statistics()\
             .to_string()
 
         assert string == "CN of P bond: P-O\n\n"\
             + "id: 1 CN: 2\n"\
-            + "Bond orders: 2 0.53 0.4\n"\
+            + "Bond orders (id: mbo): 2: 0.5, 3: 0.4\n"\
             + "id: 2 CN: 1\n"\
-            + "Bond orders: 1 0.5\n"\
+            + "Bond orders (id: mbo): 1: 0.5\n"\
             + "id: 3 CN: 1\n"\
-            + "Bond orders: 1 0.5\n\n"
+            + "Bond orders (id: mbo): 1: 0.5\n\n"\
+            + "Statistics of: P\n\n"\
+            + "CN %\n"\
+            + "2 33.333\n"\
+            + "1 66.667\n\n"
+
+    def test__get_list_of_coordination_numbers(self):
+        mock_mayer_bond_orders = MayerBondOrders()
+
+        result = CoordinationNumbers.calculate(mock_mayer_bond_orders,
+                                               'P', 'O', 1.7, 0.2, 'P-O')\
+            ._get_list_of_coordination_numbers()
+
+        assert result == [2, 1]
+
+    def test_calculate_statistics(self):
+        mock_mayer_bond_orders = MayerBondOrders()
+
+        result = CoordinationNumbers.calculate(mock_mayer_bond_orders,
+                                               'P', 'O', 1.7, 0.2, 'P-O')\
+            .calculate_statistics()
+
+        assert result.statistics == {2: pytest.approx(33.3, 0.1),
+                                     1: pytest.approx(66.6, 0.1)}

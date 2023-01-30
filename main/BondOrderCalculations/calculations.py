@@ -91,6 +91,7 @@ class CoordinationNumbers(Calculations):
     list_coordinations_number: list[CoordinationNumber]
     id_of_bond: str
     atom_symbol: str
+    statistics: dict[int: float] | None = None
 
     @classmethod
     def calculate(cls, mayer_bond_orders: MayerBondOrders,
@@ -129,24 +130,60 @@ class CoordinationNumbers(Calculations):
 
         return self
 
-    def calculate_statistics(self) -> None:
-        pass
-        # TODO
+    def calculate_statistics(self) -> type:
+        cns = self._get_list_of_coordination_numbers()
+        quantities = {}
+        for cn in cns:
+            for item in self.list_coordinations_number:
+                if item.cn == cn:
+                    if quantities.get(cn, None) is None:
+                        quantities.update({cn: 1})
+                    else:
+                        quantities[cn] = quantities[cn] + 1
 
-    def get_statistics(self):
-        pass
-        # TODO
+        number_of_atoms = len(self.list_coordinations_number)
+        statistics = {}
+        for key, value in quantities.items():
+            statistics.update({key: (value/number_of_atoms) * 100})
+
+        self.statistics = statistics
+
+        return self
+
+    def _get_list_of_coordination_numbers(self) -> list[int]:
+        cns = []
+        for item in self.list_coordinations_number:
+            if item.cn not in cns:
+                cns += [item.cn]
+
+        return cns
 
     def to_string(self) -> str:
         string = "CN of " + str(self.atom_symbol) + " bond: "\
             + str(self.id_of_bond) + "\n\n"
         for item in self.list_coordinations_number:
             string = string + "id: " + str(item.id_atom_1) + " "\
-                + "CN: " + str(item.cn) + "\n" + "Bond orders: "
+                + "CN: " + str(item.cn) + "\n" + "Bond orders (id: mbo): "
 
+            length = len(item.bonds)
+            i = 1
             for key, value in item.bonds.items():
-                string += str(key) + ' ' + str(value)
+                string += str(key) + ': ' + str(value)
+                if i < length:
+                    string += ', '
+                else:
+                    pass
+                i += 1
 
             string += '\n'
         string += '\n'
+
+        if self.statistics is not None:
+            string = string + "Statistics of: "\
+                + str(self.atom_symbol) + "\n\n" + "CN %\n"
+            for key, value in self.statistics.items():
+                string = string + str(key) + ' ' + str(round(value, 3)) + '\n'
+
+            string = string + '\n'
+
         return string
