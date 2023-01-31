@@ -43,12 +43,13 @@ class MayerBondOrders:
 
 
 class TestCoordinationNumbers:
-    def test_calculate(self):
+    @pytest.mark.parametrize('max_mbo', [1.7, 'INF'])
+    def test_calculate(self, max_mbo):
 
         mock_mayer_bond_orders = MayerBondOrders()
 
         result = CoordinationNumbers.calculate(mock_mayer_bond_orders,
-                                               'P', 'O', 1.7, 0.2, 'P-O')
+                                               'P', 'O', max_mbo, 0.2, 'P-O')
 
         value = result.list_coordinations_number
 
@@ -104,12 +105,12 @@ class TestCoordinationNumbers:
 
 
 class TestQiUnits:
-
-    def test_calculate(self):
+    @pytest.mark.parametrize('max_mbo', [1.7, 'INF'])
+    def test_calculate(self, max_mbo):
         mayer_bond_orders = MayerBondOrders()
 
         result = QiUnits.calculate(mayer_bond_orders,
-                                   'P', 'O', 1.7, 0.06, 'P-O')
+                                   'P', 'O', max_mbo, 0.06, 'P-O')
 
         assert (result.q_i_units == {1: 3, 2: 2, 3: 2}
                 and result.id_of_bond == 'P-O'

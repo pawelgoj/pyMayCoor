@@ -1,24 +1,23 @@
 """settings module."""
 
 from dataclasses import dataclass
-from pprint import pprint
 
 
 @dataclass
 class PairOfAtoms:
     """PairOfAtoms.
-    
+
     Object represents Pairs of Atoms
-    
+
     Attributes:
         atom_1 (str):
         atom_2 (str):
         MBO_min (float):
         MBO_max (float | str):
         id (str)
-        
+
     """
-    
+
     atom_1: str
     atom_2: str
     MBO_min: float
@@ -28,9 +27,9 @@ class PairOfAtoms:
 
 class Settings:
     """Settings.
-    
+
     Object represents data in settings yaml file
-    
+
     Attributes:
         histogram (dict['calc': bool, 'nr_bars': int | None]):
         pairs_atoms_list (list[PairOfAtoms]):
@@ -40,14 +39,14 @@ class Settings:
                        'CN': bool]):
         types_of_calculations (set[str]): Default - {'Q_i', 'connections', 
                         'bond_length', 'CN'}
-                        
+
     Raises:
         ValueError: The number of histogram bars is not specified !!!
         ValueError: Wrong keywords in yaml file!
         ValueError: Wrong calculations settings!!!!
-        
+
     """
-    
+
     histogram: dict['calc': bool, 'nr_bars': int | None]
     pairs_atoms_list: list[PairOfAtoms]
     calculations: dict['Q_i': dict['calc': bool, 'bond_id': str | None],
@@ -59,9 +58,9 @@ class Settings:
 
     def __init__(self, data: dict, PairOfAtoms: type = PairOfAtoms) -> None:
         """Constructor.
-                     
+
         Constructor
-                     
+
         Example:
         >>> data = {'calculations': { \
                         'bond_length': True, \
@@ -99,21 +98,21 @@ class Settings:
         [PairOfAtoms(atom_1='P', atom_2='P', MBO_min=1.2, MBO_max='INF', id='P=O'), \
 PairOfAtoms(atom_1='P', atom_2='P', MBO_min=0.02, MBO_max='INF', id='P-O'), \
 PairOfAtoms(atom_1='Al', atom_2='Al', MBO_min=0.02, MBO_max='INF', id='Al-O')]
-        
+
         Args:
             data (dict): data from yaml setting file
             PairOfAtoms (type): PairOfAtoms
-          
+
         Raises:
             ValueError: The number of histogram bars is not specified !!!
             ValueError: Wrong keywords in yaml file!
             ValueError: Wrong calculations settings!!!!
-            
+
         Returns:
             Settings: Object
-            
+
         """
-        
+
         self.pairs_atoms_list = []
         self.calculations = {}
         valid_keys = ['histogram', 'pairs_atoms_list', 'calculations']
@@ -170,11 +169,11 @@ PairOfAtoms(atom_1='Al', atom_2='Al', MBO_min=0.02, MBO_max='INF', id='Al-O')]
         >>> Settings.check_keys_correct(['histogram', 'pairs_atoms_list', 'calculations'],\
             ['histogram', 'pairs_atoms_list', 'incorrect'])
         False
-        
+
         Args:
             keys (list[str]): keywords 
             ref (list[str]): reference
-        
+
         Returns:
             bool: Keywords correct or not
         """

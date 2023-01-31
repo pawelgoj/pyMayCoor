@@ -3,8 +3,10 @@ from typing import Callable
 from abc import ABC
 from abc import abstractmethod
 from ..BondOrderCalculations.input_data import MayerBondOrders
+from ..BondOrderCalculations.input_data import CoordinatesOfAtoms
+from ..BondOrderCalculations.settings import PairOfAtoms
+
 from dataclasses import dataclass
-from copy import deepcopy
 
 
 class Calculations(ABC):
@@ -107,7 +109,7 @@ class CoordinationNumbers(Calculations):
     @classmethod
     def calculate(cls, mayer_bond_orders: MayerBondOrders,
                   atom_symbol_1: str, atom_symbol_2: str,
-                  max_mayer_bond_order: float,
+                  max_mayer_bond_order: float | str,
                   min_mayer_bond_order: float,
                   id_of_bond: str) -> type:
         """Calculate CoordinationNumbers object.
@@ -124,6 +126,10 @@ class CoordinationNumbers(Calculations):
             type: CoordinationNumbers object
         """
 
+        if max_mayer_bond_order != "INF"\
+                and not (type(max_mayer_bond_order) is float):
+            raise ValueError("Wrong type of max_mayer_bond_order!!!!")
+
         atom_1_ids = mayer_bond_orders.get_atoms_ids(atom_symbol_1)
         atom_2_ids = mayer_bond_orders.get_atoms_ids(atom_symbol_2)
 
@@ -139,6 +145,10 @@ class CoordinationNumbers(Calculations):
                         .get_mayer_bond_order_between_atoms(atom_1_id,
                                                             atom_2_id)
                     if (mbo > min_mayer_bond_order
+                            and max_mayer_bond_order is 'INF'):
+                        coordination_number.bonds.update({atom_2_id: mbo})
+                        coordination_number.cn += 1
+                    elif (mbo > min_mayer_bond_order
                             and mbo < max_mayer_bond_order):
                         coordination_number.bonds.update({atom_2_id: mbo})
                         coordination_number.cn += 1
@@ -240,6 +250,16 @@ class QiUnits(Calculations):
                   min_mayer_bond_order: float,
                   id_of_bond: str) -> type:
 
+        if max_mayer_bond_order != "INF"\
+                and not (type(max_mayer_bond_order) is float):
+            raise ValueError("Wrong type of max_mayer_bond_order!!!!")
+        elif max_mayer_bond_order == "INF":
+            inf = True
+            max_mayer_bond_order = -1
+            # -1 to prevent exception
+        else:
+            inf = False
+
         atom_1_ids = mayer_bond_orders.get_atoms_ids(atom_symbol_1)
         atom_2_ids = mayer_bond_orders.get_atoms_ids(atom_symbol_2)
 
@@ -256,14 +276,14 @@ class QiUnits(Calculations):
                     .get_mayer_bond_order_between_atoms(atom_1_id,
                                                         atom_2_id)
                 if (mbo > min_mayer_bond_order
-                        and mbo < max_mayer_bond_order):
+                        and (mbo < max_mayer_bond_order or inf)):
 
                     for atom_3_id in atom_1_ids:
                         mbo = mayer_bond_orders\
                             .get_mayer_bond_order_between_atoms(atom_2_id,
                                                                 atom_3_id)
                         if (mbo > min_mayer_bond_order
-                                and mbo < max_mayer_bond_order
+                                and (mbo < max_mayer_bond_order or inf)
                                 and atom_3_id != atom_1_id):
 
                             self.q_i_units[atom_1_id] += 1
@@ -322,3 +342,63 @@ class QiUnits(Calculations):
         string += '\n'
 
         return string
+
+
+class Connections(Calculations):
+
+    connections: list
+    pairs_atoms_list: list[PairOfAtoms]
+    atom_symbol: str
+
+    @ classmethod
+    def calculate(cls, mayer_bond_orders: MayerBondOrders,
+                  atom_symbol_1: str,
+                  pairs_atoms_list: list[PairOfAtoms]
+                  ) -> type:
+
+        pair_atom_list_containing_atom_1 = []
+        for pair_atom in pairs_atoms_list:
+            if pair_atom.atom_1 == atom_symbol_1\
+                    or pair_atom.atom_2 == atom_symbol_1:
+
+                pair_atom_list_containing_atom_1.append(pair_atom)
+            else:
+                continue
+
+    def to_string(self) -> str:
+        # TODO
+        pass
+
+
+class Populations(Calculations):
+    @ classmethod
+    def calculate(cls, mayer_bond_orders: MayerBondOrders,
+                  atom_symbol_1: str,
+                  atom_symbol_2: str,
+                  max_mayer_bond_order: float,
+                  min_mayer_bond_order: float,
+                  id_of_bond: str) -> type:
+        # TODO
+        pass
+
+    def to_string(self) -> str:
+        # TODO
+        pass
+
+
+class BondLength(Calculations):
+    @ classmethod
+    def calculate(cls,
+                  mayer_bond_orders: MayerBondOrders,
+                  coordinates_of_atoms: CoordinatesOfAtoms,
+                  atom_symbol_1: str,
+                  atom_symbol_2: str,
+                  max_mayer_bond_order: float,
+                  min_mayer_bond_order: float,
+                  id_of_bond: str) -> type:
+        # TODO
+        pass
+
+    def to_string(self) -> str:
+        # TODO
+        pass
