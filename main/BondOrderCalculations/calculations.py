@@ -344,11 +344,23 @@ class QiUnits(Calculations):
         return string
 
 
-class Connections(Calculations):
+@dataclass
+class Connection:
+    id_atom_2 = int
+    mayer_bond_order = float
 
-    connections: list
-    pairs_atoms_list: list[PairOfAtoms]
-    atom_symbol: str
+    atom_symbol_2: str
+    bond_id: str
+    quantity: int
+    bonds: dict[id_atom_2: mayer_bond_order]
+
+
+class Connections(Calculations):
+    atom_1_id = int
+
+    connection: type = Connection
+    connections: dict[atom_1_id: list[connection]]
+    atom_symbol_1: str
 
     @ classmethod
     def calculate(cls, mayer_bond_orders: MayerBondOrders,
@@ -364,6 +376,54 @@ class Connections(Calculations):
                 pair_atom_list_containing_atom_1.append(pair_atom)
             else:
                 continue
+
+        atom_1_ids = mayer_bond_orders.get_atoms_ids(atom_symbol_1)
+        connections = {}
+        for atom_1_id in atom_1_ids:
+
+            connections.update({atom_1_id: []})
+
+            for pair_atoms in pair_atom_list_containing_atom_1:
+                if v := pair_atoms.atom_1 != atom_symbol_1:
+                    atom_symbol_2 = v
+                else:
+                    atom_symbol_2 = pair_atoms.atom_2
+
+                connection = cls.Connection(
+                    atom_symbol_2, pair_atoms.id, 0, {})
+
+                atom_2_ids = mayer_bond_orders.get_atoms_ids(atom_symbol_2)
+
+                for atom_2_id in atom_2_ids:
+
+                    if pair_atoms.MBO_max != "INF"\
+                            and not (type(pair_atoms.MBO_max) is float):
+                        raise ValueError(
+                            "Wrong type of max_mayer_bond_order!!!!")
+
+                    mbo = mayer_bond_orders\
+                        .get_mayer_bond_order_between_atoms(atom_1_id,
+                                                            atom_2_id)
+
+                    if (mbo > pair_atoms.MBO_min
+                            and pair_atoms.MBO_max is 'INF'):
+
+                        connection.quantity += 1
+                        connection.bonds.update({atom_2_id: mbo})
+
+                    elif (mbo > pair_atoms.MBO_min
+                            and pair_atoms.MBO_max > mbo):
+
+                        connection.quantity += 1
+                        connection.bonds.update({atom_2_id: mbo})
+
+                connections[atom_1_id].append(connection)
+
+        self = cls()
+        self.connections = connections
+        self.atom_symbol_1 = atom_symbol_1
+
+        return self
 
     def to_string(self) -> str:
         # TODO
