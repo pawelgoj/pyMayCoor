@@ -125,3 +125,21 @@ class TestQiUnits:
 
         assert result.statistics == {2: pytest.approx(66.6, 0.1),
                                      3: pytest.approx(33.3, 0.1)}
+
+    def test_to_string(self):
+        mayer_bond_orders = MayerBondOrders()
+
+        result = QiUnits.calculate(mayer_bond_orders,
+                                   'P', 'O', 1.7, 0.06, 'P-O')\
+            .calculate_statistics()\
+            .to_string()
+
+        assert result == "Q_i of P bond id: P-O\n\n"\
+            + "id Q_i[i]\n"\
+            + "1 3\n"\
+            + "2 2\n"\
+            + "3 2\n\n"\
+            + "Statistics of Q_i: P, bond id: P-O\n\n"\
+            + "Q_i[i] [%]\n"\
+            + "3 33.333\n"\
+            + "2 66.667\n\n"

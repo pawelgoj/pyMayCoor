@@ -300,5 +300,25 @@ class QiUnits(Calculations):
         return self
 
     def to_string(self) -> str:
-        string = "CN of " + str(self.atom_symbol) + " bond: "\
+        string = "Q_i of " + str(self.atom_symbol_1) + ' bond id: '\
             + str(self.id_of_bond) + "\n\n"
+
+        string += "id Q_i[i]\n"
+
+        for key, value in self.q_i_units.items():
+            string = string + str(key) + ' ' + str(value) + '\n'
+
+        string += '\n'
+
+        if self.statistics is not None:
+            string = string + 'Statistics of Q_i: ' + str(self.atom_symbol_1)\
+                + ', bond id: ' + str(self.id_of_bond) + '\n\n'
+
+            string += 'Q_i[i] [%]\n'
+
+            for key, value in self.statistics.items():
+                string = string + str(key) + ' ' + str(round(value, 3)) + '\n'
+
+        string += '\n'
+
+        return string
