@@ -10,6 +10,7 @@ from enum import Enum
 
 
 class LoadedData(Enum):
+    """Enumeration used by **InputDataFromCPMD**."""
     UnitCell = 1
     MayerBondOrders = 2
     Populations = 3
@@ -33,19 +34,19 @@ class UnitCell(Constants):
         a (float): Angstroms
         b (float): Angstroms
         c (float): Angstroms
-        lattice_vectors (tuple[vector]): Lattice vectors
+        lattice_vectors (tuple[vector]): Table represents lattice vectors.
         alfa (deg): deg
         beta (deg): deg
         gamma (deg): deg
 
     Types:
         x, y, z = float, float, float \n
-        vector = (x, y, z) \n
+        vector = tuple[x, y, z] \n
         deg = float \n
     """
     x, y, z = float, float, float
     """Type alias."""
-    vector = (x, y, z)
+    vector = tuple[x, y, z]
     lattice_vectors: tuple[vector] = ()
     converted_to_angstroms: bool = False
 
@@ -148,7 +149,7 @@ class UnitCell(Constants):
     def convert_cell_data_to_angstroms(self) -> None:
         """Convert cell data to angstroms.
 
-        You can use it to cover data in lattice_vectors, a, b and c
+        You can use it to convert data in lattice_vectors, a, b and c
         from Bohr units to angstroms.
 
         Example:
@@ -273,6 +274,7 @@ class MayerBondOrders:
             tuple(str, str) | None: Symbol of atom 1 and atom 2,
                                     if wrong id of atoms returns None or
                                     atoms symbols have not been used.
+
         """
         atom_1 = self.horizontal_atom_symbol.get(atom_id_1, None)
         atom_2 = self.vertical_atom_symbol.get(atom_id_2, None)
@@ -310,12 +312,12 @@ class CoordinatesOfAtoms(Constants):
     """Object represents coordinates of atoms.
 
     Args:
-        atom_coordinates_table (list[tuple[atom_id, str, x, y, z]], optional): 
+        atom_coordinates_table (list[tuple[atom_id, str, x, y, z]], optional): \
         Table with atom coordinates.
 
     Attributes:
         ids (list[atom_id]): ids of atoms.
-        atom_symbols (dict[atom_id, str]): 
+        atom_symbols (dict[atom_id, str]): \
         Dictionary storing symbols of atoms, key is atom id.
 
     Types:
@@ -437,6 +439,7 @@ class InputData(ABC):
             UnitCell (type, optional): Defaults to UnitCell.
             MayerBondOrders (type, optional): Defaults to MayerBondOrders.
             CoordinatesOfAtoms (type, optional): Defaults to CoordinatesOfAtoms.
+
         """
 
         self.Populations = Populations
@@ -451,8 +454,9 @@ class InputData(ABC):
 
         Args:
             path (str): Path to file.
-            *args: LoadData.UnitCell, LoadedData.MayerBondOrders,
-            LoadData.Populations or LoadData.CoordinatesOfAtoms
+            *args: LoadData.UnitCell, LoadedData.MayerBondOrders,\
+                LoadData.Populations or LoadData.CoordinatesOfAtoms
+
         """
         pass
 

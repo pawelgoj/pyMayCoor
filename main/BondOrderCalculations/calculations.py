@@ -300,5 +300,5 @@ class QiUnits(Calculations):
         return self
 
     def to_string(self) -> str:
-        # TODO
-        pass
+        string = "CN of " + str(self.atom_symbol) + " bond: "\
+            + str(self.id_of_bond) + "\n\n"
