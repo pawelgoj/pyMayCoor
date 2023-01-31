@@ -54,51 +54,6 @@ def Walencyjnosc_kowa(s, poczatek, koniec):
                   "  ", tablicawalencyjnosccalkowita[x], "  ", jonowoscawa[x], sep='')
 
 
-# funkcja drukuj wartosc min-max
-def min_max(s, maximum1, minimum1, maximum2, minimum2):
-    if maximum1 != -10 or minimum1 != -10 or maximum2 != -10 or minimum2 != -10:
-        print()
-        print("Maksymalny rzad wiazania ", s, ": ",
-              Tabelarzadwiazania[maximum1][maximum2], sep='')
-        print("Minimalny rzad wiazania ", s, ": ",
-              Tabelarzadwiazania[minimum1][minimum2], sep='')
-        print()
-
-# Przedział histogram
-
-
-def drukuj_przedzial(s, przedzial):
-    if przedzial != 0:
-        print("przedział histogram ", s, ": ", przedzial, sep='')
-
-# funkcja histogram
-
-
-def histogram(ilosckolumnhh, przedzialh, poczatek1, koniec1, poczatek2, koniec2, dolnagranica, gornagranica, minimumid1, minimumid2, nazwa):
-    if przedzialh != 0:
-        tablicailoscrzedowpo = []
-        for x in range(0, ilosckolumnh):
-            i = 0
-            for wiersz in range(poczatek1, koniec1 + 1):
-                for kolumna in range(poczatek2, koniec2 + 1):
-                    if Tabelarzadwiazania[wiersz][kolumna] <= gornagranica and Tabelarzadwiazania[wiersz][kolumna] > dolnagranica:
-                        i += 1
-            tablicailoscrzedowpo.append(i)
-            dolnagranica = gornagranica
-            gornagranica += przedzialh
-
-        gornagranica = Tabelarzadwiazania[minimumid1][minimumid2] + \
-            (przedzialh / 2)
-
-        print(nazwa)
-        print()
-        print("przedzaiał/2 ilosc")
-        for x in range(0, ilosckolumnh):
-            print(gornagranica, tablicailoscrzedowpo[x])
-            gornagranica += przedzialh
-
-        print()
-        print()
 
 # Funkcja koordynacja I JEDNOSTKI Q
 

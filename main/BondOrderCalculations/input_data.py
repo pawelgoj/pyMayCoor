@@ -1,3 +1,4 @@
+__docformat__ = "google"
 """Input data module."""
 from abc import ABC
 from abc import abstractmethod
@@ -16,7 +17,10 @@ class LoadedData(Enum):
 
 
 class Constants:
+    """This class holds constants used in calculations in module 
+    **input_data**."""
     _CONSTANT_TO_CALCULATE_ANGSTROMS_FROM_BOHR: float = 0.52917720859
+    """The length of the bohr radius in angstroms."""
 
 
 @dataclass
@@ -29,17 +33,18 @@ class UnitCell(Constants):
         a (float): Angstroms
         b (float): Angstroms
         c (float): Angstroms
-        lattice_vectors (tuple[vector])
+        lattice_vectors (tuple[vector]): Lattice vectors
         alfa (deg): deg
         beta (deg): deg
         gamma (deg): deg
 
     Types:
-        x, y, z = float, float, float
-        vector = (x, y, z)
-        deg = float
+        x, y, z = float, float, float \n
+        vector = (x, y, z) \n
+        deg = float \n
     """
     x, y, z = float, float, float
+    """Type alias."""
     vector = (x, y, z)
     lattice_vectors: tuple[vector] = ()
     converted_to_angstroms: bool = False
@@ -49,6 +54,7 @@ class UnitCell(Constants):
     c: float = 0
 
     deg = float
+    """Type alias."""
     alfa: deg = 0
     beta: deg = 0
     gamma: deg = 0
@@ -143,7 +149,7 @@ class UnitCell(Constants):
         """Convert cell data to angstroms.
 
         You can use it to cover data in lattice_vectors, a, b and c
-        from Bohr units to angstrom.
+        from Bohr units to angstroms.
 
         Example:
         >>> unit_cell = UnitCell()
@@ -180,26 +186,27 @@ class UnitCell(Constants):
 class Populations:
     """Populations from MULLIKEN, LOWDIN analysis."""
 
-    mulliken: dict[int: tuple[str, float]] = {}
-    lodwin: dict[int: tuple[str, float]] = {}
-    valence: dict[int: tuple[str, float]] = {}
+    mulliken: dict[int, tuple[str, float]] = {}
+    lodwin: dict[int, tuple[str, float]] = {}
+    valence: dict[int, tuple[str, float]] = {}
 
     def __init__(self) -> None:
         pass
 
 
 class MayerBondOrders:
-    """Mayer bond orders of atoms pairs."""
+    """Object stores Mayer bond orders of atoms pairs."""
     rows = list[float]
+    """Type alias."""
     mayer_bond_orders: list[rows] = []
-    horizontal_atom_symbol: dict[int: str] = {}
+    horizontal_atom_symbol: dict[int, str] = {}
     atom_id: list[int] = []
-    vertical_atom_symbol: dict[int: str] = {}
+    vertical_atom_symbol: dict[int, str] = {}
 
     def __init__(self, mayer_bond_orders: list[rows],
                  atom_id: list[int],
-                 horizontal_atom_symbol: dict[int: str] = {},
-                 vertical_atom_symbol: dict[int: str] = {}):
+                 horizontal_atom_symbol: dict[int, str] = {},
+                 vertical_atom_symbol: dict[int, str] = {}):
 
         if (len(mayer_bond_orders) == len(atom_id) and
            len(mayer_bond_orders[0]) == len(atom_id)):
@@ -239,7 +246,7 @@ class MayerBondOrders:
         return row[self.atom_id.index(atom_id_1)]
 
     def get_atoms_ids(self, atom_symbol: str) -> list[int]:
-        """Get atoms ids
+        """Get atoms ids in MayerBondOrders.
 
         Args:
             atom_symbol (str): Symbol of atom eg. P, Fe, ...
@@ -256,10 +263,12 @@ class MayerBondOrders:
 
     def get_atom_symbols(self, atom_id_1: int, atom_id_2:
                          int) -> tuple[str, str] | None:
-        """Get atom symbols
+        """Get atom symbols of pair of atoms.
+
         Args:
             atom_id_1 (int): atom 1 id
             atom_id_2 (int): atom 2 id
+
         Returns:
             tuple(str, str) | None: Symbol of atom 1 and atom 2,
                                     if wrong id of atoms returns None or
@@ -298,13 +307,29 @@ class MayerBondOrders:
 
 
 class CoordinatesOfAtoms(Constants):
+    """Object represents coordinates of atoms.
+
+    Args:
+        atom_coordinates_table (list[tuple[atom_id, str, x, y, z]], optional): 
+        Table with atom coordinates.
+
+    Attributes:
+        ids (list[atom_id]): ids of atoms.
+        atom_symbols (dict[atom_id, str]): 
+        Dictionary storing symbols of atoms, key is atom id.
+
+    Types:
+        x, y, z = float, float, float \n
+        atom_id = int
+    """
+
     atom_id = int
-    x = float
-    y = float
-    z = float
+    """Type alias"""
+    x, y, z = float, float, float
+    """Type alias"""
     ids: list[atom_id] = []
-    _coordinates: dict[atom_id: tuple[x, y, z]] = {}
-    atom_symbols: dict[atom_id: str] = {}
+    _coordinates: dict[atom_id, tuple[x, y, z]] = {}
+    atom_symbols: dict[atom_id, str] = {}
 
     def __init__(self, atom_coordinates_table: list[tuple[atom_id, str, x, y,
                                                           z]] = []) -> None:
@@ -317,6 +342,13 @@ class CoordinatesOfAtoms(Constants):
 
     def add_new_atom(self, id: int, atom_symbol: str, coordinates:
                      tuple[x, y, z]) -> None:
+        """Add new atom coordinates to CoordinatesOfAtoms object.
+
+        Args:
+            id (int): id of new atom.
+            atom_symbol (str): Symbol of new atom.
+            coordinates (tuple[x, y, z]): Coordinates of new atom.
+        """
         self.ids.append(id)
         self.atom_symbols.update({id: atom_symbol})
         self._coordinates.update({id: coordinates})
@@ -370,8 +402,9 @@ class CoordinatesOfAtoms(Constants):
             id (int): atom id
 
         Returns:
-            str | None: Returns atom symbol or None if atom of
+            Union[str, None]: Returns atom symbol or None if atom of
                         given id does not exist.
+
         """
         return self.atom_symbols.get(id)
 
@@ -397,7 +430,7 @@ class InputData(ABC):
                  MayerBondOrders: type = MayerBondOrders,
                  CoordinatesOfAtoms: type = CoordinatesOfAtoms,
                  LoadedData: type = LoadedData):
-        """Construct.
+        """Constructor.
 
         Args:
             Populations (type, optional): Defaults to Populations.

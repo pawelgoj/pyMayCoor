@@ -4,6 +4,7 @@ from abc import ABC
 from abc import abstractmethod
 from ..BondOrderCalculations.input_data import MayerBondOrders
 from dataclasses import dataclass
+from copy import deepcopy
 
 
 class Calculations(ABC):
@@ -86,6 +87,16 @@ class CoordinationNumber:
 
 
 class CoordinationNumbers(Calculations):
+    """Coordination Numbers.
+
+    Generate list of CoordinationNumber objects and processes it.
+
+    Args:
+        Calculations (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
     mayer_bond_orders: MayerBondOrders
     CoordinationNumber: type = CoordinationNumber
     list_coordinations_number: list[CoordinationNumber]
@@ -99,6 +110,19 @@ class CoordinationNumbers(Calculations):
                   max_mayer_bond_order: float,
                   min_mayer_bond_order: float,
                   id_of_bond: str) -> type:
+        """Calculate CoordinationNumbers object.
+
+        Args:
+            mayer_bond_orders (MayerBondOrders): MayerBondOrders object
+            atom_symbol_1 (str): central atom symbol
+            atom_symbol_2 (str): Ligand symbol
+            max_mayer_bond_order (float): max cut of radius
+            min_mayer_bond_order (float): min cut of radius
+            id_of_bond (str): id of bond
+
+        Returns:
+            type: CoordinationNumbers object
+        """
 
         atom_1_ids = mayer_bond_orders.get_atoms_ids(atom_symbol_1)
         atom_2_ids = mayer_bond_orders.get_atoms_ids(atom_symbol_2)
@@ -131,6 +155,13 @@ class CoordinationNumbers(Calculations):
         return self
 
     def calculate_statistics(self) -> type:
+        """Calculate statistics of CoordinationNumbers.
+
+        Statistic are in "statistics" attribute.
+
+        Returns:
+            type: CoordinationNumbers object
+        """
         cns = self._get_list_of_coordination_numbers()
         quantities = {}
         for cn in cns:
@@ -159,6 +190,11 @@ class CoordinationNumbers(Calculations):
         return cns
 
     def to_string(self) -> str:
+        """Make string from CoordinationNumbers object.
+
+        Returns:
+            str:
+        """
         string = "CN of " + str(self.atom_symbol) + " bond: "\
             + str(self.id_of_bond) + "\n\n"
         for item in self.list_coordinations_number:
@@ -187,3 +223,60 @@ class CoordinationNumbers(Calculations):
             string = string + '\n'
 
         return string
+
+
+class QiUnits(Calculations):
+    id_of_bond: str
+    atom_symbol_1: str
+    atom_symbol_2: str
+    q_i_units: dict[int, int] = {}
+
+    @classmethod
+    def calculate(cls, mayer_bond_orders: MayerBondOrders,
+                  atom_symbol_1: str,
+                  atom_symbol_2: str,
+                  max_mayer_bond_order: float,
+                  min_mayer_bond_order: float,
+                  id_of_bond: str) -> type:
+
+        atom_1_ids = mayer_bond_orders.get_atoms_ids(atom_symbol_1)
+        atom_2_ids = mayer_bond_orders.get_atoms_ids(atom_symbol_2)
+
+        self = cls()
+        self.id_of_bond = id_of_bond
+        self.atom_symbol_1 = atom_symbol_1
+        self.atom_symbol_2 = atom_symbol_2
+        for atom_1_id in atom_1_ids:
+
+            self.q_i_units.update({atom_1_id: 0})
+
+            for atom_2_id in atom_2_ids:
+                mbo = mayer_bond_orders\
+                    .get_mayer_bond_order_between_atoms(atom_1_id,
+                                                        atom_2_id)
+                if (mbo > min_mayer_bond_order
+                        and mbo < max_mayer_bond_order):
+
+                    for atom_3_id in atom_1_ids:
+                        mbo = mayer_bond_orders\
+                            .get_mayer_bond_order_between_atoms(atom_2_id,
+                                                                atom_3_id)
+                        if (mbo > min_mayer_bond_order
+                                and mbo < max_mayer_bond_order
+                                and atom_3_id != atom_1_id):
+
+                            self.q_i_units[atom_1_id] += 1
+                            break
+
+                        else:
+                            continue
+
+        return self
+
+    def calculate_statistics(self) -> type:
+        # TODO
+        pass
+
+    def to_string(self) -> str:
+        # TODO
+        pass

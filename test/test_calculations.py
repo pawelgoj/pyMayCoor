@@ -1,6 +1,7 @@
 import pytest
 from main.BondOrderCalculations.calculations import Histogram
 from main.BondOrderCalculations.calculations import CoordinationNumbers
+from main.BondOrderCalculations.calculations import QiUnits
 
 from pprint import pprint
 
@@ -100,3 +101,17 @@ class TestCoordinationNumbers:
 
         assert result.statistics == {2: pytest.approx(33.3, 0.1),
                                      1: pytest.approx(66.6, 0.1)}
+
+
+class TestQiUnits:
+
+    def test_calculate(self):
+        mayer_bond_orders = MayerBondOrders()
+
+        result = QiUnits.calculate(mayer_bond_orders,
+                                   'P', 'O', 1.7, 0.06, 'P-O')
+
+        assert (result.q_i_units == {1: 3, 2: 2, 3: 2}
+                and result.id_of_bond == 'P-O'
+                and result.atom_symbol_1 == 'P'
+                and result.atom_symbol_2 == 'O')
