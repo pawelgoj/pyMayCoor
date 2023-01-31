@@ -115,3 +115,13 @@ class TestQiUnits:
                 and result.id_of_bond == 'P-O'
                 and result.atom_symbol_1 == 'P'
                 and result.atom_symbol_2 == 'O')
+
+    def test_calculate_statistics(self):
+        mayer_bond_orders = MayerBondOrders()
+
+        result = QiUnits.calculate(mayer_bond_orders,
+                                   'P', 'O', 1.7, 0.06, 'P-O')\
+            .calculate_statistics()
+
+        assert result.statistics == {2: pytest.approx(66.6, 0.1),
+                                     3: pytest.approx(33.3, 0.1)}

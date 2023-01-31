@@ -230,6 +230,7 @@ class QiUnits(Calculations):
     atom_symbol_1: str
     atom_symbol_2: str
     q_i_units: dict[int, int] = {}
+    statistics: dict[int: float] | None = None
 
     @classmethod
     def calculate(cls, mayer_bond_orders: MayerBondOrders,
@@ -274,8 +275,29 @@ class QiUnits(Calculations):
         return self
 
     def calculate_statistics(self) -> type:
-        # TODO
-        pass
+
+        unique_values = []
+        for value in self.q_i_units.values():
+            if value not in unique_values:
+                unique_values.append(value)
+
+        quantities = {}
+        for unique in unique_values:
+            quantities.update({unique: 0})
+            for value in self.q_i_units.values():
+                if value == unique:
+                    quantities[unique] += 1
+                else:
+                    continue
+
+        quantity_of_all_Q_i = len(self.q_i_units)
+
+        self.statistics = {}
+
+        for key, value in quantities.items():
+            self.statistics.update({key: (value/quantity_of_all_Q_i) * 100})
+
+        return self
 
     def to_string(self) -> str:
         # TODO
