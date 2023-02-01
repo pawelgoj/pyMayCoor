@@ -207,3 +207,49 @@ class TestConnections:
                                                           bonds={1: 0.5,
                                                                  2: 0.1,
                                                                  3: 0.05})]})
+
+    def test_to_string(self):
+        list_of_pair_of_atoms = [
+            PairOfAtoms('P', 'O', 0, 1.7, 'P-O'),
+            PairOfAtoms('P', 'Fe', 0, 'INF', 'P-Fe'),
+            PairOfAtoms('Fe', 'O', 0, 'INF', 'Fe-O')
+        ]
+        mayer_bond_orders = MayerBondOrders()
+        string = Connections.calculate(mayer_bond_orders, 'P',
+                                       list_of_pair_of_atoms)\
+            .to_string()
+
+        assert string == "Connections of: P\n\n"\
+                        + "Central atom id: 1\n"\
+                        + "Bond id: P-O (second atom: O)\n"\
+                        + "quantity: 3\n"\
+                        + "Bonds:\n"\
+                        + "id: 1 2 3 \n"\
+                        + "mbo: 0.5 0.5 0.4 \n\n"\
+                        + "Bond id: P-Fe (second atom: Fe)\n"\
+                        + "quantity: 3\n"\
+                        + "Bonds:\n"\
+                        + "id: 1 2 3 \n"\
+                        + "mbo: 0.5 0.5 0.4 \n\n"\
+                        + "Central atom id: 2\n"\
+                        + "Bond id: P-O (second atom: O)\n"\
+                        + "quantity: 3\n"\
+                        + "Bonds:\n"\
+                        + "id: 1 2 3 \n"\
+                        + "mbo: 0.5 0.1 0.05 \n\n"\
+                        + "Bond id: P-Fe (second atom: Fe)\n"\
+                        + "quantity: 3\n"\
+                        + "Bonds:\n"\
+                        + "id: 1 2 3 \n"\
+                        + "mbo: 0.5 0.1 0.05 \n\n"\
+                        + "Central atom id: 3\n"\
+                        + "Bond id: P-O (second atom: O)\n"\
+                        + "quantity: 3\n"\
+                        + "Bonds:\n"\
+                        + "id: 1 2 3 \n"\
+                        + "mbo: 0.5 0.1 0.05 \n\n"\
+                        + "Bond id: P-Fe (second atom: Fe)\n"\
+                        + "quantity: 3\n"\
+                        + "Bonds:\n"\
+                        + "id: 1 2 3 \n"\
+                        + "mbo: 0.5 0.1 0.05 \n\n"\

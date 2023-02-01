@@ -426,8 +426,29 @@ class Connections(Calculations):
         return self
 
     def to_string(self) -> str:
-        # TODO
-        pass
+        string = 'Connections of: ' + str(self.atom_symbol_1) + '\n\n'
+
+        for atom_1_id, list_of_connections in self.connections.items():
+            string = string + "Central atom id: " + str(atom_1_id) + "\n"
+
+            for connection in list_of_connections:
+
+                string = string + f"Bond id: {str(connection.bond_id)} "\
+                    + f"(second atom: {str(connection.atom_symbol_2)})\n"\
+                    + f"quantity: {connection.quantity}\n"\
+                    + "Bonds:\n"
+
+                string_id_line = "id: "
+                string_mbo_line = "mbo: "
+
+                for id, mbo in connection.bonds.items():
+                    string_id_line += f"{id} "
+                    string_mbo_line += f"{round(mbo, 3)} "
+
+                string = string + string_id_line + '\n'\
+                    + string_mbo_line + '\n\n'
+
+        return string
 
 
 class Populations(Calculations):
