@@ -332,6 +332,7 @@ class CoordinatesOfAtoms(Constants):
     ids: list[atom_id] = []
     _coordinates: dict[atom_id, tuple[x, y, z]] = {}
     atom_symbols: dict[atom_id, str] = {}
+    _unit_cell: UnitCell | None = None
 
     def __init__(self, atom_coordinates_table: list[tuple[atom_id, str, x, y,
                                                           z]] = []) -> None:
@@ -369,8 +370,8 @@ class CoordinatesOfAtoms(Constants):
 
     def get_atom_coordinates_converted_in_angstrom(self, id: int)\
             -> tuple[x, y, z]:
-        """Get atom coordinates converted in angstroms if they were stored as 
-        Bohr units.
+        """Get atom coordinates converted in angstroms if they were stored as
+        Bohr units. Not change stored values.
 
         Example:
         >>> coordinates_of_atoms = CoordinatesOfAtoms()
@@ -397,6 +398,26 @@ class CoordinatesOfAtoms(Constants):
 
         return coordinates
 
+    def convert_stored_coordinates_to_angstroms(self) -> None:
+        """Converts stored coordinates from bohr units to angstroms.
+
+        Example:
+        >>> coordinates_of_atoms = CoordinatesOfAtoms()
+        >>> coordinates_of_atoms.add_new_atom(1, 'P', (1, 1, 1))
+        >>> coordinates_of_atoms.add_new_atom(2, 'P', (0, 0, 0))
+        >>> coordinates_of_atoms.convert_stored_coordinates_to_angstroms()
+        >>> coordinates_of_atoms.get_atom_coordinates(1)
+        (0.52917720859, 0.52917720859, 0.52917720859)
+
+        """
+
+        for id, coord in self._coordinates.items():
+            self._coordinates[id] = (
+                self._CONSTANT_TO_CALCULATE_ANGSTROMS_FROM_BOHR * coord[0],
+                self._CONSTANT_TO_CALCULATE_ANGSTROMS_FROM_BOHR * coord[1],
+                self._CONSTANT_TO_CALCULATE_ANGSTROMS_FROM_BOHR * coord[2],
+            )
+
     def get_atom_symbol(self, id: int) -> str | None:
         """Get atom symbol
 
@@ -414,6 +435,27 @@ class CoordinatesOfAtoms(Constants):
     def coordinates(self) -> tuple[x, y, z]:
         coordinates = [value for value in self._coordinates.values()]
         return coordinates
+
+    def add_unit_cell(self, unit_cell):
+        self._unit_cell = unit_cell
+
+    def remove_unit_cell(self):
+        self._unit_cell = None
+
+    def get_distance_between_atoms(self, atom_id_1, atom_id_2) -> float | None:
+
+        if type(self.unit_cell) is not UnitCell:
+            raise Exception("Unit cell not added or wrong type of"
+                            + " unit_cell, use .add_unit_cell(self, unit_cell) method!!!")
+
+        atom_coord_1 = self._coordinates.get(atom_id_1, None)
+        atom_coord_2 = self._coordinates.get(atom_id_2, None)
+
+        if atom_coord_1 is None or atom_coord_2 is None:
+            return None
+
+        length = self._unit_cell.lattice_vectors[0]
+        # TODO
 
 
 class InputData(ABC):
