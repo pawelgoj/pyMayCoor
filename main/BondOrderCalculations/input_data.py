@@ -7,6 +7,8 @@ from dataclasses import dataclass
 from math import degrees
 from math import acos
 from enum import Enum
+import numpy as np
+from numpy.typing import NDArray
 
 
 class LoadedData(Enum):
@@ -18,7 +20,7 @@ class LoadedData(Enum):
 
 
 class Constants:
-    """This class holds constants used in calculations in module 
+    """This class holds constants used in calculations in module
     **input_data**."""
     _CONSTANT_TO_CALCULATE_ANGSTROMS_FROM_BOHR: float = 0.52917720859
     """The length of the bohr radius in angstroms."""
@@ -436,15 +438,24 @@ class CoordinatesOfAtoms(Constants):
         coordinates = [value for value in self._coordinates.values()]
         return coordinates
 
-    def add_unit_cell(self, unit_cell):
+    def add_unit_cell(self, unit_cell: UnitCell):
         self._unit_cell = unit_cell
 
     def remove_unit_cell(self):
         self._unit_cell = None
 
-    def get_distance_between_atoms(self, atom_id_1, atom_id_2) -> float | None:
+    def get_distance_between_atoms(self, atom_id_1: int, atom_id_2: int)\
+            -> float | None:
+        """ Calculate distance between two atoms.
 
-        if type(self.unit_cell) is not UnitCell:
+        Args:
+            atom_id_1 (int): id of first atom
+             atom_id_2 (int): id of second atom
+        Returns:
+            float | None: Distance in angstroms or Bohr units.
+        """
+
+        if type(self._unit_cell) is not UnitCell:
             raise Exception("Unit cell not added or wrong type of"
                             + " unit_cell, use .add_unit_cell(self, unit_cell) method!!!")
 
@@ -453,9 +464,118 @@ class CoordinatesOfAtoms(Constants):
 
         if atom_coord_1 is None or atom_coord_2 is None:
             return None
+        else:
+            atom_coord_1 = np.array(atom_coord_1)
+            atom_coord_2 = np.array(atom_coord_2)
 
-        length = self._unit_cell.lattice_vectors[0]
-        # TODO
+        vector_between_atoms = atom_coord_1 - atom_coord_2
+
+        length = np.linalg.norm(vector_between_atoms)
+
+        lattice_vectors_list = []
+        for vector in self._unit_cell.lattice_vectors:
+            lattice_vectors_list.append(np.array(vector))
+
+        def get_lower_distance(length, vector_1: NDArray,
+                               vector_2: NDArray):
+            vector_between_atoms = vector_1 - vector_2
+
+            new_length = np.linalg.norm(vector_between_atoms)
+
+            if new_length < length:
+                length = new_length
+
+            return length
+
+        for vector in lattice_vectors_list:
+            atom_2_coord_in_neighboring_unit = atom_coord_2 + vector
+
+            length = get_lower_distance(length, atom_coord_1,
+                                        atom_2_coord_in_neighboring_unit)
+
+        for vector in lattice_vectors_list:
+            atom_2_coord_in_neighboring_unit = atom_coord_2 - vector
+
+            length = get_lower_distance(length, atom_coord_1,
+                                        atom_2_coord_in_neighboring_unit)
+
+        for i in range(3):
+            for j in range(i + 1, 3):
+                translation = lattice_vectors_list[i] + lattice_vectors_list[j]
+                atom_2_coord_in_neighboring_unit = atom_coord_2 + translation
+
+                length = get_lower_distance(length, atom_coord_1,
+                                            atom_2_coord_in_neighboring_unit)
+
+                atom_2_coord_in_neighboring_unit = atom_coord_2 - translation
+
+                length = get_lower_distance(length, atom_coord_1,
+                                            atom_2_coord_in_neighboring_unit)
+
+                translation = lattice_vectors_list[i] - lattice_vectors_list[j]
+                atom_2_coord_in_neighboring_unit = atom_coord_2 + translation
+
+                length = get_lower_distance(length, atom_coord_1,
+                                            atom_2_coord_in_neighboring_unit)
+
+                atom_2_coord_in_neighboring_unit = atom_coord_2 - translation
+
+                length = get_lower_distance(length, atom_coord_1,
+                                            atom_2_coord_in_neighboring_unit)
+
+        translation = lattice_vectors_list[0] + lattice_vectors_list[1]\
+            + lattice_vectors_list[2]
+
+        atom_2_coord_in_neighboring_unit = atom_coord_2 + translation
+
+        length = get_lower_distance(length, atom_coord_1,
+                                    atom_2_coord_in_neighboring_unit)
+
+        atom_2_coord_in_neighboring_unit = atom_coord_2 - translation
+
+        length = get_lower_distance(length, atom_coord_1,
+                                    atom_2_coord_in_neighboring_unit)
+
+        translation = lattice_vectors_list[0] - lattice_vectors_list[1]\
+            + lattice_vectors_list[2]
+
+        atom_2_coord_in_neighboring_unit = atom_coord_2 + translation
+
+        length = get_lower_distance(length, atom_coord_1,
+                                    atom_2_coord_in_neighboring_unit)
+
+        atom_2_coord_in_neighboring_unit = atom_coord_2 - translation
+
+        length = get_lower_distance(length, atom_coord_1,
+                                    atom_2_coord_in_neighboring_unit)
+
+        translation = lattice_vectors_list[0] - lattice_vectors_list[1]\
+            - lattice_vectors_list[2]
+
+        atom_2_coord_in_neighboring_unit = atom_coord_2 + translation
+
+        length = get_lower_distance(length, atom_coord_1,
+                                    atom_2_coord_in_neighboring_unit)
+
+        atom_2_coord_in_neighboring_unit = atom_coord_2 - translation
+
+        length = get_lower_distance(length, atom_coord_1,
+                                    atom_2_coord_in_neighboring_unit)
+
+        translation = lattice_vectors_list[0] + lattice_vectors_list[1]\
+            - lattice_vectors_list[2]
+
+        atom_2_coord_in_neighboring_unit = atom_coord_2 + translation
+
+        length = get_lower_distance(length, atom_coord_1,
+                                    atom_2_coord_in_neighboring_unit)
+
+        atom_2_coord_in_neighboring_unit = atom_coord_2 - translation
+
+        length = get_lower_distance(length, atom_coord_1,
+                                    atom_2_coord_in_neighboring_unit)
+
+        return length
 
 
 class InputData(ABC):
@@ -490,7 +610,7 @@ class InputData(ABC):
         self.CoordinatesOfAtoms = CoordinatesOfAtoms
         self.LoadedData = LoadedData
 
-    @abstractmethod
+    @ abstractmethod
     def load_input_data(self, path: str, *args) -> None:
         """Load input data from file.
 
@@ -502,7 +622,7 @@ class InputData(ABC):
         """
         pass
 
-    @staticmethod
+    @ staticmethod
     def check_is_correct_file(data_in_file: str, fingerprint: str) -> bool:
         if fingerprint in data_in_file:
             return True
@@ -600,7 +720,7 @@ class InputDataFromCPMD(InputData):
 
         return populations
 
-    @classmethod
+    @ classmethod
     def _add_populations_attributes(cls, populations: Populations,
                                     splited: list, labels: list[str])\
             -> Populations:
@@ -649,7 +769,7 @@ class InputDataFromCPMD(InputData):
                     )
         return coordinates_of_atoms
 
-    @classmethod
+    @ classmethod
     def _add_coordinations_attributes(cls, coordinates_of_atoms:
                                       CoordinatesOfAtoms,
                                       splited: list, labels: list[str])\
@@ -671,7 +791,7 @@ class InputDataFromCPMD(InputData):
         coordinates_of_atoms.add_new_atom(atom_id, atom_symbol, (x, y, z))
         return coordinates_of_atoms
 
-    @staticmethod
+    @ staticmethod
     def _get_rows_of_data_from_file(file: str,
                                     finger_print_begin: str, finger_print_end)\
             -> list[str]:
@@ -757,7 +877,7 @@ class InputDataFromCPMD(InputData):
                 + "must be met ")
         return mayer_bond_order
 
-    @classmethod
+    @ classmethod
     def _load_unit_cell(cls, file: str):
         vectors = []
         for item in cls._fingerprints_unit_cell:

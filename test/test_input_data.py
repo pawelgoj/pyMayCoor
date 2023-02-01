@@ -136,3 +136,32 @@ class TestMayerBondOrders:
         result = mayer_bond_order.get_atoms_ids('Fe')
         # Then
         assert set(result) == {1, 2}
+
+
+class TestCoordinatesOfAtoms:
+    @pytest.mark.usefixtures("path_to_input_file")
+    def test_get_distance_between_atoms(self, path_to_input_file):
+        input_data = InputDataFromCPMD()
+
+        from main.BondOrderCalculations.input_data import LoadedData
+
+        input_data.load_input_data(path_to_input_file,
+                                   LoadedData.UnitCell,
+                                   LoadedData.CoordinatesOfAtoms)
+
+        unit_cell = input_data.return_data(LoadedData.UnitCell)
+        coordinates_of_atoms = input_data.return_data(
+            LoadedData.CoordinatesOfAtoms)
+
+        coordinates_of_atoms.convert_stored_coordinates_to_angstroms()
+        unit_cell.convert_cell_data_to_angstroms()
+        coordinates_of_atoms.add_unit_cell(unit_cell)
+
+        results = []
+        for i in range(1, 8, 2):
+            for j in range(1, 8, 2):
+                results.append(round(coordinates_of_atoms
+                               .get_distance_between_atoms(i, j), 0))
+
+        assert results == [0.0, 8.0, 5.0, 9.0, 8.0, 0.0, 8.0, 9.0, 5.0,
+                           8.0, 0.0, 7.0, 9.0, 9.0, 7.0, 0.0]
