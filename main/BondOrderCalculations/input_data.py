@@ -610,7 +610,7 @@ class InputData(ABC):
         self.CoordinatesOfAtoms = CoordinatesOfAtoms
         self.LoadedData = LoadedData
 
-    @ abstractmethod
+    @abstractmethod
     def load_input_data(self, path: str, *args) -> None:
         """Load input data from file.
 
@@ -622,7 +622,7 @@ class InputData(ABC):
         """
         pass
 
-    @ staticmethod
+    @staticmethod
     def check_is_correct_file(data_in_file: str, fingerprint: str) -> bool:
         if fingerprint in data_in_file:
             return True
@@ -720,7 +720,7 @@ class InputDataFromCPMD(InputData):
 
         return populations
 
-    @ classmethod
+    @classmethod
     def _add_populations_attributes(cls, populations: Populations,
                                     splited: list, labels: list[str])\
             -> Populations:
@@ -769,7 +769,7 @@ class InputDataFromCPMD(InputData):
                     )
         return coordinates_of_atoms
 
-    @ classmethod
+    @classmethod
     def _add_coordinations_attributes(cls, coordinates_of_atoms:
                                       CoordinatesOfAtoms,
                                       splited: list, labels: list[str])\
@@ -791,7 +791,7 @@ class InputDataFromCPMD(InputData):
         coordinates_of_atoms.add_new_atom(atom_id, atom_symbol, (x, y, z))
         return coordinates_of_atoms
 
-    @ staticmethod
+    @staticmethod
     def _get_rows_of_data_from_file(file: str,
                                     finger_print_begin: str, finger_print_end)\
             -> list[str]:
@@ -877,7 +877,7 @@ class InputDataFromCPMD(InputData):
                 + "must be met ")
         return mayer_bond_order
 
-    @ classmethod
+    @classmethod
     def _load_unit_cell(cls, file: str):
         vectors = []
         for item in cls._fingerprints_unit_cell:
