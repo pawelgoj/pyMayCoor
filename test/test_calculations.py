@@ -288,4 +288,22 @@ class TestBondLength:
                                       1.7, 0.2, 'P-O')
 
         assert (len(result.lengths) == 56 and len(result.mbos) == 56
-                and len(result.lengths[4]) == 4 and len(result.lengths[4]) == 4)
+                and len(result.lengths[4]) == 4
+                and len(result.lengths[4]) == 4)
+
+    def test_to_string(self):
+        bond_length = BondLength()
+        bond_length.id_of_bond = 'P-O'
+        bond_length.atom_symbol_1 = 'P'
+        bond_length.atom_symbol_2 = 'O'
+        bond_length.lengths = {1: {3: 1.5, 4: 1.2}, 2: {3: 1.5, 4: 1.2}}
+        bond_length.mbos = {1: {3: 0.5, 4: 0.2}, 2: {3: 0.5, 4: 0.2}}
+
+        result = bond_length.to_string()
+
+        assert result == 'Bond lengths of bond id: P-O (atoms: P, O):\n\n'\
+            + 'id_1 id_2 length mbo\n'\
+            + '1 3 1.5 0.5\n'\
+            + '1 4 1.2 0.2\n'\
+            + '2 3 1.5 0.5\n'\
+            + '2 4 1.2 0.2\n\n'

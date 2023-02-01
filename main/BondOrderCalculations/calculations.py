@@ -535,5 +535,16 @@ class BondLength(Calculations):
         return self
 
     def to_string(self) -> str:
-        # TODO
-        pass
+        string = f'Bond lengths of bond id: {self.id_of_bond} '\
+            + f'(atoms: {self.atom_symbol_1}, {self.atom_symbol_2}):\n\n'\
+            + 'id_1 id_2 length mbo\n'
+
+        for key_1 in self.lengths.keys():
+            for key_2 in self.lengths[key_1].keys():
+                string = string + f'{key_1} {key_2} '\
+                    + f'{self.lengths[key_1][key_2]} '\
+                    + f'{self.mbos[key_1][key_2]}\n'
+
+        string += '\n'
+
+        return string
