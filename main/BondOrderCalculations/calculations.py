@@ -358,8 +358,8 @@ class Connection:
 class Connections(Calculations):
     atom_1_id = int
 
-    connection: type = Connection
-    connections: dict[atom_1_id: list[connection]]
+    Connection: type = Connection
+    connections: dict[atom_1_id: list[Connection]]
     atom_symbol_1: str
 
     @ classmethod

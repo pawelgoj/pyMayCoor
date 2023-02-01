@@ -2,7 +2,9 @@ import pytest
 from main.BondOrderCalculations.calculations import Histogram
 from main.BondOrderCalculations.calculations import CoordinationNumbers
 from main.BondOrderCalculations.calculations import QiUnits
-
+from main.BondOrderCalculations.calculations import Connections
+from main.BondOrderCalculations.calculations import Connection
+from dataclasses import dataclass
 from pprint import pprint
 
 
@@ -29,7 +31,7 @@ class TestHistogram:
 
 
 class MayerBondOrders:
-    """Mock class"""
+    """Mock class."""
     mbo = {1: {1: 0.5, 2: 0.5, 3: 0.4},
            2: {1: 0.5, 2: 0.1, 3: 0.05},
            3: {1: 0.5, 2: 0.1, 3: 0.05}}
@@ -144,3 +146,64 @@ class TestQiUnits:
             + "Q_i[i] [%]\n"\
             + "3 33.333\n"\
             + "2 66.667\n\n"
+
+
+@dataclass
+class PairOfAtoms:
+    """Mock of Pair of atoms"""
+
+    atom_1: str
+    atom_2: str
+    MBO_min: float
+    MBO_max: float | str
+    id: str
+
+
+class TestConnections:
+    def test_calculate(self):
+        list_of_pair_of_atoms = [
+            PairOfAtoms('P', 'O', 0, 1.7, 'P-O'),
+            PairOfAtoms('P', 'Fe', 0, 'INF', 'P-Fe'),
+            PairOfAtoms('Fe', 'O', 0, 'INF', 'Fe-O')
+        ]
+        mayer_bond_orders = MayerBondOrders()
+        result = Connections.calculate(mayer_bond_orders, 'P',
+                                       list_of_pair_of_atoms)
+
+        assert (result.atom_symbol_1 == "P"
+                and result.connections == {1: [Connection(atom_symbol_2='O',
+                                                          bond_id='P-O',
+                                                          quantity=3,
+                                                          bonds={1: 0.5,
+                                                                 2: 0.5,
+                                                                 3: 0.4}),
+                                               Connection(atom_symbol_2='Fe',
+                                                          bond_id='P-Fe',
+                                                          quantity=3,
+                                                          bonds={1: 0.5,
+                                                                 2: 0.5,
+                                                                 3: 0.4})],
+                                           2: [Connection(atom_symbol_2='O',
+                                                          bond_id='P-O',
+                                                          quantity=3,
+                                                          bonds={1: 0.5,
+                                                                 2: 0.1,
+                                                                 3: 0.05}),
+                                               Connection(atom_symbol_2='Fe',
+                                                          bond_id='P-Fe',
+                                                          quantity=3,
+                                                          bonds={1: 0.5,
+                                                                 2: 0.1,
+                                                                 3: 0.05})],
+                                           3: [Connection(atom_symbol_2='O',
+                                                          bond_id='P-O',
+                                                          quantity=3,
+                                                          bonds={1: 0.5,
+                                                                 2: 0.1,
+                                                                 3: 0.05}),
+                                               Connection(atom_symbol_2='Fe',
+                                                          bond_id='P-Fe',
+                                                          quantity=3,
+                                                          bonds={1: 0.5,
+                                                                 2: 0.1,
+                                                                 3: 0.05})]})
