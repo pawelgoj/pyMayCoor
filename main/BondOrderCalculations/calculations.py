@@ -468,17 +468,71 @@ class Populations(Calculations):
 
 
 class BondLength(Calculations):
+    atom_id_1 = int
+    atom_id_2 = int
+
+    id_of_bond: str
+    atom_symbol_1: str
+    atom_symbol_2: str
+    lengths: dict[atom_id_1: dict[atom_id_2: float]]
+    mbos: dict[atom_id_1: dict[atom_id_2: float]]
+
     @ classmethod
     def calculate(cls,
                   mayer_bond_orders: MayerBondOrders,
                   coordinates_of_atoms: CoordinatesOfAtoms,
                   atom_symbol_1: str,
                   atom_symbol_2: str,
-                  max_mayer_bond_order: float,
+                  max_mayer_bond_order: float | str,
                   min_mayer_bond_order: float,
                   id_of_bond: str) -> type:
-        # TODO
-        pass
+
+        if max_mayer_bond_order != "INF"\
+                and not (type(max_mayer_bond_order) is float):
+            raise ValueError("Wrong type of max_mayer_bond_order!!!!")
+        elif max_mayer_bond_order == "INF":
+            inf = True
+            max_mayer_bond_order = -1
+            # -1 to prevent exception
+        else:
+            inf = False
+
+        atom_1_ids = mayer_bond_orders.get_atoms_ids(atom_symbol_1)
+        atom_2_ids = mayer_bond_orders.get_atoms_ids(atom_symbol_2)
+
+        self = cls()
+        self.id_of_bond = id_of_bond
+        self.atom_symbol_1 = atom_symbol_1
+        self.atom_symbol_2 = atom_symbol_2
+        self.lengths = {}
+        self.mbos = {}
+
+        for atom_1_id in atom_1_ids:
+            self.lengths.update({atom_1_id: {}})
+            self.mbos.update({atom_1_id: {}})
+            for atom_2_id in atom_2_ids:
+                mbo = mayer_bond_orders\
+                    .get_mayer_bond_order_between_atoms(atom_1_id,
+                                                        atom_2_id)
+                length = coordinates_of_atoms\
+                    .get_distance_between_atoms(atom_1_id, atom_2_id)
+
+                if mbo > min_mayer_bond_order and (
+                    mbo < max_mayer_bond_order
+                    or max_mayer_bond_order == 'INF'
+                ):
+                    self.lengths[atom_1_id].update({atom_2_id: length})
+                    self.mbos[atom_1_id].update({atom_2_id: mbo})
+                else:
+                    continue
+
+        # remove empty keys.
+        for key in self.lengths.keys():
+            if self.lengths[key] == {}:
+                del self.lengths[key]
+                del self.mbos[key]
+
+        return self
 
     def to_string(self) -> str:
         # TODO

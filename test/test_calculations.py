@@ -4,6 +4,10 @@ from main.BondOrderCalculations.calculations import CoordinationNumbers
 from main.BondOrderCalculations.calculations import QiUnits
 from main.BondOrderCalculations.calculations import Connections
 from main.BondOrderCalculations.calculations import Connection
+from main.BondOrderCalculations.calculations import BondLength
+
+from main.BondOrderCalculations.input_data import InputDataFromCPMD
+
 from dataclasses import dataclass
 from pprint import pprint
 
@@ -220,36 +224,68 @@ class TestConnections:
             .to_string()
 
         assert string == "Connections of: P\n\n"\
-                        + "Central atom id: 1\n"\
-                        + "Bond id: P-O (second atom: O)\n"\
-                        + "quantity: 3\n"\
-                        + "Bonds:\n"\
-                        + "id: 1 2 3 \n"\
-                        + "mbo: 0.5 0.5 0.4 \n\n"\
-                        + "Bond id: P-Fe (second atom: Fe)\n"\
-                        + "quantity: 3\n"\
-                        + "Bonds:\n"\
-                        + "id: 1 2 3 \n"\
-                        + "mbo: 0.5 0.5 0.4 \n\n"\
-                        + "Central atom id: 2\n"\
-                        + "Bond id: P-O (second atom: O)\n"\
-                        + "quantity: 3\n"\
-                        + "Bonds:\n"\
-                        + "id: 1 2 3 \n"\
-                        + "mbo: 0.5 0.1 0.05 \n\n"\
-                        + "Bond id: P-Fe (second atom: Fe)\n"\
-                        + "quantity: 3\n"\
-                        + "Bonds:\n"\
-                        + "id: 1 2 3 \n"\
-                        + "mbo: 0.5 0.1 0.05 \n\n"\
-                        + "Central atom id: 3\n"\
-                        + "Bond id: P-O (second atom: O)\n"\
-                        + "quantity: 3\n"\
-                        + "Bonds:\n"\
-                        + "id: 1 2 3 \n"\
-                        + "mbo: 0.5 0.1 0.05 \n\n"\
-                        + "Bond id: P-Fe (second atom: Fe)\n"\
-                        + "quantity: 3\n"\
-                        + "Bonds:\n"\
-                        + "id: 1 2 3 \n"\
-                        + "mbo: 0.5 0.1 0.05 \n\n"\
+            + "Central atom id: 1\n"\
+            + "Bond id: P-O (second atom: O)\n"\
+            + "quantity: 3\n"\
+            + "Bonds:\n"\
+            + "id: 1 2 3 \n"\
+            + "mbo: 0.5 0.5 0.4 \n\n"\
+            + "Bond id: P-Fe (second atom: Fe)\n"\
+            + "quantity: 3\n"\
+            + "Bonds:\n"\
+            + "id: 1 2 3 \n"\
+            + "mbo: 0.5 0.5 0.4 \n\n"\
+            + "Central atom id: 2\n"\
+            + "Bond id: P-O (second atom: O)\n"\
+            + "quantity: 3\n"\
+            + "Bonds:\n"\
+            + "id: 1 2 3 \n"\
+            + "mbo: 0.5 0.1 0.05 \n\n"\
+            + "Bond id: P-Fe (second atom: Fe)\n"\
+            + "quantity: 3\n"\
+            + "Bonds:\n"\
+            + "id: 1 2 3 \n"\
+            + "mbo: 0.5 0.1 0.05 \n\n"\
+            + "Central atom id: 3\n"\
+            + "Bond id: P-O (second atom: O)\n"\
+            + "quantity: 3\n"\
+            + "Bonds:\n"\
+            + "id: 1 2 3 \n"\
+            + "mbo: 0.5 0.1 0.05 \n\n"\
+            + "Bond id: P-Fe (second atom: Fe)\n"\
+            + "quantity: 3\n"\
+            + "Bonds:\n"\
+            + "id: 1 2 3 \n"\
+            + "mbo: 0.5 0.1 0.05 \n\n"\
+
+
+
+class TestBondLength:
+
+    @pytest.mark.usefixtures("path_to_input_file")
+    def test_calculate(self, path_to_input_file):
+        input_data = InputDataFromCPMD()
+
+        from main.BondOrderCalculations.input_data import LoadedData
+
+        input_data.load_input_data(path_to_input_file,
+                                   LoadedData.UnitCell,
+                                   LoadedData.CoordinatesOfAtoms,
+                                   LoadedData.MayerBondOrders)
+
+        unit_cell = input_data.return_data(LoadedData.UnitCell)
+        coordinates_of_atoms = input_data.return_data(
+            LoadedData.CoordinatesOfAtoms)
+        mayer_bond_orders = input_data.return_data(
+            LoadedData.MayerBondOrders)
+
+        coordinates_of_atoms.convert_stored_coordinates_to_angstroms()
+        unit_cell.convert_cell_data_to_angstroms()
+        coordinates_of_atoms.add_unit_cell(unit_cell)
+
+        result = BondLength.calculate(mayer_bond_orders,
+                                      coordinates_of_atoms, 'P', 'O',
+                                      1.7, 0.2, 'P-O')
+
+        assert (len(result.lengths) == 56 and len(result.mbos) == 56
+                and len(result.lengths[4]) == 4 and len(result.lengths[4]) == 4)
