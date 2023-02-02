@@ -472,8 +472,14 @@ class Covalence(Calculations):
         return self
 
     def to_string(self) -> str:
-        # TODO
-        pass
+        string = f'Covalence of {self.atom_symbol}.\n\n'\
+            + 'id COV\n'
+
+        for id, value in self.covalence.items():
+            string = string + f'{id} {value}\n'
+        string += '\n'
+
+        return string
 
 
 class BondLength(Calculations):

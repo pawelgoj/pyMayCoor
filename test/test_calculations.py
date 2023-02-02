@@ -321,3 +321,14 @@ class TestCovalence:
 
         assert covalence.covalence == {1: 1.4, 2: 1.4, 3: 1.4}\
             and covalence.atom_symbol == 'P'
+
+    def test_to_string(self):
+        mock_mayer_bond_orders = MayerBondOrders()
+        string = Covalence.calculate(mock_mayer_bond_orders, 'P')\
+            .to_string()
+
+        assert string == 'Covalence of P.\n\n'\
+            + 'id COV\n'\
+            + '1 1.4\n'\
+            + '2 1.4\n'\
+            + '3 1.4\n\n'
