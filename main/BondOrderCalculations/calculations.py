@@ -452,16 +452,24 @@ class Connections(Calculations):
         return string
 
 
-class Populations(Calculations):
+class Covalence(Calculations):
+    covalence: dict[int, float]
+    atom_symbol: str
+
     @ classmethod
     def calculate(cls, mayer_bond_orders: MayerBondOrders,
-                  atom_symbol_1: str,
-                  atom_symbol_2: str,
-                  max_mayer_bond_order: float,
-                  min_mayer_bond_order: float,
-                  id_of_bond: str) -> type:
-        # TODO
-        pass
+                  atom_symbol: str) -> type:
+
+        atom_ids = mayer_bond_orders.get_atoms_ids(atom_symbol)
+
+        self = cls()
+        self.atom_symbol = atom_symbol
+        self.covalence = {}
+        for id in atom_ids:
+            mbos = mayer_bond_orders.get_all_mayer_bond_orders_of_atom(id)
+            self.covalence.update({id: sum(mbos)})
+
+        return self
 
     def to_string(self) -> str:
         # TODO

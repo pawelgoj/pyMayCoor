@@ -1,10 +1,12 @@
 import pytest
+
 from main.BondOrderCalculations.calculations import Histogram
 from main.BondOrderCalculations.calculations import CoordinationNumbers
 from main.BondOrderCalculations.calculations import QiUnits
 from main.BondOrderCalculations.calculations import Connections
 from main.BondOrderCalculations.calculations import Connection
 from main.BondOrderCalculations.calculations import BondLength
+from main.BondOrderCalculations.calculations import Covalence
 
 from main.BondOrderCalculations.input_data import InputDataFromCPMD
 
@@ -46,6 +48,9 @@ class MayerBondOrders:
 
     def get_atoms_ids(self, atom_symbol_1):
         return [1, 2, 3]
+
+    def get_all_mayer_bond_orders_of_atom(self, id):
+        return [0.5, 0.5, 0.4]
 
 
 class TestCoordinationNumbers:
@@ -307,3 +312,12 @@ class TestBondLength:
             + '1 4 1.2 0.2\n'\
             + '2 3 1.5 0.5\n'\
             + '2 4 1.2 0.2\n\n'
+
+
+class TestCovalence:
+    def test_calculate(self):
+        mock_mayer_bond_orders = MayerBondOrders()
+        covalence = Covalence.calculate(mock_mayer_bond_orders, 'P')
+
+        assert covalence.covalence == {1: 1.4, 2: 1.4, 3: 1.4}\
+            and covalence.atom_symbol == 'P'

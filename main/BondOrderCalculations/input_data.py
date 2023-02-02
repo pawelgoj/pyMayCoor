@@ -286,6 +286,18 @@ class MayerBondOrders:
         else:
             return (atom_1, atom_2)
 
+    def get_all_mayer_bond_orders_of_atom(self, atom_id) -> list[float]:
+        """Returns list of mayer bond orders of atom of given id.
+
+        Args:
+            atom_id (int): atom id.
+
+        Returns:
+            list[float]: list of mayer bond orders.
+        """
+        row = self.mayer_bond_orders[self.atom_id.index(atom_id)]
+        return row
+
     def get_mayer_bond_orders_list_between_to_atoms(self, atom_symbol_1: str,
                                                     atom_symbol_2: str
                                                     ) -> list[float]:
