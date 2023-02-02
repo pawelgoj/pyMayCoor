@@ -1,10 +1,12 @@
+__docformat__ = "google"
+"""Calculations module."""
 import numpy as np
 from typing import Callable
 from abc import ABC
 from abc import abstractmethod
-from ..BondOrderCalculations.input_data import MayerBondOrders
-from ..BondOrderCalculations.input_data import CoordinatesOfAtoms
-from ..BondOrderCalculations.settings import PairOfAtoms
+from .input_data import MayerBondOrders
+from .input_data import CoordinatesOfAtoms
+from .settings import PairOfAtoms
 
 from dataclasses import dataclass
 
@@ -22,10 +24,12 @@ class Calculations(ABC):
 
 
 class Histogram(Calculations):
-    """Methods to generate histograms"""
-    histogram: Callable = np.histogram
+    """Object represents histogram."""
+    _histogram: Callable = np.histogram
     x: list[float] = []
+    """Position of bin on x axis."""
     y: list[int] = []
+    """Quantity."""
 
     @classmethod
     def calculate(cls, values: list[float], bins: int)\
@@ -33,13 +37,14 @@ class Histogram(Calculations):
         """Calculate histogram.
 
         Args:
-            values (list[float]): list of values
-            bins (int): number of bins in histogram
+            values (list[float]): List of values.
+            bins (int): Number of bins in histogram.
 
         Returns:
-            tuple[list[float], list[int]]: (list of x, list of y)
+            **Histogram**: Histogram object.
+
         """
-        histogram = cls.histogram(values, bins)
+        histogram = cls._histogram(values, bins)
 
         y = histogram[0]
         x = histogram[1]
@@ -66,8 +71,12 @@ class Histogram(Calculations):
             -> str:
         """Make string from Histogram object
 
+        Args:
+            atom_symbol_1 (str): Symbol of atom 1.
+            atom_symbol_2 (str): Symbol of atom 2.
         Returns:
-            str:
+            **str**: String.
+
         """
         string = atom_symbol_1 + ', ' + atom_symbol_2 + '\n\n'
         string = string + 'Interval/2' + ' ' + 'Count' + '\n\n'
@@ -81,31 +90,32 @@ class Histogram(Calculations):
 
 @dataclass
 class CoordinationNumber:
+    """Object stores coordination number of given atom and
+    Mayer bond orders corresponding to the bonds in the
+    coordination polyhedron."""
     id_atom_2 = int
     mayer_bond_order = float
 
     id_atom_1: int
+    """Central atom id."""
     cn: int
-    bonds: dict[id_atom_2: mayer_bond_order]
+    """Value of coordination number."""
+    bonds: dict[id_atom_2, mayer_bond_order]
+    """Key - ligand id, value - Mayer bond order."""
 
 
 class CoordinationNumbers(Calculations):
-    """Coordination Numbers.
-
-    Generate list of CoordinationNumber objects and processes it.
-
-    Args:
-        Calculations (_type_): _description_
-
-    Returns:
-        _type_: _description_
-    """
-    mayer_bond_orders: MayerBondOrders
+    """Generate list of CoordinationNumber objects and processes it."""
     CoordinationNumber: type = CoordinationNumber
+
     list_coordinations_number: list[CoordinationNumber]
+    """List of CoordinationNumber objects."""
     id_of_bond: str
+    """Id of bond eg. 'P-O'"""
     atom_symbol: str
-    statistics: dict[int: float] | None = None
+    """Symbol of atom."""
+    statistics: dict[int, float] | None = None
+    """Key - coordination number, value - percentages."""
 
     @classmethod
     def calculate(cls, mayer_bond_orders: MayerBondOrders,
@@ -116,15 +126,15 @@ class CoordinationNumbers(Calculations):
         """Calculate CoordinationNumbers object.
 
         Args:
-            mayer_bond_orders (MayerBondOrders): MayerBondOrders object
-            atom_symbol_1 (str): central atom symbol
-            atom_symbol_2 (str): Ligand symbol
-            max_mayer_bond_order (float): max cut of radius
-            min_mayer_bond_order (float): min cut of radius
-            id_of_bond (str): id of bond
+            mayer_bond_orders (MayerBondOrders): MayerBondOrders object.
+            atom_symbol_1 (str): Central atom symbol.
+            atom_symbol_2 (str): Ligand symbol.
+            max_mayer_bond_order (float): Max cut of radius, float or 'INF" if infinite value.
+            min_mayer_bond_order (float): Min cut of radius.
+            id_of_bond (str): id of bond eg. 'P-O'
 
         Returns:
-            type: CoordinationNumbers object
+            **CoordinationNumbers**: CoordinationNumbers object
         """
 
         if max_mayer_bond_order != "INF"\
@@ -171,7 +181,7 @@ class CoordinationNumbers(Calculations):
         Statistic are in "statistics" attribute.
 
         Returns:
-            type: CoordinationNumbers object
+            CoordinationNumbers: CoordinationNumbers object
         """
         cns = self._get_list_of_coordination_numbers()
         quantities = {}
@@ -204,7 +214,7 @@ class CoordinationNumbers(Calculations):
         """Make string from CoordinationNumbers object.
 
         Returns:
-            str:
+            **str**: String.
         """
         string = "CN of " + str(self.atom_symbol) + " bond: "\
             + str(self.id_of_bond) + "\n\n"
@@ -237,19 +247,41 @@ class CoordinationNumbers(Calculations):
 
 
 class QiUnits(Calculations):
+    """Stores information about Qi units."""
     id_of_bond: str
+    """Id of bonds in Qi unit"""
     atom_symbol_1: str
+    """Symbol of central atom"""
     atom_symbol_2: str
+    """Symbol of ligands"""
     q_i_units: dict[int, int] = {}
+    """Dictionary stores values of i of Qi units. key - central atom id."""
     statistics: dict[int: float] | None = None
+    """Dictionary stores percentages of Qi units. key - value of i in Qi"""
 
     @classmethod
     def calculate(cls, mayer_bond_orders: MayerBondOrders,
                   atom_symbol_1: str,
                   atom_symbol_2: str,
-                  max_mayer_bond_order: float,
+                  max_mayer_bond_order: float | str,
                   min_mayer_bond_order: float,
                   id_of_bond: str) -> type:
+        """Calculate QiUnits object.
+
+        Args:
+            mayer_bond_orders (MayerBondOrders): Object MayerBondOrders.
+            atom_symbol_1 (str): Symbol of central atom.
+            atom_symbol_2 (str): Symbol of ligands.
+            max_mayer_bond_order (float | str): Max Mayer bond order, float or 'INF' for infinite maximum value.
+            min_mayer_bond_order (float): Min Mayer bond order.
+            id_of_bond (str): Name of bond eg. 'P-O'.
+
+        Raises:
+            ValueError: "Wrong type of max_mayer_bond_order!!!!"
+
+        Returns:
+            **QiUnits**: Returns QiUnits object.
+        """
 
         if max_mayer_bond_order != "INF"\
                 and not (type(max_mayer_bond_order) is float):
@@ -296,6 +328,11 @@ class QiUnits(Calculations):
         return self
 
     def calculate_statistics(self) -> type:
+        """Calculate statistics in object QiUnits.
+
+        Returns:
+            **QiUnits**: QiUnits object.
+        """
 
         unique_values = []
         for value in self.q_i_units.values():
@@ -321,6 +358,11 @@ class QiUnits(Calculations):
         return self
 
     def to_string(self) -> str:
+        """Generate string representing object.
+
+        Returns:
+            **str**: String.
+        """
         string = "Q_i of " + str(self.atom_symbol_1) + ' bond id: '\
             + str(self.id_of_bond) + "\n\n"
 
@@ -347,27 +389,49 @@ class QiUnits(Calculations):
 
 @dataclass
 class Connection:
+    """An object represents connections between two elements."""
     id_atom_2 = int
     mayer_bond_order = float
 
     atom_symbol_2: str
+    """Ligant atom symbol."""
     bond_id: str
+    """Bond id eg. 'P-O'"""
     quantity: int
+    """Quantity of given connections"""
     bonds: dict[id_atom_2: mayer_bond_order]
+    """key- ligand id, value-mayer bond order."""
 
 
 class Connections(Calculations):
+    """Object represents connections of given atom to nearest neighbors.
+    """
     atom_1_id = int
-
     Connection: type = Connection
+
     connections: dict[atom_1_id: list[Connection]]
+    """Key - central atom, values - list to Connection objects."""
     atom_symbol_1: str
+    """Symbol of central atom."""
 
     @ classmethod
     def calculate(cls, mayer_bond_orders: MayerBondOrders,
                   atom_symbol_1: str,
                   pairs_atoms_list: list[PairOfAtoms]
                   ) -> type:
+        """Calculate Connections object.
+
+        Args:
+            mayer_bond_orders (MayerBondOrders): MayerBondOrders object.
+            atom_symbol_1 (str): Central atom symbol.
+            pairs_atoms_list (list[PairOfAtoms]): list of PairsOfAtoms objects.
+
+        Raises:
+            ValueError: "Wrong type of max_mayer_bond_order!!!!"
+
+        Returns:
+            **Connections**: Connections object.
+        """
 
         pair_atom_list_containing_atom_1 = []
         for pair_atom in pairs_atoms_list:
@@ -427,6 +491,11 @@ class Connections(Calculations):
         return self
 
     def to_string(self) -> str:
+        """Generates string representation of object.
+
+        Returns:
+            **str**: string.
+        """
         string = 'Connections of: ' + str(self.atom_symbol_1) + '\n\n'
 
         for atom_1_id, list_of_connections in self.connections.items():
@@ -453,12 +522,24 @@ class Connections(Calculations):
 
 
 class Covalence(Calculations):
+    """Object storages covalences of atoms"""
     covalence: dict[int, float]
+    """Key - id of atom, value - covalence calculated from Mayer bond orders."""
     atom_symbol: str
+    """Atom symbol."""
 
     @ classmethod
     def calculate(cls, mayer_bond_orders: MayerBondOrders,
                   atom_symbol: str) -> type:
+        """Calculate Covalence object.
+
+        Args:
+            mayer_bond_orders (MayerBondOrders): MayerBondOrders object.
+            atom_symbol (str): Atom symbol.
+
+        Returns:
+            **Covalence**: Covalence object.
+        """
 
         atom_ids = mayer_bond_orders.get_atoms_ids(atom_symbol)
 
@@ -472,6 +553,11 @@ class Covalence(Calculations):
         return self
 
     def to_string(self) -> str:
+        """Generates string representation of object.
+
+        Returns:
+            **str**: String.
+        """
         string = f'Covalence of {self.atom_symbol}.\n\n'\
             + 'id COV\n'
 
@@ -483,14 +569,20 @@ class Covalence(Calculations):
 
 
 class BondLength(Calculations):
+    """Object stored bond lengths of pairs of atoms."""
     atom_id_1 = int
     atom_id_2 = int
 
     id_of_bond: str
+    """Id of bond eg. 'P-O'"""
     atom_symbol_1: str
+    """Atom 1 symbol."""
     atom_symbol_2: str
-    lengths: dict[atom_id_1: dict[atom_id_2: float]]
-    mbos: dict[atom_id_1: dict[atom_id_2: float]]
+    """Atom 2 symbol."""
+    lengths: dict[atom_id_1, dict[atom_id_2, float]]
+    """values- length between atoms."""
+    mbos: dict[atom_id_1, dict[atom_id_2, float]]
+    """values- Mayer bond orders"""
 
     @ classmethod
     def calculate(cls,
@@ -501,6 +593,23 @@ class BondLength(Calculations):
                   max_mayer_bond_order: float | str,
                   min_mayer_bond_order: float,
                   id_of_bond: str) -> type:
+        """Calculate BondLength object.
+
+        Args:
+            mayer_bond_orders (MayerBondOrders): MayerBondOrders object.
+            coordinates_of_atoms (CoordinatesOfAtoms): CoordinatesOfAtom object.
+            atom_symbol_1 (str): Symbol of atom 1.
+            atom_symbol_2 (str): Symbol of atom 2.
+            max_mayer_bond_order (float | str): max value of Mayer bond order or 'INF for infinite value.
+            min_mayer_bond_order (float): min value of Mayer bond order.
+            id_of_bond (str): id of bond eg. 'P-O'
+
+        Raises:
+            ValueError: "Wrong type of max_mayer_bond_order!!!!"
+
+        Returns:
+            **BondLength**: BondLength object.
+        """
 
         if max_mayer_bond_order != "INF"\
                 and not (type(max_mayer_bond_order) is float):
@@ -550,6 +659,11 @@ class BondLength(Calculations):
         return self
 
     def to_string(self) -> str:
+        """Generates string representation of object.
+
+        Returns:
+            **str**: String.
+        """
         string = f'Bond lengths of bond id: {self.id_of_bond} '\
             + f'(atoms: {self.atom_symbol_1}, {self.atom_symbol_2}):\n\n'\
             + 'id_1 id_2 length mbo\n'
