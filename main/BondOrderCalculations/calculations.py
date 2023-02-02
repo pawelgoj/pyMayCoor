@@ -10,6 +10,7 @@ from dataclasses import dataclass
 
 
 class Calculations(ABC):
+    """Calculations base class."""
 
     @abstractmethod
     def calculate() -> type:
