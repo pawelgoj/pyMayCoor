@@ -1,4 +1,5 @@
 name: Python package
+run-name: 	🤖 Unit test of app 🤖
 
 on: [push]
 
