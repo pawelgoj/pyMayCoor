@@ -1,6 +1,6 @@
 name: Python package
 #below variable is for date.
-run-name: 🤖 Unit test of app, date ":" ${{ steps.date.outputs.date }}🤖
+run-name: 🤖 Unit test of app, date ":" $NOW 🤖
 
 on: [push]
 
