@@ -6,7 +6,7 @@ from abc import ABC
 from abc import abstractmethod
 from .input_data import MayerBondOrders
 from .input_data import CoordinatesOfAtoms
-from .settings import PairOfAtoms
+from ..Settings.settings import PairOfAtoms
 
 from dataclasses import dataclass
 

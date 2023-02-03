@@ -27,5 +27,6 @@ jobs:
     - name: Test with pytest
       run: |
         pytest --doctest-modules main/BondOrderCalculations/input_data.py
+        pytest --doctest-modules main/Settings/settings.py
         pytest -s
     - run: echo "The job is done!!!"

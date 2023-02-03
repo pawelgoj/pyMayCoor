@@ -1,4 +1,4 @@
-"""settings module."""
+"""Settings module to process data from settings yaml file."""
 
 from dataclasses import dataclass
 
