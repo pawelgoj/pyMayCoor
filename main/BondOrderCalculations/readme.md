@@ -1,4 +1,4 @@
-![Logo](Logo_pyMayCoor.png)
+![Logo](Logo-pyMayCoor.png)
 
 ## The current library allows you to process Mayer bond orders from the [CPMD](https://github.com/CPMD-code) output file.
 
