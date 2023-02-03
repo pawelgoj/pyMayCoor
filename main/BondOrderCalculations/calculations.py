@@ -17,11 +17,11 @@ class PairOfAtoms:
     Object represents Pairs of Atoms
 
     Attributes:
-        atom_1 (str):
-        atom_2 (str):
-        MBO_min (float):
-        MBO_max (float | str):
-        id (str)
+        atom_1 (str): First atom name.
+        atom_2 (str): Second atom name.
+        MBO_min (float): Minimum Mayer bond order cut off.
+        MBO_max (float | str):Max Mayer bond order cut off. Float or 'INF' - for infinite value.capitalize()
+        id (str): Bond id eg. 'P-O'
 
     """
 

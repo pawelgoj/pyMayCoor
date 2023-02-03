@@ -1,1 +1,11 @@
 ![Logo](Logo_pyMayCoor.png)
+
+## The current library allows you to process Mayer bond orders from the [CPMD](https://github.com/CPMD-code) output file.
+
+### You can calculate from Mayer bond orders:
+
+- coordinations numbers,
+- Qi units,
+- Connections between atoms,
+- Relation between bond order and length
+

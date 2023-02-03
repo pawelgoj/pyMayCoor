@@ -332,3 +332,22 @@ class TestCovalence:
             + '1 1.4\n'\
             + '2 1.4\n'\
             + '3 1.4\n\n'
+
+
+class TestEndToEnd:
+    def test_end_to_end(self):
+        from main.BondOrderCalculations.input_data import LoadedData
+        from main.BondOrderCalculations.calculations import CoordinationNumbers
+        from main.BondOrderCalculations.input_data import InputDataFromCPMD
+
+        path_to_input_file = "egzamples_instructions/out1.txt"
+        input_data = InputDataFromCPMD()
+        input_data.load_input_data(
+            path_to_input_file, LoadedData.MayerBondOrders)
+
+        mayer_bond_orders = input_data.return_data(LoadedData.MayerBondOrders)
+
+        coordinations_numbers_stats = CoordinationNumbers.calculate(mayer_bond_orders,
+                                                                    'P', 'O', 'INF', 0.2, 'P-O').calculate_statistics()
+
+        assert coordinations_numbers_stats.statistics == {4: 100.0}
