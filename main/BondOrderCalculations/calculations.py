@@ -6,9 +6,30 @@ from abc import ABC
 from abc import abstractmethod
 from .input_data import MayerBondOrders
 from .input_data import CoordinatesOfAtoms
-from ..Settings.settings import PairOfAtoms
 
 from dataclasses import dataclass
+
+
+@dataclass
+class PairOfAtoms:
+    """PairOfAtoms.
+
+    Object represents Pairs of Atoms
+
+    Attributes:
+        atom_1 (str):
+        atom_2 (str):
+        MBO_min (float):
+        MBO_max (float | str):
+        id (str)
+
+    """
+
+    atom_1: str
+    atom_2: str
+    MBO_min: float
+    MBO_max: float | str
+    id: str
 
 
 class Calculations(ABC):
