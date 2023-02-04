@@ -29,7 +29,7 @@ jobs:
         pytest --doctest-modules main/BondOrderCalculations/BondOrderCalculations/input_data.py
         pytest --doctest-modules main/BondOrderCalculations/BondOrderCalculations/__init__.py
         pytest --doctest-modules main/Settings/settings.py
-        pytest -s --junitxml=pytest.xml --cov=main\BondOrderCalculations\BondOrderCalculations test/ | tee pytest-coverage.txt
+        pytest -s --junitxml=pytest.xml --cov-report=term-missing:skip-covered --cov=main\BondOrderCalculations\BondOrderCalculations test/ | tee pytest-coverage.txt
     
     - name: Pytest coverage comment
       uses: MishaKav/pytest-coverage-comment@main
