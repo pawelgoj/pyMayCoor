@@ -2,10 +2,10 @@ name: website
 
 run-name: Generate documentation 📗. 
 # build the documentation whenever there are new commits on main
-on: 
-  push:
-    branches:
-      - master
+workflow_run:
+  workflows: ['Python package']
+  types:
+    - completed
 
 # security: restrict permissions for CI jobs.
 permissions:
@@ -16,13 +16,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Wait for other checks to succeed
-        uses: lewagon/wait-on-check-action@v1.2.0
-        with:
-          ref: ${{ github.ref }}
-          running-workflow-name: 'Publish the package'
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          wait-interval: 10
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:

@@ -34,7 +34,7 @@ jobs:
         pytest -s --junitxml=pytest.xml --cov-report=term-missing:skip-covered --cov=main/BondOrderCalculations/BondOrderCalculations test/ | tee pytest-coverage.txt
     
     - name: Pytest coverage comment
-      if: ${{ github.ref == 'refs/heads/main' }}
+      if: ${{ github.ref == 'refs/heads/master' }}
       id: coverageComment
       uses: MishaKav/pytest-coverage-comment@main
       with:
@@ -42,11 +42,11 @@ jobs:
         junitxml-path: ./pytest.xml
 
     - name: Update Readme with Coverage Html
-      if: ${{ github.ref == 'refs/heads/main' }}
+      if: ${{ github.ref == 'refs/heads/master' }}
       run: |
         sed -i '/<!-- Pytest Coverage Comment:Begin -->/,/<!-- Pytest Coverage Comment:End -->/c\<!-- Pytest Coverage Comment:Begin -->\n\${{ steps.coverageComment.outputs.coverageHtml }}\n<!-- Pytest Coverage Comment:End -->' main/BondOrderCalculations/readme.md
     - name: Commit & Push changes to Readme
-      if: ${{ github.ref == 'refs/heads/main' }}
+      if: ${{ github.ref == 'refs/heads/master' }}
       uses: actions-js/push@master
       with:
         message: Update coverage on Readme
