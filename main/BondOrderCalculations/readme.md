@@ -4,7 +4,7 @@
 
 
 <!-- Pytest Coverage Comment:Begin -->
-<!-- Pytest Coverage Comment:End -->
+\n<!-- Pytest Coverage Comment:End -->
 
 CPMD - https://github.com/CPMD-code
 ### You can calculate from Mayer bond orders:
