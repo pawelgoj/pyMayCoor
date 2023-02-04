@@ -14,10 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: lewagon/wait-on-check-action@v1.2.0
-          with:
-            ref: ${{ github.ref }}
-            check-name: 'Tests'
-            wait-interval: 10
+        with:
+          ref: ${{ github.ref }}
+          check-name: 'Tests'
+          wait-interval: 10
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
