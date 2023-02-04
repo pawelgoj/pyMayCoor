@@ -5,7 +5,7 @@ run-name: Generate documentation 📗.
 on: 
   push:
     branches:
-      - main
+      - master
 
 # security: restrict permissions for CI jobs.
 permissions:
