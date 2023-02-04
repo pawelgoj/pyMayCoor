@@ -1,5 +1,5 @@
 ============================= test session starts ==============================
-platform linux -- Python 3.10.9, pytest-7.2.1, pluggy-1.0.0
+platform linux -- Python 3.10.6, pytest-7.2.1, pluggy-1.0.0
 rootdir: /home/runner/work/pyMayCoor/pyMayCoor
 plugins: cov-4.0.0
 collected 33 items
@@ -9,7 +9,7 @@ test/test_input_data.py ...............
 
 ----- generated xml file: /home/runner/work/pyMayCoor/pyMayCoor/pytest.xml -----
 
----------- coverage: platform linux, python 3.10.9-final-0 -----------
+---------- coverage: platform linux, python 3.10.6-final-0 -----------
 Name                                                               Stmts   Miss  Cover   Missing
 ------------------------------------------------------------------------------------------------
 main/BondOrderCalculations/BondOrderCalculations/calculations.py     344     11    97%   40, 44, 163, 309, 474, 487, 637, 639-640, 677-678
@@ -19,4 +19,4 @@ TOTAL                                                                740     57 
 
 1 file skipped due to complete coverage.
 
-============================== 33 passed in 5.32s ==============================
+============================== 33 passed in 5.29s ==============================
