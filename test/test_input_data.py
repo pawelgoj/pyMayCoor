@@ -121,14 +121,14 @@ class TestMayerBondOrders:
     vertical_atom_symbol = {1: "Fe", 2: "Fe",
                             3: "O", 4: "O"}
 
-    def test_get_mayer_bond_orders_list_between_to_atoms(self):
+    def test_get_mayer_bond_orders_list_between_two_atoms(self):
 
         # When
         mayer_bond_order = MayerBondOrders(self.test_data, self.atom_id,
                                            self.horizontal_atom_symbol,
                                            self.vertical_atom_symbol)
         result = mayer_bond_order\
-            .get_mayer_bond_orders_list_between_to_atoms("Fe", "O")
+            .get_mayer_bond_orders_list_between_two_atoms("Fe", "O")
         # Then
         assert result == [3, 2, 1, 2]
 

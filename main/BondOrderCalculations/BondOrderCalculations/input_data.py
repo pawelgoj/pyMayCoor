@@ -242,7 +242,7 @@ class MayerBondOrders:
             atom_id_2 (int): second atom id (column)
 
         Returns:
-            float: bond order
+            **float**: bond order
         """
 
         row = self.mayer_bond_orders[self.atom_id.index(atom_id_2)]
@@ -298,10 +298,10 @@ class MayerBondOrders:
         row = self.mayer_bond_orders[self.atom_id.index(atom_id)]
         return row
 
-    def get_mayer_bond_orders_list_between_to_atoms(self, atom_symbol_1: str,
-                                                    atom_symbol_2: str
-                                                    ) -> list[float]:
-        """Get Mayer bond orders list between to atoms.
+    def get_mayer_bond_orders_list_between_two_atoms(self, atom_symbol_1: str,
+                                                     atom_symbol_2: str
+                                                     ) -> list[float]:
+        """Get Mayer bond orders list between two atoms.
 
         Args:
             atom_symbol_1 (str): atom symbol eg. "Fe"
