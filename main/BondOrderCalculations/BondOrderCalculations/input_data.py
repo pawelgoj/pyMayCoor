@@ -76,7 +76,7 @@ class UnitCell(Constants):
         1.0
 
         Returns:
-            tuple[x, y, z] | None: To calculate edges lattice_vectors
+            **tuple[x, y, z] | None**: To calculate edges lattice_vectors
                                    are required else returns None
         """
         if self.lattice_vectors == ():
@@ -110,7 +110,7 @@ class UnitCell(Constants):
         45.0
 
         Returns:
-            tuple[deg, deg, deg] | None: To calculate angles lattice_vectors
+            **tuple[deg, deg, deg] | None**: To calculate angles lattice_vectors
                                          are required else returns None
         """
         if self.lattice_vectors == ():
@@ -255,7 +255,7 @@ class MayerBondOrders:
             atom_symbol (str): Symbol of atom eg. P, Fe, ...
 
         Returns:
-            list[int]: list of ids
+            **list[int]**: list of ids
         """
         ids = []
         for key, value in self.horizontal_atom_symbol.items():
@@ -273,7 +273,7 @@ class MayerBondOrders:
             atom_id_2 (int): atom 2 id
 
         Returns:
-            tuple(str, str) | None: Symbol of atom 1 and atom 2,
+            **tuple(str, str) | None**: Symbol of atom 1 and atom 2,
                                     if wrong id of atoms returns None or
                                     atoms symbols have not been used.
 
@@ -293,7 +293,7 @@ class MayerBondOrders:
             atom_id (int): atom id.
 
         Returns:
-            list[float]: list of mayer bond orders.
+            **list[float]**: list of mayer bond orders.
         """
         row = self.mayer_bond_orders[self.atom_id.index(atom_id)]
         return row
@@ -308,7 +308,7 @@ class MayerBondOrders:
             atom_symbol_2 (str): atom symbol eg. "Fe"
 
         Returns:
-            list[float]: list of mayer bond orders
+            **list[float]**: list of mayer bond orders
         """
         mayer_bond_orders = []
         for atom_id_1 in self.atom_id:
@@ -377,7 +377,7 @@ class CoordinatesOfAtoms(Constants):
             id (int): atom id
 
         Returns:
-            tuple[x, y, z] | None: Returns atom coordinates or None if atom of
+            **tuple[x, y, z] | None**: Returns atom coordinates or None if atom of
                                    given id does not exist.
         """
         return self._coordinates.get(id, None)
@@ -397,7 +397,7 @@ class CoordinatesOfAtoms(Constants):
             id (int): atom id
 
         Returns:
-            tuple[x, y, z]: coordinates in angstroms
+            **tuple[x, y, z]**: coordinates in angstroms
         """
         temp_coordinates = self._coordinates.get(id, None)
         if temp_coordinates is not None:
@@ -439,7 +439,7 @@ class CoordinatesOfAtoms(Constants):
             id (int): atom id
 
         Returns:
-            Union[str, None]: Returns atom symbol or None if atom of
+            **Union[str, None]**: Returns atom symbol or None if atom of
                         given id does not exist.
 
         """
@@ -464,7 +464,7 @@ class CoordinatesOfAtoms(Constants):
             atom_id_1 (int): id of first atom
              atom_id_2 (int): id of second atom
         Returns:
-            float | None: Distance in angstroms or Bohr units.
+            **float | None**: Distance in angstroms or Bohr units.
         """
 
         if type(self._unit_cell) is not UnitCell:
@@ -695,7 +695,7 @@ class InputDataFromCPMD(InputData):
         """ Returns loaded data.
         Args:
         Returns:
-            Populations | UnitCell | MayerBondOrders | CoordinatesOfAtoms
+            **Populations | UnitCell | MayerBondOrders | CoordinatesOfAtoms**:
         """
         if loaded_data is LoadedData.UnitCell:
             return self.unit_cell
@@ -812,7 +812,7 @@ class InputDataFromCPMD(InputData):
             finger_print_begin (str): fingerprint on beginning of data
             finger_print_end (str): fingerprint on end of data
         Returns:
-            list[str]: rows of string data
+            **list[str]**: rows of string data
         """
 
         regex = f'(?<={finger_print_begin})[\s\S]*' \

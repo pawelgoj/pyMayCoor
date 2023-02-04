@@ -122,7 +122,7 @@ class CoordinationNumber:
     cn: int
     """Value of coordination number."""
     bonds: dict[id_atom_2, mayer_bond_order]
-    """Key - ligand id, value - Mayer bond order."""
+    """**Key** - ligand id, **value** - Mayer bond order."""
 
 
 class CoordinationNumbers(Calculations):
@@ -136,7 +136,7 @@ class CoordinationNumbers(Calculations):
     atom_symbol: str
     """Symbol of atom."""
     statistics: dict[int, float] | None = None
-    """Key - coordination number, value - percentages."""
+    """**Key** - coordination number, **value** - percentages."""
 
     @classmethod
     def calculate(cls, mayer_bond_orders: MayerBondOrders,
@@ -421,7 +421,7 @@ class Connection:
     quantity: int
     """Quantity of given connections"""
     bonds: dict[id_atom_2: mayer_bond_order]
-    """key- ligand id, value-mayer bond order."""
+    """**key**- ligand id, **value**-mayer bond order."""
 
 
 class Connections(Calculations):
@@ -601,9 +601,9 @@ class BondLength(Calculations):
     atom_symbol_2: str
     """Atom 2 symbol."""
     lengths: dict[atom_id_1, dict[atom_id_2, float]]
-    """values- length between atoms."""
+    """**values**- length between atoms."""
     mbos: dict[atom_id_1, dict[atom_id_2, float]]
-    """values- Mayer bond orders"""
+    """**values**- Mayer bond orders"""
 
     @ classmethod
     def calculate(cls,
