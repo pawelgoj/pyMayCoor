@@ -24,6 +24,7 @@ jobs:
             dir
             pip install -e .
             pdoc -t ./templete ./BondOrderCalculations -o ./docs
+            cp Logo-pyMayCoor.png docs/
 
       - uses: actions/upload-pages-artifact@v1
         with:
