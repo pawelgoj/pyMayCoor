@@ -49,6 +49,7 @@ jobs:
       if: ${{ github.ref == 'refs/heads/master' }}
       uses: actions-js/push@master
       with:
+        branch: 'master'
         message: Update coverage on Readme
         github_token: ${{ secrets.GITHUB_TOKEN }}
 
