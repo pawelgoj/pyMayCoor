@@ -2,10 +2,11 @@ name: website
 
 run-name: Generate documentation 📗. 
 # build the documentation whenever there are new commits on main
-workflow_run:
-  workflows: ['Python package']
-  types:
-    - completed
+on:
+  workflow_run:
+    workflows: ['Python package']
+    types:
+      - completed
 
 # security: restrict permissions for CI jobs.
 permissions:
