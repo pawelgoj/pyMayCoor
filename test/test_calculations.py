@@ -1,14 +1,22 @@
 import pytest
 
-from main.BondOrderCalculations.calculations import Histogram
-from main.BondOrderCalculations.calculations import CoordinationNumbers
-from main.BondOrderCalculations.calculations import QiUnits
-from main.BondOrderCalculations.calculations import Connections
-from main.BondOrderCalculations.calculations import Connection
-from main.BondOrderCalculations.calculations import BondLength
-from main.BondOrderCalculations.calculations import Covalence
+from main.BondOrderCalculations.BondOrderCalculations.calculations\
+    import Histogram
+from main.BondOrderCalculations.BondOrderCalculations.calculations\
+    import CoordinationNumbers
+from main.BondOrderCalculations.BondOrderCalculations.calculations\
+    import QiUnits
+from main.BondOrderCalculations.BondOrderCalculations.calculations\
+    import Connections
+from main.BondOrderCalculations.BondOrderCalculations.calculations\
+    import Connection
+from main.BondOrderCalculations.BondOrderCalculations.calculations\
+    import BondLength
+from main.BondOrderCalculations.BondOrderCalculations.calculations\
+    import Covalence
 
-from main.BondOrderCalculations.input_data import InputDataFromCPMD
+from main.BondOrderCalculations.BondOrderCalculations.input_data\
+    import InputDataFromCPMD
 
 from dataclasses import dataclass
 from pprint import pprint
@@ -271,7 +279,8 @@ class TestBondLength:
     def test_calculate(self, path_to_input_file):
         input_data = InputDataFromCPMD()
 
-        from main.BondOrderCalculations.input_data import LoadedData
+        from main.BondOrderCalculations.BondOrderCalculations.input_data\
+            import LoadedData
 
         input_data.load_input_data(path_to_input_file,
                                    LoadedData.UnitCell,
@@ -336,9 +345,12 @@ class TestCovalence:
 
 class TestEndToEnd:
     def test_end_to_end(self):
-        from main.BondOrderCalculations.input_data import LoadedData
-        from main.BondOrderCalculations.calculations import CoordinationNumbers
-        from main.BondOrderCalculations.input_data import InputDataFromCPMD
+        from main.BondOrderCalculations.BondOrderCalculations.input_data\
+            import LoadedData
+        from main.BondOrderCalculations.BondOrderCalculations.calculations\
+            import CoordinationNumbers
+        from main.BondOrderCalculations.BondOrderCalculations.input_data\
+            import InputDataFromCPMD
 
         path_to_input_file = "egzamples_instructions/out1.txt"
         input_data = InputDataFromCPMD()

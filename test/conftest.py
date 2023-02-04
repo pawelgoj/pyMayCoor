@@ -1,6 +1,8 @@
 import pytest
-from main.BondOrderCalculations.input_data import InputDataFromCPMD
-from main.BondOrderCalculations.input_data import LoadedData
+from main.BondOrderCalculations.BondOrderCalculations.input_data\
+    import InputDataFromCPMD
+from main.BondOrderCalculations.BondOrderCalculations.input_data\
+    import LoadedData
 
 
 @pytest.fixture()

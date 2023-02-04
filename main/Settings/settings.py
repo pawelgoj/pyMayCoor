@@ -1,6 +1,7 @@
 """Settings module to process data from settings yaml file."""
 
-from BondOrderCalculations.calculations import PairOfAtoms
+from BondOrderCalculations.BondOrderCalculations.calculations\
+    import PairOfAtoms
 from dataclasses import dataclass
 
 
@@ -41,7 +42,7 @@ class Settings:
         Constructor
 
         Example:
-        >>> from BondOrderCalculations.calculations import PairOfAtoms
+        >>> from BondOrderCalculations.BondOrderCalculations.calculations import PairOfAtoms
         >>> data = {'calculations': { \
                         'bond_length': True, \
                         'cn': True, \
