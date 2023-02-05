@@ -2,3 +2,8 @@
 *.pyc
 /__pycache__
 /.vscode
+dist/
+.pypirc
+*.egg-info
+*.coverage
+pytest-coverage.txt
