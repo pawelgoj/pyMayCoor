@@ -1,5 +1,5 @@
 name: Python package
-#below variable is for date.
+
 run-name: 🤖 Unit test of app run by ${{ github.actor }}🤖
 
 on: [push]

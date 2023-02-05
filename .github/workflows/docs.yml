@@ -4,7 +4,7 @@ run-name: Generate documentation 📗.
 # build the documentation whenever there are new commits on main
 on:
   workflow_run:
-    workflows: ['Python package']
+    workflows: ['Upload Python Package']
     types:
       - completed
 
