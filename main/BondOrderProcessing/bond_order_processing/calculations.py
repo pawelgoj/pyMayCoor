@@ -277,7 +277,7 @@ class QiUnits(Calculations):
     """Symbol of ligands"""
     q_i_units: dict[int, int] = {}
     """Dictionary stores values of i of Qi units. key - central atom id."""
-    statistics: dict[int: float] | None = None
+    statistics: dict[int, float] | None = None
     """Dictionary stores percentages of Qi units. key - value of i in Qi"""
 
     @classmethod
@@ -420,7 +420,7 @@ class Connection:
     """Bond id eg. 'P-O'"""
     quantity: int
     """Quantity of given connections"""
-    bonds: dict[id_atom_2: mayer_bond_order]
+    bonds: dict[id_atom_2, mayer_bond_order]
     """**key**- ligand id, **value**-mayer bond order."""
 
 
@@ -430,7 +430,7 @@ class Connections(Calculations):
     atom_1_id = int
     Connection: type = Connection
 
-    connections: dict[atom_1_id: list[Connection]]
+    connections: dict[atom_1_id, list[Connection]]
     """Key - central atom, values - list to Connection objects."""
     atom_symbol_1: str
     """Symbol of central atom."""
