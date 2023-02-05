@@ -1,20 +1,20 @@
 [build-system]
 requires = ["setuptools", "wheel"]
-build-backend = "setuptools.build_meta:__legacy__"
+build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
 packages = ["bond_order_processing"]
 
 [project]
 name = "bond_order_processing"
-version = "1.0.5"
+version = "1.0.6"
 authors = [
     {name = "Paweł Goj", email = "pawel.goj5@gmail.com"},
 ]
 description = "Make environment to doc generation."
-long_description = "README.md"
+readme = "README.md"
 requires-python = ">=3.10"
-
+keywords = ["packaging", "dependency", "infer", "pyproject.toml"]
 classifiers = [
     "License :: OSI Approved :: MIT License",
     "Natural Language :: English",
