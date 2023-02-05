@@ -16,13 +16,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Wait for tests to succeed
-        uses: lewagon/wait-on-check-action@v1.2.0
-        with:
-          ref: ${{ github.ref }}
-          check-name: 'Commit & Push changes to Readme'
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          wait-interval: 2
+    - name: Wait for tests to succeed
+      uses: lewagon/wait-on-check-action@v1.2.0
+      with:
+        ref: ${{ github.ref }}
+        check-name: 'Commit & Push changes to Readme'
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        wait-interval: 2
     - uses: actions/checkout@v3
     - name: Set up Python
       uses: actions/setup-python@v4
