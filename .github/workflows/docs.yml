@@ -23,6 +23,8 @@ jobs:
           python-version: '3.11'
 
       # ADJUST THIS: install all dependencies (including pdoc)
+      name: prepare-page
+      if ${{ github.ref == 'refs/heads/pypi' }}
       - run: |
             cd main/BondOrderProcessing
             dir
@@ -44,6 +46,7 @@ jobs:
       id-token: write
     environment:
       name: github-pages
+      if ${{ github.ref == 'refs/heads/pypi' }}
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
