@@ -39,7 +39,7 @@ jobs:
             python -m pip install -e .
             python -m build
             cd dist
-            tar -xvf archive.tar.gz
+            tar -xvf bond_order_processing-1.0.8.tar.gz
             dir
             cd ..
     - name: Publish package to TestPyPI
