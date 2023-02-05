@@ -38,10 +38,4 @@ jobs:
             python -m pip install twine
             python -m pip install -e .
             python -m build
-          
-    - name: Publish package to TestPyPI
-      uses: pypa/gh-action-pypi-publish@release/v1
-      with:
-        password: ${{ secrets.TEST_PYPI_API_TOKEN }}
-        repository_url: https://test.pypi.org/legacy/
-        packages_dir: main/BondOrderProcessing/dist/
+            python -m twine upload -r testpypi dist/* -u __token__ -p ${{ secrets.TEST_PYPI_API_TOKEN }}
