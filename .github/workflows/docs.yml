@@ -39,7 +39,7 @@ jobs:
   # This is a separate job so that only actions/deploy-pages has the necessary permissions.
   deploy:
     if: ${{ github.ref == 'refs/heads/pypi' }}
-    needs: build
+    needs: MakeDocs
     runs-on: ubuntu-latest
     permissions:
       pages: write
