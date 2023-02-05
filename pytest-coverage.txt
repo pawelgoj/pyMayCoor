@@ -10,13 +10,13 @@ test/test_input_data.py ...............
 ----- generated xml file: /home/runner/work/pyMayCoor/pyMayCoor/pytest.xml -----
 
 ---------- coverage: platform linux, python 3.10.6-final-0 -----------
-Name                                                               Stmts   Miss  Cover   Missing
-------------------------------------------------------------------------------------------------
-main/BondOrderCalculations/BondOrderCalculations/calculations.py     344     11    97%   40, 44, 163, 309, 474, 487, 637, 639-640, 677-678
-main/BondOrderCalculations/BondOrderCalculations/input_data.py       396     46    88%   82-94, 116-149, 179-183, 219, 228-232, 285, 298-299, 354-358, 402-413, 450-451, 457, 471, 478, 635, 642, 680, 705, 728, 777, 887
-------------------------------------------------------------------------------------------------
-TOTAL                                                                740     57    92%
+Name                                                             Stmts   Miss  Cover   Missing
+----------------------------------------------------------------------------------------------
+main/BondOrderProcessing/bond_order_processing/calculations.py     344     11    97%   40, 44, 163, 309, 474, 487, 637, 639-640, 677-678
+main/BondOrderProcessing/bond_order_processing/input_data.py       396     46    88%   82-94, 116-149, 179-183, 219, 228-232, 285, 298-299, 354-358, 402-413, 450-451, 457, 471, 478, 635, 642, 680, 705, 728, 777, 887
+----------------------------------------------------------------------------------------------
+TOTAL                                                              740     57    92%
 
 1 file skipped due to complete coverage.
 
-============================== 33 passed in 5.29s ==============================
+============================== 33 passed in 5.25s ==============================
