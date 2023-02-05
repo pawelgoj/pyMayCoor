@@ -1,3 +1,11 @@
+# This workflow will upload a Python Package using Twine when a release is created
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python#publishing-to-package-registries
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
 name: Upload Python Package
 
 run-name: Publish on pypi 🦅.
@@ -13,16 +21,16 @@ permissions:
 
 jobs:
   deploy:
+
     runs-on: ubuntu-latest
+
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python
-      if: ${{ github.ref == 'refs/heads/pypi' }}
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
     - name: Install dependencies
-      if: ${{ github.ref == 'refs/heads/pypi' }}
       run: |
             cd main/BondOrderProcessing
             dir
@@ -30,14 +38,13 @@ jobs:
             python3 -m pip install --upgrade setuptools
             python3 -m pip install --upgrade build
             python3 -m pip install twine
-            python3 -m pip install -e .
-            python3 -m build
+            python -m pip install -e .
+            python -m build
             cd dist
             tar -xvf bond_order_processing-1.0.8.tar.gz
             dir
             cd ..
     - name: Publish package to TestPyPI
-      if: ${{ github.ref == 'refs/heads/pypi' }}
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         password: ${{ secrets.TEST_PYPI_API_TOKEN }}
