@@ -30,9 +30,9 @@ jobs:
       run: |
             cd main/BondOrderProcessing
             dir
-            pip install build
-            pip install twine
-            pip install -e .
+            python -m pip install build
+            python -m pip install twine
+            python -m pip install -e .
             python -m build
           
     - name: Publish package to TestPyPI
