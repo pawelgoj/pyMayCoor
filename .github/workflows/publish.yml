@@ -8,16 +8,12 @@ on:
     types:
       - completed
 
-
 permissions:
   contents: read
-  repository-projects: read
 
 jobs:
   deploy:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python
