@@ -1,16 +1,15 @@
 name: website
 
 run-name: Generate documentation 📗. 
-# build the documentation whenever there are new commits on main
+
 on:
-  workflow_run:
-    workflows: ['Upload Python Package']
-    types:
-      - completed
+  workflow_call:
 
 # security: restrict permissions for CI jobs.
 permissions:
   contents: read
+  pages: write
+  id-token: write
 
 jobs:
   # Build the documentation and upload the static HTML files as an artifact.
