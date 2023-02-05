@@ -7,12 +7,12 @@ packages = ["bond_order_processing"]
 
 [project]
 name = "bond_order_processing"
-version = "1.0.4"
+version = "1.0.5"
 authors = [
     {name = "Paweł Goj", email = "pawel.goj5@gmail.com"},
 ]
 description = "Make environment to doc generation."
-readme = "README.md"
+long_description = "README.md"
 requires-python = ">=3.10"
 
 classifiers = [
