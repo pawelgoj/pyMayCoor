@@ -12,6 +12,9 @@ run-name: Publish on pypi 🦅.
 
 on:
   workflow_call:
+    secrets:
+      TEST_PYPI_API_TOKEN:
+        required: true
 
 permissions:
   contents: read

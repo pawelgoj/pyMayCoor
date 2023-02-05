@@ -11,7 +11,7 @@ Library version: 1.0.0
 ### Links
 
 - [Documentation page](https://pawelgoj.github.io/pyMayCoor/bond_order_processing)
-- [Git repository](https://github.com/pawelgoj/pyMayCoor/tree/master/main/BondOrderProcessing)
+- [Git repository](https://github.com/pawelgoj/pyMayCoor/tree/pypi/main/BondOrderProcessing)
 - More information about CPMD - <https://github.com/CPMD-code>
 
 ### You can calculate from Mayer bond orders
