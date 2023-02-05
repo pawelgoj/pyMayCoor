@@ -19,4 +19,3 @@ TOTAL                                                              740     57   
 
 1 file skipped due to complete coverage.
 
-============================== 33 passed in 5.23s ==============================
