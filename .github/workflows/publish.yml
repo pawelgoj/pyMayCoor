@@ -1,15 +1,13 @@
 name: Upload Python Package
 
 run-name: Publish on pypi 🦅.
+
 on:
   workflow_run:
-    workflows: ['Upload Python Package']
+    workflows: ['Python package']
     types:
       - completed
 
-on:  
-  push:
-    branches: [ "pypi" ]
 
 permissions:
   contents: read
