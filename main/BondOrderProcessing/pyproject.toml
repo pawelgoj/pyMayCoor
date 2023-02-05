@@ -7,7 +7,7 @@ packages = ["bond_order_processing"]
 
 [project]
 name = "bond_order_processing"
-version = "1.0.12"
+version = "1.0.1"
 authors = [
     {name = "Paweł Goj", email = "pawel.goj5@gmail.com"},
 ]

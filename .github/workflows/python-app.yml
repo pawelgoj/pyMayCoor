@@ -10,7 +10,7 @@ permissions:
   id-token: write
 
 jobs:
-  build:
+  Test:
     permissions: write-all
     runs-on: ubuntu-latest
 
@@ -59,14 +59,14 @@ jobs:
         message: Update coverage on Readme
         github_token: ${{ secrets.GITHUB_TOKEN }}
 
-
-  reusable_workflow_job1:
+  #ruchamianie zewnętrznego workflow
+  publish-on-pypi:
     if: ${{ github.ref == 'refs/heads/pypi' }}
     uses: ./.github/workflows/publish.yml
     secrets:
-      TEST_PYPI_API_TOKEN: ${{ secrets.TEST_PYPI_API_TOKEN }}
-
-  reusable_workflow_job2:
+      PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+  #ruchamianie zewnętrznego workflow
+  generate-doc:
     if: ${{ github.ref == 'refs/heads/pypi' }}
     uses: ./.github/workflows/docs.yml
 

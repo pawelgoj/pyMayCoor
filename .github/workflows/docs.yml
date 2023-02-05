@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   # Build the documentation and upload the static HTML files as an artifact.
-  build:
+  MakeDocs:
     if: ${{ github.ref == 'refs/heads/pypi' }}
     runs-on: ubuntu-latest
 
@@ -39,7 +39,7 @@ jobs:
   # This is a separate job so that only actions/deploy-pages has the necessary permissions.
   deploy:
     if: ${{ github.ref == 'refs/heads/pypi' }}
-    needs: build
+    needs: MakeDocs
     runs-on: ubuntu-latest
     permissions:
       pages: write
