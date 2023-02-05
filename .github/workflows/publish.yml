@@ -39,6 +39,7 @@ jobs:
             python -m pip install -e .
             python -m build
             cd dist
+            tar -xvf archive.tar.gz
             dir
             cd ..
     - name: Publish package to TestPyPI
