@@ -31,6 +31,7 @@ jobs:
       with:
         python-version: '3.11'
     - name: Install dependencies
+      if: ${{ github.ref == 'refs/heads/pypi' }}
       run: |
             cd main/BondOrderProcessing
             dir
@@ -45,6 +46,7 @@ jobs:
             dir
             cd ..
     - name: Publish package to TestPyPI
+      if: ${{ github.ref == 'refs/heads/pypi' }}
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         password: ${{ secrets.TEST_PYPI_API_TOKEN }}
