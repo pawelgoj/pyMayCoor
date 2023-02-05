@@ -1,6 +1,11 @@
 name: Upload Python Package
 
 run-name: Publish on pypi 🦅.
+on:
+  workflow_run:
+    workflows: ['Upload Python Package']
+    types:
+      - completed
 
 on:  
   push:
@@ -16,19 +21,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Wait for tests to succeed
-      uses: lewagon/wait-on-check-action@v1.2.0
-      with:
-        ref: ${{ github.ref }}
-        check-name: 'Commit & Push changes to Readme'
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        wait-interval: 2
     - uses: actions/checkout@v3
     - name: Set up Python
+      if: ${{ github.ref == 'refs/heads/pypi' }}
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
     - name: Install dependencies
+      if: ${{ github.ref == 'refs/heads/pypi' }}
       run: |
             cd main/BondOrderProcessing
             dir
@@ -43,6 +43,7 @@ jobs:
             dir
             cd ..
     - name: Publish package to TestPyPI
+      if: ${{ github.ref == 'refs/heads/pypi' }}
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         password: ${{ secrets.TEST_PYPI_API_TOKEN }}
