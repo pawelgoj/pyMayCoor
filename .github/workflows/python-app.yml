@@ -59,11 +59,11 @@ jobs:
 
 
   reusable_workflow_job1:
-  if: ${{ github.ref == 'refs/heads/pypi' }}
+    if: ${{ github.ref == 'refs/heads/pypi' }}
     uses: ./.github/workflows/publish.yml
 
   reusable_workflow_job1:
-  if: ${{ github.ref == 'refs/heads/pypi' }}
+    if: ${{ github.ref == 'refs/heads/pypi' }}
     uses: ./.github/workflows/docs.yml
 
 
