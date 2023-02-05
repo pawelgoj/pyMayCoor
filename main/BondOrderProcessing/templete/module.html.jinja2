@@ -19,7 +19,7 @@ For example, if the `--favicon` option does not do what you want, you can specif
 We can access system environment variables in the template, for example to pass version information.
 #}
 {% block nav_footer %}
-    <footer>My Package v{{ env["bond_order_processing"] | default("1.0.0") }}</footer>
+    <footer>bond_order_processing v{{ env["bond_order_processing"] | default("1.0.1") }}</footer>
 {% endblock %}
 
 {#
