@@ -21,9 +21,8 @@ permissions:
 
 jobs:
   deploy:
-
+    if: ${{ github.ref == 'refs/heads/pypi' }}
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python
@@ -31,7 +30,6 @@ jobs:
       with:
         python-version: '3.11'
     - name: Install dependencies
-      if: ${{ github.ref == 'refs/heads/pypi' }}
       run: |
             cd main/BondOrderProcessing
             dir
@@ -46,7 +44,6 @@ jobs:
             dir
             cd ..
     - name: Publish package to TestPyPI
-      if: ${{ github.ref == 'refs/heads/pypi' }}
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         password: ${{ secrets.TEST_PYPI_API_TOKEN }}
