@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools >= 65.4.0", "wheel >= 0.38.4"]
+requires = ["setuptools >= 67.1.0", "wheel >= 0.38.4", "twine >= 4.0.2"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
@@ -7,7 +7,7 @@ packages = ["bond_order_processing"]
 
 [project]
 name = "bond_order_processing"
-version = "1.0.9"
+version = "1.0.12"
 authors = [
     {name = "Paweł Goj", email = "pawel.goj5@gmail.com"},
 ]
