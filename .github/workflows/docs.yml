@@ -27,7 +27,7 @@ jobs:
             cd main/BondOrderProcessing
             dir
             pip install -e .
-            pdoc -t ./templete ./BondOrderProcessing -o ./docs
+            pdoc -t ./templete ./bond_order_processing -o ./docs
             cp Logo-pyMayCoor.png docs/
 
       - uses: actions/upload-pages-artifact@v1
