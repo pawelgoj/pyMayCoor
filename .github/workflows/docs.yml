@@ -15,28 +15,31 @@ permissions:
 jobs:
   # Build the documentation and upload the static HTML files as an artifact.
   build:
+    if: ${{ github.ref == 'refs/heads/pypi' }}
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    # ADJUST THIS: install all dependencies (including pdoc)
+    - name: prepare-page
+      run: |
+          cd main/BondOrderProcessing
+          dir
+          pip install -e .
+          pdoc -t ./templete ./bond_order_processing -o ./docs
+          cp Logo-pyMayCoor.png docs/
 
-      # ADJUST THIS: install all dependencies (including pdoc)
-      - run: |
-            cd main/BondOrderProcessing
-            dir
-            pip install -e .
-            pdoc -t ./templete ./bond_order_processing -o ./docs
-            cp Logo-pyMayCoor.png docs/
-
-      - uses: actions/upload-pages-artifact@v1
-        with:
-          path: main/BondOrderProcessing/docs/
+    - uses: actions/upload-pages-artifact@v1
+      with:
+        path: main/BondOrderProcessing/docs/
 
   # Deploy the artifact to GitHub pages.
   # This is a separate job so that only actions/deploy-pages has the necessary permissions.
   deploy:
+    if: ${{ github.ref == 'refs/heads/pypi' }}
     needs: build
     runs-on: ubuntu-latest
     permissions:
