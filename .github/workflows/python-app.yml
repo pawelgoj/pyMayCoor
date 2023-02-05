@@ -64,7 +64,7 @@ jobs:
     if: ${{ github.ref == 'refs/heads/pypi' }}
     uses: ./.github/workflows/publish.yml
     secrets:
-      TEST_PYPI_API_TOKEN: ${{ secrets.TEST_PYPI_API_TOKEN }}
+      PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
   #ruchamianie zewnętrznego workflow
   generate-doc:
     if: ${{ github.ref == 'refs/heads/pypi' }}
