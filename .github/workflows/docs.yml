@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   # Build the documentation and upload the static HTML files as an artifact.
-  build:
+  MakeDocs:
     if: ${{ github.ref == 'refs/heads/pypi' }}
     runs-on: ubuntu-latest
 
