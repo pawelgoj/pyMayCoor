@@ -28,10 +28,10 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Test with pytest
       run: |
-        pytest --doctest-modules main/BondOrderCalculations/BondOrderCalculations/input_data.py
-        pytest --doctest-modules main/BondOrderCalculations/BondOrderCalculations/__init__.py
+        pytest --doctest-modules main/BondOrderProcessing/bond_order_processing/input_data.py
+        pytest --doctest-modules main/BondOrderProcessing/bond_order_processing/__init__.py
         pytest --doctest-modules main/Settings/settings.py
-        pytest -s --junitxml=pytest.xml --cov-report=term-missing:skip-covered --cov=main/BondOrderCalculations/BondOrderCalculations test/ | tee pytest-coverage.txt
+        pytest -s --junitxml=pytest.xml --cov-report=term-missing:skip-covered --cov=main/BondOrderProcessing/bond_order_processing test test/ | tee pytest-coverage.txt
     
     - name: Pytest coverage comment
       if: ${{ github.ref == 'refs/heads/master' }}

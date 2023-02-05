@@ -3,11 +3,11 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta:__legacy__"
 
 [tool.setuptools]
-py-modules = ["BondOrderCalculations"]
+packages = ["bond_order_processing"]
 
 [project]
-name = "BondOrderCalculations"
-version = "1.0.4"
+name = "bond_order_processing"
+version = "1.0.0"
 authors = [
     {name = "Paweł Goj", email = "pawel.goj5@gmail.com"},
 ]

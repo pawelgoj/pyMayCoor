@@ -1,7 +1,7 @@
 import pytest
-from main.BondOrderCalculations.BondOrderCalculations.input_data\
+from main.BondOrderProcessing.bond_order_processing.input_data\
     import InputDataFromCPMD
-from main.BondOrderCalculations.BondOrderCalculations.input_data\
+from main.BondOrderProcessing.bond_order_processing.input_data\
     import LoadedData
 
 

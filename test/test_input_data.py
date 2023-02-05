@@ -1,7 +1,7 @@
 import pytest
-from main.BondOrderCalculations.BondOrderCalculations.input_data\
+from main.BondOrderProcessing.bond_order_processing.input_data\
     import InputDataFromCPMD
-from main.BondOrderCalculations.BondOrderCalculations.input_data\
+from main.BondOrderProcessing.bond_order_processing.input_data\
     import MayerBondOrders
 from pprint import pprint
 from enum import Enum
@@ -75,7 +75,7 @@ class TestInputDataFromCPMD:
 
         input_data = InputDataFromCPMD()
 
-        from main.BondOrderCalculations.BondOrderCalculations.input_data\
+        from main.BondOrderProcessing.bond_order_processing.input_data\
             import LoadedData
 
         input_data.load_input_data(path_to_input_file,
@@ -98,7 +98,7 @@ class TestInputDataFromCPMD:
 
     @pytest.mark.usefixtures("input_data_object_with_loaded_data")
     def test_return_data(self, input_data_object_with_loaded_data):
-        from main.BondOrderCalculations.BondOrderCalculations.input_data\
+        from main.BondOrderProcessing.bond_order_processing.input_data\
             import LoadedData
 
         input_data = input_data_object_with_loaded_data
@@ -147,7 +147,7 @@ class TestCoordinatesOfAtoms:
     def test_get_distance_between_atoms(self, path_to_input_file):
         input_data = InputDataFromCPMD()
 
-        from main.BondOrderCalculations.BondOrderCalculations.input_data\
+        from main.BondOrderProcessing.bond_order_processing.input_data\
             import LoadedData
 
         input_data.load_input_data(path_to_input_file,

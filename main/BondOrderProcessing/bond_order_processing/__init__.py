@@ -4,9 +4,9 @@
 
 Example:
 
-    >>> from BondOrderCalculations.input_data import LoadedData
-    >>> from BondOrderCalculations.calculations import CoordinationNumbers
-    >>> from BondOrderCalculations.input_data import InputDataFromCPMD
+    >>> from bond_order_processing.input_data import LoadedData
+    >>> from bond_order_processing.calculations import CoordinationNumbers
+    >>> from bond_order_processing.input_data import InputDataFromCPMD
     >>> 
     >>> path_to_input_file = r'./egzamples_instructions/out1.txt'
     >>> 

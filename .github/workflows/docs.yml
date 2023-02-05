@@ -24,15 +24,15 @@ jobs:
 
       # ADJUST THIS: install all dependencies (including pdoc)
       - run: |
-            cd main/BondOrderCalculations
+            cd main/BondOrderProcessing
             dir
             pip install -e .
-            pdoc -t ./templete ./BondOrderCalculations -o ./docs
+            pdoc -t ./templete ./BondOrderProcessing -o ./docs
             cp Logo-pyMayCoor.png docs/
 
       - uses: actions/upload-pages-artifact@v1
         with:
-          path: main/BondOrderCalculations/docs/
+          path: main/BondOrderProcessing/docs/
 
   # Deploy the artifact to GitHub pages.
   # This is a separate job so that only actions/deploy-pages has the necessary permissions.
