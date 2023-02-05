@@ -16,16 +16,16 @@ jobs:
   # Build the documentation and upload the static HTML files as an artifact.
   build:
     runs-on: ubuntu-latest
+
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-python@v4
       with:
         python-version: '3.11'
-
     # ADJUST THIS: install all dependencies (including pdoc)
-    name: prepare-page
-    if ${{ github.ref == 'refs/heads/pypi' }}
-    - run: |
+    - name: prepare-page
+      if: ${{ github.ref == 'refs/heads/pypi' }}
+      run: |
           cd main/BondOrderProcessing
           dir
           pip install -e .
@@ -46,7 +46,7 @@ jobs:
       id-token: write
     environment:
       name: github-pages
-      if ${{ github.ref == 'refs/heads/pypi' }}
+      if: ${{ github.ref == 'refs/heads/pypi' }}
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
