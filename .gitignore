@@ -6,4 +6,4 @@ dist/
 .pypirc
 *.egg-info
 *.coverage
-pytest-coverage.txt
+pytest-converage.txt
