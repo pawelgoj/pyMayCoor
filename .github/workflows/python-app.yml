@@ -4,7 +4,6 @@ run-name: 🤖 Unit test of app run by ${{ github.actor }}🤖
 
 on: [push]
 
-
 permissions:
   contents: read
 
@@ -59,5 +58,14 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
 
 
-    - run: echo "The job is done!!!"
+  reusable_workflow_job1:
+  if: ${{ github.ref == 'refs/heads/pypi' }}
+    uses: ./.github/workflows/publish.yml
+
+  reusable_workflow_job1:
+  if: ${{ github.ref == 'refs/heads/pypi' }}
+    uses: ./.github/workflows/docs.yml
+
+
+
 
