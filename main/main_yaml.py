@@ -1,6 +1,7 @@
 import yaml
 from pprint import pprint
 
+from OutputStringTemplate.template import StringTemplate
 from Settings.settings import Settings
 from BondOrderProcessing.bond_order_processing import calculations, input_data
 
@@ -21,6 +22,8 @@ def perform_calculations(settings_file_path: str, input_file_path: str)\
     data = yaml.safe_load(yaml_data)
     settings = Settings(data)
 
+    output_string = StringTemplate.get_report_header()
+
     # Reading data:
     input_data_cpmd = input_data.InputDataFromCPMD()
     input_data_cpmd.load_input_data(input_file)
@@ -32,8 +35,9 @@ def perform_calculations(settings_file_path: str, input_file_path: str)\
     coordinates_of_atoms = input_data_cpmd.return_data(
         input_data.LoadedData.CoordinatesOfAtoms)
 
-    if settings.histogram['calc'] == True:
-        calculations.Histogram.calculate()
+    if settings.histogram['calc'] is True:
+        output_string += StringTemplate.get_histogram_header()
+        output_string += calculations.Histogram.calculate()
 
     pprint(settings.histogram)
 
