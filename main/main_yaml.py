@@ -1,6 +1,8 @@
 import yaml
+from pprint import pprint
 
-import pprint
+from Settings.settings import Settings
+from BondOrderProcessing.bond_order_processing import calculations, input_data
 
 
 def perform_calculations(settings_file_path: str, input_file_path: str)\
@@ -17,11 +19,23 @@ def perform_calculations(settings_file_path: str, input_file_path: str)\
         input_file = file.read()
 
     data = yaml.safe_load(yaml_data)
-    pprint.pprint(data)
+    settings = Settings(data)
 
-    splited = input_file.split("\n")
+    # Reading data:
+    input_data_cpmd = input_data.InputDataFromCPMD()
+    input_data_cpmd.load_input_data(input_file)
+    unit_cell = input_data_cpmd.return_data(input_data.LoadedData.UnitCell)
 
-    print(splited[1])
+    mayer_bond_orders = input_data_cpmd.return_data(
+        input_data.LoadedData.MayerBondOrders)
+
+    coordinates_of_atoms = input_data_cpmd.return_data(
+        input_data.LoadedData.CoordinatesOfAtoms)
+
+    if settings.histogram['calc'] == True:
+        calculations.Histogram.calculate()
+
+    pprint(settings.histogram)
 
     # TODO
 
