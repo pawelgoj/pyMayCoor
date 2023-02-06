@@ -44,6 +44,13 @@ class Calculations(ABC):
         pass
 
 
+class Statistics(ABC):
+    """Statistics base class"""
+    @abstractmethod
+    def calculate_statistics(self) -> type:
+        pass
+
+
 class Histogram(Calculations):
     """Object represents histogram."""
     _histogram: Callable = np.histogram
@@ -125,7 +132,7 @@ class CoordinationNumber:
     """**Key** - ligand id, **value** - Mayer bond order."""
 
 
-class CoordinationNumbers(Calculations):
+class CoordinationNumbers(Calculations, Statistics):
     """Generate list of CoordinationNumber objects and processes it."""
     CoordinationNumber: type = CoordinationNumber
 
@@ -267,7 +274,7 @@ class CoordinationNumbers(Calculations):
         return string
 
 
-class QiUnits(Calculations):
+class QiUnits(Calculations, Statistics):
     """Stores information about Qi units."""
     id_of_bond: str
     """Id of bonds in Qi unit"""
