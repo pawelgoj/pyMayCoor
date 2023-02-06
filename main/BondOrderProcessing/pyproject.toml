@@ -7,11 +7,11 @@ packages = ["bond_order_processing"]
 
 [project]
 name = "bond_order_processing"
-version = "1.0.2"
+version = "1.0.3"
 authors = [
     {name = "Paweł Goj", email = "pawel.goj5@gmail.com"},
 ]
-description = "Process Mayer bond orders from abinito calculations."
+description = "Process Mayer bond orders from ab inito calculations."
 readme = "README.md"
 requires-python = ">=3.10"
 keywords = ["packaging", "dependency", "infer", "pyproject.toml"]
