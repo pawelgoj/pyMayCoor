@@ -4,6 +4,7 @@ objects lists. This module is added in version: 1.1.0"""
 from .calculations import Calculations
 from .calculations import Statistics
 from .calculations import PairOfAtoms
+from .calculations import Histogram
 from .input_data import MayerBondOrders
 from .input_data import CoordinatesOfAtoms
 
@@ -22,12 +23,24 @@ class _FromPairOfAtoms:
         return unique_symbols
 
 
-class HistogramsFromPairOfAtoms(Calculations):
+class HistogramsFromPairOfAtoms(Calculations, _FromPairOfAtoms):
+    _Histogram: type = Histogram
+    histograms: dict[str, Histogram]
+    """**key** - bond_id, **value** - Histogram object"""
 
-    def calculate(pair_of_atoms: list[PairOfAtoms],
-                  mayer_bond_orders: MayerBondOrders) -> type:
-        # TODO
-        pass
+    @classmethod
+    def calculate(cls, pair_of_atoms: list[PairOfAtoms],
+                  mayer_bond_orders: MayerBondOrders,
+                  bins: int) -> type:
+        self = cls()
+        self.histograms = {}
+        for item in pair_of_atoms:
+            mbos = mayer_bond_orders\
+                .get_mayer_bond_orders_list_between_two_atoms(
+                    item.atom_1, item.atom_2)
+            histogram = cls._Histogram.calculate(mbos, bins)
+            self.histograms.update({item.id: histogram})
+        return self
 
     def to_string(self) -> str:
         # TODO
@@ -35,7 +48,9 @@ class HistogramsFromPairOfAtoms(Calculations):
 
 
 class CoordinationNumbersFromPairOfAtoms(Calculations, Statistics):
-    def calculate(pair_of_atoms: list[PairOfAtoms],
+
+    @classmethod
+    def calculate(cls, pair_of_atoms: list[PairOfAtoms],
                   mayer_bond_orders: MayerBondOrders) -> type:
         # TODO
         pass
@@ -50,7 +65,9 @@ class CoordinationNumbersFromPairOfAtoms(Calculations, Statistics):
 
 
 class ConnectionsFromPairOfAtoms(Calculations):
-    def calculate(pair_of_atoms: list[PairOfAtoms],
+
+    @classmethod
+    def calculate(cls, pair_of_atoms: list[PairOfAtoms],
                   mayer_bond_orders: MayerBondOrders) -> type:
         # TODO
         pass
@@ -61,7 +78,9 @@ class ConnectionsFromPairOfAtoms(Calculations):
 
 
 class BondLengthFromPairOfAtoms(Calculations):
-    def calculate(pair_of_atoms: list[PairOfAtoms],
+
+    @classmethod
+    def calculate(cls, pair_of_atoms: list[PairOfAtoms],
                   mayer_bond_orders: MayerBondOrders,
                   coordinates_of_atoms: CoordinatesOfAtoms) -> type:
         # TODO
@@ -73,7 +92,9 @@ class BondLengthFromPairOfAtoms(Calculations):
 
 
 class CovalenceFromPairOfAtoms(Calculations):
-    def calculate(pair_of_atoms: list[PairOfAtoms],
+
+    @classmethod
+    def calculate(cls, pair_of_atoms: list[PairOfAtoms],
                   mayer_bond_orders: MayerBondOrders) -> type:
         # TODO
         pass
@@ -84,7 +105,9 @@ class CovalenceFromPairOfAtoms(Calculations):
 
 
 class QiUnitsFromPairOfAtoms(Calculations, Statistics):
-    def calculate(pair_of_atoms: list[PairOfAtoms],
+
+    @classmethod
+    def calculate(cls, pair_of_atoms: list[PairOfAtoms],
                   mayer_bond_orders: MayerBondOrders) -> type:
         # TODO
         pass

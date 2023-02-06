@@ -18,6 +18,8 @@ from main.BondOrderProcessing.bond_order_processing.calculations\
 from main.BondOrderProcessing.bond_order_processing.input_data\
     import InputDataFromCPMD
 
+from .mocks import MayerBondOrders
+
 from dataclasses import dataclass
 from pprint import pprint
 
@@ -42,23 +44,6 @@ class TestHistogram:
                           + "2.8333333333333335 5\n"
                           + "4.5 2\n"
                           + "6.166666666666667 3\n\n")
-
-
-class MayerBondOrders:
-    """Mock class."""
-    mbo = {1: {1: 0.5, 2: 0.5, 3: 0.4},
-           2: {1: 0.5, 2: 0.1, 3: 0.05},
-           3: {1: 0.5, 2: 0.1, 3: 0.05}}
-
-    def get_mayer_bond_order_between_atoms(self, atom_id_1: int, atom_id_2:
-                                           int) -> float:
-        return self.mbo.get(atom_id_1).get(atom_id_2)
-
-    def get_atoms_ids(self, atom_symbol_1):
-        return [1, 2, 3]
-
-    def get_all_mayer_bond_orders_of_atom(self, id):
-        return [0.5, 0.5, 0.4]
 
 
 class TestCoordinationNumbers:
