@@ -12,12 +12,12 @@ test/test_input_data.py ...............
 ---------- coverage: platform linux, python 3.10.6-final-0 -----------
 Name                                                                             Stmts   Miss  Cover   Missing
 --------------------------------------------------------------------------------------------------------------
-main/BondOrderProcessing/bond_order_processing/calculations.py                     344     11    97%   40, 44, 163, 309, 474, 487, 637, 639-640, 677-678
-main/BondOrderProcessing/bond_order_processing/calculations_for_atoms_lists.py      10     10     0%   5-27
+main/BondOrderProcessing/bond_order_processing/calculations.py                     348     12    97%   40, 44, 51, 170, 316, 481, 494, 644, 646-647, 684-685
+main/BondOrderProcessing/bond_order_processing/calculations_for_atoms_lists.py      36     36     0%   4-74
 main/BondOrderProcessing/bond_order_processing/input_data.py                       396     46    88%   82-94, 116-149, 179-183, 219, 228-232, 285, 298-299, 354-358, 402-413, 450-451, 457, 471, 478, 635, 642, 680, 705, 728, 777, 887
 --------------------------------------------------------------------------------------------------------------
-TOTAL                                                                              750     67    91%
+TOTAL                                                                              780     94    88%
 
 1 file skipped due to complete coverage.
 
-============================== 33 passed in 5.27s ==============================
+============================== 33 passed in 5.26s ==============================
