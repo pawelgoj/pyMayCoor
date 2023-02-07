@@ -7,6 +7,7 @@ from .calculations import PairOfAtoms
 from .calculations import Histogram
 from .input_data import MayerBondOrders
 from .input_data import CoordinatesOfAtoms
+from .calculations import CoordinationNumbers
 
 
 class _FromPairOfAtoms:
@@ -59,16 +60,32 @@ class HistogramsFromPairOfAtoms(Calculations, _FromPairOfAtoms):
 
 
 class CoordinationNumbersFromPairOfAtoms(Calculations, Statistics):
+    _CoordinationNumbers: type = CoordinationNumbers
+    coordination_numbers: list[str, CoordinationNumbers]
+    """**key** - bond_id, **value** - CoordinationNumbers object"""
+    _atoms_names: dict[str, (str, str)]
 
     @classmethod
     def calculate(cls, pair_of_atoms: list[PairOfAtoms],
                   mayer_bond_orders: MayerBondOrders) -> type:
-        # TODO
-        pass
+        self = cls()
+        self.coordination_numbers = {}
+        self._atoms_names = {}
+        for item in pair_of_atoms:
+            self._atoms_names.update({item.id: (item.atom_1, item.atom_2)})
+            coordination = cls._CoordinationNumbers\
+                .calculate(mayer_bond_orders,
+                           item.atom_1, item.atom_2,
+                           item.MBO_max, item.MBO_min,
+                           item.id)
+            self.coordination_numbers.update({item.id: coordination})
+        return self
 
     def calculate_statistics(self) -> type:
-        # TODO
-        pass
+
+        for keys in self.coordination_numbers.keys():
+            self.coordination_numbers[keys].calculate_statistics()
+        return self
 
     def to_string(self) -> str:
         # TODO

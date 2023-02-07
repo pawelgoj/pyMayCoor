@@ -7,6 +7,11 @@ from main.BondOrderProcessing.bond_order_processing.calculations\
 from main.BondOrderProcessing.bond_order_processing\
     .calculations_for_atoms_lists import _FromPairOfAtoms
 
+
+from main.BondOrderProcessing.bond_order_processing\
+    .calculations_for_atoms_lists import CoordinationNumbersFromPairOfAtoms
+
+
 from main.BondOrderProcessing.bond_order_processing\
     .calculations_for_atoms_lists import HistogramsFromPairOfAtoms
 
@@ -49,3 +54,26 @@ class TestHistogramsFromPairOfAtoms:
             and "Bond_id: Al-O (Al, O)" in string\
             and "Bond_id: Al-Fe (Al, Fe)" in string\
             and "Bond_id: Fe-P (Fe, P)" in string
+
+
+class TestCoordinationNumbersFromPairOfAtoms:
+    def test_calculate(self):
+        mbos = MayerBondOrders()
+        result = CoordinationNumbersFromPairOfAtoms.calculate(
+            pairs_of_atoms, mbos)
+
+        assert 'P-O' in result.coordination_numbers.keys()\
+            and 'Fe-O' in result.coordination_numbers.keys()\
+            and 'Al-O' in result.coordination_numbers.keys()\
+            and 'Al-Fe' in result.coordination_numbers.keys()\
+            and 'Fe-P' in result.coordination_numbers.keys()
+
+    def test_calculate_statistics(self):
+        mbos = MayerBondOrders()
+        result = CoordinationNumbersFromPairOfAtoms.calculate(
+            pairs_of_atoms, mbos).calculate_statistics()
+
+        assert result.coordination_numbers['P-O'].statistics[1]\
+            == pytest.approx(66.6, 0.1) and\
+            result.coordination_numbers['P-O'].statistics[2]\
+            == pytest.approx(33.3, 0.1)
