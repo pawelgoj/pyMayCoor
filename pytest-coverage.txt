@@ -2,23 +2,33 @@
 platform linux -- Python 3.10.6, pytest-7.2.1, pluggy-1.0.0
 rootdir: /home/runner/work/pyMayCoor/pyMayCoor
 plugins: cov-4.0.0
-collected 40 items
+collected 42 items
 
 test/test_calculations.py ..................
-test/test_calculations_for_atoms_lists.py .......
+test/test_calculations_for_atoms_lists.py .........
 test/test_input_data.py ...............
 
+=============================== warnings summary ===============================
+test/test_calculations_for_atoms_lists.py:151
+  /home/runner/work/pyMayCoor/pyMayCoor/test/test_calculations_for_atoms_lists.py:151: PytestUnknownMarkWarning: Unknown pytest.mark.slow - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.slow
+
+test/test_calculations_for_atoms_lists.py:165
+  /home/runner/work/pyMayCoor/pyMayCoor/test/test_calculations_for_atoms_lists.py:165: PytestUnknownMarkWarning: Unknown pytest.mark.slow - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.slow
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
 ----- generated xml file: /home/runner/work/pyMayCoor/pyMayCoor/pytest.xml -----
 
 ---------- coverage: platform linux, python 3.10.6-final-0 -----------
 Name                                                                             Stmts   Miss  Cover   Missing
 --------------------------------------------------------------------------------------------------------------
-main/BondOrderProcessing/bond_order_processing/calculations.py                     348     11    97%   40, 44, 51, 171, 317, 495, 645, 647-648, 685-686
-main/BondOrderProcessing/bond_order_processing/calculations_for_atoms_lists.py     103      7    93%   166, 170, 179, 183, 192, 196, 200
+main/BondOrderProcessing/bond_order_processing/calculations.py                     348      9    97%   40, 44, 51, 171, 317, 495, 645, 647-648
+main/BondOrderProcessing/bond_order_processing/calculations_for_atoms_lists.py     118      5    96%   213, 217, 226, 230, 234
 main/BondOrderProcessing/bond_order_processing/input_data.py                       396     46    88%   82-94, 116-149, 179-183, 219, 228-232, 285, 298-299, 354-358, 402-413, 450-451, 457, 471, 478, 635, 642, 680, 705, 728, 777, 887
 --------------------------------------------------------------------------------------------------------------
-TOTAL                                                                              847     64    92%
+TOTAL                                                                              862     60    93%
 
 1 file skipped due to complete coverage.
 
-============================== 40 passed in 5.20s ==============================
+======================= 42 passed, 2 warnings in 12.19s ========================
