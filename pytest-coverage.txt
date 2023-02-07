@@ -26,8 +26,8 @@ Name                                                             Stmts   Miss  C
 main/BondOrderProcessing/bond_order_processing/calculations.py     349      9    97%   40, 44, 51, 173, 319, 498, 648, 650-651
 main/BondOrderProcessing/bond_order_processing/input_data.py       396     46    88%   82-94, 116-149, 179-183, 219, 228-232, 285, 298-299, 354-358, 402-413, 450-451, 457, 471, 478, 635, 642, 680, 705, 728, 777, 887
 ----------------------------------------------------------------------------------------------
-TOTAL                                                              897     55    94%
+TOTAL                                                              898     55    94%
 
 2 files skipped due to complete coverage.
 
-======================= 48 passed, 2 warnings in 12.55s ========================
+======================= 48 passed, 2 warnings in 14.75s ========================
