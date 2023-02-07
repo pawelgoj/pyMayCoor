@@ -2,10 +2,10 @@
 platform linux -- Python 3.10.6, pytest-7.2.1, pluggy-1.0.0
 rootdir: /home/runner/work/pyMayCoor/pyMayCoor
 plugins: cov-4.0.0
-collected 38 items
+collected 40 items
 
 test/test_calculations.py ..................
-test/test_calculations_for_atoms_lists.py .....
+test/test_calculations_for_atoms_lists.py .......
 test/test_input_data.py ...............
 
 ----- generated xml file: /home/runner/work/pyMayCoor/pyMayCoor/pytest.xml -----
@@ -13,12 +13,12 @@ test/test_input_data.py ...............
 ---------- coverage: platform linux, python 3.10.6-final-0 -----------
 Name                                                                             Stmts   Miss  Cover   Missing
 --------------------------------------------------------------------------------------------------------------
-main/BondOrderProcessing/bond_order_processing/calculations.py                     348     12    97%   40, 44, 51, 171, 317, 482, 495, 645, 647-648, 685-686
-main/BondOrderProcessing/bond_order_processing/calculations_for_atoms_lists.py      85     10    88%   92, 101, 105, 115, 119, 128, 132, 141, 145, 149
+main/BondOrderProcessing/bond_order_processing/calculations.py                     348     11    97%   40, 44, 51, 171, 317, 495, 645, 647-648, 685-686
+main/BondOrderProcessing/bond_order_processing/calculations_for_atoms_lists.py     103      7    93%   166, 170, 179, 183, 192, 196, 200
 main/BondOrderProcessing/bond_order_processing/input_data.py                       396     46    88%   82-94, 116-149, 179-183, 219, 228-232, 285, 298-299, 354-358, 402-413, 450-451, 457, 471, 478, 635, 642, 680, 705, 728, 777, 887
 --------------------------------------------------------------------------------------------------------------
-TOTAL                                                                              829     68    92%
+TOTAL                                                                              847     64    92%
 
 1 file skipped due to complete coverage.
 
-============================== 38 passed in 5.09s ==============================
+============================== 40 passed in 5.20s ==============================
