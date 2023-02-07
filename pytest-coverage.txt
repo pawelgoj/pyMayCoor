@@ -2,33 +2,32 @@
 platform linux -- Python 3.10.6, pytest-7.2.1, pluggy-1.0.0
 rootdir: /home/runner/work/pyMayCoor/pyMayCoor
 plugins: cov-4.0.0
-collected 45 items
+collected 48 items
 
 test/test_calculations.py ..................
-test/test_calculations_for_atoms_lists.py ............
+test/test_calculations_for_atoms_lists.py ...............
 test/test_input_data.py ...............
 
 =============================== warnings summary ===============================
-test/test_calculations_for_atoms_lists.py:154
-  /home/runner/work/pyMayCoor/pyMayCoor/test/test_calculations_for_atoms_lists.py:154: PytestUnknownMarkWarning: Unknown pytest.mark.slow - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+test/test_calculations_for_atoms_lists.py:159
+  /home/runner/work/pyMayCoor/pyMayCoor/test/test_calculations_for_atoms_lists.py:159: PytestUnknownMarkWarning: Unknown pytest.mark.slow - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
     @pytest.mark.slow
 
-test/test_calculations_for_atoms_lists.py:168
-  /home/runner/work/pyMayCoor/pyMayCoor/test/test_calculations_for_atoms_lists.py:168: PytestUnknownMarkWarning: Unknown pytest.mark.slow - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+test/test_calculations_for_atoms_lists.py:173
+  /home/runner/work/pyMayCoor/pyMayCoor/test/test_calculations_for_atoms_lists.py:173: PytestUnknownMarkWarning: Unknown pytest.mark.slow - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
     @pytest.mark.slow
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
 ----- generated xml file: /home/runner/work/pyMayCoor/pyMayCoor/pytest.xml -----
 
 ---------- coverage: platform linux, python 3.10.6-final-0 -----------
-Name                                                                             Stmts   Miss  Cover   Missing
---------------------------------------------------------------------------------------------------------------
-main/BondOrderProcessing/bond_order_processing/calculations.py                     348      9    97%   40, 44, 51, 171, 317, 495, 645, 647-648
-main/BondOrderProcessing/bond_order_processing/calculations_for_atoms_lists.py     134      3    98%   251, 255, 259
-main/BondOrderProcessing/bond_order_processing/input_data.py                       396     46    88%   82-94, 116-149, 179-183, 219, 228-232, 285, 298-299, 354-358, 402-413, 450-451, 457, 471, 478, 635, 642, 680, 705, 728, 777, 887
---------------------------------------------------------------------------------------------------------------
-TOTAL                                                                              878     58    93%
+Name                                                             Stmts   Miss  Cover   Missing
+----------------------------------------------------------------------------------------------
+main/BondOrderProcessing/bond_order_processing/calculations.py     349      9    97%   40, 44, 51, 173, 319, 498, 648, 650-651
+main/BondOrderProcessing/bond_order_processing/input_data.py       396     46    88%   82-94, 116-149, 179-183, 219, 228-232, 285, 298-299, 354-358, 402-413, 450-451, 457, 471, 478, 635, 642, 680, 705, 728, 777, 887
+----------------------------------------------------------------------------------------------
+TOTAL                                                              897     55    94%
 
-1 file skipped due to complete coverage.
+2 files skipped due to complete coverage.
 
-======================= 45 passed, 2 warnings in 11.86s ========================
+======================= 48 passed, 2 warnings in 12.55s ========================
