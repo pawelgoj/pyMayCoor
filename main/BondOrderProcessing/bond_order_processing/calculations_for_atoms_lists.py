@@ -10,6 +10,7 @@ from .input_data import CoordinatesOfAtoms
 from .calculations import CoordinationNumbers
 from .calculations import Connections
 from .calculations import BondLength
+from .calculations import Covalence
 
 
 class _FromPairOfAtoms:
@@ -26,7 +27,7 @@ class _FromPairOfAtoms:
         return unique_symbols
 
 
-class HistogramsFromPairOfAtoms(Calculations, _FromPairOfAtoms):
+class HistogramsFromPairOfAtoms(Calculations):
     _Histogram: type = Histogram
     histograms: dict[str, Histogram]
     """**key** - bond_id, **value** - Histogram object"""
@@ -168,7 +169,7 @@ class ConnectionsFromPairOfAtoms(Calculations):
 
 class BondLengthFromPairOfAtoms(Calculations):
     _BondLength: type = BondLength
-    bond_lengths: dict[str, Histogram]
+    bond_lengths: dict[str, BondLength]
     """**key** - bond_id, **value** - BondLength object"""
     _atoms_names: dict[str, (str, str)]
 
@@ -204,17 +205,41 @@ class BondLengthFromPairOfAtoms(Calculations):
         return string
 
 
-class CovalenceFromPairOfAtoms(Calculations):
+class CovalenceFromPairOfAtoms(Calculations, _FromPairOfAtoms):
+    _Covalence: type = Covalence
+    covalence: dict[str, Covalence]
+    """**key** - atom_name, **value** - Covalence object"""
+    _atoms_names: list[str]
 
     @classmethod
     def calculate(cls, pair_of_atoms: list[PairOfAtoms],
                   mayer_bond_orders: MayerBondOrders) -> type:
-        # TODO
-        pass
+        self = cls()
+        self.covalence = {}
+        self._atoms_names = []
+
+        unique_atom_symbols = super()\
+            ._get_unique_atom_symbols(pair_of_atoms)
+
+        for item in unique_atom_symbols:
+            self._atoms_names.append(item)
+            covalence = cls._Covalence\
+                .calculate(mayer_bond_orders, item)
+            self.covalence.update({item: covalence})
+        return self
 
     def to_string(self) -> str:
-        # TODO
-        pass
+        """Make string from BondLengthFromPairOfAtoms object
+
+        Returns:
+            **str**: String
+        """
+        string = ""
+        for connections in self.covalence.values():
+            string += connections\
+                .to_string()
+
+        return string
 
 
 class QiUnitsFromPairOfAtoms(Calculations, Statistics):

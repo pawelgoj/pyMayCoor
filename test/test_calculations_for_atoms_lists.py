@@ -22,6 +22,9 @@ from main.BondOrderProcessing.bond_order_processing\
 from main.BondOrderProcessing.bond_order_processing\
     .calculations_for_atoms_lists import BondLengthFromPairOfAtoms
 
+from main.BondOrderProcessing.bond_order_processing\
+    .calculations_for_atoms_lists import CovalenceFromPairOfAtoms
+
 from main.BondOrderProcessing.bond_order_processing.calculations\
     import PairOfAtoms
 from .mocks import MayerBondOrders
@@ -85,7 +88,7 @@ class TestCoordinationNumbersFromPairOfAtoms:
             result.coordination_numbers['P-O'].statistics[2]\
             == pytest.approx(33.3, 0.1)
 
-    def test_calculate_statistics(self):
+    def test_to_string(self):
         mbos = MayerBondOrders()
         string = CoordinationNumbersFromPairOfAtoms.calculate(
             pairs_of_atoms, mbos).calculate_statistics().to_string()
@@ -109,7 +112,7 @@ class TestConnectionsFromPairOfAtoms:
             and 'Al-Fe' in result.connections.keys()\
             and 'Fe-P' in result.connections.keys()
 
-    def test_calculate_statistics(self):
+    def test_to_string(self):
         mbos = MayerBondOrders()
         string = ConnectionsFromPairOfAtoms.calculate(
             pairs_of_atoms, mbos, ).to_string()
@@ -175,3 +178,25 @@ class TestBondLengthFromPairOfAtoms:
             and 'Al-O' in string\
             and 'Al-Fe' in string\
             and 'Fe-P' in string
+
+
+class TestCovalenceFromPairOfAtoms:
+    def test_calculate(self):
+        mbos = MayerBondOrders()
+        result = CovalenceFromPairOfAtoms.calculate(
+            pairs_of_atoms, mbos)
+
+        assert 'P' in result.covalence.keys()\
+            and 'Fe' in result.covalence.keys()\
+            and 'Al' in result.covalence.keys()\
+            and 'O' in result.covalence.keys()
+
+    def test_to_string(self):
+        mbos = MayerBondOrders()
+        string = CovalenceFromPairOfAtoms.calculate(
+            pairs_of_atoms, mbos, ).to_string()
+
+        assert 'P' in string\
+            and 'Fe' in string\
+            and 'Al' in string\
+            and 'O' in string
