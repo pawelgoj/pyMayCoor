@@ -36,9 +36,9 @@ class TestHistogram:
     def test_to_string(self):
 
         string = Histogram.calculate(self.values, 3)\
-            .to_string('P', 'O')
+            .to_string('P-O', 'P', 'O')
 
-        assert string == ("P, O\n"
+        assert string == ("Bond_id: P-O (P, O)\n"
                           + "\n"
                           + "Interval/2 Count\n\n"
                           + "2.8333333333333335 5\n"

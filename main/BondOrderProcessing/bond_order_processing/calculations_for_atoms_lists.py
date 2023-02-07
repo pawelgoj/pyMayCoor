@@ -27,6 +27,7 @@ class HistogramsFromPairOfAtoms(Calculations, _FromPairOfAtoms):
     _Histogram: type = Histogram
     histograms: dict[str, Histogram]
     """**key** - bond_id, **value** - Histogram object"""
+    _atoms_names: dict[str, (str, str)]
 
     @classmethod
     def calculate(cls, pair_of_atoms: list[PairOfAtoms],
@@ -34,17 +35,27 @@ class HistogramsFromPairOfAtoms(Calculations, _FromPairOfAtoms):
                   bins: int) -> type:
         self = cls()
         self.histograms = {}
+        self._atoms_names = {}
         for item in pair_of_atoms:
             mbos = mayer_bond_orders\
                 .get_mayer_bond_orders_list_between_two_atoms(
                     item.atom_1, item.atom_2)
+            self._atoms_names.update({item.id: (item.atom_1, item.atom_2)})
             histogram = cls._Histogram.calculate(mbos, bins)
             self.histograms.update({item.id: histogram})
         return self
 
     def to_string(self) -> str:
-        # TODO
-        pass
+        """Make string from HistogramsFromPairOfAtoms object
+
+        Returns:
+            **str**: String
+        """
+        string = ""
+        for key, histogram in self.histograms.items():
+            string += histogram.to_string(key,  *self._atoms_names[key])
+
+        return string
 
 
 class CoordinationNumbersFromPairOfAtoms(Calculations, Statistics):

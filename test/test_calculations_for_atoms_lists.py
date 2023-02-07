@@ -24,7 +24,6 @@ pairs_of_atoms = [PairOfAtoms("P", "O", 0.2, 2.0, "P-O"),
 class Test_FromPairOfAtoms:
 
     def test__get_unique_atom_symbols(self):
-
         results = _FromPairOfAtoms._get_unique_atom_symbols(pairs_of_atoms)
         assert set(results) == {'P', 'O', 'Fe', 'Al'}
 
@@ -38,3 +37,15 @@ class TestHistogramsFromPairOfAtoms:
 
         assert len(result.histograms) == 5 and \
             result.histograms['P-O'].y == [4, 2, 2, 2]
+
+    def test_to_string(self):
+        mbos = MayerBondOrders()
+
+        string = HistogramsFromPairOfAtoms.calculate(pairs_of_atoms, mbos, 4)\
+            .to_string()
+
+        assert "Bond_id: P-O (P, O)" in string\
+            and "Bond_id: Fe-O (Fe, O)" in string\
+            and "Bond_id: Al-O (Al, O)" in string\
+            and "Bond_id: Al-Fe (Al, Fe)" in string\
+            and "Bond_id: Fe-P (Fe, P)" in string
