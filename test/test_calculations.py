@@ -21,7 +21,6 @@ from main.BondOrderProcessing.bond_order_processing.input_data\
 from .mocks import MayerBondOrders
 
 from dataclasses import dataclass
-from pprint import pprint
 
 
 class TestHistogram:
@@ -41,9 +40,9 @@ class TestHistogram:
         assert string == ("Bond_id: P-O (P, O)\n"
                           + "\n"
                           + "Interval/2 Count\n\n"
-                          + "2.8333333333333335 5\n"
+                          + "2.833333333 5\n"
                           + "4.5 2\n"
-                          + "6.166666666666667 3\n\n")
+                          + "6.166666667 3\n\n")
 
 
 class TestCoordinationNumbers:
@@ -221,8 +220,8 @@ class TestConnections:
                                        list_of_pair_of_atoms)\
             .to_string()
 
-        assert string == "Connections of: P\n\n"\
-            + "Central atom id: 1\n"\
+        assert string == "## Connections of: P\n\n"\
+            + "### Central atom id: 1\n"\
             + "Bond id: P-O (second atom: O)\n"\
             + "quantity: 3\n"\
             + "Bonds:\n"\
@@ -233,7 +232,7 @@ class TestConnections:
             + "Bonds:\n"\
             + "id: 1 2 3 \n"\
             + "mbo: 0.5 0.5 0.4 \n\n"\
-            + "Central atom id: 2\n"\
+            + "### Central atom id: 2\n"\
             + "Bond id: P-O (second atom: O)\n"\
             + "quantity: 3\n"\
             + "Bonds:\n"\
@@ -244,7 +243,7 @@ class TestConnections:
             + "Bonds:\n"\
             + "id: 1 2 3 \n"\
             + "mbo: 0.5 0.1 0.05 \n\n"\
-            + "Central atom id: 3\n"\
+            + "### Central atom id: 3\n"\
             + "Bond id: P-O (second atom: O)\n"\
             + "quantity: 3\n"\
             + "Bonds:\n"\

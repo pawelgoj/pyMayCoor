@@ -110,7 +110,9 @@ class Histogram(Calculations):
         string = f'Bond_id: {bond_id} ({atom_symbol_1}, {atom_symbol_2})\n\n'
         string = string + 'Interval/2' + ' ' + 'Count' + '\n\n'
         for i in range(len(self.x)):
-            string = string + str(self.x[i]) + ' ' + str(self.y[i]) + '\n'
+            string = string + \
+                str(round(self.x[i], 9)) + ' ' + \
+                str(round(self.y[i], 9)) + '\n'
 
         string = string + '\n'
 
@@ -329,6 +331,7 @@ class QiUnits(Calculations, Statistics):
         self.id_of_bond = id_of_bond
         self.atom_symbol_1 = atom_symbol_1
         self.atom_symbol_2 = atom_symbol_2
+        self.q_i_units = {}
         for atom_1_id in atom_1_ids:
 
             self.q_i_units.update({atom_1_id: 0})
@@ -478,7 +481,7 @@ class Connections(Calculations):
             connections.update({atom_1_id: []})
 
             for pair_atoms in pair_atom_list_containing_atom_1:
-                if v := pair_atoms.atom_1 != atom_symbol_1:
+                if (v := pair_atoms.atom_1) != atom_symbol_1:
                     atom_symbol_2 = v
                 else:
                     atom_symbol_2 = pair_atoms.atom_2
@@ -525,10 +528,10 @@ class Connections(Calculations):
         Returns:
             **str**: string.
         """
-        string = 'Connections of: ' + str(self.atom_symbol_1) + '\n\n'
+        string = '## Connections of: ' + str(self.atom_symbol_1) + '\n\n'
 
         for atom_1_id, list_of_connections in self.connections.items():
-            string = string + "Central atom id: " + str(atom_1_id) + "\n"
+            string = string + "### Central atom id: " + str(atom_1_id) + "\n"
 
             for connection in list_of_connections:
 

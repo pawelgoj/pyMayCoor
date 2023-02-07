@@ -27,13 +27,18 @@ from main.BondOrderProcessing.bond_order_processing\
 
 from main.BondOrderProcessing.bond_order_processing.calculations\
     import PairOfAtoms
+
+from main.BondOrderProcessing.bond_order_processing\
+    .calculations_for_atoms_lists import QiUnitsFromPairOfAtoms
+
+
 from .mocks import MayerBondOrders
 
 pairs_of_atoms = [PairOfAtoms("P", "O", 0.2, 2.0, "P-O"),
                   PairOfAtoms("Fe", "O", 0.2, 2.0, "Fe-O"),
                   PairOfAtoms("Al", "O", 0.2, 2.0, "Al-O"),
                   PairOfAtoms("Al", "Fe", 0.2, 2.0, "Al-Fe"),
-                  PairOfAtoms("Fe", "P", 0.2, 2.0, "Fe-P")]
+                  PairOfAtoms("Fe", "P", 1, 2.0, "Fe-P")]
 
 
 class Test_FromPairOfAtoms:
@@ -58,7 +63,6 @@ class TestHistogramsFromPairOfAtoms:
 
         string = HistogramsFromPairOfAtoms.calculate(pairs_of_atoms, mbos, 4)\
             .to_string()
-
         assert "Bond_id: P-O (P, O)" in string\
             and "Bond_id: Fe-O (Fe, O)" in string\
             and "Bond_id: Al-O (Al, O)" in string\
@@ -116,6 +120,7 @@ class TestConnectionsFromPairOfAtoms:
         mbos = MayerBondOrders()
         string = ConnectionsFromPairOfAtoms.calculate(
             pairs_of_atoms, mbos, ).to_string()
+
         assert 'P-O' in string\
             and 'Fe-O' in string\
             and 'Al-O' in string\
@@ -172,7 +177,6 @@ class TestBondLengthFromPairOfAtoms:
         string = BondLengthFromPairOfAtoms.calculate(
             pairs_of_atoms,  mayer_bond_orders, coordinates_of_atoms
         ).to_string()
-
         assert 'P-O' in string\
             and 'Fe-O' in string\
             and 'Al-O' in string\
@@ -196,6 +200,35 @@ class TestCovalenceFromPairOfAtoms:
         string = CovalenceFromPairOfAtoms.calculate(
             pairs_of_atoms, mbos, ).to_string()
 
+        assert 'P' in string\
+            and 'Fe' in string\
+            and 'Al' in string\
+            and 'O' in string
+
+
+class TestQiUnitsFromPairOfAtoms:
+    def test_calculate(self):
+        mbos = MayerBondOrders()
+        result = QiUnitsFromPairOfAtoms.calculate(
+            pairs_of_atoms, mbos)
+
+        assert 'P-O' in result.qi_units.keys()\
+            and 'Fe-O' in result.qi_units.keys()\
+            and 'Al-O' in result.qi_units.keys()\
+            and 'Al-Fe' in result.qi_units.keys()\
+            and 'Fe-P' in result.qi_units.keys()
+
+    def test_calculate_statistics(self):
+        mbos = MayerBondOrders()
+        result = QiUnitsFromPairOfAtoms.calculate(
+            pairs_of_atoms, mbos).calculate_statistics()
+
+        assert 1 in result.qi_units['P-O'].statistics.keys()
+
+    def test_to_string(self):
+        mbos = MayerBondOrders()
+        string = QiUnitsFromPairOfAtoms.calculate(
+            pairs_of_atoms, mbos, ).calculate_statistics().to_string()
         assert 'P' in string\
             and 'Fe' in string\
             and 'Al' in string\

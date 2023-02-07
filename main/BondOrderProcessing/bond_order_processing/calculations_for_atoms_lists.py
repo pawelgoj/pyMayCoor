@@ -11,6 +11,8 @@ from .calculations import CoordinationNumbers
 from .calculations import Connections
 from .calculations import BondLength
 from .calculations import Covalence
+from .calculations import QiUnits
+from copy import deepcopy
 
 
 class _FromPairOfAtoms:
@@ -229,7 +231,7 @@ class CovalenceFromPairOfAtoms(Calculations, _FromPairOfAtoms):
         return self
 
     def to_string(self) -> str:
-        """Make string from BondLengthFromPairOfAtoms object
+        """Make string from CovalenceFromPairOfAtoms object
 
         Returns:
             **str**: String
@@ -243,17 +245,44 @@ class CovalenceFromPairOfAtoms(Calculations, _FromPairOfAtoms):
 
 
 class QiUnitsFromPairOfAtoms(Calculations, Statistics):
+    _QiUnits: type = QiUnits
+    qi_units: dict[str, QiUnits]
+    """**key** - bond_id, **value** - BondLength object"""
+    _atoms_names: list[str]
 
     @classmethod
     def calculate(cls, pair_of_atoms: list[PairOfAtoms],
                   mayer_bond_orders: MayerBondOrders) -> type:
-        # TODO
-        pass
+        self = cls()
+        self.qi_units = {}
+        self._atoms_names = {}
+        for item in pair_of_atoms:
+            self._atoms_names.update({item.id: (item.atom_1, item.atom_2)})
+            qi_units = cls._QiUnits\
+                .calculate(mayer_bond_orders,
+                           item.atom_1, item.atom_2,
+                           item.MBO_max, item.MBO_min,
+                           item.id)
+
+            self.qi_units.update({item.id: qi_units})
+        return self
 
     def calculate_statistics(self) -> type:
-        # TODO
-        pass
+        """Calculate statistic in **QiUnits** objects."""
+
+        for keys in self.qi_units.keys():
+            self.qi_units[keys].calculate_statistics()
+        return self
 
     def to_string(self) -> str:
-        # TODO
-        pass
+        """Make string from **QiUnitsFromPairOfAtoms** object
+
+        Returns:
+            **str**: String
+        """
+        string = ""
+        for qi_units in self.qi_units.values():
+            string += qi_units\
+                .to_string()
+
+        return string
