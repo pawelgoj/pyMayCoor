@@ -280,15 +280,15 @@ class CoordinationNumbers(Calculations, Statistics):
 class QiUnits(Calculations, Statistics):
     """Stores information about Qi units."""
     id_of_bond: str
-    """Id of bonds in Qi unit"""
+    """Id of bonds in Qⁱ unit"""
     atom_symbol_1: str
     """Symbol of central atom"""
     atom_symbol_2: str
     """Symbol of ligands"""
     q_i_units: dict[int, int] = {}
-    """Dictionary stores values of i of Qi units. key - central atom id."""
+    """Dictionary stores values of i of Qⁱ units. key - central atom id."""
     statistics: dict[int, float] | None = None
-    """Dictionary stores percentages of Qi units. key - value of i in Qi"""
+    """Dictionary stores percentages of Qⁱ units. key - value of i in Qⁱ"""
 
     @classmethod
     def calculate(cls, mayer_bond_orders: MayerBondOrders,

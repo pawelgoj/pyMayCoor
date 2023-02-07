@@ -20,3 +20,4 @@ Example:
     {4: 100.0}
 
 """
+__docformat__ = "google"

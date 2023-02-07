@@ -1,6 +1,28 @@
 """Calculations in this module are made for PairOfAtoms
-objects lists. This module is added in version: 1.1.0"""
+objects lists. This module is added in version: 1.1.0.
 
+
+Example:
+
+    >>> from bond_order_processing.input_data import LoadedData
+    >>> from bond_order_processing.calculations_for_atoms_lists import CoordinationNumbers
+    >>> from bond_order_processing.input_data import InputDataFromCPMD
+    >>> from bond_order_processing.calculations import PairOfAtoms
+    >>> 
+    >>> path_to_input_file = r'./egzamples_instructions/out1.txt'
+    >>> 
+    >>> input_data = InputDataFromCPMD()
+    >>> input_data.load_input_data(path_to_input_file, LoadedData.MayerBondOrders)
+    >>> mayer_bond_orders = input_data.return_data(LoadedData.MayerBondOrders)
+    >>> 
+    >>> pairs_of_atoms = [PairOfAtoms("P", "O", 0.2, 2.0, "P-O"), PairOfAtoms("Fe", "O", 0.2, 2.0, "Fe-O")]
+    >>> # Calculate percentage of coordination numbers of P
+    >>> coordinations_numbers_stats = CoordinationNumbersFromPairOfAtoms.calculate(pairs_of_atoms, mayer_bond_orders).calculate_statistics()
+    >>> coordinations_numbers_stats.coordination_numbers['P-O'].statistics
+    {4: 100.0}
+    
+"""
+__docformat__ = "google"
 from .calculations import Calculations
 from .calculations import Statistics
 from .calculations import PairOfAtoms
@@ -12,7 +34,6 @@ from .calculations import Connections
 from .calculations import BondLength
 from .calculations import Covalence
 from .calculations import QiUnits
-from copy import deepcopy
 
 
 class _FromPairOfAtoms:
@@ -30,6 +51,7 @@ class _FromPairOfAtoms:
 
 
 class HistogramsFromPairOfAtoms(Calculations):
+    """Calculate histograms for list of pairs of atoms."""
     _Histogram: type = Histogram
     histograms: dict[str, Histogram]
     """**key** - bond_id, **value** - Histogram object"""
@@ -48,6 +70,7 @@ class HistogramsFromPairOfAtoms(Calculations):
 
         Returns:
             **HistogramsFromPairOfAtoms**: HistogramsFromPairOfAtoms object
+
         """
         self = cls()
         self.histograms = {}
@@ -66,6 +89,7 @@ class HistogramsFromPairOfAtoms(Calculations):
 
         Returns:
             **str**: String
+
         """
         string = ""
         for key, histogram in self.histograms.items():
@@ -75,6 +99,7 @@ class HistogramsFromPairOfAtoms(Calculations):
 
 
 class CoordinationNumbersFromPairOfAtoms(Calculations, Statistics):
+    """Calculate coordination numbers for list of pairs of atoms."""
     _CoordinationNumbers: type = CoordinationNumbers
     coordination_numbers: list[str, CoordinationNumbers]
     """**key** - bond_id, **value** - CoordinationNumbers object"""
@@ -91,6 +116,7 @@ class CoordinationNumbersFromPairOfAtoms(Calculations, Statistics):
 
         Returns:
             **CoordinationNumbersFromPairOfAtoms**: CoordinationNumbersFromPairOfAtoms object.
+
         """
         self = cls()
         self.coordination_numbers = {}
@@ -117,6 +143,7 @@ class CoordinationNumbersFromPairOfAtoms(Calculations, Statistics):
 
         Returns:
             **str**: String
+
         """
         string = ""
         for coordination_numbers in self.coordination_numbers.values():
@@ -127,6 +154,7 @@ class CoordinationNumbersFromPairOfAtoms(Calculations, Statistics):
 
 
 class ConnectionsFromPairOfAtoms(Calculations):
+    """Calculate connections for list of pairs of atoms."""
     _Connections: type = Connections
     connections: dict[str, Histogram]
     """**key** - bond_id, **value** - Connections object"""
@@ -143,6 +171,7 @@ class ConnectionsFromPairOfAtoms(Calculations):
 
         Returns:
             **ConnectionsFromPairOfAtoms**: ConnectionsFromPairOfAtoms object.
+
         """
         self = cls()
         self.connections = {}
@@ -160,6 +189,7 @@ class ConnectionsFromPairOfAtoms(Calculations):
 
         Returns:
             **str**: String
+
         """
         string = ""
         for connections in self.connections.values():
@@ -170,6 +200,7 @@ class ConnectionsFromPairOfAtoms(Calculations):
 
 
 class BondLengthFromPairOfAtoms(Calculations):
+    """Calculate bonds lengths for list of pairs of atoms."""
     _BondLength: type = BondLength
     bond_lengths: dict[str, BondLength]
     """**key** - bond_id, **value** - BondLength object"""
@@ -179,6 +210,17 @@ class BondLengthFromPairOfAtoms(Calculations):
     def calculate(cls, pair_of_atoms: list[PairOfAtoms],
                   mayer_bond_orders: MayerBondOrders,
                   coordinates_of_atoms: CoordinatesOfAtoms) -> type:
+        """Calculate BondLengthFromPairOfAtoms object.
+
+        Args:
+            pair_of_atoms (list[PairOfAtoms]): list of PairOfAtoms objects.
+            mayer_bond_orders (MayerBondOrders): MayerBondOrders object.
+            coordinates_of_atoms (CoordinatesOfAtoms): CoordinatesOfAtoms.
+
+        Returns:
+            **BondLengthFromPairOfAtoms**: BondLengthFromPairOfAtoms object.
+
+        """
         self = cls()
         self.bond_lengths = {}
         self._atoms_names = {}
@@ -198,6 +240,7 @@ class BondLengthFromPairOfAtoms(Calculations):
 
         Returns:
             **str**: String
+
         """
         string = ""
         for connections in self.bond_lengths.values():
@@ -208,6 +251,7 @@ class BondLengthFromPairOfAtoms(Calculations):
 
 
 class CovalenceFromPairOfAtoms(Calculations, _FromPairOfAtoms):
+    """Covalence for list of pairs of atoms."""
     _Covalence: type = Covalence
     covalence: dict[str, Covalence]
     """**key** - atom_name, **value** - Covalence object"""
@@ -216,6 +260,16 @@ class CovalenceFromPairOfAtoms(Calculations, _FromPairOfAtoms):
     @classmethod
     def calculate(cls, pair_of_atoms: list[PairOfAtoms],
                   mayer_bond_orders: MayerBondOrders) -> type:
+        """Calculate CovalenceFromPairOfAtoms object.
+
+        Args:
+            pair_of_atoms (list[PairOfAtoms]): list of PairOfAtoms objects.
+            mayer_bond_orders (MayerBondOrders): MayerBondOrders object.
+
+        Returns:
+            **CovalenceFromPairOfAtoms**: CovalenceFromPairOfAtoms object.
+
+        """
         self = cls()
         self.covalence = {}
         self._atoms_names = []
@@ -235,6 +289,7 @@ class CovalenceFromPairOfAtoms(Calculations, _FromPairOfAtoms):
 
         Returns:
             **str**: String
+
         """
         string = ""
         for connections in self.covalence.values():
@@ -245,14 +300,25 @@ class CovalenceFromPairOfAtoms(Calculations, _FromPairOfAtoms):
 
 
 class QiUnitsFromPairOfAtoms(Calculations, Statistics):
+    """Calculate Qⁱ for list of pairs of atoms."""
     _QiUnits: type = QiUnits
     qi_units: dict[str, QiUnits]
-    """**key** - bond_id, **value** - BondLength object"""
+    """**key** - bond_id, **value** - QiUnits object"""
     _atoms_names: list[str]
 
     @classmethod
     def calculate(cls, pair_of_atoms: list[PairOfAtoms],
                   mayer_bond_orders: MayerBondOrders) -> type:
+        """Calculate QiUnitsFromPairOfAtoms object.
+
+        Args:
+            pair_of_atoms (list[PairOfAtoms]): list of PairOfAtoms objects.
+            mayer_bond_orders (MayerBondOrders): MayerBondOrders object.
+
+        Returns:
+            **QiUnitsFromPairOfAtoms**: QiUnitsFromPairOfAtoms object.
+
+        """
         self = cls()
         self.qi_units = {}
         self._atoms_names = {}
@@ -279,6 +345,7 @@ class QiUnitsFromPairOfAtoms(Calculations, Statistics):
 
         Returns:
             **str**: String
+
         """
         string = ""
         for qi_units in self.qi_units.values():

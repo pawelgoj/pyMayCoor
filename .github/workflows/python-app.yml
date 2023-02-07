@@ -32,6 +32,7 @@ jobs:
         pytest --doctest-modules main/BondOrderProcessing/bond_order_processing/input_data.py
         pytest --doctest-modules main/BondOrderProcessing/bond_order_processing/__init__.py
         pytest --doctest-modules main/Settings/settings.py
+        pytest --doctest-modules main/BondOrderProcessing/bond_order_processing/calculations_for_atoms_lists.py
         pytest -s --junitxml=pytest.xml --cov-report=term-missing:skip-covered --cov=main/BondOrderProcessing/bond_order_processing test test/ | tee pytest-coverage.txt
     
     - name: Pytest coverage comment
