@@ -9,6 +9,7 @@ from .input_data import MayerBondOrders
 from .input_data import CoordinatesOfAtoms
 from .calculations import CoordinationNumbers
 from .calculations import Connections
+from .calculations import BondLength
 
 
 class _FromPairOfAtoms:
@@ -131,6 +132,15 @@ class ConnectionsFromPairOfAtoms(Calculations):
     @classmethod
     def calculate(cls, pair_of_atoms: list[PairOfAtoms],
                   mayer_bond_orders: MayerBondOrders) -> type:
+        """Calculate ConnectionsFromPairOfAtoms object.
+
+        Args:
+            pair_of_atoms (list[PairOfAtoms]): list of PairOfAtoms objects.
+            mayer_bond_orders (MayerBondOrders): MayerBondOrders object.
+
+        Returns:
+            **ConnectionsFromPairOfAtoms**: ConnectionsFromPairOfAtoms object.
+        """
         self = cls()
         self.connections = {}
         self._atoms_names = {}
@@ -157,17 +167,41 @@ class ConnectionsFromPairOfAtoms(Calculations):
 
 
 class BondLengthFromPairOfAtoms(Calculations):
+    _BondLength: type = BondLength
+    bond_lengths: dict[str, Histogram]
+    """**key** - bond_id, **value** - BondLength object"""
+    _atoms_names: dict[str, (str, str)]
 
     @classmethod
     def calculate(cls, pair_of_atoms: list[PairOfAtoms],
                   mayer_bond_orders: MayerBondOrders,
                   coordinates_of_atoms: CoordinatesOfAtoms) -> type:
-        # TODO
-        pass
+        self = cls()
+        self.bond_lengths = {}
+        self._atoms_names = {}
+        for item in pair_of_atoms:
+            self._atoms_names.update({item.id: (item.atom_1, item.atom_2)})
+            bond_lengths = cls._BondLength\
+                .calculate(mayer_bond_orders,
+                           coordinates_of_atoms,
+                           item.atom_1, item.atom_2,
+                           item.MBO_max, item.MBO_min,
+                           item.id)
+            self.bond_lengths.update({item.id: bond_lengths})
+        return self
 
     def to_string(self) -> str:
-        # TODO
-        pass
+        """Make string from BondLengthFromPairOfAtoms object
+
+        Returns:
+            **str**: String
+        """
+        string = ""
+        for connections in self.bond_lengths.values():
+            string += connections\
+                .to_string()
+
+        return string
 
 
 class CovalenceFromPairOfAtoms(Calculations):

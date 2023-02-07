@@ -680,7 +680,7 @@ class BondLength(Calculations):
                     continue
 
         # remove empty keys.
-        for key in self.lengths.keys():
+        for key in list(self.lengths.keys()):
             if self.lengths[key] == {}:
                 del self.lengths[key]
                 del self.mbos[key]
