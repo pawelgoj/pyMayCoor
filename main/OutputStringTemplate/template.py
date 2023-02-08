@@ -10,27 +10,27 @@ class StringTemplate:
 
     @staticmethod
     def get_histogram_header() -> str:
-        return f"\n # Histograms \n\n"
+        return f"\n# Histograms \n\n"
 
     @staticmethod
     def get_coordination_numbers_header() -> str:
-        return f"\n # Coordination numbers \n\n"
+        return f"\n# Coordination numbers \n\n"
 
     @staticmethod
     def get_qi_units_header() -> str:
-        return f"\n # Qⁱ numbers \n\n"
+        return f"\n# Qⁱ numbers \n\n"
 
     @staticmethod
     def get_connections_header() -> str:
-        return f"\n # Connections \n\n"
+        return f"\n# Connections \n\n"
 
     @staticmethod
     def get_covalence_header() -> str:
-        return f"\n # Covalence from Mayer bond orders \n\n"
+        return f"\n# Covalence from Mayer bond orders \n\n"
 
     @staticmethod
     def get_bond_length() -> str:
-        return f"\n # Bond lengths \n\n"
+        return f"\n# Bond lengths \n\n"
 
     @staticmethod
     def get_wrong_atoms_list(atoms: list[str]) -> str:

@@ -247,11 +247,14 @@ class CoordinationNumbers(Calculations, Statistics):
         Returns:
             **str**: String.
         """
-        string = "CN of " + str(self.atom_symbol) + " bond: "\
+        string = "## CN of " + str(self.atom_symbol) + " bond: "\
             + str(self.id_of_bond) + "\n\n"
         for item in self.list_coordinations_number:
             string = string + "id: " + str(item.id_atom_1) + " "\
-                + "CN: " + str(item.cn) + "\n" + "Bond orders (id: mbo): "
+                + "CN: " + str(item.cn)
+
+            if item.cn != 0:
+                string += "\n" + "Bond orders (id: mbo): "
 
             length = len(item.bonds)
             i = 1
@@ -675,7 +678,7 @@ class BondLength(Calculations):
 
                 if mbo > min_mayer_bond_order and (
                     mbo < max_mayer_bond_order
-                    or max_mayer_bond_order == 'INF'
+                    or inf is True
                 ):
                     self.lengths[atom_1_id].update({atom_2_id: length})
                     self.mbos[atom_1_id].update({atom_2_id: mbo})
