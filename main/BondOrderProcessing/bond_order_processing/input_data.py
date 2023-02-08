@@ -264,6 +264,21 @@ class MayerBondOrders:
 
         return ids
 
+    def check_atom_symbol_in_MBO(self, atom_symbol: str) -> bool:
+        """Check atom symbol in MayerBondOrders object.
+
+        Args:
+            atom_symbol (str): Symbol of atom eg. 'P'.
+
+        Returns:
+            **bool**: True if in MayerBondOrders object.
+
+        """
+        if self.get_atoms_ids(atom_symbol) == []:
+            return False
+        else:
+            return True
+
     def get_atom_symbols(self, atom_id_1: int, atom_id_2:
                          int) -> tuple[str, str] | None:
         """Get atom symbols of pair of atoms.

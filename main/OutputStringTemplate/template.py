@@ -31,3 +31,10 @@ class StringTemplate:
     @staticmethod
     def get_bond_length() -> str:
         return f"\n # Bond lengths \n\n"
+
+    @staticmethod
+    def get_wrong_atoms_list(atoms: list[str]) -> str:
+        string = ''
+        for item in atoms:
+            string = item + ', '
+        return f"Wrong atoms: {string} \n\n"

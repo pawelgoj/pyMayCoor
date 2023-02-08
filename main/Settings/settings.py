@@ -124,10 +124,16 @@ PairOfAtoms(atom_1='Al', atom_2='O', MBO_min=0.02, MBO_max='INF', id='Al-O')]
                         raise ValueError("Wrong keywords in yaml file!")
 
         for item in data.get("pairs_atoms_list"):
+            mbo_min = float(item.get('mbo_min'))
+            if item.get('mbo_max') == 'INF':
+                pass
+            else:
+                mbo_max = float(item.get('mbo_max'))
+
             self.pairs_atoms_list.append(PairOfAtoms(item.get('atom_1'),
                                                      item.get('atom_2'),
-                                                     item.get('mbo_min'),
-                                                     item.get('mbo_max'),
+                                                     mbo_min,
+                                                     mbo_max,
                                                      item.get('id')))
 
         if (histogram := data.get('histogram')) is not None:

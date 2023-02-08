@@ -79,6 +79,16 @@ class HistogramsFromPairOfAtoms(Calculations):
             mbos = mayer_bond_orders\
                 .get_mayer_bond_orders_list_between_two_atoms(
                     item.atom_1, item.atom_2)
+
+            if type(item.MBO_max) is str:
+                if item.MBO_max == 'INF':
+                    mbos = [mbo for mbo in mbos if item.MBO_min < mbo]
+                else:
+                    raise ValueError("Wrong type of max_mayer_bond_order!!!!")
+            else:
+                mbos = [mbo for mbo in mbos if item.MBO_max > mbo
+                        and item.MBO_min < mbo]
+
             self._atoms_names.update({item.id: (item.atom_1, item.atom_2)})
             histogram = cls._Histogram.calculate(mbos, bins)
             self.histograms.update({item.id: histogram})
@@ -91,10 +101,10 @@ class HistogramsFromPairOfAtoms(Calculations):
         """
 
         temp = []
-
         for key in list(self._atoms_names.keys()):
             if self._atoms_names[key] in temp:
                 del self._atoms_names[key]
+                del self.histograms[key]
             else:
                 temp.append(self._atoms_names[key])
 
@@ -110,7 +120,7 @@ class HistogramsFromPairOfAtoms(Calculations):
         string = ""
         for key, histogram in self.histograms.items():
             atom_id_1, atom_id_2 = self._atoms_names[key]
-            string += histogram.to_string(atom_id_1, atom_id_2)
+            string += histogram.to_string(key, atom_id_1, atom_id_2)
 
         return string
 
@@ -260,9 +270,8 @@ class BondLengthFromPairOfAtoms(Calculations):
 
         """
         string = ""
-        for connections in self.bond_lengths.values():
-            string += connections\
-                .to_string()
+        for bond_length in self.bond_lengths.values():
+            string += bond_length.to_string()
 
         return string
 

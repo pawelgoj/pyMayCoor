@@ -56,7 +56,7 @@ class TestHistogramsFromPairOfAtoms:
         result = HistogramsFromPairOfAtoms.calculate(pairs_of_atoms, mbos, 4)
         histogram = result.histograms['P-O']
 
-        assert len(result.histograms) == 5 and \
+        assert len(result.histograms) == 6 and \
             result.histograms['P-O'].y == [4, 2, 2, 2]
 
     def test_remove_duplicates(self):
