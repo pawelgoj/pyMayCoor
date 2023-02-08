@@ -11,7 +11,7 @@ test/test_input_data.py ...............
 =================================== FAILURES ===================================
 _________________________ TestHistogram.test_to_string _________________________
 
-self = <test.test_calculations.TestHistogram object at 0x7f51d161ec50>
+self = <test.test_calculations.TestHistogram object at 0x7f2c87aaec50>
 
     def test_to_string(self):
     
@@ -22,7 +22,7 @@ E       TypeError: Histogram.to_string() takes 3 positional arguments but 4 were
 test/test_calculations.py:38: TypeError
 _________________ TestHistogramsFromPairOfAtoms.test_calculate _________________
 
-self = <test.test_calculations_for_atoms_lists.TestHistogramsFromPairOfAtoms object at 0x7f51d13896c0>
+self = <test.test_calculations_for_atoms_lists.TestHistogramsFromPairOfAtoms object at 0x7f2c878216c0>
 
     def test_calculate(self):
         mbos = MayerBondOrders()
@@ -33,8 +33,8 @@ self = <test.test_calculations_for_atoms_lists.TestHistogramsFromPairOfAtoms obj
 >       assert len(result.histograms) == 5 and \
             result.histograms['P-O'].y == [4, 2, 2, 2]
 E       AssertionError: assert (6 == 5)
-E        +  where 6 = len({'Al-Fe': <main.BondOrderProcessing.bond_order_processing.calculations.Histogram object at 0x7f51d13a2080>, 'Al-O': <m...3a1d80>, 'Fe-P': <main.BondOrderProcessing.bond_order_processing.calculations.Histogram object at 0x7f51d13a20b0>, ...})
-E        +    where {'Al-Fe': <main.BondOrderProcessing.bond_order_processing.calculations.Histogram object at 0x7f51d13a2080>, 'Al-O': <m...3a1d80>, 'Fe-P': <main.BondOrderProcessing.bond_order_processing.calculations.Histogram object at 0x7f51d13a20b0>, ...} = <main.BondOrderProcessing.bond_order_processing.calculations_for_atoms_lists.HistogramsFromPairOfAtoms object at 0x7f51d13a2740>.histograms
+E        +  where 6 = len({'Al-Fe': <main.BondOrderProcessing.bond_order_processing.calculations.Histogram object at 0x7f2c87839fc0>, 'Al-O': <m...838c70>, 'Fe-P': <main.BondOrderProcessing.bond_order_processing.calculations.Histogram object at 0x7f2c8783a1a0>, ...})
+E        +    where {'Al-Fe': <main.BondOrderProcessing.bond_order_processing.calculations.Histogram object at 0x7f2c87839fc0>, 'Al-O': <m...838c70>, 'Fe-P': <main.BondOrderProcessing.bond_order_processing.calculations.Histogram object at 0x7f2c8783a1a0>, ...} = <main.BondOrderProcessing.bond_order_processing.calculations_for_atoms_lists.HistogramsFromPairOfAtoms object at 0x7f2c87839ea0>.histograms
 
 test/test_calculations_for_atoms_lists.py:59: AssertionError
 =============================== warnings summary ===============================
@@ -52,16 +52,16 @@ test/test_calculations_for_atoms_lists.py:182
 ---------- coverage: platform linux, python 3.10.6-final-0 -----------
 Name                                                             Stmts   Miss  Cover   Missing
 ----------------------------------------------------------------------------------------------
-main/BondOrderProcessing/bond_order_processing/calculations.py     349      9    97%   40, 44, 51, 173, 319, 498, 648, 650-651
+main/BondOrderProcessing/bond_order_processing/calculations.py     350      9    97%   40, 44, 51, 173, 319, 498, 649, 651-652
 main/BondOrderProcessing/bond_order_processing/input_data.py       396     46    88%   82-94, 116-149, 179-183, 219, 228-232, 285, 298-299, 354-358, 402-413, 450-451, 457, 471, 478, 635, 642, 680, 705, 728, 777, 887
 ----------------------------------------------------------------------------------------------
-TOTAL                                                              906     55    94%
+TOTAL                                                              907     55    94%
 
 2 files skipped due to complete coverage.
 
 =========================== short test summary info ============================
 FAILED test/test_calculations.py::TestHistogram::test_to_string - TypeError: Histogram.to_string() takes 3 positional arguments but 4 were given
 FAILED test/test_calculations_for_atoms_lists.py::TestHistogramsFromPairOfAtoms::test_calculate - AssertionError: assert (6 == 5)
- +  where 6 = len({'Al-Fe': <main.BondOrderProcessing.bond_order_processing.calculations.Histogram object at 0x7f51d13a2080>, 'Al-O': <m...3a1d80>, 'Fe-P': <main.BondOrderProcessing.bond_order_processing.calculations.Histogram object at 0x7f51d13a20b0>, ...})
- +    where {'Al-Fe': <main.BondOrderProcessing.bond_order_processing.calculations.Histogram object at 0x7f51d13a2080>, 'Al-O': <m...3a1d80>, 'Fe-P': <main.BondOrderProcessing.bond_order_processing.calculations.Histogram object at 0x7f51d13a20b0>, ...} = <main.BondOrderProcessing.bond_order_processing.calculations_for_atoms_lists.HistogramsFromPairOfAtoms object at 0x7f51d13a2740>.histograms
-================== 2 failed, 47 passed, 2 warnings in 16.42s ===================
+ +  where 6 = len({'Al-Fe': <main.BondOrderProcessing.bond_order_processing.calculations.Histogram object at 0x7f2c87839fc0>, 'Al-O': <m...838c70>, 'Fe-P': <main.BondOrderProcessing.bond_order_processing.calculations.Histogram object at 0x7f2c8783a1a0>, ...})
+ +    where {'Al-Fe': <main.BondOrderProcessing.bond_order_processing.calculations.Histogram object at 0x7f2c87839fc0>, 'Al-O': <m...838c70>, 'Fe-P': <main.BondOrderProcessing.bond_order_processing.calculations.Histogram object at 0x7f2c8783a1a0>, ...} = <main.BondOrderProcessing.bond_order_processing.calculations_for_atoms_lists.HistogramsFromPairOfAtoms object at 0x7f2c87839ea0>.histograms
+================== 2 failed, 47 passed, 2 warnings in 18.17s ===================
