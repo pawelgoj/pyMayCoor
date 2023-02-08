@@ -4,10 +4,53 @@ rootdir: /home/runner/work/pyMayCoor/pyMayCoor
 plugins: cov-4.0.0
 collected 51 items
 
-test/test_calculations.py ..................
+test/test_calculations.py ....F.............
 test/test_calculations_for_atoms_lists.py ................
 test/test_input_data.py .................
 
+=================================== FAILURES ===================================
+____________________ TestCoordinationNumbers.test_to_string ____________________
+
+self = <test.test_calculations.TestCoordinationNumbers object at 0x7f3ef95855d0>
+
+    def test_to_string(self):
+        mock_mayer_bond_orders = MayerBondOrders()
+    
+        string = CoordinationNumbers.calculate(mock_mayer_bond_orders,
+                                               'P', 'O', 1.7, 0.2, 'P-O')\
+            .calculate_statistics()\
+            .to_string()
+    
+>       assert string == "CN of P bond: P-O\n\n"\
+            + "id: 1 CN: 2\n"\
+            + "Bond orders (id: mbo): 2: 0.5, 3: 0.4\n"\
+            + "id: 2 CN: 1\n"\
+            + "Bond orders (id: mbo): 1: 0.5\n"\
+            + "id: 3 CN: 1\n"\
+            + "Bond orders (id: mbo): 1: 0.5\n\n"\
+            + "Statistics of: P\n\n"\
+            + "CN %\n"\
+            + "2 33.333\n"\
+            + "1 66.667\n\n"
+E       AssertionError: assert '## CN of P b...n1 66.667\n\n' == 'CN of P bond...n1 66.667\n\n'
+E         - CN of P bond: P-O
+E         + ## CN of P bond: P-O
+E         ? +++
+E           
+E           id: 1 CN: 2
+E           Bond orders (id: mbo): 2: 0.5, 3: 0.4
+E           id: 2 CN: 1
+E           Bond orders (id: mbo): 1: 0.5
+E           id: 3 CN: 1
+E           Bond orders (id: mbo): 1: 0.5
+E           
+E           Statistics of: P
+E           
+E           CN %
+E           2 33.333
+E           1 66.667
+
+test/test_calculations.py:78: AssertionError
 =============================== warnings summary ===============================
 test/test_calculations_for_atoms_lists.py:168
   /home/runner/work/pyMayCoor/pyMayCoor/test/test_calculations_for_atoms_lists.py:168: PytestUnknownMarkWarning: Unknown pytest.mark.slow - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
@@ -23,12 +66,30 @@ test/test_calculations_for_atoms_lists.py:182
 ---------- coverage: platform linux, python 3.10.6-final-0 -----------
 Name                                                                             Stmts   Miss  Cover   Missing
 --------------------------------------------------------------------------------------------------------------
-main/BondOrderProcessing/bond_order_processing/calculations.py                     350      9    97%   40, 44, 51, 173, 319, 497, 648, 650-651
+main/BondOrderProcessing/bond_order_processing/calculations.py                     352      9    97%   40, 44, 51, 173, 322, 500, 651, 653-654
 main/BondOrderProcessing/bond_order_processing/calculations_for_atoms_lists.py     166      3    98%   84-87
 main/BondOrderProcessing/bond_order_processing/input_data.py                       400     46    88%   82-94, 116-149, 179-183, 219, 228-232, 300, 313-314, 369-373, 417-428, 465-466, 472, 486, 493, 650, 657, 695, 720, 743, 792, 902
 --------------------------------------------------------------------------------------------------------------
-TOTAL                                                                              917     58    94%
+TOTAL                                                                              919     58    94%
 
 1 file skipped due to complete coverage.
 
-======================= 51 passed, 2 warnings in 16.41s ========================
+=========================== short test summary info ============================
+FAILED test/test_calculations.py::TestCoordinationNumbers::test_to_string - AssertionError: assert '## CN of P b...n1 66.667\n\n' == 'CN of P bond...n1 66.667\n\n'
+  - CN of P bond: P-O
+  + ## CN of P bond: P-O
+  ? +++
+    
+    id: 1 CN: 2
+    Bond orders (id: mbo): 2: 0.5, 3: 0.4
+    id: 2 CN: 1
+    Bond orders (id: mbo): 1: 0.5
+    id: 3 CN: 1
+    Bond orders (id: mbo): 1: 0.5
+    
+    Statistics of: P
+    
+    CN %
+    2 33.333
+    1 66.667
+================== 1 failed, 50 passed, 2 warnings in 13.61s ===================
