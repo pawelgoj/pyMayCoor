@@ -35,6 +35,7 @@ from main.BondOrderProcessing.bond_order_processing\
 from .mocks import MayerBondOrders
 
 pairs_of_atoms = [PairOfAtoms("P", "O", 0.2, 2.0, "P-O"),
+                  PairOfAtoms("P", "O", 0.2, 2.0, "P=O"),
                   PairOfAtoms("Fe", "O", 0.2, 2.0, "Fe-O"),
                   PairOfAtoms("Al", "O", 0.2, 2.0, "Al-O"),
                   PairOfAtoms("Al", "Fe", 0.2, 2.0, "Al-Fe"),
@@ -58,16 +59,24 @@ class TestHistogramsFromPairOfAtoms:
         assert len(result.histograms) == 5 and \
             result.histograms['P-O'].y == [4, 2, 2, 2]
 
+    def test_remove_duplicates(self):
+        mbos = MayerBondOrders()
+
+        result = HistogramsFromPairOfAtoms.calculate(pairs_of_atoms, mbos, 4)\
+            .remove_duplicates()
+
+        assert 'P=O' not in result._atoms_names.keys()
+
     def test_to_string(self):
         mbos = MayerBondOrders()
 
         string = HistogramsFromPairOfAtoms.calculate(pairs_of_atoms, mbos, 4)\
             .to_string()
-        assert "Bond_id: P-O (P, O)" in string\
-            and "Bond_id: Fe-O (Fe, O)" in string\
-            and "Bond_id: Al-O (Al, O)" in string\
-            and "Bond_id: Al-Fe (Al, Fe)" in string\
-            and "Bond_id: Fe-P (Fe, P)" in string
+        assert "Atom_1_id: P, atom_2_id: O)" in string\
+            and "Atom_1_id: Fe, atom_2_id: O" in string\
+            and "Atom_1_id: Al, atom_2_id: O" in string\
+            and "Atom_1_id: Al, atom_2_id: Fe" in string\
+            and "Atom_1_id: Fe, atom_2_id: P" in string
 
 
 class TestCoordinationNumbersFromPairOfAtoms:

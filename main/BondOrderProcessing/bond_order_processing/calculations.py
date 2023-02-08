@@ -95,7 +95,7 @@ class Histogram(Calculations):
         histogram.y = y
         return histogram
 
-    def to_string(self, bond_id: str, atom_symbol_1: str, atom_symbol_2: str)\
+    def to_string(self, atom_symbol_1: str, atom_symbol_2: str)\
             -> str:
         """Make string from Histogram object
 
@@ -107,7 +107,7 @@ class Histogram(Calculations):
             **str**: String.
 
         """
-        string = f'Bond_id: {bond_id} ({atom_symbol_1}, {atom_symbol_2})\n\n'
+        string = f'Atom_1_id: {atom_symbol_1}, atom_2_id: {atom_symbol_2})\n\n'
         string = string + 'Interval/2' + ' ' + 'Count' + '\n\n'
         for i in range(len(self.x)):
             string = string + \

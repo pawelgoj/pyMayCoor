@@ -84,6 +84,22 @@ class HistogramsFromPairOfAtoms(Calculations):
             self.histograms.update({item.id: histogram})
         return self
 
+    def remove_duplicates(self) -> type:
+        """Removes duplicates, which have the same atoms symbols.
+            Use when you perform calculations for list[PairOfAtoms]
+            when ids are different for the same atoms pairs.
+        """
+
+        temp = []
+
+        for key in list(self._atoms_names.keys()):
+            if self._atoms_names[key] in temp:
+                del self._atoms_names[key]
+            else:
+                temp.append(self._atoms_names[key])
+        
+        return self
+
     def to_string(self) -> str:
         """Make string from HistogramsFromPairOfAtoms object
 
@@ -93,7 +109,8 @@ class HistogramsFromPairOfAtoms(Calculations):
         """
         string = ""
         for key, histogram in self.histograms.items():
-            string += histogram.to_string(key,  *self._atoms_names[key])
+            atom_id_1, atom_id_2 = self._atoms_names[key]
+            string += histogram.to_string(atom_id_1, atom_id_2)
 
         return string
 
