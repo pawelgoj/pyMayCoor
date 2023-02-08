@@ -26,4 +26,8 @@ class StringTemplate:
 
     @staticmethod
     def get_covalence_header() -> str:
-        return f"\n # Covalence (valence) from Mayer bond orders \n\n"
+        return f"\n # Covalence from Mayer bond orders \n\n"
+
+    @staticmethod
+    def get_bond_length() -> str:
+        return f"\n # Bond lengths \n\n"

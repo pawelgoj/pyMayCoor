@@ -24,3 +24,4 @@ calculations:
   cn: true
   connections: true
   bond_length: true
+  covalence: true
