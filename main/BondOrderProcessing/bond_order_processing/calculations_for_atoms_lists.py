@@ -97,7 +97,7 @@ class HistogramsFromPairOfAtoms(Calculations):
                 del self._atoms_names[key]
             else:
                 temp.append(self._atoms_names[key])
-        
+
         return self
 
     def to_string(self) -> str:

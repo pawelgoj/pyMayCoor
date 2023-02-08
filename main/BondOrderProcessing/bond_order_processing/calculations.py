@@ -187,7 +187,7 @@ class CoordinationNumbers(Calculations, Statistics):
                         .get_mayer_bond_order_between_atoms(atom_1_id,
                                                             atom_2_id)
                     if (mbo > min_mayer_bond_order
-                            and max_mayer_bond_order is 'INF'):
+                            and max_mayer_bond_order == 'INF'):
                         coordination_number.bonds.update({atom_2_id: mbo})
                         coordination_number.cn += 1
                     elif (mbo > min_mayer_bond_order
@@ -503,16 +503,17 @@ class Connections(Calculations):
                                                             atom_2_id)
 
                     if (mbo > pair_atoms.MBO_min
-                            and pair_atoms.MBO_max is 'INF'):
+                            and pair_atoms.MBO_max == 'INF'):
 
                         connection.quantity += 1
                         connection.bonds.update({atom_2_id: mbo})
 
-                    elif (mbo > pair_atoms.MBO_min
-                            and pair_atoms.MBO_max > mbo):
+                    elif (pair_atoms.MBO_max != 'INF'):
+                        if (mbo > pair_atoms.MBO_min
+                                and pair_atoms.MBO_max > mbo):
 
-                        connection.quantity += 1
-                        connection.bonds.update({atom_2_id: mbo})
+                            connection.quantity += 1
+                            connection.bonds.update({atom_2_id: mbo})
 
                 connections[atom_1_id].append(connection)
 

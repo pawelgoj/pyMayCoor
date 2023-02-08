@@ -47,7 +47,7 @@ def perform_calculations(settings_file_path: str, input_file_path: str,
                                                  mayer_bond_orders,
                                                  settings.histogram['nr_bars'])\
             .to_string()
-    print( f"{settings.calculations['q_i']=}")
+
     if settings.calculations['q_i']['calc'] is True:
         output_string += StringTemplate.get_qi_units_header()
         pairs_atoms_list = [item for item in settings.pairs_atoms_list

@@ -84,9 +84,9 @@ class Settings:
         >>> settings.histogram
         {'calc': True, 'nr_bars': 10}
         >>> settings.pairs_atoms_list
-        [PairOfAtoms(atom_1='P', atom_2='P', MBO_min=1.2, MBO_max='INF', id='P=O'), \
-PairOfAtoms(atom_1='P', atom_2='P', MBO_min=0.02, MBO_max='INF', id='P-O'), \
-PairOfAtoms(atom_1='Al', atom_2='Al', MBO_min=0.02, MBO_max='INF', id='Al-O')]
+        [PairOfAtoms(atom_1='P', atom_2='O', MBO_min=1.2, MBO_max='INF', id='P=O'), \
+PairOfAtoms(atom_1='P', atom_2='O', MBO_min=0.02, MBO_max='INF', id='P-O'), \
+PairOfAtoms(atom_1='Al', atom_2='O', MBO_min=0.02, MBO_max='INF', id='Al-O')]
 
         Args:
             data (dict): data from yaml setting file
@@ -125,7 +125,7 @@ PairOfAtoms(atom_1='Al', atom_2='Al', MBO_min=0.02, MBO_max='INF', id='Al-O')]
 
         for item in data.get("pairs_atoms_list"):
             self.pairs_atoms_list.append(PairOfAtoms(item.get('atom_1'),
-                                                     item.get('atom_1'),
+                                                     item.get('atom_2'),
                                                      item.get('mbo_min'),
                                                      item.get('mbo_max'),
                                                      item.get('id')))
