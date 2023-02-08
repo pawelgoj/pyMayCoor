@@ -30,4 +30,4 @@ TOTAL                                                              898     55   
 
 2 files skipped due to complete coverage.
 
-======================= 48 passed, 2 warnings in 14.75s ========================
+======================= 48 passed, 2 warnings in 15.87s ========================
