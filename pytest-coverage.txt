@@ -2,19 +2,48 @@
 platform linux -- Python 3.10.6, pytest-7.2.1, pluggy-1.0.0
 rootdir: /home/runner/work/pyMayCoor/pyMayCoor
 plugins: cov-4.0.0
-collected 48 items
+collected 49 items
 
-test/test_calculations.py ..................
-test/test_calculations_for_atoms_lists.py ...............
+test/test_calculations.py .F................
+test/test_calculations_for_atoms_lists.py .F..............
 test/test_input_data.py ...............
 
+=================================== FAILURES ===================================
+_________________________ TestHistogram.test_to_string _________________________
+
+self = <test.test_calculations.TestHistogram object at 0x7f51d161ec50>
+
+    def test_to_string(self):
+    
+        string = Histogram.calculate(self.values, 3)\
+>           .to_string('P-O', 'P', 'O')
+E       TypeError: Histogram.to_string() takes 3 positional arguments but 4 were given
+
+test/test_calculations.py:38: TypeError
+_________________ TestHistogramsFromPairOfAtoms.test_calculate _________________
+
+self = <test.test_calculations_for_atoms_lists.TestHistogramsFromPairOfAtoms object at 0x7f51d13896c0>
+
+    def test_calculate(self):
+        mbos = MayerBondOrders()
+    
+        result = HistogramsFromPairOfAtoms.calculate(pairs_of_atoms, mbos, 4)
+        histogram = result.histograms['P-O']
+    
+>       assert len(result.histograms) == 5 and \
+            result.histograms['P-O'].y == [4, 2, 2, 2]
+E       AssertionError: assert (6 == 5)
+E        +  where 6 = len({'Al-Fe': <main.BondOrderProcessing.bond_order_processing.calculations.Histogram object at 0x7f51d13a2080>, 'Al-O': <m...3a1d80>, 'Fe-P': <main.BondOrderProcessing.bond_order_processing.calculations.Histogram object at 0x7f51d13a20b0>, ...})
+E        +    where {'Al-Fe': <main.BondOrderProcessing.bond_order_processing.calculations.Histogram object at 0x7f51d13a2080>, 'Al-O': <m...3a1d80>, 'Fe-P': <main.BondOrderProcessing.bond_order_processing.calculations.Histogram object at 0x7f51d13a20b0>, ...} = <main.BondOrderProcessing.bond_order_processing.calculations_for_atoms_lists.HistogramsFromPairOfAtoms object at 0x7f51d13a2740>.histograms
+
+test/test_calculations_for_atoms_lists.py:59: AssertionError
 =============================== warnings summary ===============================
-test/test_calculations_for_atoms_lists.py:159
-  /home/runner/work/pyMayCoor/pyMayCoor/test/test_calculations_for_atoms_lists.py:159: PytestUnknownMarkWarning: Unknown pytest.mark.slow - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+test/test_calculations_for_atoms_lists.py:168
+  /home/runner/work/pyMayCoor/pyMayCoor/test/test_calculations_for_atoms_lists.py:168: PytestUnknownMarkWarning: Unknown pytest.mark.slow - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
     @pytest.mark.slow
 
-test/test_calculations_for_atoms_lists.py:173
-  /home/runner/work/pyMayCoor/pyMayCoor/test/test_calculations_for_atoms_lists.py:173: PytestUnknownMarkWarning: Unknown pytest.mark.slow - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+test/test_calculations_for_atoms_lists.py:182
+  /home/runner/work/pyMayCoor/pyMayCoor/test/test_calculations_for_atoms_lists.py:182: PytestUnknownMarkWarning: Unknown pytest.mark.slow - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
     @pytest.mark.slow
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
@@ -26,8 +55,13 @@ Name                                                             Stmts   Miss  C
 main/BondOrderProcessing/bond_order_processing/calculations.py     349      9    97%   40, 44, 51, 173, 319, 498, 648, 650-651
 main/BondOrderProcessing/bond_order_processing/input_data.py       396     46    88%   82-94, 116-149, 179-183, 219, 228-232, 285, 298-299, 354-358, 402-413, 450-451, 457, 471, 478, 635, 642, 680, 705, 728, 777, 887
 ----------------------------------------------------------------------------------------------
-TOTAL                                                              898     55    94%
+TOTAL                                                              906     55    94%
 
 2 files skipped due to complete coverage.
 
-======================= 48 passed, 2 warnings in 15.87s ========================
+=========================== short test summary info ============================
+FAILED test/test_calculations.py::TestHistogram::test_to_string - TypeError: Histogram.to_string() takes 3 positional arguments but 4 were given
+FAILED test/test_calculations_for_atoms_lists.py::TestHistogramsFromPairOfAtoms::test_calculate - AssertionError: assert (6 == 5)
+ +  where 6 = len({'Al-Fe': <main.BondOrderProcessing.bond_order_processing.calculations.Histogram object at 0x7f51d13a2080>, 'Al-O': <m...3a1d80>, 'Fe-P': <main.BondOrderProcessing.bond_order_processing.calculations.Histogram object at 0x7f51d13a20b0>, ...})
+ +    where {'Al-Fe': <main.BondOrderProcessing.bond_order_processing.calculations.Histogram object at 0x7f51d13a2080>, 'Al-O': <m...3a1d80>, 'Fe-P': <main.BondOrderProcessing.bond_order_processing.calculations.Histogram object at 0x7f51d13a20b0>, ...} = <main.BondOrderProcessing.bond_order_processing.calculations_for_atoms_lists.HistogramsFromPairOfAtoms object at 0x7f51d13a2740>.histograms
+================== 2 failed, 47 passed, 2 warnings in 16.42s ===================
