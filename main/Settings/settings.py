@@ -12,12 +12,12 @@ class Settings:
     Attributes:
         histogram (dict['calc': bool, 'nr_bars': int | None]):
         pairs_atoms_list (list[PairOfAtoms]):
-        calculations (dict['Q_i': dict['calc': bool, 'bond_id': str | None],
+        calculations (dict['q_i': dict['calc': bool, 'bond_id': str | None],
                        'connections': bool,
                        'bond_length': bool,
-                       'CN': bool]):
-        types_of_calculations (set[str]): Default - {'Q_i', 'connections',
-                        'bond_length', 'CN'}
+                       'cn': bool]):
+        types_of_calculations (set[str]): Default - {'q_i', 'connections',
+                        'bond_length', 'cn'}
 
     Raises:
         ValueError: The number of histogram bars is not specified !!!
@@ -126,7 +126,7 @@ PairOfAtoms(atom_1='Al', atom_2='O', MBO_min=0.02, MBO_max='INF', id='Al-O')]
         for item in data.get("pairs_atoms_list"):
             mbo_min = float(item.get('mbo_min'))
             if item.get('mbo_max') == 'INF':
-                pass
+                mbo_max = item.get('mbo_max')
             else:
                 mbo_max = float(item.get('mbo_max'))
 

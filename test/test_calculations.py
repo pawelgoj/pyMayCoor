@@ -37,7 +37,7 @@ class TestHistogram:
         string = Histogram.calculate(self.values, 3)\
             .to_string('P-O', 'P', 'O')
 
-        assert string == ("Bond_id: P-O (P, O)\n"
+        assert string == ("Bond id: P-O - atom_1_id: P, atom_2_id: O\n"
                           + "\n"
                           + "Interval/2 Count\n\n"
                           + "2.833333333 5\n"
@@ -322,9 +322,9 @@ class TestCovalence:
 
         assert string == 'Covalence of P.\n\n'\
             + 'id COV\n'\
-            + '1 1.4\n'\
-            + '2 1.4\n'\
-            + '3 1.4\n\n'
+            + '1 1.400\n'\
+            + '2 1.400\n'\
+            + '3 1.400\n\n'
 
 
 class TestEndToEnd:

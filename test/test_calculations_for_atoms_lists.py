@@ -57,7 +57,7 @@ class TestHistogramsFromPairOfAtoms:
         histogram = result.histograms['P-O']
 
         assert len(result.histograms) == 6 and \
-            result.histograms['P-O'].y == [4, 2, 2, 2]
+            result.histograms['P-O'].y == [2, 2, 1, 1]
 
     def test_remove_duplicates(self):
         mbos = MayerBondOrders()
@@ -72,11 +72,11 @@ class TestHistogramsFromPairOfAtoms:
 
         string = HistogramsFromPairOfAtoms.calculate(pairs_of_atoms, mbos, 4)\
             .to_string()
-        assert "Atom_1_id: P, atom_2_id: O)" in string\
-            and "Atom_1_id: Fe, atom_2_id: O" in string\
-            and "Atom_1_id: Al, atom_2_id: O" in string\
-            and "Atom_1_id: Al, atom_2_id: Fe" in string\
-            and "Atom_1_id: Fe, atom_2_id: P" in string
+        assert "Bond id: P-O - atom_1_id: P, atom_2_id: O" in string\
+            and "Bond id: Fe-O - atom_1_id: Fe, atom_2_id: O" in string\
+            and "Bond id: Al-O - atom_1_id: Al, atom_2_id: O" in string\
+            and "Bond id: Al-Fe - atom_1_id: Al, atom_2_id: Fe" in string\
+            and "Bond id: Fe-P - atom_1_id: Fe, atom_2_id: P" in string
 
 
 class TestCoordinationNumbersFromPairOfAtoms:

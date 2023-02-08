@@ -107,7 +107,7 @@ class Histogram(Calculations):
             **str**: String.
 
         """
-        string = f'Bond id: {bond_id} - atom_1_id: {atom_symbol_1}, atom_2_id: {atom_symbol_2})\n\n'
+        string = f'Bond id: {bond_id} - atom_1_id: {atom_symbol_1}, atom_2_id: {atom_symbol_2}\n\n'
         string = string + 'Interval/2' + ' ' + 'Count' + '\n\n'
         for i in range(len(self.x)):
             string = string + \
