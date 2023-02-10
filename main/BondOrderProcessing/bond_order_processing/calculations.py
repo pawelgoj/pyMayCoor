@@ -6,7 +6,7 @@ from abc import ABC
 from abc import abstractmethod
 from .input_data import MayerBondOrders
 from .input_data import CoordinatesOfAtoms
-
+from typing import TypeAlias
 from dataclasses import dataclass
 
 
@@ -36,11 +36,11 @@ class Calculations(ABC):
     """Calculations base class."""
 
     @abstractmethod
-    def calculate() -> type:
+    def calculate(cls, *args, **kwars) -> type:
         pass
 
     @abstractmethod
-    def to_string(self) -> str:
+    def to_string(self, *args, **kwars) -> str:
         pass
 
 
@@ -60,8 +60,7 @@ class Histogram(Calculations):
     """Quantity."""
 
     @classmethod
-    def calculate(cls, values: list[float], bins: int)\
-            -> type:
+    def calculate(cls, values: list[float], bins: int):
         """Calculate histogram.
 
         Args:
@@ -124,14 +123,12 @@ class CoordinationNumber:
     """Object stores coordination number of given atom and
     Mayer bond orders corresponding to the bonds in the
     coordination polyhedron."""
-    id_atom_2 = int
-    mayer_bond_order = float
 
     id_atom_1: int
     """Central atom id."""
     cn: int
     """Value of coordination number."""
-    bonds: dict[id_atom_2, mayer_bond_order]
+    bonds: dict[int, float]
     """**Key** - ligand id, **value** - Mayer bond order."""
 
 
@@ -153,7 +150,7 @@ class CoordinationNumbers(Calculations, Statistics):
                   atom_symbol_1: str, atom_symbol_2: str,
                   max_mayer_bond_order: float | str,
                   min_mayer_bond_order: float,
-                  id_of_bond: str) -> type:
+                  id_of_bond: str):
         """Calculate CoordinationNumbers object.
 
         Args:
@@ -190,10 +187,11 @@ class CoordinationNumbers(Calculations, Statistics):
                             and max_mayer_bond_order == 'INF'):
                         coordination_number.bonds.update({atom_2_id: mbo})
                         coordination_number.cn += 1
-                    elif (mbo > min_mayer_bond_order
-                            and mbo < max_mayer_bond_order):
-                        coordination_number.bonds.update({atom_2_id: mbo})
-                        coordination_number.cn += 1
+                    elif (type(max_mayer_bond_order) is float):
+                        if (mbo > min_mayer_bond_order
+                                and mbo < max_mayer_bond_order):
+                            coordination_number.bonds.update({atom_2_id: mbo})
+                            coordination_number.cn += 1
                     else:
                         continue
 
@@ -206,7 +204,7 @@ class CoordinationNumbers(Calculations, Statistics):
 
         return self
 
-    def calculate_statistics(self) -> type:
+    def calculate_statistics(self):
         """Calculate statistics of CoordinationNumbers.
 
         Statistic are in "statistics" attribute.
@@ -215,7 +213,7 @@ class CoordinationNumbers(Calculations, Statistics):
             CoordinationNumbers: CoordinationNumbers object
         """
         cns = self._get_list_of_coordination_numbers()
-        quantities = {}
+        quantities: dict = {}
         for cn in cns:
             for item in self.list_coordinations_number:
                 if item.cn == cn:
@@ -299,7 +297,7 @@ class QiUnits(Calculations, Statistics):
                   atom_symbol_2: str,
                   max_mayer_bond_order: float | str,
                   min_mayer_bond_order: float,
-                  id_of_bond: str) -> type:
+                  id_of_bond: str):
         """Calculate QiUnits object.
 
         Args:
@@ -362,7 +360,7 @@ class QiUnits(Calculations, Statistics):
 
         return self
 
-    def calculate_statistics(self) -> type:
+    def calculate_statistics(self):
         """Calculate statistics in object QiUnits.
 
         Returns:
@@ -441,7 +439,7 @@ class Connection:
 class Connections(Calculations):
     """Object represents connections of given atom to nearest neighbors.
     """
-    atom_1_id = int
+    atom_1_id: TypeAlias = int
     Connection: type = Connection
 
     connections: dict[atom_1_id, list[Connection]]
@@ -453,7 +451,7 @@ class Connections(Calculations):
     def calculate(cls, mayer_bond_orders: MayerBondOrders,
                   atom_symbol_1: str,
                   pairs_atoms_list: list[PairOfAtoms]
-                  ) -> type:
+                  ):
         """Calculate Connections object.
 
         Args:
@@ -565,7 +563,7 @@ class Covalence(Calculations):
 
     @ classmethod
     def calculate(cls, mayer_bond_orders: MayerBondOrders,
-                  atom_symbol: str) -> type:
+                  atom_symbol: str):
         """Calculate Covalence object.
 
         Args:
@@ -605,8 +603,8 @@ class Covalence(Calculations):
 
 class BondLength(Calculations):
     """Object stored bond lengths of pairs of atoms."""
-    atom_id_1 = int
-    atom_id_2 = int
+    atom_id_1: TypeAlias = int
+    atom_id_2: TypeAlias = int
 
     id_of_bond: str
     """Id of bond eg. 'P-O'"""
@@ -627,7 +625,7 @@ class BondLength(Calculations):
                   atom_symbol_2: str,
                   max_mayer_bond_order: float | str,
                   min_mayer_bond_order: float,
-                  id_of_bond: str) -> type:
+                  id_of_bond: str):
         """Calculate BondLength object.
 
         Args:

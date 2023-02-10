@@ -60,7 +60,7 @@ class HistogramsFromPairOfAtoms(Calculations):
     @classmethod
     def calculate(cls, pair_of_atoms: list[PairOfAtoms],
                   mayer_bond_orders: MayerBondOrders,
-                  bins: int) -> type:
+                  bins: int):
         """Calculate HistogramsFromPairOfAtoms object.
 
         Args:
@@ -94,7 +94,7 @@ class HistogramsFromPairOfAtoms(Calculations):
             self.histograms.update({item.id: histogram})
         return self
 
-    def remove_duplicates(self) -> type:
+    def remove_duplicates(self):
         """Removes duplicates, which have the same atoms symbols.
             Use when you perform calculations for list[PairOfAtoms]
             when ids are different for the same atoms pairs.
@@ -134,7 +134,7 @@ class CoordinationNumbersFromPairOfAtoms(Calculations, Statistics):
 
     @classmethod
     def calculate(cls, pair_of_atoms: list[PairOfAtoms],
-                  mayer_bond_orders: MayerBondOrders) -> type:
+                  mayer_bond_orders: MayerBondOrders):
         """Calculate CoordinationNumbersFromPairOfAtoms object.
 
         Args:
@@ -158,7 +158,7 @@ class CoordinationNumbersFromPairOfAtoms(Calculations, Statistics):
             self.coordination_numbers.update({item.id: coordination})
         return self
 
-    def calculate_statistics(self) -> type:
+    def calculate_statistics(self):
         """Calculate statistic in **CoordinationNumbers** objects."""
 
         for keys in self.coordination_numbers.keys():
@@ -189,7 +189,7 @@ class ConnectionsFromPairOfAtoms(Calculations):
 
     @classmethod
     def calculate(cls, pair_of_atoms: list[PairOfAtoms],
-                  mayer_bond_orders: MayerBondOrders) -> type:
+                  mayer_bond_orders: MayerBondOrders):
         """Calculate ConnectionsFromPairOfAtoms object.
 
         Args:
@@ -285,7 +285,7 @@ class CovalenceFromPairOfAtoms(Calculations, _FromPairOfAtoms):
 
     @classmethod
     def calculate(cls, pair_of_atoms: list[PairOfAtoms],
-                  mayer_bond_orders: MayerBondOrders) -> type:
+                  mayer_bond_orders: MayerBondOrders):
         """Calculate CovalenceFromPairOfAtoms object.
 
         Args:
@@ -334,7 +334,7 @@ class QiUnitsFromPairOfAtoms(Calculations, Statistics):
 
     @classmethod
     def calculate(cls, pair_of_atoms: list[PairOfAtoms],
-                  mayer_bond_orders: MayerBondOrders) -> type:
+                  mayer_bond_orders: MayerBondOrders):
         """Calculate QiUnitsFromPairOfAtoms object.
 
         Args:
@@ -359,7 +359,7 @@ class QiUnitsFromPairOfAtoms(Calculations, Statistics):
             self.qi_units.update({item.id: qi_units})
         return self
 
-    def calculate_statistics(self) -> type:
+    def calculate_statistics(self):
         """Calculate statistic in **QiUnits** objects."""
 
         for keys in self.qi_units.keys():

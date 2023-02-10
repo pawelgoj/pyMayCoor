@@ -1,4 +1,3 @@
-import os
 import pytest
 import subprocess
 
@@ -13,5 +12,14 @@ class TestEndToEnd:
             f'python3_10 main/main.py -i ./egzamples_instructions/out1.txt -s ./egzamples_instructions/settings.yaml -o {fn}', shell=True)
 
         with open(fn, 'r', encoding="utf-8") as file:
-            print(file.read())
-        assert True
+            data = file.read()
+            check = ['# pyMayCoor', '# Histograms', '# Qⁱ numbers',
+                     '# Connections', '# Bond lengths', '# Covalence from Mayer bond orders']
+
+        result = True
+        for item in check:
+            if item not in data:
+                result = False
+                break
+
+        assert result
