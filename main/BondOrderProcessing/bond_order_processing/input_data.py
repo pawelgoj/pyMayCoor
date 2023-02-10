@@ -55,10 +55,6 @@ class UnitCell(Constants):
         beta (deg): deg
         gamma (deg): deg
 
-    Types:
-        x, y, z = float, float, float \n
-        vector = tuple[x, y, z] \n
-        deg = float \n
     """
 
     lattice_vectors: tuple[vector] | tuple = ()
@@ -360,8 +356,8 @@ class CoordinatesOfAtoms(Constants):
         Dictionary storing symbols of atoms, key is atom id.
 
     Types:
-        x, y, z = float, float, float \n
         atom_id = int
+
     """
 
     atom_id: TypeAlias = int
@@ -388,6 +384,7 @@ class CoordinatesOfAtoms(Constants):
             id (int): id of new atom.
             atom_symbol (str): Symbol of new atom.
             coordinates (tuple[x, y, z]): Coordinates of new atom.
+
         """
         self.ids.append(id)
         self.atom_symbols.update({id: atom_symbol})
@@ -402,6 +399,7 @@ class CoordinatesOfAtoms(Constants):
         Returns:
             **tuple[x, y, z] | None**: Returns atom coordinates or None if atom of
                                    given id does not exist.
+
         """
         return self._coordinates.get(id, None)
 
@@ -421,6 +419,7 @@ class CoordinatesOfAtoms(Constants):
 
         Returns:
             **tuple[x, y, z]**: coordinates in angstroms
+
         """
         temp_coordinates = self._coordinates.get(id, None)
         if temp_coordinates is not None:
@@ -488,6 +487,7 @@ class CoordinatesOfAtoms(Constants):
              atom_id_2 (int): id of second atom
         Returns:
             **float | None**: Distance in angstroms or Bohr units.
+
         """
 
         if type(self._unit_cell) is not UnitCell:
@@ -617,6 +617,7 @@ class InputData(ABC):
     """Input data.
 
     Load data from file and create objects.
+
     """
 
     populations: Populations | None = None
@@ -716,9 +717,12 @@ class InputDataFromCPMD(InputData):
             -> Populations | UnitCell | MayerBondOrders | CoordinatesOfAtoms\
             | None:
         """ Returns loaded data.
+
         Args:
+
         Returns:
             **Populations | UnitCell | MayerBondOrders | CoordinatesOfAtoms**:
+
         """
         if loaded_data is LoadedData.UnitCell:
             return self.unit_cell
@@ -842,11 +846,14 @@ class InputDataFromCPMD(InputData):
                                     finger_print_begin: str, finger_print_end)\
             -> list[str] | None:
         """Get rows fo data from file
+
         Args:
             finger_print_begin (str): fingerprint on beginning of data
             finger_print_end (str): fingerprint on end of data
+
         Returns:
             **list[str]**: rows of string data
+
         """
 
         regex = f'(?<={finger_print_begin})[\s\S]*' \

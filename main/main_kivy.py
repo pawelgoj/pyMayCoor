@@ -13,6 +13,9 @@ from mytextInput import mytextInput
 from ComponentChoseCalculations import componentChoseCalculations
 from switchButton import switchButton
 
+# remove red dots on right mouse click (multitouch emulation)
+Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
+
 Config.set('graphics', 'width', '1000')
 Config.set('graphics', 'height', '700')
 
@@ -75,10 +78,10 @@ class BondOrderApp(MDApp):
 
     def change_state(self, widget):
         self.text_input = widget
-        
+
+
 def run_cmd_program_version():
     print("cmd")
-
 
 
 myApp = BondOrderApp()

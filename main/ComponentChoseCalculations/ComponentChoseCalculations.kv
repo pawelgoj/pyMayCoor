@@ -8,8 +8,8 @@
     padding: [spacing_padding, spacing_padding, spacing_padding, spacing_padding]
     spacing: spacing_padding
     cols: 3
-    rows: 4
-    height: 4 * row_height  + 6 * spacing_padding
+    rows: 5
+    height: 5 * row_height  + 6 * spacing_padding
 
     MDLabel: 
         size_hint_x: 1.5
@@ -68,6 +68,23 @@
         size_hint_x: 1.5
         valign: 'middle'
         text: "Relation between bond order and bond length: "
+        height: row_height
+        theme_text_color: "Custom"
+        text_color: app.theme_cls.text_color
+
+    SwithButtonWidget:
+
+    MDLabel: 
+        valign: 'middle'
+        text: " "
+        height: row_height
+        theme_text_color: "Custom"
+        text_color: app.theme_cls.text_color
+
+    MDLabel: 
+        size_hint_x: 1.5
+        valign: 'middle'
+        text: "Covalence of atoms: "
         height: row_height
         theme_text_color: "Custom"
         text_color: app.theme_cls.text_color

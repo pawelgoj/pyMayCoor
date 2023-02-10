@@ -163,6 +163,7 @@ class CoordinationNumbers(Calculations, Statistics):
 
         Returns:
             **CoordinationNumbers**: CoordinationNumbers object
+
         """
 
         if max_mayer_bond_order != "INF"\
@@ -211,6 +212,7 @@ class CoordinationNumbers(Calculations, Statistics):
 
         Returns:
             CoordinationNumbers: CoordinationNumbers object
+
         """
         cns = self._get_list_of_coordination_numbers()
         quantities: dict = {}
@@ -244,6 +246,7 @@ class CoordinationNumbers(Calculations, Statistics):
 
         Returns:
             **str**: String.
+
         """
         string = "## CN of " + str(self.atom_symbol) + " bond: "\
             + str(self.id_of_bond) + "\n\n"
@@ -313,6 +316,7 @@ class QiUnits(Calculations, Statistics):
 
         Returns:
             **QiUnits**: Returns QiUnits object.
+
         """
 
         if max_mayer_bond_order != "INF"\
@@ -365,6 +369,7 @@ class QiUnits(Calculations, Statistics):
 
         Returns:
             **QiUnits**: QiUnits object.
+
         """
 
         unique_values = []
@@ -395,6 +400,7 @@ class QiUnits(Calculations, Statistics):
 
         Returns:
             **str**: String.
+
         """
         string = "Q_i of " + str(self.atom_symbol_1) + ' bond id: '\
             + str(self.id_of_bond) + "\n\n"
@@ -464,6 +470,7 @@ class Connections(Calculations):
 
         Returns:
             **Connections**: Connections object.
+
         """
 
         pair_atom_list_containing_atom_1 = []
@@ -528,6 +535,7 @@ class Connections(Calculations):
 
         Returns:
             **str**: string.
+
         """
         string = '## Connections of: ' + str(self.atom_symbol_1) + '\n\n'
 
@@ -572,6 +580,7 @@ class Covalence(Calculations):
 
         Returns:
             **Covalence**: Covalence object.
+
         """
 
         atom_ids = mayer_bond_orders.get_atoms_ids(atom_symbol)
@@ -590,6 +599,7 @@ class Covalence(Calculations):
 
         Returns:
             **str**: String.
+
         """
         string = f'Covalence of {self.atom_symbol}.\n\n'\
             + 'id COV\n'
@@ -642,6 +652,7 @@ class BondLength(Calculations):
 
         Returns:
             **BondLength**: BondLength object.
+
         """
 
         if max_mayer_bond_order != "INF"\
@@ -697,6 +708,7 @@ class BondLength(Calculations):
 
         Returns:
             **str**: String.
+
         """
         string = f'Bond lengths of bond id: {self.id_of_bond} '\
             + f'(atoms: {self.atom_symbol_1}, {self.atom_symbol_2}):\n\n'\
