@@ -75,7 +75,7 @@ class TestCoordinationNumbers:
             .calculate_statistics()\
             .to_string()
 
-        assert string == "CN of P bond: P-O\n\n"\
+        assert string == "## CN of P bond: P-O\n\n"\
             + "id: 1 CN: 2\n"\
             + "Bond orders (id: mbo): 2: 0.5, 3: 0.4\n"\
             + "id: 2 CN: 1\n"\

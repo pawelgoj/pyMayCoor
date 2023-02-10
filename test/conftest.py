@@ -23,3 +23,10 @@ def input_data_object_with_loaded_data(request):
                                LoadedData.CoordinatesOfAtoms)
 
     yield input_data
+
+
+@pytest.fixture(scope="session")
+def env_for_end_to_end_tests(tmp_path_factory):
+    fn = tmp_path_factory.mktemp("data")
+
+    return fn

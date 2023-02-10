@@ -1,5 +1,4 @@
 import yaml
-from pprint import pprint
 from OutputStringTemplate.template import StringTemplate
 from Settings.settings import Settings
 from BondOrderProcessing.bond_order_processing\
