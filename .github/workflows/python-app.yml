@@ -7,7 +7,6 @@ on: [push]
 permissions:
   contents: read
   repository-projects: read
-  contents: read
   pages: write
   id-token: write
 
