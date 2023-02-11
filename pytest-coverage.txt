@@ -13,7 +13,7 @@ test/test_input_data.py .................
 =================================== FAILURES ===================================
 _____________________ TestEndToEnd.test_execute_app_in_cmd _____________________
 
-self = <test.test_end_to_end.TestEndToEnd object at 0x7fc898870af0>
+self = <test.test_end_to_end.TestEndToEnd object at 0x7f7b9f098a00>
 env_for_end_to_end_tests = PosixPath('/tmp/pytest-of-runner/pytest-0/data0')
 
     @pytest.mark.usefixtures("env_for_end_to_end_tests")
@@ -45,12 +45,12 @@ Name                                                                            
 --------------------------------------------------------------------------------------------------------------
 main/BondOrderProcessing/bond_order_processing/calculations.py                     352      9    97%   40, 44, 51, 171, 324, 505, 660, 662-663
 main/BondOrderProcessing/bond_order_processing/calculations_for_atoms_lists.py     166      3    98%   84-87
-main/BondOrderProcessing/bond_order_processing/input_data.py                       418     53    87%   88-100, 122-155, 185-189, 225, 234-238, 306, 319-320, 373-377, 424-435, 472-473, 479, 494, 501, 658, 665, 703, 732, 736, 759, 766, 812, 820, 866, 872, 886, 937, 949
+main/BondOrderProcessing/bond_order_processing/input_data.py                       422     53    87%   88-100, 122-155, 185-189, 225, 234-238, 306, 319-320, 379-383, 430-441, 478-479, 485, 500, 507, 664, 671, 709, 738, 742, 765, 772, 818, 826, 872, 878, 892, 943, 955
 --------------------------------------------------------------------------------------------------------------
-TOTAL                                                                              937     65    93%
+TOTAL                                                                              941     65    93%
 
 1 file skipped due to complete coverage.
 
 =========================== short test summary info ============================
 FAILED test/test_end_to_end.py::TestEndToEnd::test_execute_app_in_cmd - FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-runner/pytest-0/data0/output.txt'
-================== 1 failed, 51 passed, 2 warnings in 19.39s ===================
+================== 1 failed, 51 passed, 2 warnings in 17.03s ===================
