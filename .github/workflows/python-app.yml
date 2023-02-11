@@ -11,8 +11,7 @@ permissions:
 
 jobs:
   Test:
-    permissions: write-all
-    permissions: read
+    permissions: read-all|write-all
     runs-on: ubuntu-latest
 
     steps:
