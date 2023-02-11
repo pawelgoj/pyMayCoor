@@ -6,18 +6,18 @@ collected 52 items
 
 test/test_calculations.py ..................
 test/test_calculations_for_atoms_lists.py ................
-test/test_end_to_end.py Done!, execution time: 5.236947059631348 s
+test/test_end_to_end.py Done!, execution time: 6.763177156448364 s
 python
 .
 test/test_input_data.py .................
 
 =============================== warnings summary ===============================
-test/test_calculations_for_atoms_lists.py:168
-  /home/runner/work/pyMayCoor/pyMayCoor/test/test_calculations_for_atoms_lists.py:168: PytestUnknownMarkWarning: Unknown pytest.mark.slow - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+test/test_calculations_for_atoms_lists.py:167
+  /home/runner/work/pyMayCoor/pyMayCoor/test/test_calculations_for_atoms_lists.py:167: PytestUnknownMarkWarning: Unknown pytest.mark.slow - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
     @pytest.mark.slow
 
-test/test_calculations_for_atoms_lists.py:182
-  /home/runner/work/pyMayCoor/pyMayCoor/test/test_calculations_for_atoms_lists.py:182: PytestUnknownMarkWarning: Unknown pytest.mark.slow - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+test/test_calculations_for_atoms_lists.py:181
+  /home/runner/work/pyMayCoor/pyMayCoor/test/test_calculations_for_atoms_lists.py:181: PytestUnknownMarkWarning: Unknown pytest.mark.slow - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
     @pytest.mark.slow
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
@@ -34,4 +34,4 @@ TOTAL                                                                           
 
 1 file skipped due to complete coverage.
 
-======================= 52 passed, 2 warnings in 21.35s ========================
+======================= 52 passed, 2 warnings in 27.75s ========================
