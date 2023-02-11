@@ -1,5 +1,4 @@
 import pytest
-from pprint import pprint
 
 from main.BondOrderProcessing.bond_order_processing.calculations\
     import Covalence

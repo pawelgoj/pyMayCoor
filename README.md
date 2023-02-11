@@ -1,7 +1,6 @@
 # pyMayCoor
 
-Program allows you to process Mayer bond orders from the CPMD output file. 
-
+Program allows you to process Mayer bond orders from the CPMD output file.
 
 You can calculate from Mayer bond orders:
 
@@ -29,7 +28,6 @@ Command flags:
 `-s` - set path to settings file
 
 `-o` - set path for output file
-
 
 ### Example of settings file
 
@@ -75,3 +73,20 @@ calculations:
 - <https://github.com/pawelgoj/pyMayCoor/tree/master/main/BondOrderProcessing>
 
 - [Documentation page](https://pawelgoj.github.io/pyMayCoor/bond_order_processing)
+
+## Technologies and tools
+
+- python 3.10
+- kivy
+- kivyMD
+- multiprocessing
+- regex
+- numpy
+- pytest
+- player
+- mypy
+- yaml
+- PyYAML
+- pdoc
+- github actions
+- plyer

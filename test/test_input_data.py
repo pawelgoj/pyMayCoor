@@ -3,8 +3,6 @@ from main.BondOrderProcessing.bond_order_processing.input_data\
     import InputDataFromCPMD
 from main.BondOrderProcessing.bond_order_processing.input_data\
     import MayerBondOrders
-from pprint import pprint
-from enum import Enum
 
 
 class TestInputDataFromCPMD:
