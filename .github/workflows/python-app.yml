@@ -12,6 +12,7 @@ permissions:
 jobs:
   Test:
     permissions: write-all
+    permissions: read
     runs-on: ubuntu-latest
 
     steps:
