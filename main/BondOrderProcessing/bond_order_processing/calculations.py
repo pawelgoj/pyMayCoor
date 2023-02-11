@@ -14,7 +14,7 @@ from dataclasses import dataclass
 class PairOfAtoms:
     """PairOfAtoms.
 
-    Object represents Pairs of Atoms
+    Object represents Pair of Atoms
 
     Attributes:
         atom_1 (str): First atom name.
