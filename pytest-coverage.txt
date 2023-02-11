@@ -25,7 +25,7 @@ test/conftest.py:40: FileNotFoundError
 =================================== FAILURES ===================================
 _____________________ TestEndToEnd.test_execute_app_in_cmd _____________________
 
-self = <test.test_end_to_end.TestEndToEnd object at 0x7f839f9c8c40>
+self = <test.test_end_to_end.TestEndToEnd object at 0x7fd7e6d54c40>
 env_for_end_to_end_tests_2 = 'test_output.txt'
 
     @pytest.mark.usefixtures("env_for_end_to_end_tests_2")
@@ -65,4 +65,4 @@ TOTAL                                                                           
 =========================== short test summary info ============================
 FAILED test/test_end_to_end.py::TestEndToEnd::test_execute_app_in_cmd - FileNotFoundError: [Errno 2] No such file or directory: 'test_output.txt'
 ERROR test/test_end_to_end.py::TestEndToEnd::test_execute_app_in_cmd - FileNotFoundError: [Errno 2] No such file or directory: './test_output.txt'
-============== 1 failed, 51 passed, 2 warnings, 1 error in 16.23s ==============
+============== 1 failed, 51 passed, 2 warnings, 1 error in 15.83s ==============
