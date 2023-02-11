@@ -6,28 +6,39 @@ collected 52 items
 
 test/test_calculations.py ..................
 test/test_calculations_for_atoms_lists.py ................
-test/test_end_to_end.py /tmp/pytest-of-runner/pytest-0/data0
-F
+test/test_end_to_end.py FE
 test/test_input_data.py .................
 
+==================================== ERRORS ====================================
+__________ ERROR at teardown of TestEndToEnd.test_execute_app_in_cmd ___________
+
+request = <SubRequest 'env_for_end_to_end_tests_2' for <Function test_execute_app_in_cmd>>
+
+    @pytest.fixture()
+    def env_for_end_to_end_tests_2(request):
+        file_name = "test_output.txt"
+        yield file_name
+>       os.remove(f'./{file_name}')
+E       FileNotFoundError: [Errno 2] No such file or directory: './test_output.txt'
+
+test/conftest.py:40: FileNotFoundError
 =================================== FAILURES ===================================
 _____________________ TestEndToEnd.test_execute_app_in_cmd _____________________
 
-self = <test.test_end_to_end.TestEndToEnd object at 0x7f7b9f098a00>
-env_for_end_to_end_tests = PosixPath('/tmp/pytest-of-runner/pytest-0/data0')
+self = <test.test_end_to_end.TestEndToEnd object at 0x7f839f9c8c40>
+env_for_end_to_end_tests_2 = 'test_output.txt'
 
-    @pytest.mark.usefixtures("env_for_end_to_end_tests")
-    def test_execute_app_in_cmd(self, env_for_end_to_end_tests):
-        print(env_for_end_to_end_tests)
-        fn = env_for_end_to_end_tests / 'output.txt'
+    @pytest.mark.usefixtures("env_for_end_to_end_tests_2")
+    def test_execute_app_in_cmd(self, env_for_end_to_end_tests_2):
+        fn = env_for_end_to_end_tests_2
     
         subprocess.run(
-            f'python3_10 ./main/main.py -i ./egzamples_instructions/out1.txt -s ./egzamples_instructions/settings.yaml -o "{str(fn)}"', shell=True)
+            f'python3_10 ./main/main.py -i ./egzamples_instructions/out1.txt -s ./egzamples_instructions/settings.yaml -o "{fn}"', shell=True)
     
 >       with open(fn, 'r', encoding="utf-8") as file:
-E       FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-runner/pytest-0/data0/output.txt'
+E       FileNotFoundError: [Errno 2] No such file or directory: 'test_output.txt'
 
-test/test_end_to_end.py:14: FileNotFoundError
+test/test_end_to_end.py:13: FileNotFoundError
 =============================== warnings summary ===============================
 test/test_calculations_for_atoms_lists.py:168
   /home/runner/work/pyMayCoor/pyMayCoor/test/test_calculations_for_atoms_lists.py:168: PytestUnknownMarkWarning: Unknown pytest.mark.slow - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
@@ -52,5 +63,6 @@ TOTAL                                                                           
 1 file skipped due to complete coverage.
 
 =========================== short test summary info ============================
-FAILED test/test_end_to_end.py::TestEndToEnd::test_execute_app_in_cmd - FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-runner/pytest-0/data0/output.txt'
-================== 1 failed, 51 passed, 2 warnings in 17.03s ===================
+FAILED test/test_end_to_end.py::TestEndToEnd::test_execute_app_in_cmd - FileNotFoundError: [Errno 2] No such file or directory: 'test_output.txt'
+ERROR test/test_end_to_end.py::TestEndToEnd::test_execute_app_in_cmd - FileNotFoundError: [Errno 2] No such file or directory: './test_output.txt'
+============== 1 failed, 51 passed, 2 warnings, 1 error in 16.23s ==============
