@@ -1,5 +1,5 @@
 from multiprocessing import Process, Pipe
-from multiprocessing.connection import PipeConnection
+from multiprocessing.connection import Connection
 import yaml
 
 from OutputStringTemplate.template import StringTemplate
@@ -124,7 +124,7 @@ class AppForCli:
         self._output_string = output_string
 
     @ staticmethod
-    def _thread_1(conn: PipeConnection, settings: Settings,
+    def _thread_1(conn: Connection, settings: Settings,
                   pairs_atoms_list: list[PairOfAtoms],
                   mayer_bond_orders: MayerBondOrders) -> None:
         if settings.histogram['calc'] is True:
@@ -158,7 +158,7 @@ class AppForCli:
         conn.close()
 
     @ staticmethod
-    def _thread_2(conn: PipeConnection, settings: Settings,
+    def _thread_2(conn: Connection, settings: Settings,
                   pairs_atoms_list: list[PairOfAtoms],
                   mayer_bond_orders: MayerBondOrders,
                   coordinates_of_atoms: CoordinatesOfAtoms) -> None:
