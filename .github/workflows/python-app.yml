@@ -29,6 +29,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Test with pytest
       run: |
+        dir
         python -m pytest --doctest-modules main/BondOrderProcessing/bond_order_processing/input_data.py
         python -m pytest --doctest-modules main/BondOrderProcessing/bond_order_processing/__init__.py
         python -m pytest --doctest-modules main/Settings/settings.py
