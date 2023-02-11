@@ -6,12 +6,14 @@ on: [push]
 
 permissions:
   contents: read
+  repository-projects: read
+  contents: read
   pages: write
   id-token: write
 
 jobs:
   Test:
-    permissions: read-all|write-all
+    permissions: write-all
     runs-on: ubuntu-latest
 
     steps:
