@@ -5,22 +5,28 @@ pairs_atoms_list:
   - atom_1: P
     atom_2: O
     mbo_min: 1.2
-    mbo_max: INF
+    mbo_max: 2
     id: P=O
   - atom_1: P
     atom_2: O
-    mbo_min: 0.02
+    mbo_min: 0.1
     mbo_max: INF
     id: P-O
   - atom_1: Al
     atom_2: O
-    mbo_min: 0.02
+    mbo_min: 0.1
     mbo_max: INF
     id: Al-O
+  - atom_1: Fe
+    atom_2: O
+    mbo_min: 0.1
+    mbo_max: INF
+    id: Fe-O
 calculations:
   q_i:
     calc: true
-    bond_id: P=O
+    bond_id: P-O
   cn: true
   connections: true
   bond_length: true
+  covalence: true

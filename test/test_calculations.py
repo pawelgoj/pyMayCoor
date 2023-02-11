@@ -18,8 +18,9 @@ from main.BondOrderProcessing.bond_order_processing.calculations\
 from main.BondOrderProcessing.bond_order_processing.input_data\
     import InputDataFromCPMD
 
+from .mocks import MayerBondOrders
+
 from dataclasses import dataclass
-from pprint import pprint
 
 
 class TestHistogram:
@@ -34,31 +35,14 @@ class TestHistogram:
     def test_to_string(self):
 
         string = Histogram.calculate(self.values, 3)\
-            .to_string('P', 'O')
+            .to_string('P-O', 'P', 'O')
 
-        assert string == ("P, O\n"
+        assert string == ("Bond id: P-O - atom_1_id: P, atom_2_id: O\n"
                           + "\n"
                           + "Interval/2 Count\n\n"
-                          + "2.8333333333333335 5\n"
+                          + "2.833333333 5\n"
                           + "4.5 2\n"
-                          + "6.166666666666667 3\n\n")
-
-
-class MayerBondOrders:
-    """Mock class."""
-    mbo = {1: {1: 0.5, 2: 0.5, 3: 0.4},
-           2: {1: 0.5, 2: 0.1, 3: 0.05},
-           3: {1: 0.5, 2: 0.1, 3: 0.05}}
-
-    def get_mayer_bond_order_between_atoms(self, atom_id_1: int, atom_id_2:
-                                           int) -> float:
-        return self.mbo.get(atom_id_1).get(atom_id_2)
-
-    def get_atoms_ids(self, atom_symbol_1):
-        return [1, 2, 3]
-
-    def get_all_mayer_bond_orders_of_atom(self, id):
-        return [0.5, 0.5, 0.4]
+                          + "6.166666667 3\n\n")
 
 
 class TestCoordinationNumbers:
@@ -91,7 +75,7 @@ class TestCoordinationNumbers:
             .calculate_statistics()\
             .to_string()
 
-        assert string == "CN of P bond: P-O\n\n"\
+        assert string == "## CN of P bond: P-O\n\n"\
             + "id: 1 CN: 2\n"\
             + "Bond orders (id: mbo): 2: 0.5, 3: 0.4\n"\
             + "id: 2 CN: 1\n"\
@@ -236,8 +220,8 @@ class TestConnections:
                                        list_of_pair_of_atoms)\
             .to_string()
 
-        assert string == "Connections of: P\n\n"\
-            + "Central atom id: 1\n"\
+        assert string == "## Connections of: P\n\n"\
+            + "### Central atom id: 1\n"\
             + "Bond id: P-O (second atom: O)\n"\
             + "quantity: 3\n"\
             + "Bonds:\n"\
@@ -248,7 +232,7 @@ class TestConnections:
             + "Bonds:\n"\
             + "id: 1 2 3 \n"\
             + "mbo: 0.5 0.5 0.4 \n\n"\
-            + "Central atom id: 2\n"\
+            + "### Central atom id: 2\n"\
             + "Bond id: P-O (second atom: O)\n"\
             + "quantity: 3\n"\
             + "Bonds:\n"\
@@ -259,7 +243,7 @@ class TestConnections:
             + "Bonds:\n"\
             + "id: 1 2 3 \n"\
             + "mbo: 0.5 0.1 0.05 \n\n"\
-            + "Central atom id: 3\n"\
+            + "### Central atom id: 3\n"\
             + "Bond id: P-O (second atom: O)\n"\
             + "quantity: 3\n"\
             + "Bonds:\n"\
@@ -338,9 +322,9 @@ class TestCovalence:
 
         assert string == 'Covalence of P.\n\n'\
             + 'id COV\n'\
-            + '1 1.4\n'\
-            + '2 1.4\n'\
-            + '3 1.4\n\n'
+            + '1 1.400\n'\
+            + '2 1.400\n'\
+            + '3 1.400\n\n'
 
 
 class TestEndToEnd:

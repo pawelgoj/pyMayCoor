@@ -6,7 +6,7 @@ from abc import ABC
 from abc import abstractmethod
 from .input_data import MayerBondOrders
 from .input_data import CoordinatesOfAtoms
-
+from typing import TypeAlias
 from dataclasses import dataclass
 
 
@@ -14,7 +14,7 @@ from dataclasses import dataclass
 class PairOfAtoms:
     """PairOfAtoms.
 
-    Object represents Pairs of Atoms
+    Object represents Pair of Atoms
 
     Attributes:
         atom_1 (str): First atom name.
@@ -36,11 +36,18 @@ class Calculations(ABC):
     """Calculations base class."""
 
     @abstractmethod
-    def calculate() -> type:
+    def calculate(cls, *args, **kwars) -> type:
         pass
 
     @abstractmethod
-    def to_string(self) -> str:
+    def to_string(self, *args, **kwars) -> str:
+        pass
+
+
+class Statistics(ABC):
+    """Statistics base class"""
+    @abstractmethod
+    def calculate_statistics(self) -> type:
         pass
 
 
@@ -53,8 +60,7 @@ class Histogram(Calculations):
     """Quantity."""
 
     @classmethod
-    def calculate(cls, values: list[float], bins: int)\
-            -> type:
+    def calculate(cls, values: list[float], bins: int):
         """Calculate histogram.
 
         Args:
@@ -88,21 +94,24 @@ class Histogram(Calculations):
         histogram.y = y
         return histogram
 
-    def to_string(self, atom_symbol_1: str, atom_symbol_2: str)\
+    def to_string(self, bond_id: str, atom_symbol_1: str, atom_symbol_2: str)\
             -> str:
         """Make string from Histogram object
 
         Args:
+            bond_id (str): eg. P-O.
             atom_symbol_1 (str): Symbol of atom 1.
             atom_symbol_2 (str): Symbol of atom 2.
         Returns:
             **str**: String.
 
         """
-        string = atom_symbol_1 + ', ' + atom_symbol_2 + '\n\n'
+        string = f'Bond id: {bond_id} - atom_1_id: {atom_symbol_1}, atom_2_id: {atom_symbol_2}\n\n'
         string = string + 'Interval/2' + ' ' + 'Count' + '\n\n'
         for i in range(len(self.x)):
-            string = string + str(self.x[i]) + ' ' + str(self.y[i]) + '\n'
+            string = string + \
+                str(round(self.x[i], 9)) + ' ' + \
+                str(round(self.y[i], 9)) + '\n'
 
         string = string + '\n'
 
@@ -114,18 +123,16 @@ class CoordinationNumber:
     """Object stores coordination number of given atom and
     Mayer bond orders corresponding to the bonds in the
     coordination polyhedron."""
-    id_atom_2 = int
-    mayer_bond_order = float
 
     id_atom_1: int
     """Central atom id."""
     cn: int
     """Value of coordination number."""
-    bonds: dict[id_atom_2, mayer_bond_order]
+    bonds: dict[int, float]
     """**Key** - ligand id, **value** - Mayer bond order."""
 
 
-class CoordinationNumbers(Calculations):
+class CoordinationNumbers(Calculations, Statistics):
     """Generate list of CoordinationNumber objects and processes it."""
     CoordinationNumber: type = CoordinationNumber
 
@@ -143,7 +150,7 @@ class CoordinationNumbers(Calculations):
                   atom_symbol_1: str, atom_symbol_2: str,
                   max_mayer_bond_order: float | str,
                   min_mayer_bond_order: float,
-                  id_of_bond: str) -> type:
+                  id_of_bond: str):
         """Calculate CoordinationNumbers object.
 
         Args:
@@ -156,6 +163,7 @@ class CoordinationNumbers(Calculations):
 
         Returns:
             **CoordinationNumbers**: CoordinationNumbers object
+
         """
 
         if max_mayer_bond_order != "INF"\
@@ -177,13 +185,14 @@ class CoordinationNumbers(Calculations):
                         .get_mayer_bond_order_between_atoms(atom_1_id,
                                                             atom_2_id)
                     if (mbo > min_mayer_bond_order
-                            and max_mayer_bond_order is 'INF'):
+                            and max_mayer_bond_order == 'INF'):
                         coordination_number.bonds.update({atom_2_id: mbo})
                         coordination_number.cn += 1
-                    elif (mbo > min_mayer_bond_order
-                            and mbo < max_mayer_bond_order):
-                        coordination_number.bonds.update({atom_2_id: mbo})
-                        coordination_number.cn += 1
+                    elif (type(max_mayer_bond_order) is float):
+                        if (mbo > min_mayer_bond_order
+                                and mbo < max_mayer_bond_order):
+                            coordination_number.bonds.update({atom_2_id: mbo})
+                            coordination_number.cn += 1
                     else:
                         continue
 
@@ -196,16 +205,17 @@ class CoordinationNumbers(Calculations):
 
         return self
 
-    def calculate_statistics(self) -> type:
+    def calculate_statistics(self):
         """Calculate statistics of CoordinationNumbers.
 
         Statistic are in "statistics" attribute.
 
         Returns:
             CoordinationNumbers: CoordinationNumbers object
+
         """
         cns = self._get_list_of_coordination_numbers()
-        quantities = {}
+        quantities: dict = {}
         for cn in cns:
             for item in self.list_coordinations_number:
                 if item.cn == cn:
@@ -236,12 +246,16 @@ class CoordinationNumbers(Calculations):
 
         Returns:
             **str**: String.
+
         """
-        string = "CN of " + str(self.atom_symbol) + " bond: "\
+        string = "## CN of " + str(self.atom_symbol) + " bond: "\
             + str(self.id_of_bond) + "\n\n"
         for item in self.list_coordinations_number:
             string = string + "id: " + str(item.id_atom_1) + " "\
-                + "CN: " + str(item.cn) + "\n" + "Bond orders (id: mbo): "
+                + "CN: " + str(item.cn)
+
+            if item.cn != 0:
+                string += "\n" + "Bond orders (id: mbo): "
 
             length = len(item.bonds)
             i = 1
@@ -267,18 +281,18 @@ class CoordinationNumbers(Calculations):
         return string
 
 
-class QiUnits(Calculations):
+class QiUnits(Calculations, Statistics):
     """Stores information about Qi units."""
     id_of_bond: str
-    """Id of bonds in Qi unit"""
+    """Id of bonds in Qⁱ unit"""
     atom_symbol_1: str
     """Symbol of central atom"""
     atom_symbol_2: str
     """Symbol of ligands"""
     q_i_units: dict[int, int] = {}
-    """Dictionary stores values of i of Qi units. key - central atom id."""
+    """Dictionary stores values of i of Qⁱ units. key - central atom id."""
     statistics: dict[int, float] | None = None
-    """Dictionary stores percentages of Qi units. key - value of i in Qi"""
+    """Dictionary stores percentages of Qⁱ units. key - value of i in Qⁱ"""
 
     @classmethod
     def calculate(cls, mayer_bond_orders: MayerBondOrders,
@@ -286,7 +300,7 @@ class QiUnits(Calculations):
                   atom_symbol_2: str,
                   max_mayer_bond_order: float | str,
                   min_mayer_bond_order: float,
-                  id_of_bond: str) -> type:
+                  id_of_bond: str):
         """Calculate QiUnits object.
 
         Args:
@@ -302,6 +316,7 @@ class QiUnits(Calculations):
 
         Returns:
             **QiUnits**: Returns QiUnits object.
+
         """
 
         if max_mayer_bond_order != "INF"\
@@ -321,6 +336,7 @@ class QiUnits(Calculations):
         self.id_of_bond = id_of_bond
         self.atom_symbol_1 = atom_symbol_1
         self.atom_symbol_2 = atom_symbol_2
+        self.q_i_units = {}
         for atom_1_id in atom_1_ids:
 
             self.q_i_units.update({atom_1_id: 0})
@@ -348,11 +364,12 @@ class QiUnits(Calculations):
 
         return self
 
-    def calculate_statistics(self) -> type:
+    def calculate_statistics(self):
         """Calculate statistics in object QiUnits.
 
         Returns:
             **QiUnits**: QiUnits object.
+
         """
 
         unique_values = []
@@ -383,6 +400,7 @@ class QiUnits(Calculations):
 
         Returns:
             **str**: String.
+
         """
         string = "Q_i of " + str(self.atom_symbol_1) + ' bond id: '\
             + str(self.id_of_bond) + "\n\n"
@@ -427,7 +445,7 @@ class Connection:
 class Connections(Calculations):
     """Object represents connections of given atom to nearest neighbors.
     """
-    atom_1_id = int
+    atom_1_id: TypeAlias = int
     Connection: type = Connection
 
     connections: dict[atom_1_id, list[Connection]]
@@ -439,7 +457,7 @@ class Connections(Calculations):
     def calculate(cls, mayer_bond_orders: MayerBondOrders,
                   atom_symbol_1: str,
                   pairs_atoms_list: list[PairOfAtoms]
-                  ) -> type:
+                  ):
         """Calculate Connections object.
 
         Args:
@@ -452,6 +470,7 @@ class Connections(Calculations):
 
         Returns:
             **Connections**: Connections object.
+
         """
 
         pair_atom_list_containing_atom_1 = []
@@ -470,7 +489,7 @@ class Connections(Calculations):
             connections.update({atom_1_id: []})
 
             for pair_atoms in pair_atom_list_containing_atom_1:
-                if v := pair_atoms.atom_1 != atom_symbol_1:
+                if (v := pair_atoms.atom_1) != atom_symbol_1:
                     atom_symbol_2 = v
                 else:
                     atom_symbol_2 = pair_atoms.atom_2
@@ -481,7 +500,6 @@ class Connections(Calculations):
                 atom_2_ids = mayer_bond_orders.get_atoms_ids(atom_symbol_2)
 
                 for atom_2_id in atom_2_ids:
-
                     if pair_atoms.MBO_max != "INF"\
                             and not (type(pair_atoms.MBO_max) is float):
                         raise ValueError(
@@ -492,16 +510,17 @@ class Connections(Calculations):
                                                             atom_2_id)
 
                     if (mbo > pair_atoms.MBO_min
-                            and pair_atoms.MBO_max is 'INF'):
+                            and pair_atoms.MBO_max == 'INF'):
 
                         connection.quantity += 1
                         connection.bonds.update({atom_2_id: mbo})
 
-                    elif (mbo > pair_atoms.MBO_min
-                            and pair_atoms.MBO_max > mbo):
+                    elif (pair_atoms.MBO_max != 'INF'):
+                        if (mbo > pair_atoms.MBO_min
+                                and pair_atoms.MBO_max > mbo):
 
-                        connection.quantity += 1
-                        connection.bonds.update({atom_2_id: mbo})
+                            connection.quantity += 1
+                            connection.bonds.update({atom_2_id: mbo})
 
                 connections[atom_1_id].append(connection)
 
@@ -516,11 +535,12 @@ class Connections(Calculations):
 
         Returns:
             **str**: string.
+
         """
-        string = 'Connections of: ' + str(self.atom_symbol_1) + '\n\n'
+        string = '## Connections of: ' + str(self.atom_symbol_1) + '\n\n'
 
         for atom_1_id, list_of_connections in self.connections.items():
-            string = string + "Central atom id: " + str(atom_1_id) + "\n"
+            string = string + "### Central atom id: " + str(atom_1_id) + "\n"
 
             for connection in list_of_connections:
 
@@ -551,7 +571,7 @@ class Covalence(Calculations):
 
     @ classmethod
     def calculate(cls, mayer_bond_orders: MayerBondOrders,
-                  atom_symbol: str) -> type:
+                  atom_symbol: str):
         """Calculate Covalence object.
 
         Args:
@@ -560,6 +580,7 @@ class Covalence(Calculations):
 
         Returns:
             **Covalence**: Covalence object.
+
         """
 
         atom_ids = mayer_bond_orders.get_atoms_ids(atom_symbol)
@@ -578,12 +599,13 @@ class Covalence(Calculations):
 
         Returns:
             **str**: String.
+
         """
         string = f'Covalence of {self.atom_symbol}.\n\n'\
             + 'id COV\n'
 
         for id, value in self.covalence.items():
-            string = string + f'{id} {value}\n'
+            string = string + f'{id} {value:.3f}\n'
         string += '\n'
 
         return string
@@ -591,8 +613,8 @@ class Covalence(Calculations):
 
 class BondLength(Calculations):
     """Object stored bond lengths of pairs of atoms."""
-    atom_id_1 = int
-    atom_id_2 = int
+    atom_id_1: TypeAlias = int
+    atom_id_2: TypeAlias = int
 
     id_of_bond: str
     """Id of bond eg. 'P-O'"""
@@ -613,7 +635,7 @@ class BondLength(Calculations):
                   atom_symbol_2: str,
                   max_mayer_bond_order: float | str,
                   min_mayer_bond_order: float,
-                  id_of_bond: str) -> type:
+                  id_of_bond: str):
         """Calculate BondLength object.
 
         Args:
@@ -630,6 +652,7 @@ class BondLength(Calculations):
 
         Returns:
             **BondLength**: BondLength object.
+
         """
 
         if max_mayer_bond_order != "INF"\
@@ -659,12 +682,13 @@ class BondLength(Calculations):
                 mbo = mayer_bond_orders\
                     .get_mayer_bond_order_between_atoms(atom_1_id,
                                                         atom_2_id)
+
                 length = coordinates_of_atoms\
                     .get_distance_between_atoms(atom_1_id, atom_2_id)
 
                 if mbo > min_mayer_bond_order and (
                     mbo < max_mayer_bond_order
-                    or max_mayer_bond_order == 'INF'
+                    or inf is True
                 ):
                     self.lengths[atom_1_id].update({atom_2_id: length})
                     self.mbos[atom_1_id].update({atom_2_id: mbo})
@@ -672,7 +696,8 @@ class BondLength(Calculations):
                     continue
 
         # remove empty keys.
-        for key in self.lengths.keys():
+
+        for key in list(self.lengths.keys()):
             if self.lengths[key] == {}:
                 del self.lengths[key]
                 del self.mbos[key]
@@ -684,6 +709,7 @@ class BondLength(Calculations):
 
         Returns:
             **str**: String.
+
         """
         string = f'Bond lengths of bond id: {self.id_of_bond} '\
             + f'(atoms: {self.atom_symbol_1}, {self.atom_symbol_2}):\n\n'\

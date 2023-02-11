@@ -9,6 +9,20 @@ from math import acos
 from enum import Enum
 import numpy as np
 from numpy.typing import NDArray
+from typing import TypeAlias
+from typing import Optional
+
+
+x: TypeAlias = float
+"""x-cartesian coordinate"""
+y: TypeAlias = float
+"""y-cartesian coordinate"""
+z: TypeAlias = float
+"""z-cartesian coordinate"""
+vector: TypeAlias = tuple[x, y, z]
+"""euclidean vector"""
+deg: TypeAlias = float
+"""angle in degrees"""
 
 
 class LoadedData(Enum):
@@ -41,23 +55,15 @@ class UnitCell(Constants):
         beta (deg): deg
         gamma (deg): deg
 
-    Types:
-        x, y, z = float, float, float \n
-        vector = tuple[x, y, z] \n
-        deg = float \n
     """
-    x, y, z = float, float, float
-    """Type alias."""
-    vector = tuple[x, y, z]
-    lattice_vectors: tuple[vector] = ()
+
+    lattice_vectors: tuple[vector] | tuple = ()
     converted_to_angstroms: bool = False
 
     a: float = 0
     b: float = 0
     c: float = 0
 
-    deg = float
-    """Type alias."""
     alfa: deg = 0
     beta: deg = 0
     gamma: deg = 0
@@ -264,6 +270,21 @@ class MayerBondOrders:
 
         return ids
 
+    def check_atom_symbol_in_MBO(self, atom_symbol: str) -> bool:
+        """Check atom symbol in MayerBondOrders object.
+
+        Args:
+            atom_symbol (str): Symbol of atom eg. 'P'.
+
+        Returns:
+            **bool**: True if in MayerBondOrders object.
+
+        """
+        if self.get_atoms_ids(atom_symbol) == []:
+            return False
+        else:
+            return True
+
     def get_atom_symbols(self, atom_id_1: int, atom_id_2:
                          int) -> tuple[str, str] | None:
         """Get atom symbols of pair of atoms.
@@ -335,21 +356,25 @@ class CoordinatesOfAtoms(Constants):
         Dictionary storing symbols of atoms, key is atom id.
 
     Types:
-        x, y, z = float, float, float \n
         atom_id = int
+
     """
 
-    atom_id = int
+    atom_id: TypeAlias = int
     """Type alias"""
-    x, y, z = float, float, float
-    """Type alias"""
-    ids: list[atom_id] = []
-    _coordinates: dict[atom_id, tuple[x, y, z]] = {}
-    atom_symbols: dict[atom_id, str] = {}
-    _unit_cell: UnitCell | None = None
+    ids: list[atom_id]
+    _coordinates: dict[atom_id, vector]
+    atom_symbols: dict[atom_id, str]
+    _unit_cell: UnitCell | None
 
     def __init__(self, atom_coordinates_table: list[tuple[atom_id, str, x, y,
                                                           z]] = []) -> None:
+
+        self.ids = []
+        self._coordinates = {}
+        self.atom_symbols = {}
+        self._unit_cell = None
+
         if atom_coordinates_table != []:
             while atom_coordinates_table != []:
                 row = atom_coordinates_table.pop(0)
@@ -365,6 +390,7 @@ class CoordinatesOfAtoms(Constants):
             id (int): id of new atom.
             atom_symbol (str): Symbol of new atom.
             coordinates (tuple[x, y, z]): Coordinates of new atom.
+
         """
         self.ids.append(id)
         self.atom_symbols.update({id: atom_symbol})
@@ -379,11 +405,12 @@ class CoordinatesOfAtoms(Constants):
         Returns:
             **tuple[x, y, z] | None**: Returns atom coordinates or None if atom of
                                    given id does not exist.
+
         """
         return self._coordinates.get(id, None)
 
     def get_atom_coordinates_converted_in_angstrom(self, id: int)\
-            -> tuple[x, y, z]:
+            -> tuple[x, y, z] | None:
         """Get atom coordinates converted in angstroms if they were stored as
         Bohr units. Not change stored values.
 
@@ -398,19 +425,20 @@ class CoordinatesOfAtoms(Constants):
 
         Returns:
             **tuple[x, y, z]**: coordinates in angstroms
+
         """
         temp_coordinates = self._coordinates.get(id, None)
         if temp_coordinates is not None:
-            coordinates = (self._CONSTANT_TO_CALCULATE_ANGSTROMS_FROM_BOHR
-                           * temp_coordinates[0],
-                           self._CONSTANT_TO_CALCULATE_ANGSTROMS_FROM_BOHR
-                           * temp_coordinates[1],
-                           self._CONSTANT_TO_CALCULATE_ANGSTROMS_FROM_BOHR
-                           * temp_coordinates[2])
+            coordinates = (
+                self._CONSTANT_TO_CALCULATE_ANGSTROMS_FROM_BOHR
+                * temp_coordinates[0],
+                self._CONSTANT_TO_CALCULATE_ANGSTROMS_FROM_BOHR
+                * temp_coordinates[1],
+                self._CONSTANT_TO_CALCULATE_ANGSTROMS_FROM_BOHR
+                * temp_coordinates[2])
+            return coordinates
         else:
-            coordinates = temp_coordinates
-
-        return coordinates
+            return None
 
     def convert_stored_coordinates_to_angstroms(self) -> None:
         """Converts stored coordinates from bohr units to angstroms.
@@ -446,7 +474,7 @@ class CoordinatesOfAtoms(Constants):
         return self.atom_symbols.get(id)
 
     @property
-    def coordinates(self) -> tuple[x, y, z]:
+    def coordinates(self) -> list[vector]:
         coordinates = [value for value in self._coordinates.values()]
         return coordinates
 
@@ -465,34 +493,35 @@ class CoordinatesOfAtoms(Constants):
              atom_id_2 (int): id of second atom
         Returns:
             **float | None**: Distance in angstroms or Bohr units.
+
         """
 
         if type(self._unit_cell) is not UnitCell:
             raise Exception("Unit cell not added or wrong type of"
                             + " unit_cell, use .add_unit_cell(self, unit_cell) method!!!")
 
-        atom_coord_1 = self._coordinates.get(atom_id_1, None)
-        atom_coord_2 = self._coordinates.get(atom_id_2, None)
+        atom_coord_1_v = self._coordinates.get(atom_id_1, None)
+        atom_coord_2_v = self._coordinates.get(atom_id_2, None)
 
-        if atom_coord_1 is None or atom_coord_2 is None:
+        if atom_coord_1_v is None or atom_coord_2_v is None:
             return None
         else:
-            atom_coord_1 = np.array(atom_coord_1)
-            atom_coord_2 = np.array(atom_coord_2)
+            atom_coord_1 = np.array(atom_coord_1_v)
+            atom_coord_2 = np.array(atom_coord_2_v)
 
         vector_between_atoms = atom_coord_1 - atom_coord_2
 
-        length = np.linalg.norm(vector_between_atoms)
+        length = float(np.linalg.norm(vector_between_atoms))
 
         lattice_vectors_list = []
         for vector in self._unit_cell.lattice_vectors:
             lattice_vectors_list.append(np.array(vector))
 
-        def get_lower_distance(length, vector_1: NDArray,
-                               vector_2: NDArray):
+        def get_lower_distance(length: float, vector_1: NDArray,
+                               vector_2: NDArray) -> float:
             vector_between_atoms = vector_1 - vector_2
 
-            new_length = np.linalg.norm(vector_between_atoms)
+            new_length = float(np.linalg.norm(vector_between_atoms))
 
             if new_length < length:
                 length = new_length
@@ -594,6 +623,7 @@ class InputData(ABC):
     """Input data.
 
     Load data from file and create objects.
+
     """
 
     populations: Populations | None = None
@@ -604,8 +634,7 @@ class InputData(ABC):
     def __init__(self, Populations: type = Populations,
                  UnitCell: type = UnitCell,
                  MayerBondOrders: type = MayerBondOrders,
-                 CoordinatesOfAtoms: type = CoordinatesOfAtoms,
-                 LoadedData: type = LoadedData):
+                 CoordinatesOfAtoms: type = CoordinatesOfAtoms):
         """Constructor.
 
         Args:
@@ -654,14 +683,14 @@ class InputDataFromCPMD(InputData):
     _fingerprint_mayer_bond_orders: str = "MAYER BOND ORDERS FROM PROJECTED"\
         + " WAVEFUNCTIONS"
 
-    _fingerprints_unit_cell: tuple[str] = ("LATTICE VECTOR A1\(BOHR\):",
-                                           "LATTICE VECTOR A2\(BOHR\):",
-                                           "LATTICE VECTOR A3\(BOHR\):")
+    _fingerprints_unit_cell: tuple[str, str, str] = ("LATTICE VECTOR A1\(BOHR\):",
+                                                     "LATTICE VECTOR A2\(BOHR\):",
+                                                     "LATTICE VECTOR A3\(BOHR\):")
 
-    _valid_population_columns_names: tuple[str] = (
+    _valid_population_columns_names: tuple[str, str, str, str] = (
         'ATOM', 'MULLIKEN', 'LOWDIN', 'VALENCE')
 
-    _valid_coordinatios_columns_names: tuple[str] = (
+    _valid_coordinatios_columns_names: tuple[str, str, str] = (
         'X', 'Y', 'Z')
 
     def load_input_data(self, path: str, *args) -> None:
@@ -691,46 +720,56 @@ class InputDataFromCPMD(InputData):
                     self._load_coordinates_of_atoms(data)
 
     def return_data(self, loaded_data: LoadedData)\
-            -> Populations | UnitCell | MayerBondOrders | CoordinatesOfAtoms:
+            -> Populations | UnitCell | MayerBondOrders | CoordinatesOfAtoms\
+            | None:
         """ Returns loaded data.
+
         Args:
+
         Returns:
             **Populations | UnitCell | MayerBondOrders | CoordinatesOfAtoms**:
+
         """
         if loaded_data is LoadedData.UnitCell:
             return self.unit_cell
         elif loaded_data is LoadedData.MayerBondOrders:
             return self.mayer_bond_orders
-        if loaded_data is LoadedData.Populations:
-            return self.Populations
-        if loaded_data is LoadedData.CoordinatesOfAtoms:
+        elif loaded_data is LoadedData.Populations:
+            return self.populations
+        elif loaded_data is LoadedData.CoordinatesOfAtoms:
             return self.coordinates_of_atoms
+        else:
+            raise TypeError("Type is not LoadedData!!!!")
 
-    def _load_populations(self, file: str) -> Populations:
+    def _load_populations(self, file: str) -> Populations | None:
 
-        rows = self._get_rows_of_data_from_file(file, self._fingerprint_beginning_populations,
+        rows = self._get_rows_of_data_from_file(file,
+                                                self._fingerprint_beginning_populations,
                                                 self._fingerprint_end_populations)
-        labels = []
-        for row in rows:
-            have_string = True if re.search('[a-zA-Z]+', row) is \
-                not None else False
+        labels: list = []
+        if rows is not None:
+            for row in rows:
+                have_string = True if re.search('[a-zA-Z]+', row) is \
+                    not None else False
 
-            have_number = True if re.search('[0-9]+', row) is \
-                not None else False
+                have_number = True if re.search('[0-9]+', row) is \
+                    not None else False
 
-            if have_string and not have_number:
-                labels = row.split()
-                populations = Populations()
-                continue
-            elif have_string and have_number:
-                splited = row.split()
-                if len(labels) + 1 != len(splited):
-                    raise Exception('Wrong quantity of columns in input file!')
-                else:
-                    populations = self._add_populations_attributes(
-                        populations, splited, labels)
-
-        return populations
+                if have_string and not have_number:
+                    labels = row.split()
+                    populations = Populations()
+                    continue
+                elif have_string and have_number:
+                    splited = row.split()
+                    if len(labels) + 1 != len(splited):
+                        raise Exception(
+                            'Wrong quantity of columns in input file!')
+                    else:
+                        populations = self._add_populations_attributes(
+                            populations, splited, labels)
+            return populations
+        else:
+            return None
 
     @classmethod
     def _add_populations_attributes(cls, populations: Populations,
@@ -757,29 +796,34 @@ class InputDataFromCPMD(InputData):
         return populations
 
     def _load_coordinates_of_atoms(self, file: str)\
-            -> CoordinatesOfAtoms:
-        rows = self._get_rows_of_data_from_file(file, self._fingerprint_coordinates_of_atoms,
+            -> CoordinatesOfAtoms | None:
+        rows = self._get_rows_of_data_from_file(file,
+                                                self._fingerprint_coordinates_of_atoms,
                                                 self._fingerprint_end_coordinates_of_atoms)
-        for row in rows:
-            have_string = True if re.search('[a-zA-Z]+', row) is \
-                not None else False
+        if rows is not None:
+            for row in rows:
+                have_string = True if re.search('[a-zA-Z]+', row) is \
+                    not None else False
 
-            have_number = True if re.search('[0-9]+', row) is \
-                not None else False
+                have_number = True if re.search('[0-9]+', row) is \
+                    not None else False
 
-            if have_string and not have_number:
-                labels = row.split()
-                coordinates_of_atoms = self.CoordinatesOfAtoms()
-                continue
-            elif have_string and have_number:
-                splited = row.split()
-                if len(labels) + 2 != len(splited):
-                    raise Exception('Wrong quantity of columns in input file!')
-                else:
-                    coordinates_of_atoms = self._add_coordinations_attributes(
-                        coordinates_of_atoms, splited, labels
-                    )
-        return coordinates_of_atoms
+                if have_string and not have_number:
+                    labels = row.split()
+                    coordinates_of_atoms = self.CoordinatesOfAtoms()
+                    continue
+                elif have_string and have_number:
+                    splited = row.split()
+                    if len(labels) + 2 != len(splited):
+                        raise Exception(
+                            'Wrong quantity of columns in input file!')
+                    else:
+                        coordinates_of_atoms = self._add_coordinations_attributes(
+                            coordinates_of_atoms, splited, labels
+                        )
+            return coordinates_of_atoms
+        else:
+            return None
 
     @classmethod
     def _add_coordinations_attributes(cls, coordinates_of_atoms:
@@ -806,24 +850,33 @@ class InputDataFromCPMD(InputData):
     @staticmethod
     def _get_rows_of_data_from_file(file: str,
                                     finger_print_begin: str, finger_print_end)\
-            -> list[str]:
+            -> list[str] | None:
         """Get rows fo data from file
+
         Args:
             finger_print_begin (str): fingerprint on beginning of data
             finger_print_end (str): fingerprint on end of data
+
         Returns:
             **list[str]**: rows of string data
+
         """
 
         regex = f'(?<={finger_print_begin})[\s\S]*' \
             + f'(?={finger_print_end})'
 
         match = re.search(regex, file)
-        return match[0].split('\n')
+        if match is not None:
+            return match[0].split('\n')
+        else:
+            return None
 
     def _load_mayer_bond_orders(self, file: str) -> MayerBondOrders:
         match = re.search(
             f"(?<={self._fingerprint_mayer_bond_orders}\n\n)([\S ]+\n)*", file)
+        if match is None:
+            raise Exception("Mayers bond orders aren't in file or wrong file"
+                            + "format!!!!")
         rows = match[0].split('\n')
         rows = [row for row in rows if row != '']
         number_of_atoms = int(rows[-1].split()[0])
@@ -835,6 +888,9 @@ class InputDataFromCPMD(InputData):
         match = re.search(
             f"(?<={self._fingerprint_mayer_bond_orders}\n\n)([\S ]+\n*){{{number_of_rows}}}", file)
 
+        if match is None:
+            raise Exception("Mayers bond orders aren't in file or wrong file"
+                            + "format!!!!")
         rows_full_table = []
         tables = match[0].split('\n\n')
         first_table = True
@@ -875,8 +931,8 @@ class InputDataFromCPMD(InputData):
             vertical_atom_id.append(int(row.pop(0)))
             vertical_atom_symbol.update(
                 {vertical_atom_id[-1]: str(row.pop(0))})
-            row = [float(item) for item in row]
-            new_rows_full_table.append(row)
+            row_f = [float(item) for item in row]
+            new_rows_full_table.append(row_f)
 
         if horizontal_atom_id == vertical_atom_id:
             mayer_bond_order = self.MayerBondOrders(new_rows_full_table,
@@ -895,9 +951,11 @@ class InputDataFromCPMD(InputData):
         for item in cls._fingerprints_unit_cell:
             regex = f'(?<={item})[ \S]+'
             match = re.search(regex, file)
+            if match is None:
+                raise Exception(" wrong file format!!!!")
             row = match[0].split()
-            row = [float(item) for item in row]
-            vectors.append(row)
+            row_f = [float(item) for item in row]
+            vectors.append(row_f)
         unit_cell = UnitCell()
         unit_cell.lattice_vectors = tuple(item
                                           for item in vectors)

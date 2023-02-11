@@ -121,6 +121,19 @@ class TestMayerBondOrders:
     vertical_atom_symbol = {1: "Fe", 2: "Fe",
                             3: "O", 4: "O"}
 
+    @pytest.mark.parametrize('symbol, result',
+                             [('Fe', True),
+                              ('X', False)])
+    def test_check_atom_symbol_in_MBO(self, symbol, result):
+        # When
+        mayer_bond_order = MayerBondOrders(self.test_data, self.atom_id,
+                                           self.horizontal_atom_symbol,
+                                           self.vertical_atom_symbol)
+        response = mayer_bond_order\
+            .check_atom_symbol_in_MBO(symbol)
+
+        assert result == response
+
     def test_get_mayer_bond_orders_list_between_two_atoms(self):
 
         # When
