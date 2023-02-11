@@ -682,6 +682,7 @@ class BondLength(Calculations):
                 mbo = mayer_bond_orders\
                     .get_mayer_bond_order_between_atoms(atom_1_id,
                                                         atom_2_id)
+
                 length = coordinates_of_atoms\
                     .get_distance_between_atoms(atom_1_id, atom_2_id)
 

@@ -362,13 +362,19 @@ class CoordinatesOfAtoms(Constants):
 
     atom_id: TypeAlias = int
     """Type alias"""
-    ids: list[atom_id] = []
-    _coordinates: dict[atom_id, vector] = {}
-    atom_symbols: dict[atom_id, str] = {}
-    _unit_cell: UnitCell | None = None
+    ids: list[atom_id]
+    _coordinates: dict[atom_id, vector]
+    atom_symbols: dict[atom_id, str]
+    _unit_cell: UnitCell | None
 
     def __init__(self, atom_coordinates_table: list[tuple[atom_id, str, x, y,
                                                           z]] = []) -> None:
+
+        self.ids = []
+        self._coordinates = {}
+        self.atom_symbols = {}
+        self._unit_cell = None
+
         if atom_coordinates_table != []:
             while atom_coordinates_table != []:
                 row = atom_coordinates_table.pop(0)

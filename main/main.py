@@ -1,6 +1,10 @@
 import argparse
+from multiprocessing import freeze_support
+import time
 
 if __name__ == '__main__':
+    # Add support for when a program which uses multiprocessing has been frozen to produce a Windows executable
+    freeze_support()
     parser = argparse.ArgumentParser()
     parser.add_argument("-i", "--input_file",
                         dest="input_file", default='', help="input file")
@@ -11,7 +15,7 @@ if __name__ == '__main__':
 
     if parser.parse_args().input_file != ''\
             and parser.parse_args().file_with_settings != '':
-
+        start = time.time()
         from main_cli import AppForCli
 
         data = parser.parse_args()
@@ -21,6 +25,8 @@ if __name__ == '__main__':
 
         app_for_cli.perform_calculations()
         app_for_cli.save_output()
+        end = time.time()
+        print(f"Done!, execution time: {end - start} s")
 
     elif parser.parse_args().input_file != '':
         parser.error("Chose settings file!!! eg. -s settings.yaml")
@@ -31,5 +37,3 @@ if __name__ == '__main__':
 
     else:
         import main_kivy
-else:
-    raise (Exception("__name__ != '__main__', this program is not a module!!!"))
