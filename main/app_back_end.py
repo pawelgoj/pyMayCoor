@@ -57,8 +57,15 @@ class AppBackEnd:
         # TODO
         pass
 
-    def perform_calculations(self) -> None:
+    def perform_calculations(self, pipeline_conn: Connection | None = None)\
+            -> None:
         """Perform calculations."""
+        # pipeline = [done=True | False, step_done = True | False]
+        if self.progress_bar and pipeline_conn is None:
+            raise Exception("To progress bar pipeline is required")
+        elif pipeline_conn is not None:
+            pipeline_conn.send((False, True))
+            pipeline_conn.close()
 
         wrong_atoms_names = check_atoms_symbols_in_loaded_data(self.mayer_bond_orders,
                                                                self.settings.pairs_atoms_list)

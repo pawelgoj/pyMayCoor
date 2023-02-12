@@ -24,6 +24,3 @@ class NavBar(MDRelativeLayout, CommonElevationBehavior):
 
         if self.MenagerAppBackEnd.check_is_instance() is False:
             self.MenagerAppBackEnd.new_app_back_end()
-
-        # Here must be imported module after inicializtion
-        # of main_kivy

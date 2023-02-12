@@ -39,7 +39,6 @@ class BondOrderApp(MDApp):
 
     text_input: str = None
     hover_color: tuple[float, float, float, float] = None
-    app_back_end: AppBackEnd = AppBackEnd()
 
     def on_start(self):
         # chose theme of app it must be in app object not in mainWidget

@@ -2,6 +2,7 @@ from plyer import filechooser
 from back_end_for_kivy import MenagerAppBackEnd
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
+from multiprocessing import Process, Pipe
 
 
 def on_touch_up_find_input_file(self):
@@ -47,7 +48,14 @@ def on_touch_up_chose_export_file(self):
 
 def on_touch_up_run_program(self):
     try:
+        #conn_prent_1, conn_child_1 = Pipe()
+        # p = Process(target=MenagerAppBackEnd.perform_calculations,
+        #            args=(conn_child_1,))
+        # p.start()
+        # print(conn_prent_1.recv())
+        # p.join()
         MenagerAppBackEnd.perform_calculations()
+
         button_text = "ok"
         dialog_text = "Calculations completed."
     except AttributeError:
@@ -66,11 +74,15 @@ def on_touch_up_run_program(self):
             ),
         ],
     )
-    # on_press=remove_dialog(self)
+
+    self.get_root_window().children[0].ids.progress_bar\
+        .value = 100
+    self.get_root_window().children[0].ids.label_for_progrss_bar\
+        .text = "Done!"
     self.dialog.open()
     print(self)
     # remember to delete print !!!
-    print("Calculations done!!!!!")
+    print("Calculations done!!")
 
 
 def remove_dialog(self):

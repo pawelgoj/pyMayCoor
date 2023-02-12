@@ -130,13 +130,16 @@ MainFrameOfApp:
 
         MDBoxLayout:
             MDProgressBar:
-                
-                value: 25
+                id: progress_bar
+                value: 0
                 color: colors['Teal']['100']
                 size_hint: 1, None 
                 height: "7dp"
 
         MDLabel:
+            id: label_for_progrss_bar
+            halign: "center" 
+            text: ""
             size_hint_x: None
             width: content_in_MDScrollView.width * 0.2
 

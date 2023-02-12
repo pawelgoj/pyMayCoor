@@ -1,4 +1,5 @@
 from app_back_end import AppBackEnd
+from multiprocessing import Process, Pipe
 
 
 class NoBackEndError(Exception):
@@ -10,18 +11,22 @@ class NoBackEndError(Exception):
 
 class MenagerAppBackEnd:
 
-    app_back_end: AppBackEnd | None = None
+    app_back_end: AppBackEnd
 
     @ classmethod
     def new_app_back_end(cls):
-        cls.app_back_end = AppBackEnd()
+        cls.app_back_end = AppBackEnd(False)
 
     @ classmethod
     def check_is_instance(cls) -> bool:
-        if cls.app_back_end is None:
+        try:
+            if cls.app_back_end is not None:
+                return True
+            else:
+                return False
+
+        except AttributeError:
             return False
-        else:
-            return True
 
     @ classmethod
     def get_app_back_end(cls) -> AppBackEnd:
@@ -42,9 +47,9 @@ class MenagerAppBackEnd:
             raise NoBackEndError()
 
     @ classmethod
-    def perform_calculations(cls):
+    def perform_calculations(cls, pipeline_conn=None):
         if cls.app_back_end is not None:
-            cls.app_back_end.perform_calculations()
+            cls.app_back_end.perform_calculations(pipeline_conn)
         else:
             raise NoBackEndError()
 
@@ -64,5 +69,10 @@ class MenagerAppBackEnd:
 
     @ classmethod
     def calculate_histograms(cls):
+        # TODO
+        pass
+
+    @ staticmethod
+    def thread_calculations(app_back_end: AppBackEnd):
         # TODO
         pass
