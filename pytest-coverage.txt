@@ -6,7 +6,7 @@ collected 52 items
 
 test/test_calculations.py ..................
 test/test_calculations_for_atoms_lists.py ................
-test/test_end_to_end.py Done!, execution time: 7.118505001068115 s
+test/test_end_to_end.py Done!, execution time: 5.379993677139282 s
 python
 .
 test/test_input_data.py .................
@@ -34,4 +34,4 @@ TOTAL                                                                           
 
 1 file skipped due to complete coverage.
 
-======================= 52 passed, 2 warnings in 27.63s ========================
+======================= 52 passed, 2 warnings in 22.06s ========================
