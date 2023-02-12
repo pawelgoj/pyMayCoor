@@ -4,10 +4,15 @@ from kivy.utils import platform
 from kivy.core.window import Window
 from kivy.properties import ObjectProperty
 from kivy.lang.builder import Builder
-from kivymd.uix.floatlayout import FloatLayout
+from kivymd.uix.floatlayout import MDFloatLayout
 from kivymd.app import MDApp
 from kivy.config import Config
+from kivy.properties import Clock
+from kivymd.uix.dialog import MDDialog
+from kivymd.uix.button import MDFlatButton
 
+from back_end_for_kivy import MenagerAppBackEnd
+from back_end_for_kivy import NoDataAndSettingsError
 from NavBar import navBar
 from ComponentAddPairsOfAtoms import componentAddPairsOfAtoms
 from mytextInput import mytextInput
@@ -24,15 +29,59 @@ Config.set('graphics', 'width', '1000')
 Config.set('graphics', 'height', '700')
 
 
-class MainFrameOfApp(FloatLayout):
+class MainFrameOfApp(MDFloatLayout):
 
-    #NavBar: NavBar = ObjectProperty()
+    previous_state_of_thread: int
+    progress_bar_value: int
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        # self..add_back_end(self.app_back_end)
-        # print(self.ids)
-        print(self.children)
+        Clock.schedule_interval(self.update, 0.25)
+        self.previous_state_of_thread = 0
+        self.progress_bar_value = 0
+
+    def update(self, dt):
+        try:
+            if not MenagerAppBackEnd.queue.empty():
+                val = MenagerAppBackEnd.queue.get()
+                self._update_progress_bar(val[1])
+
+                if val[0] is True:
+                    MenagerAppBackEnd.end_of_process()
+                    MenagerAppBackEnd.add_string_output(val[2])
+                    dialog_text = "Calculations completed!!!"
+                    self._show_dialog(dialog_text, 'ok')
+        except AttributeError:
+            pass
+
+    def _show_dialog(self, dialog_text, button_text):
+        self.dialog = MDDialog(
+            text=dialog_text,
+            buttons=[
+                MDFlatButton(
+                    text=button_text,
+                    theme_text_color="Custom",
+                    text_color=myApp.theme_cls.primary_color,
+                    on_press=self.remove_dialog
+                ),
+            ],
+        )
+        self.dialog.open()
+
+    def remove_dialog(self, widget):
+        widget.parent.parent.parent.parent.parent.remove_widget(
+            widget.parent.parent.parent.parent)
+
+    def _update_progress_bar(self, value: int):
+
+        if value == 100:
+            self.ids.progress_bar.value = value
+            self.ids.label_for_progrss_bar.text = "Done!"
+            self.progress_bar_value = 0
+        elif value != self.previous_state_of_thread:
+            self.progress_bar_value += 12
+            self.previous_state_of_thread = value
+            self.ids.progress_bar.value = self.progress_bar_value
 
 
 class BondOrderApp(MDApp):
@@ -89,7 +138,7 @@ class BondOrderApp(MDApp):
         self.text_input = widget
 
 
-print(__name__)
-if __name__ == 'main_kivy':
+def run_app():
+    global myApp
     myApp = BondOrderApp()
     myApp.run()

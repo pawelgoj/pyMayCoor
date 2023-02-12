@@ -37,3 +37,4 @@ if __name__ == '__main__':
 
     else:
         import main_kivy
+        main_kivy.run_app()

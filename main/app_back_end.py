@@ -26,6 +26,7 @@ class AppBackEnd:
     def __init__(self, progress_bar: bool):
 
         self.progress_bar = progress_bar
+        self._output_string = None
 
     def load_data(self, input_file_path: str) -> None:
         input_data_cpmd = input_data.InputDataFromCPMD()
@@ -57,15 +58,14 @@ class AppBackEnd:
         # TODO
         pass
 
-    def perform_calculations(self, pipeline_conn: Connection | None = None)\
+    def perform_calculations(self, queue: Connection | None = None)\
             -> None:
         """Perform calculations."""
         # pipeline = [done=True | False, step_done = True | False]
-        if self.progress_bar and pipeline_conn is None:
+        if self.progress_bar and (queue is None):
             raise Exception("To progress bar pipeline is required")
-        elif pipeline_conn is not None:
-            pipeline_conn.send((False, True))
-            pipeline_conn.close()
+        elif queue is not None:
+            queue.put((False, 0, None))
 
         wrong_atoms_names = check_atoms_symbols_in_loaded_data(self.mayer_bond_orders,
                                                                self.settings.pairs_atoms_list)
@@ -81,13 +81,16 @@ class AppBackEnd:
         conn_prent_1, conn_child_1 = Pipe()
         conn_prent_2, conn_child_2 = Pipe()
 
+        if queue is not None:
+            queue.put((False, 1, None))
+
         p_1 = Process(target=self._thread_1, args=(
             conn_child_1, self.settings, pairs_atoms_list,
-            self.mayer_bond_orders))
+            self.mayer_bond_orders, queue))
 
         p_2 = Process(target=self._thread_2, args=(
             conn_child_2, self.settings, pairs_atoms_list,
-            self.mayer_bond_orders, self.coordinates_of_atoms))
+            self.mayer_bond_orders, self.coordinates_of_atoms, queue))
 
         p_1.start()
         p_2.start()
@@ -97,11 +100,15 @@ class AppBackEnd:
         p_2.join()
 
         self._output_string = output_string
+        if queue is not None:
+            queue.put((True, 100, output_string))
+            queue.close()
 
     @ staticmethod
     def _thread_1(conn: Connection, settings: Settings,
                   pairs_atoms_list: list[PairOfAtoms],
-                  mayer_bond_orders: MayerBondOrders) -> None:
+                  mayer_bond_orders: MayerBondOrders,
+                  queue: Connection | None) -> None:
         if settings.histogram['calc'] is True:
             output_string = StringTemplate.get_histogram_header()
             output_string += calculations_for_atoms_lists\
@@ -111,6 +118,8 @@ class AppBackEnd:
                 .to_string()
         else:
             output_string = ""
+        if queue is not None:
+            queue.put((False, 11, None))
 
         if settings.calculations['q_i']['calc'] is True:
             output_string += StringTemplate.get_qi_units_header()
@@ -122,6 +131,9 @@ class AppBackEnd:
                                                   mayer_bond_orders)\
                 . calculate_statistics().to_string()
 
+        if queue is not None:
+            queue.put((False, 12, None))
+
         if settings.calculations['connections'] is True:
             output_string += StringTemplate.get_connections_header()
             output_string += calculations_for_atoms_lists\
@@ -129,6 +141,8 @@ class AppBackEnd:
                                                       mayer_bond_orders)\
                 .to_string()
 
+        if queue is not None:
+            queue.put((False, 13, None))
         conn.send(output_string)
         conn.close()
 
@@ -136,7 +150,8 @@ class AppBackEnd:
     def _thread_2(conn: Connection, settings: Settings,
                   pairs_atoms_list: list[PairOfAtoms],
                   mayer_bond_orders: MayerBondOrders,
-                  coordinates_of_atoms: CoordinatesOfAtoms) -> None:
+                  coordinates_of_atoms: CoordinatesOfAtoms,
+                  queue: Connection | None) -> None:
 
         if settings.calculations['bond_length'] is True:
             output_string = StringTemplate.get_bond_length()
@@ -148,12 +163,18 @@ class AppBackEnd:
         else:
             output_string = ""
 
+        if queue is not None:
+            queue.put((False, 21, None))
+
         if settings.calculations['cn'] is True:
             output_string += StringTemplate.get_covalence_header()
             output_string += calculations_for_atoms_lists\
                 .CoordinationNumbersFromPairOfAtoms.calculate(pairs_atoms_list,
                                                               mayer_bond_orders)\
                 .calculate_statistics().to_string()
+
+        if queue is not None:
+            queue.put((False, 22, None))
 
         if settings.calculations['covalence'] is True:
             output_string += StringTemplate.get_covalence_header()
@@ -162,6 +183,8 @@ class AppBackEnd:
                                                     mayer_bond_orders)\
                 .to_string()
 
+        if queue is not None:
+            queue.put((False, 23, None))
         conn.send(output_string)
         conn.close()
 

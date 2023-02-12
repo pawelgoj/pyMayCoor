@@ -1,0 +1,2655 @@
+
+# pyMayCoor v1.0.0
+ Character encoding: UTF-8
+
+Wrong atoms: Al,  
+
+
+# Histograms 
+
+Bond id: P=O - atom_1_id: P, atom_2_id: O
+
+Interval/2 Count
+
+1.28645 3
+1.30135 0
+1.31625 1
+1.33115 1
+1.34605 2
+1.36095 3
+1.37585 0
+1.39075 1
+1.40565 0
+1.42055 1
+
+Bond id: P-O - atom_1_id: P, atom_2_id: O
+
+Interval/2 Count
+
+0.42955 2
+0.53465 8
+0.63975 38
+0.74485 43
+0.84995 21
+0.95505 33
+1.06015 56
+1.16525 11
+1.27035 4
+1.37545 8
+
+Bond id: Fe-O - atom_1_id: Fe, atom_2_id: O
+
+Interval/2 Count
+
+0.13965 9
+0.17895 24
+0.21825 39
+0.25755 22
+0.29685 13
+0.33615 4
+0.37545 5
+0.41475 3
+0.45405 0
+0.49335 1
+
+
+# Qⁱ numbers 
+
+Q_i of P bond id: P-O
+
+id Q_i[i]
+1 2
+2 1
+3 1
+4 2
+5 2
+6 1
+7 4
+8 2
+9 1
+10 3
+11 2
+12 1
+13 3
+14 3
+15 1
+16 2
+17 2
+18 3
+19 1
+20 2
+21 1
+22 3
+23 1
+24 2
+25 2
+26 2
+27 1
+28 1
+29 2
+30 1
+31 2
+32 1
+33 2
+34 2
+35 1
+36 2
+37 1
+38 3
+39 2
+40 1
+41 2
+42 2
+43 2
+44 3
+45 2
+46 3
+47 2
+48 1
+49 2
+50 2
+51 4
+52 2
+53 2
+54 2
+55 1
+56 2
+
+Statistics of Q_i: P, bond id: P-O
+
+Q_i[i] [%]
+2 50.0
+1 32.143
+4 3.571
+3 14.286
+
+
+# Connections 
+
+## Connections of: P
+
+### Central atom id: 1
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 134 168 186 187 
+mbo: 1.135 0.641 0.761 1.014 
+
+### Central atom id: 2
+Bond id: P=O (second atom: O)
+quantity: 1
+Bonds:
+id: 160 
+mbo: 1.335 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 88 160 163 211 
+mbo: 0.377 1.335 0.933 0.984 
+
+### Central atom id: 3
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 142 197 209 225 
+mbo: 1.021 0.956 1.04 0.566 
+
+### Central atom id: 4
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 124 158 171 246 
+mbo: 0.63 1.099 1.075 0.753 
+
+### Central atom id: 5
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 176 231 241 246 
+mbo: 1.048 0.733 1.011 0.698 
+
+### Central atom id: 6
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 155 167 217 226 
+mbo: 1.002 0.947 0.959 0.687 
+
+### Central atom id: 7
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 85 152 182 203 
+mbo: 0.865 0.857 0.853 0.9 
+
+### Central atom id: 8
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 98 182 229 235 
+mbo: 1.048 0.614 1.137 0.733 
+
+### Central atom id: 9
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 93 104 131 183 
+mbo: 0.942 1.014 0.598 1.019 
+
+### Central atom id: 10
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 119 165 168 249 
+mbo: 0.716 0.835 0.794 1.176 
+
+### Central atom id: 11
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 84 116 140 178 
+mbo: 0.783 1.022 1.038 0.683 
+
+### Central atom id: 12
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 86 191 205 221 
+mbo: 1.025 1.045 0.915 0.604 
+
+### Central atom id: 13
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 112 136 169 184 
+mbo: 0.758 0.86 1.154 0.727 
+
+### Central atom id: 14
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 124 162 184 219 
+mbo: 0.809 0.804 0.732 1.173 
+
+### Central atom id: 15
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 121 154 156 204 
+mbo: 0.693 0.952 1.007 0.921 
+
+### Central atom id: 16
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 92 221 240 247 
+mbo: 0.686 0.806 1.137 0.893 
+
+### Central atom id: 17
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 107 143 161 186 
+mbo: 1.076 1.064 0.723 0.66 
+
+### Central atom id: 18
+Bond id: P=O (second atom: O)
+quantity: 1
+Bonds:
+id: 126 
+mbo: 1.428 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 126 170 194 235 
+mbo: 1.428 0.775 0.65 0.696 
+
+### Central atom id: 19
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 109 136 220 239 
+mbo: 1.086 0.551 1.044 0.921 
+
+### Central atom id: 20
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 100 159 189 238 
+mbo: 0.736 1.043 1.075 0.702 
+
+### Central atom id: 21
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 110 111 181 218 
+mbo: 1.041 0.957 0.55 1.04 
+
+### Central atom id: 22
+Bond id: P=O (second atom: O)
+quantity: 1
+Bonds:
+id: 105 
+mbo: 1.392 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 102 105 118 199 
+mbo: 0.675 1.392 0.697 0.788 
+
+### Central atom id: 23
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 153 161 177 244 
+mbo: 0.882 0.684 1.002 0.977 
+
+### Central atom id: 24
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 115 146 147 180 
+mbo: 1.05 0.675 1.087 0.758 
+
+### Central atom id: 25
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 83 112 131 192 
+mbo: 0.907 0.667 0.826 1.132 
+
+### Central atom id: 26
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 121 138 145 233 
+mbo: 0.712 1.081 0.77 0.991 
+
+### Central atom id: 27
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 201 213 215 237 
+mbo: 0.875 0.656 1.05 0.989 
+
+### Central atom id: 28
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 106 157 208 210 
+mbo: 1.054 0.558 0.897 1.075 
+
+### Central atom id: 29
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 120 137 149 193 
+mbo: 0.69 0.679 1.107 1.08 
+
+### Central atom id: 30
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 99 151 173 214 
+mbo: 0.932 1.022 1.019 0.595 
+
+### Central atom id: 31
+Bond id: P=O (second atom: O)
+quantity: 1
+Bonds:
+id: 97 
+mbo: 1.353 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 97 145 216 226 
+mbo: 1.353 0.63 0.91 0.692 
+
+### Central atom id: 32
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 84 144 166 228 
+mbo: 0.625 1.048 0.916 0.973 
+
+### Central atom id: 33
+Bond id: P=O (second atom: O)
+quantity: 1
+Bonds:
+id: 253 
+mbo: 1.364 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 164 172 174 253 
+mbo: 0.515 0.652 1.078 1.364 
+
+### Central atom id: 34
+Bond id: P=O (second atom: O)
+quantity: 2
+Bonds:
+id: 200 222 
+mbo: 1.289 1.281 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 81 135 200 222 
+mbo: 0.65 0.389 1.289 1.281 
+
+### Central atom id: 35
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 141 212 227 238 
+mbo: 0.895 0.952 1.06 0.657 
+
+### Central atom id: 36
+Bond id: P=O (second atom: O)
+quantity: 1
+Bonds:
+id: 114 
+mbo: 1.366 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 95 114 152 162 
+mbo: 0.968 1.366 0.609 0.602 
+
+### Central atom id: 37
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 123 127 179 190 
+mbo: 0.847 0.968 0.747 1.006 
+
+### Central atom id: 38
+Bond id: P=O (second atom: O)
+quantity: 1
+Bonds:
+id: 82 
+mbo: 1.279 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 82 92 119 181 
+mbo: 1.279 0.74 0.708 0.818 
+
+### Central atom id: 39
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 89 100 175 251 
+mbo: 0.718 0.678 1.118 1.044 
+
+### Central atom id: 40
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 133 165 243 245 
+mbo: 0.915 0.585 1.047 1.038 
+
+### Central atom id: 41
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 96 130 150 172 
+mbo: 0.679 1.078 1.044 0.751 
+
+### Central atom id: 42
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 128 206 207 214 
+mbo: 0.623 1.026 1.113 0.791 
+
+### Central atom id: 43
+Bond id: P=O (second atom: O)
+quantity: 1
+Bonds:
+id: 87 
+mbo: 1.365 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 87 91 94 179 
+mbo: 1.365 0.721 0.856 0.641 
+
+### Central atom id: 44
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 120 125 135 170 
+mbo: 0.725 1.153 0.968 0.684 
+
+### Central atom id: 45
+Bond id: P=O (second atom: O)
+quantity: 1
+Bonds:
+id: 129 
+mbo: 1.343 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 89 129 203 234 
+mbo: 0.647 1.343 0.554 1.045 
+
+### Central atom id: 46
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 113 128 157 223 
+mbo: 1.173 0.793 0.871 0.685 
+
+### Central atom id: 47
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 103 117 137 178 
+mbo: 0.98 1.111 0.725 0.729 
+
+### Central atom id: 48
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 85 90 122 148 
+mbo: 0.566 0.973 1.011 0.994 
+
+### Central atom id: 49
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 198 231 242 248 
+mbo: 1.078 0.674 1.097 0.69 
+
+### Central atom id: 50
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 96 118 195 202 
+mbo: 0.744 0.719 1.039 1.053 
+
+### Central atom id: 51
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 88 164 194 223 
+mbo: 1.05 0.915 0.791 0.743 
+
+### Central atom id: 52
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 139 188 213 248 
+mbo: 1.041 1.037 0.751 0.724 
+
+### Central atom id: 53
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 102 146 196 252 
+mbo: 0.719 0.726 1.03 1.086 
+
+### Central atom id: 54
+Bond id: P=O (second atom: O)
+quantity: 1
+Bonds:
+id: 224 
+mbo: 1.315 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 91 199 224 236 
+mbo: 0.679 0.594 1.315 1.002 
+
+### Central atom id: 55
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 101 108 132 225 
+mbo: 0.842 0.743 1.108 0.856 
+
+### Central atom id: 56
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 81 180 230 232 
+mbo: 0.757 0.683 1.013 1.083 
+
+## Connections of: P
+
+### Central atom id: 1
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 134 168 186 187 
+mbo: 1.135 0.641 0.761 1.014 
+
+### Central atom id: 2
+Bond id: P=O (second atom: O)
+quantity: 1
+Bonds:
+id: 160 
+mbo: 1.335 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 88 160 163 211 
+mbo: 0.377 1.335 0.933 0.984 
+
+### Central atom id: 3
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 142 197 209 225 
+mbo: 1.021 0.956 1.04 0.566 
+
+### Central atom id: 4
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 124 158 171 246 
+mbo: 0.63 1.099 1.075 0.753 
+
+### Central atom id: 5
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 176 231 241 246 
+mbo: 1.048 0.733 1.011 0.698 
+
+### Central atom id: 6
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 155 167 217 226 
+mbo: 1.002 0.947 0.959 0.687 
+
+### Central atom id: 7
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 85 152 182 203 
+mbo: 0.865 0.857 0.853 0.9 
+
+### Central atom id: 8
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 98 182 229 235 
+mbo: 1.048 0.614 1.137 0.733 
+
+### Central atom id: 9
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 93 104 131 183 
+mbo: 0.942 1.014 0.598 1.019 
+
+### Central atom id: 10
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 119 165 168 249 
+mbo: 0.716 0.835 0.794 1.176 
+
+### Central atom id: 11
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 84 116 140 178 
+mbo: 0.783 1.022 1.038 0.683 
+
+### Central atom id: 12
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 86 191 205 221 
+mbo: 1.025 1.045 0.915 0.604 
+
+### Central atom id: 13
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 112 136 169 184 
+mbo: 0.758 0.86 1.154 0.727 
+
+### Central atom id: 14
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 124 162 184 219 
+mbo: 0.809 0.804 0.732 1.173 
+
+### Central atom id: 15
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 121 154 156 204 
+mbo: 0.693 0.952 1.007 0.921 
+
+### Central atom id: 16
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 92 221 240 247 
+mbo: 0.686 0.806 1.137 0.893 
+
+### Central atom id: 17
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 107 143 161 186 
+mbo: 1.076 1.064 0.723 0.66 
+
+### Central atom id: 18
+Bond id: P=O (second atom: O)
+quantity: 1
+Bonds:
+id: 126 
+mbo: 1.428 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 126 170 194 235 
+mbo: 1.428 0.775 0.65 0.696 
+
+### Central atom id: 19
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 109 136 220 239 
+mbo: 1.086 0.551 1.044 0.921 
+
+### Central atom id: 20
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 100 159 189 238 
+mbo: 0.736 1.043 1.075 0.702 
+
+### Central atom id: 21
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 110 111 181 218 
+mbo: 1.041 0.957 0.55 1.04 
+
+### Central atom id: 22
+Bond id: P=O (second atom: O)
+quantity: 1
+Bonds:
+id: 105 
+mbo: 1.392 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 102 105 118 199 
+mbo: 0.675 1.392 0.697 0.788 
+
+### Central atom id: 23
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 153 161 177 244 
+mbo: 0.882 0.684 1.002 0.977 
+
+### Central atom id: 24
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 115 146 147 180 
+mbo: 1.05 0.675 1.087 0.758 
+
+### Central atom id: 25
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 83 112 131 192 
+mbo: 0.907 0.667 0.826 1.132 
+
+### Central atom id: 26
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 121 138 145 233 
+mbo: 0.712 1.081 0.77 0.991 
+
+### Central atom id: 27
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 201 213 215 237 
+mbo: 0.875 0.656 1.05 0.989 
+
+### Central atom id: 28
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 106 157 208 210 
+mbo: 1.054 0.558 0.897 1.075 
+
+### Central atom id: 29
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 120 137 149 193 
+mbo: 0.69 0.679 1.107 1.08 
+
+### Central atom id: 30
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 99 151 173 214 
+mbo: 0.932 1.022 1.019 0.595 
+
+### Central atom id: 31
+Bond id: P=O (second atom: O)
+quantity: 1
+Bonds:
+id: 97 
+mbo: 1.353 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 97 145 216 226 
+mbo: 1.353 0.63 0.91 0.692 
+
+### Central atom id: 32
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 84 144 166 228 
+mbo: 0.625 1.048 0.916 0.973 
+
+### Central atom id: 33
+Bond id: P=O (second atom: O)
+quantity: 1
+Bonds:
+id: 253 
+mbo: 1.364 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 164 172 174 253 
+mbo: 0.515 0.652 1.078 1.364 
+
+### Central atom id: 34
+Bond id: P=O (second atom: O)
+quantity: 2
+Bonds:
+id: 200 222 
+mbo: 1.289 1.281 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 81 135 200 222 
+mbo: 0.65 0.389 1.289 1.281 
+
+### Central atom id: 35
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 141 212 227 238 
+mbo: 0.895 0.952 1.06 0.657 
+
+### Central atom id: 36
+Bond id: P=O (second atom: O)
+quantity: 1
+Bonds:
+id: 114 
+mbo: 1.366 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 95 114 152 162 
+mbo: 0.968 1.366 0.609 0.602 
+
+### Central atom id: 37
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 123 127 179 190 
+mbo: 0.847 0.968 0.747 1.006 
+
+### Central atom id: 38
+Bond id: P=O (second atom: O)
+quantity: 1
+Bonds:
+id: 82 
+mbo: 1.279 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 82 92 119 181 
+mbo: 1.279 0.74 0.708 0.818 
+
+### Central atom id: 39
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 89 100 175 251 
+mbo: 0.718 0.678 1.118 1.044 
+
+### Central atom id: 40
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 133 165 243 245 
+mbo: 0.915 0.585 1.047 1.038 
+
+### Central atom id: 41
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 96 130 150 172 
+mbo: 0.679 1.078 1.044 0.751 
+
+### Central atom id: 42
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 128 206 207 214 
+mbo: 0.623 1.026 1.113 0.791 
+
+### Central atom id: 43
+Bond id: P=O (second atom: O)
+quantity: 1
+Bonds:
+id: 87 
+mbo: 1.365 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 87 91 94 179 
+mbo: 1.365 0.721 0.856 0.641 
+
+### Central atom id: 44
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 120 125 135 170 
+mbo: 0.725 1.153 0.968 0.684 
+
+### Central atom id: 45
+Bond id: P=O (second atom: O)
+quantity: 1
+Bonds:
+id: 129 
+mbo: 1.343 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 89 129 203 234 
+mbo: 0.647 1.343 0.554 1.045 
+
+### Central atom id: 46
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 113 128 157 223 
+mbo: 1.173 0.793 0.871 0.685 
+
+### Central atom id: 47
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 103 117 137 178 
+mbo: 0.98 1.111 0.725 0.729 
+
+### Central atom id: 48
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 85 90 122 148 
+mbo: 0.566 0.973 1.011 0.994 
+
+### Central atom id: 49
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 198 231 242 248 
+mbo: 1.078 0.674 1.097 0.69 
+
+### Central atom id: 50
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 96 118 195 202 
+mbo: 0.744 0.719 1.039 1.053 
+
+### Central atom id: 51
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 88 164 194 223 
+mbo: 1.05 0.915 0.791 0.743 
+
+### Central atom id: 52
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 139 188 213 248 
+mbo: 1.041 1.037 0.751 0.724 
+
+### Central atom id: 53
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 102 146 196 252 
+mbo: 0.719 0.726 1.03 1.086 
+
+### Central atom id: 54
+Bond id: P=O (second atom: O)
+quantity: 1
+Bonds:
+id: 224 
+mbo: 1.315 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 91 199 224 236 
+mbo: 0.679 0.594 1.315 1.002 
+
+### Central atom id: 55
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 101 108 132 225 
+mbo: 0.842 0.743 1.108 0.856 
+
+### Central atom id: 56
+Bond id: P=O (second atom: O)
+quantity: 0
+Bonds:
+id: 
+mbo: 
+
+Bond id: P-O (second atom: O)
+quantity: 4
+Bonds:
+id: 81 180 230 232 
+mbo: 0.757 0.683 1.013 1.083 
+
+## Connections of: Fe
+
+### Central atom id: 57
+Bond id: Fe-O (second atom: O)
+quantity: 5
+Bonds:
+id: 86 107 110 247 250 
+mbo: 0.21 0.198 0.218 0.212 0.242 
+
+### Central atom id: 58
+Bond id: Fe-O (second atom: O)
+quantity: 5
+Bonds:
+id: 115 185 216 234 242 
+mbo: 0.214 0.391 0.171 0.207 0.182 
+
+### Central atom id: 59
+Bond id: Fe-O (second atom: O)
+quantity: 5
+Bonds:
+id: 133 169 228 232 245 
+mbo: 0.388 0.19 0.269 0.204 0.266 
+
+### Central atom id: 60
+Bond id: Fe-O (second atom: O)
+quantity: 4
+Bonds:
+id: 109 125 167 197 
+mbo: 0.186 0.163 0.3 0.289 
+
+### Central atom id: 61
+Bond id: Fe-O (second atom: O)
+quantity: 4
+Bonds:
+id: 185 193 196 233 
+mbo: 0.39 0.204 0.238 0.236 
+
+### Central atom id: 62
+Bond id: Fe-O (second atom: O)
+quantity: 5
+Bonds:
+id: 151 159 211 217 219 
+mbo: 0.237 0.207 0.257 0.319 0.158 
+
+### Central atom id: 63
+Bond id: Fe-O (second atom: O)
+quantity: 6
+Bonds:
+id: 82 106 117 130 142 237 
+mbo: 0.12 0.225 0.197 0.196 0.269 0.228 
+
+### Central atom id: 64
+Bond id: Fe-O (second atom: O)
+quantity: 5
+Bonds:
+id: 132 153 176 192 198 
+mbo: 0.184 0.305 0.241 0.16 0.24 
+
+### Central atom id: 65
+Bond id: Fe-O (second atom: O)
+quantity: 5
+Bonds:
+id: 122 143 156 251 252 
+mbo: 0.189 0.291 0.216 0.241 0.204 
+
+### Central atom id: 66
+Bond id: Fe-O (second atom: O)
+quantity: 5
+Bonds:
+id: 108 127 183 202 229 
+mbo: 0.235 0.26 0.218 0.26 0.175 
+
+### Central atom id: 67
+Bond id: Fe-O (second atom: O)
+quantity: 4
+Bonds:
+id: 150 188 204 205 
+mbo: 0.201 0.244 0.349 0.285 
+
+### Central atom id: 68
+Bond id: Fe-O (second atom: O)
+quantity: 5
+Bonds:
+id: 99 111 138 141 189 
+mbo: 0.304 0.293 0.217 0.368 0.194 
+
+### Central atom id: 69
+Bond id: Fe-O (second atom: O)
+quantity: 5
+Bonds:
+id: 95 123 163 207 236 
+mbo: 0.303 0.359 0.308 0.17 0.23 
+
+### Central atom id: 70
+Bond id: Fe-O (second atom: O)
+quantity: 5
+Bonds:
+id: 94 174 208 218 249 
+mbo: 0.412 0.197 0.301 0.237 0.154 
+
+### Central atom id: 71
+Bond id: Fe-O (second atom: O)
+quantity: 5
+Bonds:
+id: 104 149 209 215 230 
+mbo: 0.273 0.166 0.216 0.234 0.25 
+
+### Central atom id: 72
+Bond id: Fe-O (second atom: O)
+quantity: 6
+Bonds:
+id: 83 190 206 210 220 243 
+mbo: 0.157 0.228 0.127 0.207 0.197 0.227 
+
+### Central atom id: 73
+Bond id: Fe-O (second atom: O)
+quantity: 5
+Bonds:
+id: 140 155 171 212 240 
+mbo: 0.212 0.234 0.26 0.257 0.187 
+
+### Central atom id: 74
+Bond id: Fe-O (second atom: O)
+quantity: 6
+Bonds:
+id: 144 147 158 166 175 227 
+mbo: 0.274 0.201 0.174 0.311 0.201 0.214 
+
+### Central atom id: 75
+Bond id: Fe-O (second atom: O)
+quantity: 5
+Bonds:
+id: 101 113 154 173 191 
+mbo: 0.159 0.203 0.126 0.235 0.258 
+
+### Central atom id: 76
+Bond id: Fe-O (second atom: O)
+quantity: 6
+Bonds:
+id: 98 101 108 148 154 177 
+mbo: 0.181 0.205 0.253 0.212 0.189 0.268 
+
+### Central atom id: 77
+Bond id: Fe-O (second atom: O)
+quantity: 5
+Bonds:
+id: 93 134 187 195 201 
+mbo: 0.319 0.2 0.271 0.234 0.347 
+
+### Central atom id: 78
+Bond id: Fe-O (second atom: O)
+quantity: 5
+Bonds:
+id: 103 116 139 185 216 
+mbo: 0.271 0.212 0.217 0.429 0.138 
+
+### Central atom id: 79
+Bond id: Fe-O (second atom: O)
+quantity: 4
+Bonds:
+id: 239 241 247 250 
+mbo: 0.283 0.197 0.185 0.513 
+
+### Central atom id: 80
+Bond id: Fe-O (second atom: O)
+quantity: 5
+Bonds:
+id: 83 90 206 244 250 
+mbo: 0.161 0.289 0.138 0.227 0.415 
+
+
+# Bond lengths 
+
+Bond lengths of bond id: P=O (atoms: P, O):
+
+id_1 id_2 length mbo
+2 160 1.4688764162009187 1.335
+18 126 1.4488341962888034 1.428
+22 105 1.4539778458123163 1.392
+31 97 1.464174239058575 1.353
+33 253 1.461187715312928 1.364
+34 200 1.4737894221378924 1.289
+34 222 1.4681509317076247 1.281
+36 114 1.455017766830247 1.366
+38 82 1.4735562551931045 1.279
+43 87 1.4594622040146554 1.365
+45 129 1.459889346197004 1.343
+54 224 1.4567491519155171 1.315
+
+Bond lengths of bond id: P-O (atoms: P, O):
+
+id_1 id_2 length mbo
+1 134 1.5108183283992969 1.135
+1 168 1.6598017726089853 0.641
+1 186 1.591469862555237 0.761
+1 187 1.5347070938374971 1.014
+2 88 1.89282303072616 0.377
+2 160 1.4688764162009187 1.335
+2 163 1.5528666135649765 0.933
+2 211 1.5372086402529435 0.984
+3 142 1.5326836036740814 1.021
+3 197 1.5604449820222808 0.956
+3 209 1.5189305977772007 1.04
+3 225 1.736672329725094 0.566
+4 124 1.6320723599853708 0.63
+4 158 1.4946602472125097 1.099
+4 171 1.5097118768397366 1.075
+4 246 1.5805250637239467 0.753
+5 176 1.5248941245396437 1.048
+5 231 1.6356871600621017 0.733
+5 241 1.5366802335728127 1.011
+5 246 1.6088963896923352 0.698
+6 155 1.5371789139723278 1.002
+6 167 1.5504720173957802 0.947
+6 217 1.548090009743352 0.959
+6 226 1.6418909481279564 0.687
+7 85 1.5566574643086424 0.865
+7 152 1.5437601823203035 0.857
+7 182 1.5560456799379874 0.853
+7 203 1.5470466695602312 0.9
+8 98 1.5228975979230128 1.048
+8 182 1.6658505410086062 0.614
+8 229 1.4989165854739885 1.137
+8 235 1.6237183176530343 0.733
+9 93 1.546498107653196 0.942
+9 104 1.5216624615189607 1.014
+9 131 1.69633964730238 0.598
+9 183 1.5014181203658297 1.019
+10 119 1.6183929202641616 0.716
+10 165 1.5636984386533106 0.835
+10 168 1.5883132071493813 0.794
+10 249 1.4823196390884879 1.176
+11 84 1.6056556179436938 0.783
+11 116 1.538831238820432 1.022
+11 140 1.5269301656108218 1.038
+11 178 1.6377669614850978 0.683
+12 86 1.5343977116691163 1.025
+12 191 1.516129663294622 1.045
+12 205 1.5531270288993866 0.915
+12 221 1.6648397870466718 0.604
+13 112 1.5777265639396296 0.758
+13 136 1.5589019981231726 0.86
+13 169 1.4892332020973842 1.154
+13 184 1.601566152776551 0.727
+14 124 1.5463707675928327 0.809
+14 162 1.5740368481876887 0.804
+14 184 1.5987112461165207 0.732
+14 219 1.4825910879235762 1.173
+15 121 1.6538146978323731 0.693
+15 154 1.5670298087778214 0.952
+15 156 1.515832732407195 1.007
+15 204 1.548571500742549 0.921
+16 92 1.6237220290152556 0.686
+16 221 1.5772526034455794 0.806
+16 240 1.4704957573600104 1.137
+16 247 1.5796924792831044 0.893
+17 107 1.5078006639303672 1.076
+17 143 1.5250965903652196 1.064
+17 161 1.6099146171594383 0.723
+17 186 1.6493961374902715 0.66
+18 126 1.4488341962888034 1.428
+18 170 1.5791336369436815 0.775
+18 194 1.6522602029289133 0.65
+18 235 1.640242356147059 0.696
+19 109 1.5147598221166818 1.086
+19 136 1.721600977011569 0.551
+19 220 1.5097898665222416 1.044
+19 239 1.568789426001774 0.921
+20 100 1.6201481074409454 0.736
+20 159 1.517473566132177 1.043
+20 189 1.523008105046862 1.075
+20 238 1.605911360654395 0.702
+21 110 1.511432281246252 1.041
+21 111 1.5363177198754485 0.957
+21 181 1.733016831179512 0.55
+21 218 1.5186786715202212 1.04
+22 102 1.6386071237687 0.675
+22 105 1.4539778458123163 1.392
+22 118 1.6159606423430783 0.697
+22 199 1.5858534816563947 0.788
+23 153 1.5295517601837516 0.882
+23 161 1.6305259419006275 0.684
+23 177 1.5344281761934881 1.002
+23 244 1.5196329086302092 0.977
+24 115 1.5096957942995113 1.05
+24 146 1.6344690016961603 0.675
+24 147 1.5037857485609554 1.087
+24 180 1.59742225053334 0.758
+25 83 1.584431084788585 0.907
+25 112 1.6244074568413094 0.667
+25 131 1.5783199743048757 0.826
+25 192 1.4844181923125415 1.132
+26 121 1.639918396957552 0.712
+26 138 1.5084118258221226 1.081
+26 145 1.6012501885276864 0.77
+26 233 1.523962207438086 0.991
+27 201 1.5662803539756567 0.875
+27 213 1.6502961397291807 0.656
+27 215 1.4880980154639831 1.05
+27 237 1.523712685336093 0.989
+28 106 1.5176727255472158 1.054
+28 157 1.7098650717567543 0.558
+28 208 1.5293247558206062 0.897
+28 210 1.4925643355586404 1.075
+29 120 1.6324407531985463 0.69
+29 137 1.6406068196475205 0.679
+29 149 1.4938951018468636 1.107
+29 193 1.5120664037163771 1.08
+30 99 1.522017314483998 0.932
+30 151 1.519257035746953 1.022
+30 173 1.520476000079205 1.019
+30 214 1.7104092758083382 0.595
+31 97 1.464174239058575 1.353
+31 145 1.6846956230985672 0.63
+31 216 1.5674436970167185 0.91
+31 226 1.635258401955835 0.692
+32 84 1.6901495527232981 0.625
+32 144 1.5305314188153023 1.048
+32 166 1.5535868218321804 0.916
+32 228 1.5178732655478269 0.973
+33 164 1.7533865448107344 0.515
+33 172 1.6525973675584251 0.652
+33 174 1.5019040170324887 1.078
+33 253 1.461187715312928 1.364
+34 81 1.65708444795872 0.65
+34 135 1.899785271217914 0.389
+34 200 1.4737894221378924 1.289
+34 222 1.4681509317076247 1.281
+35 141 1.5592908643481065 0.895
+35 212 1.5148800684541233 0.952
+35 227 1.499234994865534 1.06
+35 238 1.6235299324567714 0.657
+36 95 1.5427523178123164 0.968
+36 114 1.455017766830247 1.366
+36 152 1.6574527356105841 0.609
+36 162 1.6827113922542247 0.602
+37 123 1.5625473745697394 0.847
+37 127 1.5409544700317968 0.968
+37 179 1.605059608410697 0.747
+37 190 1.5277122745970144 1.006
+38 82 1.4735562551931045 1.279
+38 92 1.5904596166057976 0.74
+38 119 1.6260729710485844 0.708
+38 181 1.5792398153159355 0.818
+39 89 1.609433964895044 0.718
+39 100 1.6518711406360134 0.678
+39 175 1.4919462361341889 1.118
+39 251 1.507789451052532 1.044
+40 133 1.5645376077259354 0.915
+40 165 1.6810149990118273 0.585
+40 243 1.4990673206466216 1.047
+40 245 1.5283789598945354 1.038
+41 96 1.6208648186093317 0.679
+41 130 1.5081979796379665 1.078
+41 150 1.5123758955279802 1.044
+41 172 1.6034586023387716 0.751
+42 128 1.6583365747753573 0.623
+42 206 1.5475424564276177 1.026
+42 207 1.4975096591598749 1.113
+42 214 1.5968189643942707 0.791
+43 87 1.4594622040146554 1.365
+43 91 1.5982963345297512 0.721
+43 94 1.585893246762295 0.856
+43 179 1.6596384707373657 0.641
+44 120 1.6227379493170315 0.725
+44 125 1.4963250085748945 1.153
+44 135 1.5360704846605864 0.968
+44 170 1.6226068175666744 0.684
+45 89 1.647036859678015 0.647
+45 129 1.459889346197004 1.343
+45 203 1.716058848349082 0.554
+45 234 1.520436982822288 1.045
+46 113 1.4931043084680866 1.173
+46 128 1.5760371764538808 0.793
+46 157 1.553437058648556 0.871
+46 223 1.631472511709311 0.685
+47 103 1.5328557685314903 0.98
+47 117 1.4984989430496323 1.111
+47 137 1.6123796963121957 0.725
+47 178 1.6074447037650665 0.729
+48 85 1.6964281326314299 0.566
+48 90 1.5629604861508346 0.973
+48 122 1.510949557136552 1.011
+48 148 1.5232532698458847 0.994
+49 198 1.5227009388462323 1.078
+49 231 1.6723451524424497 0.674
+49 242 1.4876419977373694 1.097
+49 248 1.654594326789916 0.69
+50 96 1.5885497017464139 0.744
+50 118 1.6057945426703972 0.719
+50 195 1.5168909534542045 1.039
+50 202 1.5255091235737563 1.053
+51 88 1.5084912638416794 1.05
+51 164 1.5445326685679064 0.915
+51 194 1.5856487497413283 0.791
+51 223 1.6050381977859642 0.743
+52 139 1.5301830842758153 1.041
+52 188 1.5277663166762931 1.037
+52 213 1.6035552043396037 0.751
+52 248 1.6362660870712675 0.724
+53 102 1.6133803848495423 0.719
+53 146 1.610006682698381 0.726
+53 196 1.5113803083253865 1.03
+53 252 1.5059179076892069 1.086
+54 91 1.6171769892313512 0.679
+54 199 1.694640841343355 0.594
+54 224 1.4567491519155171 1.315
+54 236 1.5181076350272906 1.002
+55 101 1.613418982069121 0.842
+55 108 1.6636098673753934 0.743
+55 132 1.5088993760008749 1.108
+55 225 1.5666004728024308 0.856
+56 81 1.5993252502330912 0.757
+56 180 1.6358620753197117 0.683
+56 230 1.5250771960524396 1.013
+56 232 1.507973254655402 1.083
+
+Bond lengths of bond id: Fe-O (atoms: Fe, O):
+
+id_1 id_2 length mbo
+57 86 2.000615905651458 0.21
+57 107 1.9733257825985355 0.198
+57 110 1.899210691744789 0.218
+57 247 1.9839178315953923 0.212
+57 250 1.8898207534836 0.242
+58 115 1.921537981746625 0.214
+58 185 1.7447833851277679 0.391
+58 216 2.085258465456842 0.171
+58 234 1.9352268549995044 0.207
+58 242 1.9031116495358549 0.182
+59 133 1.8707803800087557 0.388
+59 169 1.918549952634351 0.19
+59 228 1.833986581241042 0.269
+59 232 1.9236934860279755 0.204
+59 245 2.000820357368678 0.266
+60 109 1.9619071588878814 0.186
+60 125 1.979050947071164 0.163
+60 167 1.850554886069502 0.3
+60 197 1.8804793915171798 0.289
+61 185 1.7470168349627682 0.39
+61 193 1.9322595190042602 0.204
+61 196 1.8821064975707071 0.238
+61 233 1.8680877025839264 0.236
+62 151 1.896151405337632 0.237
+62 159 1.9578040094420042 0.207
+62 211 1.8785009182145211 0.257
+62 217 1.8682731113772797 0.319
+62 219 1.9880431264994631 0.158
+63 82 2.2732801710276354 0.12
+63 106 1.9330287264223425 0.225
+63 117 1.922904325088136 0.197
+63 130 1.9418545682953325 0.196
+63 142 1.9181147136431087 0.269
+63 237 1.8937333239601386 0.228
+64 132 1.962003649602684 0.184
+64 153 1.8043169314827605 0.305
+64 176 1.9419628039742851 0.241
+64 192 1.9415675266361592 0.16
+64 198 1.9342803791935483 0.24
+65 122 1.941529893564837 0.189
+65 143 1.9141137794900636 0.291
+65 156 1.8827364184390585 0.216
+65 251 1.872907945141697 0.241
+65 252 1.9453496707854607 0.204
+66 108 1.905321983990857 0.235
+66 127 1.8982457787320943 0.26
+66 183 1.8881296888896384 0.218
+66 202 1.9417401996086012 0.26
+66 229 1.9931517846115299 0.175
+67 150 1.9105869283283923 0.201
+67 188 1.9102053843074016 0.244
+67 204 1.8085231738753842 0.349
+67 205 1.8525806258074597 0.285
+68 99 1.7868157889115834 0.304
+68 111 1.8376185817072173 0.293
+68 138 1.9326272865547163 0.217
+68 141 1.7854400701842372 0.368
+68 189 2.012845180441233 0.194
+69 95 1.8554951239277993 0.303
+69 123 1.770886070730956 0.359
+69 163 1.8430369353974805 0.308
+69 207 1.953852687928945 0.17
+69 236 1.9165605961135976 0.23
+70 94 1.8009527589706824 0.412
+70 174 1.9331795041693303 0.197
+70 208 1.7850960758276155 0.301
+70 218 1.8718887146064622 0.237
+70 249 1.996434305702547 0.154
+71 104 1.875476060555047 0.273
+71 149 1.968177438167042 0.166
+71 209 1.932543681634788 0.216
+71 215 1.8607868484212642 0.234
+71 230 1.9124335676992608 0.25
+72 83 2.0192732046877415 0.157
+72 190 1.9187509618774865 0.228
+72 206 2.205944476605404 0.127
+72 210 1.9068832961758795 0.207
+72 220 1.9272453540626435 0.197
+72 243 1.8829803538183962 0.227
+73 140 1.9609611304033217 0.212
+73 155 1.9249913880584035 0.234
+73 171 1.934023473933514 0.26
+73 212 1.819938397041076 0.257
+73 240 1.852078943954992 0.187
+74 144 1.9808855910874938 0.274
+74 147 1.9389939577583568 0.201
+74 158 1.950521031875832 0.174
+74 166 1.889011210542701 0.311
+74 175 1.8945630165218685 0.201
+74 227 1.9216288876040393 0.214
+75 101 1.9759681403842548 0.159
+75 113 1.9556111321613658 0.203
+75 154 2.2948247082602937 0.126
+75 173 1.8781475818887285 0.235
+75 191 1.8840501418150555 0.258
+76 98 1.9850084355838706 0.181
+76 101 1.998731405267135 0.205
+76 108 1.9118077441859465 0.253
+76 148 1.95715196554023 0.212
+76 154 2.0936771489904324 0.189
+76 177 1.8881088319388508 0.268
+77 93 1.8561405753056017 0.319
+77 134 2.072648866628689 0.2
+77 187 1.9072765464888213 0.271
+77 195 1.9011404228243813 0.234
+77 201 1.8112189691495297 0.347
+78 103 1.9039859332389188 0.271
+78 116 1.9844429735197224 0.212
+78 139 1.9558987278477957 0.217
+78 185 1.7383877169113422 0.429
+78 216 2.287775316360582 0.138
+79 239 1.8937064792419063 0.283
+79 241 1.944320931666627 0.197
+79 247 1.9927212161572656 0.185
+79 250 1.7059359706673958 0.513
+80 83 2.0672515069945376 0.161
+80 90 1.915593449229348 0.289
+80 206 2.2036122491342964 0.138
+80 244 1.9120256640514781 0.227
+80 250 1.7679137444764326 0.415
+
+
+# Covalence from Mayer bond orders 
+
+## CN of P bond: P=O
+
+id: 1 CN: 0
+id: 2 CN: 1
+Bond orders (id: mbo): 160: 1.335
+id: 3 CN: 0
+id: 4 CN: 0
+id: 5 CN: 0
+id: 6 CN: 0
+id: 7 CN: 0
+id: 8 CN: 0
+id: 9 CN: 0
+id: 10 CN: 0
+id: 11 CN: 0
+id: 12 CN: 0
+id: 13 CN: 0
+id: 14 CN: 0
+id: 15 CN: 0
+id: 16 CN: 0
+id: 17 CN: 0
+id: 18 CN: 1
+Bond orders (id: mbo): 126: 1.428
+id: 19 CN: 0
+id: 20 CN: 0
+id: 21 CN: 0
+id: 22 CN: 1
+Bond orders (id: mbo): 105: 1.392
+id: 23 CN: 0
+id: 24 CN: 0
+id: 25 CN: 0
+id: 26 CN: 0
+id: 27 CN: 0
+id: 28 CN: 0
+id: 29 CN: 0
+id: 30 CN: 0
+id: 31 CN: 1
+Bond orders (id: mbo): 97: 1.353
+id: 32 CN: 0
+id: 33 CN: 1
+Bond orders (id: mbo): 253: 1.364
+id: 34 CN: 2
+Bond orders (id: mbo): 200: 1.289, 222: 1.281
+id: 35 CN: 0
+id: 36 CN: 1
+Bond orders (id: mbo): 114: 1.366
+id: 37 CN: 0
+id: 38 CN: 1
+Bond orders (id: mbo): 82: 1.279
+id: 39 CN: 0
+id: 40 CN: 0
+id: 41 CN: 0
+id: 42 CN: 0
+id: 43 CN: 1
+Bond orders (id: mbo): 87: 1.365
+id: 44 CN: 0
+id: 45 CN: 1
+Bond orders (id: mbo): 129: 1.343
+id: 46 CN: 0
+id: 47 CN: 0
+id: 48 CN: 0
+id: 49 CN: 0
+id: 50 CN: 0
+id: 51 CN: 0
+id: 52 CN: 0
+id: 53 CN: 0
+id: 54 CN: 1
+Bond orders (id: mbo): 224: 1.315
+id: 55 CN: 0
+id: 56 CN: 0
+
+Statistics of: P
+
+CN %
+0 80.357
+1 17.857
+2 1.786
+
+## CN of P bond: P-O
+
+id: 1 CN: 4
+Bond orders (id: mbo): 134: 1.135, 168: 0.641, 186: 0.761, 187: 1.014
+id: 2 CN: 4
+Bond orders (id: mbo): 88: 0.377, 160: 1.335, 163: 0.933, 211: 0.984
+id: 3 CN: 4
+Bond orders (id: mbo): 142: 1.021, 197: 0.956, 209: 1.04, 225: 0.566
+id: 4 CN: 4
+Bond orders (id: mbo): 124: 0.63, 158: 1.099, 171: 1.075, 246: 0.753
+id: 5 CN: 4
+Bond orders (id: mbo): 176: 1.048, 231: 0.733, 241: 1.011, 246: 0.698
+id: 6 CN: 4
+Bond orders (id: mbo): 155: 1.002, 167: 0.947, 217: 0.959, 226: 0.687
+id: 7 CN: 4
+Bond orders (id: mbo): 85: 0.865, 152: 0.857, 182: 0.853, 203: 0.9
+id: 8 CN: 4
+Bond orders (id: mbo): 98: 1.048, 182: 0.614, 229: 1.137, 235: 0.733
+id: 9 CN: 4
+Bond orders (id: mbo): 93: 0.942, 104: 1.014, 131: 0.598, 183: 1.019
+id: 10 CN: 4
+Bond orders (id: mbo): 119: 0.716, 165: 0.835, 168: 0.794, 249: 1.176
+id: 11 CN: 4
+Bond orders (id: mbo): 84: 0.783, 116: 1.022, 140: 1.038, 178: 0.683
+id: 12 CN: 4
+Bond orders (id: mbo): 86: 1.025, 191: 1.045, 205: 0.915, 221: 0.604
+id: 13 CN: 4
+Bond orders (id: mbo): 112: 0.758, 136: 0.86, 169: 1.154, 184: 0.727
+id: 14 CN: 4
+Bond orders (id: mbo): 124: 0.809, 162: 0.804, 184: 0.732, 219: 1.173
+id: 15 CN: 4
+Bond orders (id: mbo): 121: 0.693, 154: 0.952, 156: 1.007, 204: 0.921
+id: 16 CN: 4
+Bond orders (id: mbo): 92: 0.686, 221: 0.806, 240: 1.137, 247: 0.893
+id: 17 CN: 4
+Bond orders (id: mbo): 107: 1.076, 143: 1.064, 161: 0.723, 186: 0.66
+id: 18 CN: 4
+Bond orders (id: mbo): 126: 1.428, 170: 0.775, 194: 0.65, 235: 0.696
+id: 19 CN: 4
+Bond orders (id: mbo): 109: 1.086, 136: 0.551, 220: 1.044, 239: 0.921
+id: 20 CN: 4
+Bond orders (id: mbo): 100: 0.736, 159: 1.043, 189: 1.075, 238: 0.702
+id: 21 CN: 4
+Bond orders (id: mbo): 110: 1.041, 111: 0.957, 181: 0.55, 218: 1.04
+id: 22 CN: 4
+Bond orders (id: mbo): 102: 0.675, 105: 1.392, 118: 0.697, 199: 0.788
+id: 23 CN: 4
+Bond orders (id: mbo): 153: 0.882, 161: 0.684, 177: 1.002, 244: 0.977
+id: 24 CN: 4
+Bond orders (id: mbo): 115: 1.05, 146: 0.675, 147: 1.087, 180: 0.758
+id: 25 CN: 4
+Bond orders (id: mbo): 83: 0.907, 112: 0.667, 131: 0.826, 192: 1.132
+id: 26 CN: 4
+Bond orders (id: mbo): 121: 0.712, 138: 1.081, 145: 0.77, 233: 0.991
+id: 27 CN: 4
+Bond orders (id: mbo): 201: 0.875, 213: 0.656, 215: 1.05, 237: 0.989
+id: 28 CN: 4
+Bond orders (id: mbo): 106: 1.054, 157: 0.558, 208: 0.897, 210: 1.075
+id: 29 CN: 4
+Bond orders (id: mbo): 120: 0.69, 137: 0.679, 149: 1.107, 193: 1.08
+id: 30 CN: 4
+Bond orders (id: mbo): 99: 0.932, 151: 1.022, 173: 1.019, 214: 0.595
+id: 31 CN: 4
+Bond orders (id: mbo): 97: 1.353, 145: 0.63, 216: 0.91, 226: 0.692
+id: 32 CN: 4
+Bond orders (id: mbo): 84: 0.625, 144: 1.048, 166: 0.916, 228: 0.973
+id: 33 CN: 4
+Bond orders (id: mbo): 164: 0.515, 172: 0.652, 174: 1.078, 253: 1.364
+id: 34 CN: 4
+Bond orders (id: mbo): 81: 0.65, 135: 0.389, 200: 1.289, 222: 1.281
+id: 35 CN: 4
+Bond orders (id: mbo): 141: 0.895, 212: 0.952, 227: 1.06, 238: 0.657
+id: 36 CN: 4
+Bond orders (id: mbo): 95: 0.968, 114: 1.366, 152: 0.609, 162: 0.602
+id: 37 CN: 4
+Bond orders (id: mbo): 123: 0.847, 127: 0.968, 179: 0.747, 190: 1.006
+id: 38 CN: 4
+Bond orders (id: mbo): 82: 1.279, 92: 0.74, 119: 0.708, 181: 0.818
+id: 39 CN: 4
+Bond orders (id: mbo): 89: 0.718, 100: 0.678, 175: 1.118, 251: 1.044
+id: 40 CN: 4
+Bond orders (id: mbo): 133: 0.915, 165: 0.585, 243: 1.047, 245: 1.038
+id: 41 CN: 4
+Bond orders (id: mbo): 96: 0.679, 130: 1.078, 150: 1.044, 172: 0.751
+id: 42 CN: 4
+Bond orders (id: mbo): 128: 0.623, 206: 1.026, 207: 1.113, 214: 0.791
+id: 43 CN: 4
+Bond orders (id: mbo): 87: 1.365, 91: 0.721, 94: 0.856, 179: 0.641
+id: 44 CN: 4
+Bond orders (id: mbo): 120: 0.725, 125: 1.153, 135: 0.968, 170: 0.684
+id: 45 CN: 4
+Bond orders (id: mbo): 89: 0.647, 129: 1.343, 203: 0.554, 234: 1.045
+id: 46 CN: 4
+Bond orders (id: mbo): 113: 1.173, 128: 0.793, 157: 0.871, 223: 0.685
+id: 47 CN: 4
+Bond orders (id: mbo): 103: 0.98, 117: 1.111, 137: 0.725, 178: 0.729
+id: 48 CN: 4
+Bond orders (id: mbo): 85: 0.566, 90: 0.973, 122: 1.011, 148: 0.994
+id: 49 CN: 4
+Bond orders (id: mbo): 198: 1.078, 231: 0.674, 242: 1.097, 248: 0.69
+id: 50 CN: 4
+Bond orders (id: mbo): 96: 0.744, 118: 0.719, 195: 1.039, 202: 1.053
+id: 51 CN: 4
+Bond orders (id: mbo): 88: 1.05, 164: 0.915, 194: 0.791, 223: 0.743
+id: 52 CN: 4
+Bond orders (id: mbo): 139: 1.041, 188: 1.037, 213: 0.751, 248: 0.724
+id: 53 CN: 4
+Bond orders (id: mbo): 102: 0.719, 146: 0.726, 196: 1.03, 252: 1.086
+id: 54 CN: 4
+Bond orders (id: mbo): 91: 0.679, 199: 0.594, 224: 1.315, 236: 1.002
+id: 55 CN: 4
+Bond orders (id: mbo): 101: 0.842, 108: 0.743, 132: 1.108, 225: 0.856
+id: 56 CN: 4
+Bond orders (id: mbo): 81: 0.757, 180: 0.683, 230: 1.013, 232: 1.083
+
+Statistics of: P
+
+CN %
+4 100.0
+
+## CN of Fe bond: Fe-O
+
+id: 57 CN: 5
+Bond orders (id: mbo): 86: 0.21, 107: 0.198, 110: 0.218, 247: 0.212, 250: 0.242
+id: 58 CN: 5
+Bond orders (id: mbo): 115: 0.214, 185: 0.391, 216: 0.171, 234: 0.207, 242: 0.182
+id: 59 CN: 5
+Bond orders (id: mbo): 133: 0.388, 169: 0.19, 228: 0.269, 232: 0.204, 245: 0.266
+id: 60 CN: 4
+Bond orders (id: mbo): 109: 0.186, 125: 0.163, 167: 0.3, 197: 0.289
+id: 61 CN: 4
+Bond orders (id: mbo): 185: 0.39, 193: 0.204, 196: 0.238, 233: 0.236
+id: 62 CN: 5
+Bond orders (id: mbo): 151: 0.237, 159: 0.207, 211: 0.257, 217: 0.319, 219: 0.158
+id: 63 CN: 6
+Bond orders (id: mbo): 82: 0.12, 106: 0.225, 117: 0.197, 130: 0.196, 142: 0.269, 237: 0.228
+id: 64 CN: 5
+Bond orders (id: mbo): 132: 0.184, 153: 0.305, 176: 0.241, 192: 0.16, 198: 0.24
+id: 65 CN: 5
+Bond orders (id: mbo): 122: 0.189, 143: 0.291, 156: 0.216, 251: 0.241, 252: 0.204
+id: 66 CN: 5
+Bond orders (id: mbo): 108: 0.235, 127: 0.26, 183: 0.218, 202: 0.26, 229: 0.175
+id: 67 CN: 4
+Bond orders (id: mbo): 150: 0.201, 188: 0.244, 204: 0.349, 205: 0.285
+id: 68 CN: 5
+Bond orders (id: mbo): 99: 0.304, 111: 0.293, 138: 0.217, 141: 0.368, 189: 0.194
+id: 69 CN: 5
+Bond orders (id: mbo): 95: 0.303, 123: 0.359, 163: 0.308, 207: 0.17, 236: 0.23
+id: 70 CN: 5
+Bond orders (id: mbo): 94: 0.412, 174: 0.197, 208: 0.301, 218: 0.237, 249: 0.154
+id: 71 CN: 5
+Bond orders (id: mbo): 104: 0.273, 149: 0.166, 209: 0.216, 215: 0.234, 230: 0.25
+id: 72 CN: 6
+Bond orders (id: mbo): 83: 0.157, 190: 0.228, 206: 0.127, 210: 0.207, 220: 0.197, 243: 0.227
+id: 73 CN: 5
+Bond orders (id: mbo): 140: 0.212, 155: 0.234, 171: 0.26, 212: 0.257, 240: 0.187
+id: 74 CN: 6
+Bond orders (id: mbo): 144: 0.274, 147: 0.201, 158: 0.174, 166: 0.311, 175: 0.201, 227: 0.214
+id: 75 CN: 5
+Bond orders (id: mbo): 101: 0.159, 113: 0.203, 154: 0.126, 173: 0.235, 191: 0.258
+id: 76 CN: 6
+Bond orders (id: mbo): 98: 0.181, 101: 0.205, 108: 0.253, 148: 0.212, 154: 0.189, 177: 0.268
+id: 77 CN: 5
+Bond orders (id: mbo): 93: 0.319, 134: 0.2, 187: 0.271, 195: 0.234, 201: 0.347
+id: 78 CN: 5
+Bond orders (id: mbo): 103: 0.271, 116: 0.212, 139: 0.217, 185: 0.429, 216: 0.138
+id: 79 CN: 4
+Bond orders (id: mbo): 239: 0.283, 241: 0.197, 247: 0.185, 250: 0.513
+id: 80 CN: 5
+Bond orders (id: mbo): 83: 0.161, 90: 0.289, 206: 0.138, 244: 0.227, 250: 0.415
+
+Statistics of: Fe
+
+CN %
+5 66.667
+4 16.667
+6 16.667
+
+
+# Covalence from Mayer bond orders 
+
+Covalence of P.
+
+id COV
+1 3.630
+2 3.662
+3 3.643
+4 3.628
+5 3.630
+6 3.649
+7 3.593
+8 3.623
+9 3.641
+10 3.624
+11 3.635
+12 3.651
+13 3.614
+14 3.614
+15 3.632
+16 3.616
+17 3.630
+18 3.633
+19 3.650
+20 3.636
+21 3.646
+22 3.638
+23 3.642
+24 3.640
+25 3.621
+26 3.634
+27 3.637
+28 3.644
+29 3.632
+30 3.642
+31 3.647
+32 3.637
+33 3.661
+34 3.666
+35 3.635
+36 3.641
+37 3.638
+38 3.634
+39 3.638
+40 3.655
+41 3.636
+42 3.635
+43 3.649
+44 3.625
+45 3.650
+46 3.628
+47 3.626
+48 3.647
+49 3.631
+50 3.634
+51 3.613
+52 3.629
+53 3.634
+54 3.651
+55 3.634
+56 3.630
+
+Covalence of O.
+
+id COV
+81 1.859
+82 1.730
+83 1.547
+84 1.851
+85 1.867
+86 1.600
+87 1.756
+88 1.878
+89 1.828
+90 1.605
+91 1.846
+92 1.852
+93 1.613
+94 1.636
+95 1.634
+96 1.848
+97 1.725
+98 1.615
+99 1.590
+100 1.847
+101 1.510
+102 1.834
+103 1.589
+104 1.627
+105 1.753
+106 1.616
+107 1.632
+108 1.550
+109 1.602
+110 1.592
+111 1.614
+112 1.864
+113 1.679
+114 1.764
+115 1.595
+116 1.602
+117 1.632
+118 1.830
+119 1.862
+120 1.840
+121 1.844
+122 1.604
+123 1.570
+124 1.856
+125 1.632
+126 1.802
+127 1.574
+128 1.859
+129 1.726
+130 1.614
+131 1.870
+132 1.635
+133 1.625
+134 1.660
+135 1.841
+136 1.860
+137 1.843
+138 1.625
+139 1.607
+140 1.598
+141 1.602
+142 1.628
+143 1.669
+144 1.659
+145 1.854
+146 1.849
+147 1.618
+148 1.593
+149 1.613
+150 1.575
+151 1.594
+152 1.890
+153 1.611
+154 1.577
+155 1.584
+156 1.570
+157 1.861
+158 1.614
+159 1.585
+160 1.731
+161 1.843
+162 1.849
+163 1.610
+164 1.863
+165 1.875
+166 1.611
+167 1.568
+168 1.863
+169 1.668
+170 1.873
+171 1.670
+172 1.838
+173 1.599
+174 1.598
+175 1.666
+176 1.616
+177 1.635
+178 1.844
+179 1.844
+180 1.873
+181 1.851
+182 1.886
+183 1.582
+184 1.872
+185 1.313
+186 1.855
+187 1.651
+188 1.581
+189 1.629
+190 1.591
+191 1.615
+192 1.625
+193 1.616
+194 1.857
+195 1.615
+196 1.611
+197 1.568
+198 1.642
+199 1.843
+200 1.722
+201 1.569
+202 1.632
+203 1.880
+204 1.585
+205 1.533
+206 1.595
+207 1.640
+208 1.533
+209 1.621
+210 1.609
+211 1.609
+212 1.577
+213 1.851
+214 1.852
+215 1.632
+216 1.532
+217 1.630
+218 1.633
+219 1.658
+220 1.610
+221 1.841
+222 1.646
+223 1.858
+224 1.713
+225 1.872
+226 1.844
+227 1.629
+228 1.570
+229 1.639
+230 1.606
+231 1.849
+232 1.624
+233 1.588
+234 1.597
+235 1.856
+236 1.580
+237 1.596
+238 1.831
+239 1.568
+240 1.641
+241 1.563
+242 1.630
+243 1.620
+244 1.600
+245 1.631
+246 1.869
+247 1.567
+248 1.846
+249 1.672
+250 1.272
+251 1.610
+252 1.597
+253 1.771
+
+Covalence of Fe.
+
+id COV
+57 1.965
+58 2.326
+59 2.089
+60 2.083
+61 2.399
+62 2.067
+63 2.121
+64 1.935
+65 1.909
+66 2.064
+67 2.013
+68 2.277
+69 2.296
+70 2.142
+71 2.101
+72 1.917
+73 1.957
+74 2.392
+75 1.691
+76 2.139
+77 2.174
+78 2.453
+79 2.557
+80 2.335
+

@@ -15,6 +15,8 @@ class NavBar(MDRelativeLayout, CommonElevationBehavior):
         on_touch_up_save_settings, on_enters, on_touch_up_run_program,\
         remove_dialog
 
+    dialog = None
+
     MenagerAppBackEnd: type
 
     def __init__(self, **kwargs):
@@ -23,4 +25,4 @@ class NavBar(MDRelativeLayout, CommonElevationBehavior):
         self.MenagerAppBackEnd = MenagerAppBackEnd
 
         if self.MenagerAppBackEnd.check_is_instance() is False:
-            self.MenagerAppBackEnd.new_app_back_end()
+            self.MenagerAppBackEnd.new_app_back_end(progress_bar=True)

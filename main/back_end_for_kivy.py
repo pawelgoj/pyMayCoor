@@ -1,5 +1,7 @@
 from app_back_end import AppBackEnd
-from multiprocessing import Process, Pipe
+from multiprocessing import Process, Queue
+from multiprocessing.connection import Connection
+from copy import deepcopy
 
 
 class NoBackEndError(Exception):
@@ -9,13 +11,31 @@ class NoBackEndError(Exception):
         super().__init__(self.message)
 
 
+class NoDataAndSettingsError(Exception):
+    def __init__(self, message: str = "To perform calculations you must load"
+                 + "correct input data and settings!"):
+        self.message = message
+        super().__init__(self.message)
+
+
 class MenagerAppBackEnd:
 
     app_back_end: AppBackEnd
+    queue: Connection
+    conn_parent: Connection
+    input_data: bool
+    settings: bool
+    string_output: str
 
     @ classmethod
-    def new_app_back_end(cls):
-        cls.app_back_end = AppBackEnd(False)
+    def make_queue(cls) -> Connection:
+        cls.queue = Queue()
+
+    @ classmethod
+    def new_app_back_end(cls, progress_bar: bool = False):
+        cls.app_back_end = AppBackEnd(progress_bar)
+        cls.input_data = False
+        cls.settings = False
 
     @ classmethod
     def check_is_instance(cls) -> bool:
@@ -36,6 +56,7 @@ class MenagerAppBackEnd:
     def update_settings(cls, path: str):
         if cls.app_back_end is not None:
             cls.app_back_end.load_settings(path)
+            cls.settings = True
         else:
             raise NoBackEndError()
 
@@ -43,15 +64,18 @@ class MenagerAppBackEnd:
     def update_input_data(cls, path: str):
         if cls.app_back_end is not None:
             cls.app_back_end.load_data(path)
+            cls.input_data = True
         else:
             raise NoBackEndError()
 
     @ classmethod
-    def perform_calculations(cls, pipeline_conn=None):
-        if cls.app_back_end is not None:
+    def perform_calculations(cls):
+        if (cls.app_back_end is not None)\
+                and cls.input_data and cls.settings:
+            pipeline_conn = None
             cls.app_back_end.perform_calculations(pipeline_conn)
         else:
-            raise NoBackEndError()
+            raise NoDataAndSettingsError()
 
     @ classmethod
     def get_output_data(cls) -> str:
@@ -72,7 +96,31 @@ class MenagerAppBackEnd:
         # TODO
         pass
 
+    @ classmethod
+    def check_thread_run(cls):
+        try:
+            return cls.p.is_alive()
+        except AttributeError:
+            return False
+
+    @ classmethod
+    def thread_calculations(cls):
+        if cls.input_data and cls.settings:
+            app_back_end = deepcopy(cls.app_back_end)
+            cls.p = Process(target=cls._thread,
+                            args=(app_back_end, cls.queue,))
+            cls.p.start()
+        else:
+            raise NoDataAndSettingsError()
+
     @ staticmethod
-    def thread_calculations(app_back_end: AppBackEnd):
-        # TODO
-        pass
+    def _thread(app_back_end, queue: Connection):
+        app_back_end.perform_calculations(queue)
+
+    @ classmethod
+    def end_of_process(cls):
+        cls.p.join()
+    
+    @ classmethod
+    def add_string_output(cls, string: str):
+        cls.app_back_end._output_string = string
