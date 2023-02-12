@@ -120,7 +120,7 @@ class MenagerAppBackEnd:
     @ classmethod
     def end_of_process(cls):
         cls.p.join()
-    
+
     @ classmethod
     def add_string_output(cls, string: str):
         cls.app_back_end._output_string = string

@@ -84,10 +84,13 @@ class MainFrameOfApp(MDFloatLayout):
             self.ids.progress_bar.value = self.progress_bar_value
 
 
-class BondOrderApp(MDApp):
+class pyMayCoorApp(MDApp):
 
     text_input: str = None
     hover_color: tuple[float, float, float, float] = None
+    
+    def build(self):
+        self.icon = "logo.png"
 
     def on_start(self):
         # chose theme of app it must be in app object not in mainWidget
@@ -140,5 +143,5 @@ class BondOrderApp(MDApp):
 
 def run_app():
     global myApp
-    myApp = BondOrderApp()
+    myApp = pyMayCoorApp()
     myApp.run()
