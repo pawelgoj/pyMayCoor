@@ -2,6 +2,7 @@
 from kivymd.color_definitions import colors
 from kivy.utils import platform
 from kivy.core.window import Window
+from kivy.properties import ObjectProperty
 from kivy.lang.builder import Builder
 from kivymd.uix.floatlayout import FloatLayout
 from kivymd.app import MDApp
@@ -12,6 +13,9 @@ from ComponentAddPairsOfAtoms import componentAddPairsOfAtoms
 from mytextInput import mytextInput
 from ComponentChoseCalculations import componentChoseCalculations
 from switchButton import switchButton
+from NavBar.navBar import NavBar
+from app_back_end import AppBackEnd
+
 
 # remove red dots on right mouse click (multitouch emulation)
 Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
@@ -22,14 +26,20 @@ Config.set('graphics', 'height', '700')
 
 class MainFrameOfApp(FloatLayout):
 
+    #NavBar: NavBar = ObjectProperty()
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        # self..add_back_end(self.app_back_end)
+        # print(self.ids)
+        print(self.children)
 
 
 class BondOrderApp(MDApp):
 
     text_input: str = None
     hover_color: tuple[float, float, float, float] = None
+    app_back_end: AppBackEnd = AppBackEnd()
 
     def on_start(self):
         # chose theme of app it must be in app object not in mainWidget
@@ -80,9 +90,7 @@ class BondOrderApp(MDApp):
         self.text_input = widget
 
 
-def run_cmd_program_version():
-    print("cmd")
-
-
-myApp = BondOrderApp()
-myApp.run()
+print(__name__)
+if __name__ == 'main_kivy':
+    myApp = BondOrderApp()
+    myApp.run()

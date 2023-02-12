@@ -24,7 +24,6 @@ class ComponentAddPairsOfAtoms(RelativeLayout):
     width_of_line: dp = dp(2)
     text_field_height: dp = dp(0)
     grid_height: dp = dp(0)
-    widget: Widget = None
     number_of_add_rows_to_widget: int = 0
     NUMBER_OF_COLUMNS: int = 5
     content_in_MDScrollView_height: float = None
@@ -33,7 +32,6 @@ class ComponentAddPairsOfAtoms(RelativeLayout):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        widget = MyTextInputAtomList()
 
         self.grid_height = self.label_height \
             + self.text_field_height + self.spacing_padding + 2 * dp(10)

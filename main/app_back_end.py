@@ -11,38 +11,11 @@ from BondOrderProcessing.bond_order_processing.calculations\
 from BondOrderProcessing.bond_order_processing.input_data\
     import CoordinatesOfAtoms, MayerBondOrders
 
-
-def check_atoms_symbols_in_loaded_data(
-        mayer_bond_orders: input_data.MayerBondOrders,
-        pairs_atoms_list: list[PairOfAtoms]) -> list[str]:
-
-    wrong_atoms_list = []
-    for item in pairs_atoms_list:
-        if not mayer_bond_orders.check_atom_symbol_in_MBO(item.atom_1):
-            wrong_atoms_list.append(item.atom_1)
-        if not mayer_bond_orders.check_atom_symbol_in_MBO(item.atom_2):
-            wrong_atoms_list.append(item.atom_2)
-
-    return wrong_atoms_list
+from data_process_utils import check_atoms_symbols_in_loaded_data,\
+    remove_wrong_atoms
 
 
-def remove_wrong_atoms(wrong_atoms_list: list[str],
-                       pairs_atoms_list: list[PairOfAtoms])\
-        -> list[PairOfAtoms]:
-
-    new = []
-    for item in pairs_atoms_list:
-        if item.atom_1 in wrong_atoms_list:
-            continue
-        elif item.atom_2 in wrong_atoms_list:
-            continue
-        else:
-            new.append(item)
-
-    return new
-
-
-class AppForCli:
+class AppBackEnd:
     """App to run by cli interface.
     """
     settings_file_path: str
@@ -50,56 +23,50 @@ class AppForCli:
     output_file_path: str
     _output_string: str
 
-    def __init__(self, settings_file_path: str, input_file_path: str,
-                 output_file_path: str):
-        """Constructor.
+    def __init__(self, progress_bar: bool):
 
-        Args:
-            settings_file_path (str): _description_
-            input_file_path (str): _description_
-            output_file_path (str): _description_
+        self.progress_bar = progress_bar
 
-        """
-        self.settings_file_path = settings_file_path
-        self.input_file_path = input_file_path
-        self.output_file_path = output_file_path
-
-    def perform_calculations(self) -> None:
-        """Perform calculations."""
-        with open(self.settings_file_path, 'r') as file:
-            yaml_data = file.read()
-
-        data = yaml.safe_load(yaml_data)
-        settings = Settings(data)
-
-        # Reading data:
+    def load_data(self, input_file_path: str) -> None:
         input_data_cpmd = input_data.InputDataFromCPMD()
-        input_data_cpmd.load_input_data(self.input_file_path,
+        input_data_cpmd.load_input_data(input_file_path,
                                         input_data.LoadedData.UnitCell,
                                         input_data.LoadedData.MayerBondOrders,
                                         input_data.LoadedData.CoordinatesOfAtoms)
 
         unit_cell = input_data_cpmd.return_data(input_data.LoadedData.UnitCell)
 
-        mayer_bond_orders = input_data_cpmd.return_data(
+        self.mayer_bond_orders = input_data_cpmd.return_data(
             input_data.LoadedData.MayerBondOrders)
 
-        coordinates_of_atoms = input_data_cpmd.return_data(
+        self.coordinates_of_atoms = input_data_cpmd.return_data(
             input_data.LoadedData.CoordinatesOfAtoms)
 
-        # Process data:
-        coordinates_of_atoms.convert_stored_coordinates_to_angstroms()
+        self.coordinates_of_atoms.convert_stored_coordinates_to_angstroms()
         unit_cell.convert_cell_data_to_angstroms()
-        coordinates_of_atoms.add_unit_cell(unit_cell)
+        self.coordinates_of_atoms.add_unit_cell(unit_cell)
 
-        wrong_atoms_names = check_atoms_symbols_in_loaded_data(mayer_bond_orders,
-                                                               settings.pairs_atoms_list)
+    def load_settings(self, settings_file_path: str) -> None:
+        with open(settings_file_path, 'r') as file:
+            yaml_data = file.read()
+
+        data = yaml.safe_load(yaml_data)
+        self.settings = Settings(data)
+
+    def calculate_only_histograms(self):
+        # TODO
+        pass
+
+    def perform_calculations(self) -> None:
+        """Perform calculations."""
+
+        wrong_atoms_names = check_atoms_symbols_in_loaded_data(self.mayer_bond_orders,
+                                                               self.settings.pairs_atoms_list)
 
         pairs_atoms_list = remove_wrong_atoms(wrong_atoms_names,
-                                              settings.pairs_atoms_list)
+                                              self.settings.pairs_atoms_list)
 
         # Calculate and generate output data:
-
         output_string = StringTemplate.get_report_header()
         output_string += StringTemplate.get_wrong_atoms_list(
             wrong_atoms_names)
@@ -108,11 +75,12 @@ class AppForCli:
         conn_prent_2, conn_child_2 = Pipe()
 
         p_1 = Process(target=self._thread_1, args=(
-            conn_child_1, settings, pairs_atoms_list, mayer_bond_orders))
+            conn_child_1, self.settings, pairs_atoms_list,
+            self.mayer_bond_orders))
 
         p_2 = Process(target=self._thread_2, args=(
-            conn_child_2, settings, pairs_atoms_list, mayer_bond_orders,
-            coordinates_of_atoms))
+            conn_child_2, self.settings, pairs_atoms_list,
+            self.mayer_bond_orders, self.coordinates_of_atoms))
 
         p_1.start()
         p_2.start()
@@ -190,8 +158,16 @@ class AppForCli:
         conn.send(output_string)
         conn.close()
 
-    def save_output(self):
-        """Save output data to file."""
+    def get_output_string(self) -> str:
+        if self._output_string is not None:
+            return self._output_string
+        else:
+            raise Exception('No preformed calculations!!!!')
 
-        with open(self.output_file_path, 'w', encoding="utf-8") as file:
-            file.write(self._output_string)
+    def save_output(self, output_file_path: str):
+        """Save output data to file."""
+        if self._output_string is not None:
+            with open(output_file_path, 'w', encoding="utf-8") as file:
+                file.write(self._output_string)
+        else:
+            raise Exception('No preformed calculations!!!!')
