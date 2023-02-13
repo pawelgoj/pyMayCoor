@@ -3,6 +3,8 @@ from multiprocessing import Process, Queue
 from multiprocessing.connection import Connection
 from copy import deepcopy
 
+from Settings.settings import Settings
+
 
 class NoBackEndError(Exception):
 
@@ -59,6 +61,18 @@ class MenagerAppBackEnd:
             cls.settings = True
         else:
             raise NoBackEndError()
+
+    @ classmethod
+    def change_settings(cls, settings: Settings):
+        if cls.app_back_end is not None:
+            cls.app_back_end.settings = settings
+        else:
+            raise NoBackEndError()
+
+    @ classmethod
+    def get_settings(cls):
+        settings = deepcopy(cls.app_back_end.settings)
+        return settings
 
     @ classmethod
     def update_input_data(cls, path: str):

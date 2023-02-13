@@ -48,7 +48,7 @@
         id: grid_with_atoms
         row_default_height: label_height
         size_hint_y: None
-        height: component_add_pairs_of_atoms.grid_height + text_field.height
+        height: component_add_pairs_of_atoms.grid_height + atom_id_1_0.height
         pos_hint: {'x': 0, 'top': 1}
         padding: ["10dp", "10dp", "10dp", "10dp"]
         spacing: spacing_padding
@@ -90,27 +90,31 @@
             text_color: app.theme_cls.text_color
 
         MyTextInputAtomList:
-            id: text_field
+            id: atom_id_1_0
             helper_text: "Eg. P, Fe ..."
             helper_text_mode: "persistent"
             valign: 'middle'
 
         MyTextInputAtomList:
+            id: atom_id_2_0
             helper_text: "Eg. P, Fe ..."
             helper_text_mode: "persistent"
             valign: 'middle'
 
         MyTextInputAtomList:
+            id: min_mbo_0
             helper_text: "float number"
             helper_text_mode: "persistent"
             valign: 'middle'
 
         MyTextInputAtomList:
+            id: max_mbo_0
             helper_text: "float number or 'INF'"
             helper_text_mode: "persistent"
             valign: 'middle'
 
         MyTextInputAtomList:
+            id: bond_id_0
             helper_text: "ID eg. 'P=O', 'my bond' ...."
             helper_text_mode: "persistent"
             valign: 'middle'

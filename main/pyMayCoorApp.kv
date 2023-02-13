@@ -49,6 +49,7 @@ MainFrameOfApp:
                     spacing: dp(20)
 
                     SwithButtonWidget:
+                        id: histogram_swith_button
                         size_hint_x: None
                         width: dp(80)
 
@@ -57,6 +58,7 @@ MainFrameOfApp:
                         size_hint_x: None
                         width: dp(250)
                         MyTextInput:
+                            id: histogram_nr_bars
                             height: '30dp'
                             pos_hint: {'center_x': .5, 'center_y': .6}
                             hint_text: "Number of bars in hostograms: "
@@ -82,6 +84,7 @@ MainFrameOfApp:
                         text_color: app.theme_cls.primary_color
 
                 ComponentAddPairsOfAtoms:
+                    id: add_pairs_atoms
                     size_hint: (None, None)
                     height: self.height 
                     width: content_in_MDScrollView.width * 0.95 
@@ -103,6 +106,7 @@ MainFrameOfApp:
                         text_color: app.theme_cls.primary_color
 
                 ComponentChoseCalculations:
+                    id: chose_calculations
                     size_hint: (None, None)
                     width: content_in_MDScrollView.width * 0.90
                     height: self.height 

@@ -23,8 +23,8 @@ class AppBackEnd:
     output_file_path: str
     _output_string: str
 
-    def __init__(self, progress_bar: bool):
-
+    def __init__(self, progress_bar: bool, settings=None):
+        self._settings = settings
         self.progress_bar = progress_bar
         self._output_string = None
 
@@ -52,7 +52,15 @@ class AppBackEnd:
             yaml_data = file.read()
 
         data = yaml.safe_load(yaml_data)
-        self.settings = Settings(data)
+        self._settings = Settings(data)
+
+    @property
+    def settings(self):
+        return self._settings
+
+    @ settings.setter
+    def settings(self, settings: Settings):
+        self._settings = settings
 
     def calculate_only_histograms(self):
         # TODO
@@ -68,10 +76,10 @@ class AppBackEnd:
             queue.put((False, 0, None))
 
         wrong_atoms_names = check_atoms_symbols_in_loaded_data(self.mayer_bond_orders,
-                                                               self.settings.pairs_atoms_list)
+                                                               self._settings.pairs_atoms_list)
 
         pairs_atoms_list = remove_wrong_atoms(wrong_atoms_names,
-                                              self.settings.pairs_atoms_list)
+                                              self._settings.pairs_atoms_list)
 
         # Calculate and generate output data:
         output_string = StringTemplate.get_report_header()
@@ -85,11 +93,11 @@ class AppBackEnd:
             queue.put((False, 1, None))
 
         p_1 = Process(target=self._thread_1, args=(
-            conn_child_1, self.settings, pairs_atoms_list,
+            conn_child_1, self._settings, pairs_atoms_list,
             self.mayer_bond_orders, queue))
 
         p_2 = Process(target=self._thread_2, args=(
-            conn_child_2, self.settings, pairs_atoms_list,
+            conn_child_2, self._settings, pairs_atoms_list,
             self.mayer_bond_orders, self.coordinates_of_atoms, queue))
 
         p_1.start()
