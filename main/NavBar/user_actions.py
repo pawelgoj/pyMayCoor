@@ -13,9 +13,25 @@ def on_touch_up_find_input_file(self):
 
 
 def on_touch_up_save_settings(self):
-    path = filechooser.save_file(title="save file..",
-                                 filters=[("*.yaml"), ("*.yml")])
-    # TODO
+    if MenagerAppBackEnd.check_settings_is_correct():
+        print(MenagerAppBackEnd.check_correct_pairs_of_atoms())
+        path = filechooser.save_file(title="save file..",
+                                     filters=[("*.yaml"), ("*.yml")])
+        if path != []:
+            MenagerAppBackEnd.save_settings(path[0])
+    else:
+        self.dialog = MDDialog(
+            text='Settings data is wrong! Correct form.',
+            buttons=[
+                MDFlatButton(
+                    text='ok',
+                    theme_text_color="Custom",
+                    text_color=self.theme_cls.primary_color,
+                    on_press=remove_dialog
+                ),
+            ],
+        )
+        self.dialog.open()
 
 
 def on_touch_up_load_settings(self):
@@ -34,8 +50,12 @@ def on_touch_up_load_settings(self):
             self.get_root_window().children[0].ids\
                 .histogram_swith_button.active_button()
         else:
-            self.get_root_window().children[0].ids.histogram_nr_bars.text\
-                = ''
+            if settings.histogram.get('nr_bars', None) is None:
+                self.get_root_window().children[0].ids.histogram_nr_bars.text\
+                    = ''
+            else:
+                self.get_root_window().children[0].ids.histogram_nr_bars.text\
+                    = str(settings.histogram['nr_bars'])
 
             self.get_root_window().children[0].ids\
                 .histogram_swith_button.deactive_button()
@@ -49,9 +69,15 @@ def on_touch_up_load_settings(self):
         else:
             self.get_root_window().children[0].ids\
                 .chose_calculations.ids.q_i.deactive_button()
-            self.get_root_window().children[0].ids\
-                .chose_calculations.ids.q_i_text.text\
-                = ''
+
+            if settings['q_i'].get('bond_id', None):
+                self.get_root_window().children[0].ids\
+                    .chose_calculations.ids.q_i_text.text\
+                    = ''
+            else:
+                self.get_root_window().children[0].ids\
+                    .chose_calculations.ids.q_i_text.text\
+                    = settings['q_i']['bond_id']
 
         if settings.calculations['connections']:
             self.get_root_window().children[0].ids\
@@ -136,7 +162,7 @@ def on_touch_up_run_program(self):
     except NoDataAndSettingsError:
         button_text = "ok"
         dialog_text = "To perform calculations you must load correct"\
-            + " input data and settings!."
+            + " input data!"
 
         self.dialog = MDDialog(
             text=dialog_text,

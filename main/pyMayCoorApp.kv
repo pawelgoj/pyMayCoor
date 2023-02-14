@@ -65,6 +65,8 @@ MainFrameOfApp:
                             hint_text: "Number of bars in hostograms: "
                             helper_text: "int number"
                             helper_text_mode: "persistent"
+                            on_text: root.change_state_bars_input_histogram(self)
+
 
                     NavButton:
                         pos_hint: {'center_x': .5, 'center_y': .6}

@@ -3,6 +3,7 @@ import yaml
 from BondOrderProcessing.bond_order_processing.calculations\
     import PairOfAtoms
 import sys
+import re
 sys.path.append(r'main/')
 
 
@@ -150,7 +151,9 @@ PairOfAtoms(atom_1='Al', atom_2='O', MBO_min=0.02, MBO_max='INF', id='Al-O')]
                                                          item.get('id')))
 
             if (histogram := data.get('histogram')) is not None:
-                if histogram.get('calc') and (histogram.get('nr_bars') is not None):
+                if (histogram.get('calc') and (histogram.get('nr_bars') is not None))\
+                        or (not histogram.get('calc')
+                            and (histogram.get('nr_bars') is not None)):
                     self.histogram = {
                         'calc': histogram['calc'], 'nr_bars': histogram['nr_bars']}
                 elif histogram.get('calc') and (histogram.get('nr_bars') is None):
@@ -163,12 +166,18 @@ PairOfAtoms(atom_1='Al', atom_2='O', MBO_min=0.02, MBO_max='INF', id='Al-O')]
             if (calculations := data.get('calculations')) is not None:
                 for key in self.types_of_calculations:
                     if type(item := calculations.get(key)) is dict and (key == 'q_i'):
-                        if item.get('calc') and (item.get('bond_id') is not None):
+                        if item.get('calc') and (item.get('bond_id') is not None)\
+                            or (not item.get('calc') and (item.get('bond_id')
+                                is not None)):
+
                             self.calculations.update(
                                 {key: {'calc': True, 'bond_id': item.get('bond_id')}})
+
                         elif item.get('calc') == False:
+
                             self.calculations.update(
                                 {key: {'calc': False, 'bond_id': None}})
+
                         else:
                             raise ValueError('Wrong calculations settings!!!!')
                     elif type(calculations.get(key)) is dict:
@@ -198,6 +207,11 @@ PairOfAtoms(atom_1='Al', atom_2='O', MBO_min=0.02, MBO_max='INF', id='Al-O')]
         output = {'histogram': self.histogram,
                   'pairs_atoms_list': out_list,
                   'calculations': self.calculations}
+
+        if re.search('.*\.yaml|.*\.yml', path) is not None:
+            pass
+        else:
+            path += '.yaml'
 
         output_yaml = yaml.dump(output)
 

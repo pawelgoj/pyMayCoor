@@ -21,11 +21,14 @@
 
     SwithButtonWidget:
         id: q_i
+        name_of_widget: 'q_i_button'
+        on_active: root.change_settings_calc(self)
 
     MDRelativeLayout:
         width: row_height
         MyTextInput:
             id: q_i_text
+            on_text: root.change_qi_id_in_settings(self)
             helper_text: "ID eg. 'P=O', 'my bond' ...."
             hint_text: "ID of bond: "
             helper_text_mode: "persistent"
@@ -42,6 +45,8 @@
 
     SwithButtonWidget:
         id: coord
+        name_of_widget: 'cn'
+        on_active: root.change_settings_calc(self)
 
     MDLabel: 
         valign: 'middle'
@@ -60,6 +65,8 @@
     
     SwithButtonWidget:
         id: coon
+        name_of_widget: 'connections'
+        on_active: root.change_settings_calc(self)
 
     MDLabel: 
         valign: 'middle'
@@ -78,6 +85,8 @@
 
     SwithButtonWidget:
         id: length
+        name_of_widget: 'bond_length'
+        on_active: root.change_settings_calc(self)
 
     MDLabel: 
         valign: 'middle'
@@ -96,6 +105,8 @@
 
     SwithButtonWidget:
         id: cov
+        name_of_widget: 'covalence'
+        on_active: root.change_settings_calc(self)
 
     MDLabel: 
         valign: 'middle'

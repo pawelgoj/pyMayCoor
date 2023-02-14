@@ -1,11 +1,13 @@
 from kivymd.uix.relativelayout import RelativeLayout
 from kivy.lang.builder import Builder
 from kivy.properties import BooleanProperty
+from kivy.properties import StringProperty
 Builder.load_file("switchButton/SwitchButton.kv")
 
 
 class SwithButtonWidget(RelativeLayout):
     active = BooleanProperty()
+    name_of_widget = StringProperty()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

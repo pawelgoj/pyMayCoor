@@ -1,7 +1,6 @@
 from mytextInput.mytextInput import MyTextInput
 from kivy.core.window import Window
 from kivy.utils import platform
-#from componentAddPairsOfAtoms import ComponentAddPairsOfAtoms
 
 
 class MyTextInputAtomList(MyTextInput):
@@ -16,7 +15,10 @@ class MyTextInputAtomList(MyTextInput):
             case 'right':
                 self.parent.parent.go_to_the_next_text_input()
             case 'backspace':
-                self.do_backspace()
+                if self.text != '':
+                    self.do_backspace()
+                else:
+                    self.parent.parent.go_to_the_previous_text_input()
             case 'left':
                 self.parent.parent.go_to_the_previous_text_input()
             case _:

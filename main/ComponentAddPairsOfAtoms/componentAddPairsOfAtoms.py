@@ -47,6 +47,8 @@ class ComponentAddPairsOfAtoms(RelativeLayout):
 
         for i in range(5):
             widget = MyTextInputAtomList()
+            widget.name_of_widget = self.ids_list[i]\
+                + str(self.number_of_add_rows_to_widget + 1)
             id = self.ids_list[i] + str(self.number_of_add_rows_to_widget + 1)
             self.added_widgets.update({id: widget})
             widget.parent_widget = self

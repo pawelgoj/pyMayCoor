@@ -33,6 +33,8 @@ class MainFrameOfApp(MDFloatLayout):
 
     previous_state_of_thread: int
     progress_bar_value: int
+    dialog = None
+    on_wrong_histogram_input: bool = False
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -55,22 +57,24 @@ class MainFrameOfApp(MDFloatLayout):
             pass
 
     def _show_dialog(self, dialog_text, button_text):
-        self.dialog = MDDialog(
-            text=dialog_text,
-            buttons=[
-                MDFlatButton(
-                    text=button_text,
-                    theme_text_color="Custom",
-                    text_color=myApp.theme_cls.primary_color,
-                    on_press=self.remove_dialog
-                ),
-            ],
-        )
-        self.dialog.open()
+        if not self.dialog:
+            self.dialog = MDDialog(
+                text=dialog_text,
+                buttons=[
+                    MDFlatButton(
+                        text=button_text,
+                        theme_text_color="Custom",
+                        text_color=myApp.theme_cls.primary_color,
+                        on_press=self.remove_dialog
+                    ),
+                ],
+            )
+            self.dialog.open()
 
     def remove_dialog(self, widget):
         widget.parent.parent.parent.parent.parent.remove_widget(
             widget.parent.parent.parent.parent)
+        self.dialog = None
 
     def _update_progress_bar(self, value: int):
 
@@ -86,10 +90,25 @@ class MainFrameOfApp(MDFloatLayout):
     def change_state_histogram_button(self, widget):
         if widget.active:
             MenagerAppBackEnd.change_settings_item(
-                'histogram', True)
+                'histogram_bool', True)
         else:
             MenagerAppBackEnd.change_settings_item(
-                'histogram', False)
+                'histogram_bool', False)
+
+    def change_state_bars_input_histogram(self, widget):
+        if widget.text != '':
+            try:
+                MenagerAppBackEnd.change_settings_item(
+                    'histogram_bar', int(widget.text))
+            except ValueError:
+                if not self.on_wrong_histogram_input:
+                    dialog_text = 'Bars must have int value!'
+                    self._show_dialog(dialog_text, 'ok')
+                    self.on_wrong_histogram_input = True
+        else:
+            self.on_wrong_histogram_input = False
+            MenagerAppBackEnd.change_settings_item(
+                'histogram_bar', None)
 
 
 class pyMayCoorApp(MDApp):
