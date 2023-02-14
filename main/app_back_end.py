@@ -22,14 +22,17 @@ class AppBackEnd:
     input_file_path: str
     output_file_path: str
     _output_string: str
+    _settings: Settings
 
     def __init__(self, progress_bar: bool, settings=None):
         self._settings = settings
         self.progress_bar = progress_bar
         self._output_string = None
 
-    def load_data(self, input_file_path: str) -> None:
-        input_data_cpmd = input_data.InputDataFromCPMD()
+    def load_data(self, input_file_path: str,
+                  input_data_cpmd: input_data.InputDataFromCPMD
+                  = input_data.InputDataFromCPMD()) -> None:
+
         input_data_cpmd.load_input_data(input_file_path,
                                         input_data.LoadedData.UnitCell,
                                         input_data.LoadedData.MayerBondOrders,
@@ -209,3 +212,10 @@ class AppBackEnd:
                 file.write(self._output_string)
         else:
             raise Exception('No preformed calculations!!!!')
+
+    def save_settings(self, path: str):
+        """Save settings object to yaml file."""
+        if self._settings is None:
+            raise Exception("No settings")
+        else:
+            self._settings.save_data(path)

@@ -2,6 +2,7 @@ from app_back_end import AppBackEnd
 from multiprocessing import Process, Queue
 from multiprocessing.connection import Connection
 from copy import deepcopy
+from typing import Callable
 
 from Settings.settings import Settings
 
@@ -18,6 +19,27 @@ class NoDataAndSettingsError(Exception):
                  + "correct input data and settings!"):
         self.message = message
         super().__init__(self.message)
+
+
+def NoBackEndError_deco(callcable: Callable):
+    def wrapper(cls, *args):
+        if cls.app_back_end is not None:
+            callcable(cls, *args)
+        else:
+            raise NoBackEndError()
+
+    return wrapper
+
+
+def NoDataAndSettingsError_deco(callcable: Callable):
+    def wrapper(cls, *args):
+        if (cls.app_back_end is not None)\
+                and cls.input_data and cls.settings:
+            callcable(cls, *args)
+        else:
+            raise NoDataAndSettingsError()
+
+    return wrapper
 
 
 class MenagerAppBackEnd:
@@ -55,19 +77,15 @@ class MenagerAppBackEnd:
         return cls.app_back_end
 
     @ classmethod
+    @ NoBackEndError_deco
     def update_settings(cls, path: str):
-        if cls.app_back_end is not None:
-            cls.app_back_end.load_settings(path)
-            cls.settings = True
-        else:
-            raise NoBackEndError()
+        cls.app_back_end.load_settings(path)
+        cls.settings = True
 
     @ classmethod
+    @ NoBackEndError_deco
     def change_settings(cls, settings: Settings):
-        if cls.app_back_end is not None:
-            cls.app_back_end.settings = settings
-        else:
-            raise NoBackEndError()
+        cls.app_back_end.settings = settings
 
     @ classmethod
     def change_settings_item(cls, key: str,
@@ -99,42 +117,36 @@ class MenagerAppBackEnd:
     def get_settings(cls):
         settings = deepcopy(cls.app_back_end.settings)
         return settings
-    
+
     @ classmethod
+    @ NoBackEndError_deco
     def save_settings(cls, path):
-        cls.app_back_end.settings.save_data(path)
-
+        if cls.app_back_end.settings is None:
+            cls.app_back_end.settings = Settings()
+        cls.app_back_end.save_settings(path)
 
     @ classmethod
+    @ NoBackEndError_deco
     def update_input_data(cls, path: str):
-        if cls.app_back_end is not None:
-            cls.app_back_end.load_data(path)
-            cls.input_data = True
-        else:
-            raise NoBackEndError()
+        cls.app_back_end.load_data(path)
+        cls.input_data = True
 
     @ classmethod
+    @ NoDataAndSettingsError_deco
     def perform_calculations(cls):
-        if (cls.app_back_end is not None)\
-                and cls.input_data and cls.settings:
-            pipeline_conn = None
-            cls.app_back_end.perform_calculations(pipeline_conn)
-        else:
-            raise NoDataAndSettingsError()
+
+        pipeline_conn = None
+        cls.app_back_end.perform_calculations(pipeline_conn)
 
     @ classmethod
+    @ NoBackEndError_deco
     def get_output_data(cls) -> str:
-        if cls.app_back_end is not None:
-            return cls.app_back_end.get_output_string()
-        else:
-            raise NoBackEndError()
+        return cls.app_back_end.get_output_string()
 
     @ classmethod
+    @ NoBackEndError_deco
     def export_data(cls, path):
-        if cls.app_back_end is not None:
-            cls.app_back_end.save_output(path)
-        else:
-            raise NoBackEndError()
+        cls.app_back_end.save_output(path)
 
     @ classmethod
     def calculate_histograms(cls):
@@ -149,14 +161,13 @@ class MenagerAppBackEnd:
             return False
 
     @ classmethod
+    @ NoDataAndSettingsError_deco
     def thread_calculations(cls):
-        if cls.input_data and cls.settings:
-            app_back_end = deepcopy(cls.app_back_end)
-            cls.p = Process(target=cls._thread,
-                            args=(app_back_end, cls.queue,))
-            cls.p.start()
-        else:
-            raise NoDataAndSettingsError()
+
+        app_back_end = deepcopy(cls.app_back_end)
+        cls.p = Process(target=cls._thread,
+                        args=(app_back_end, cls.queue,))
+        cls.p.start()
 
     @ staticmethod
     def _thread(app_back_end, queue: Connection):

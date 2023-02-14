@@ -108,7 +108,15 @@ PairOfAtoms(atom_1='Al', atom_2='O', MBO_min=0.02, MBO_max='INF', id='Al-O')]
         self.pairs_atoms_list: list[PairOfAtoms] = []
         self.calculations: dict = {}
 
-        if data is not None:
+        if data is None:
+            self.histogram = {'calc': False}
+            self.calculations = {'q_i': {'calc': False},
+                                 'bond_length': False,
+                                 'connections': False,
+                                 'cn': False,
+                                 'covalence': False}
+
+        else:
             if self.check_keys_correct(data.keys(), self.VALID_KEYS_lEVEL_0) is False:
                 raise ValueError("Wrong keywords in yaml file!")
 
