@@ -83,14 +83,23 @@ class MainFrameOfApp(MDFloatLayout):
             self.previous_state_of_thread = value
             self.ids.progress_bar.value = self.progress_bar_value
 
+    def change_state_histogram_button(self, widget):
+        if widget.active:
+            MenagerAppBackEnd.change_settings_item(
+                'histogram', True)
+        else:
+            MenagerAppBackEnd.change_settings_item(
+                'histogram', False)
+
 
 class pyMayCoorApp(MDApp):
 
     text_input: str = None
     hover_color: tuple[float, float, float, float] = None
-    
+
     def build(self):
         self.icon = "logo.png"
+        self.theme_cls.material_style = "M2"
 
     def on_start(self):
         # chose theme of app it must be in app object not in mainWidget

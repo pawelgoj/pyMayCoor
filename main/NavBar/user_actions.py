@@ -36,7 +36,7 @@ def on_touch_up_load_settings(self):
         else:
             self.get_root_window().children[0].ids.histogram_nr_bars.text\
                 = ''
-                
+
             self.get_root_window().children[0].ids\
                 .histogram_swith_button.deactive_button()
 

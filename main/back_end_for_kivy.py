@@ -70,9 +70,40 @@ class MenagerAppBackEnd:
             raise NoBackEndError()
 
     @ classmethod
+    def change_settings_item(cls, key: str,
+                             value: str | int | float | bool):
+        if not cls.settings:
+            cls.app_back_end.settings = Settings()
+
+        if key == 'histogram_bool':
+            cls.app_back_end.settings.histogram['calc'] = value
+        elif key == 'histogram_bar':
+            cls.app_back_end.settings.histogram['nr_bars'] = value
+
+        elif key == 'q_i':
+            cls.app_back_end.settings.calculations['q_i'] = value
+        elif key == 'connections':
+            cls.app_back_end.settings.calculations['connections'] = value
+        elif key == 'bond_length':
+            cls.app_back_end.settings.calculations['bond_length'] = value
+        elif key == 'cn':
+            cls.app_back_end.settings.calculations['cn'] = value
+        elif key == 'covalence':
+            cls.app_back_end.settings.calculations['covalence'] = value
+        elif key == 'pair_of_atoms':
+            cls.app_back_end.settings.pairs_atoms_list = value
+            # TODO
+            pass
+
+    @ classmethod
     def get_settings(cls):
         settings = deepcopy(cls.app_back_end.settings)
         return settings
+    
+    @ classmethod
+    def save_settings(cls, path):
+        cls.app_back_end.settings.save_data(path)
+
 
     @ classmethod
     def update_input_data(cls, path: str):
