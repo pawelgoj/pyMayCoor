@@ -19,6 +19,31 @@
         width: grid_with_atoms.width
         canvas.before:
             Color:
+                rgba: app.theme_cls.primary_color[0], app.theme_cls.primary_color[1], app.theme_cls.primary_color[2], 0.5
+            Line:
+                width: width_of_line * 1.2
+                points:
+                    (self.x, self.y, self.x + self.width - position_of_circle, self.y)
+            Line:
+                width: width_of_line * 1.2
+                points:
+                    (self.x , self.y + self.height, self.x + self.width -position_of_circle, self.y + self.height)
+            Line:
+                width: width_of_line  * 1.2
+                circle:
+                    (self.x + self.width - position_of_circle, self.y + radius, radius
+                    , 90, 180)
+            Line:
+                width: width_of_line * 1.2
+                circle:
+                    (self.x + self.width - position_of_circle, self.y + self.height - radius, radius
+                    , 0, 90)
+            Line:
+                width: width_of_line * 1.2
+                points:
+                    (self.x + self.width, self.y + radius, self.x + self.width
+                    , self.y + self.height - radius)
+            Color:
                 rgba: app.theme_cls.primary_color
             Line:
                 width: width_of_line
@@ -123,6 +148,7 @@
             helper_text: "ID eg. 'P=O', 'my bond' ...."
             helper_text_mode: "persistent"
             valign: 'middle'
+
 
     MyRectangleButton:
         id: Button_x

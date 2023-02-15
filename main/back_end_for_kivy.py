@@ -3,7 +3,6 @@ from multiprocessing import Process, Queue
 from multiprocessing.connection import Connection
 from copy import deepcopy
 from typing import Callable
-from pprint import pprint
 
 from Settings.settings import Settings
 from BondOrderProcessing.bond_order_processing.calculations import PairOfAtoms
@@ -104,12 +103,13 @@ class MenagerAppBackEnd:
         else:
             qi_correct = False
 
-        if qi_correct and hist_correct:
+        pairs_of_atoms = cls.check_correct_pairs_of_atoms()
+
+        if qi_correct and hist_correct\
+                and pairs_of_atoms:
             return True
         else:
             return False
-
-        # TODO
 
     @ classmethod
     def check_correct_pairs_of_atoms(cls):
@@ -127,9 +127,13 @@ class MenagerAppBackEnd:
                 checks.add(result)
             except (ValueError, TypeError):
                 value = item.MBO_max
-                value = value.strip()
-                result = True if value == 'INF' else False
-                checks.add(result)
+
+                try:
+                    value = value.strip()
+                    result = True if value == 'INF' else False
+                    checks.add(result)
+                except AttributeError:
+                    checks.add(False)
 
         for true in checks:
             if not true:
@@ -138,8 +142,7 @@ class MenagerAppBackEnd:
 
     @ classmethod
     def cast_values_pairs_of_atom_to_correct_values_for_calc(cls):
-        # TODO
-        pass
+        cls.app_back_end.settings.cast_stored_data_to_correct_typest()
 
     @ classmethod
     @ NoBackEndError_deco

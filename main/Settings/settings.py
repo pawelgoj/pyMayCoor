@@ -244,3 +244,19 @@ PairOfAtoms(atom_1='Al', atom_2='O', MBO_min=0.02, MBO_max='INF', id='Al-O')]
             else:
                 return False
         return True
+
+    def cast_stored_data_to_correct_typest(self):
+
+        if self.histogram.get('nr_bars', None) is not None:
+            self.histogram['nr_bars'] = int(self.histogram['nr_bars'])
+
+        temp = []
+        for item in self.pairs_atoms_list:
+            if item.MBO_max == 'INF':
+                value = item.MBO_max
+            else:
+                value = float(item.MBO_max)
+            temp.append(PairOfAtoms(item.atom_1, item.atom_2,
+                        float(item.MBO_min), value, item.id))
+
+        self.pairs_atoms_list = temp

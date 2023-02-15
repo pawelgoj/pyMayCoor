@@ -14,7 +14,7 @@ def on_touch_up_find_input_file(self):
 
 def on_touch_up_save_settings(self):
     if MenagerAppBackEnd.check_settings_is_correct():
-        print(MenagerAppBackEnd.check_correct_pairs_of_atoms())
+        MenagerAppBackEnd.cast_values_pairs_of_atom_to_correct_values_for_calc()
         path = filechooser.save_file(title="save file..",
                                      filters=[("*.yaml"), ("*.yml")])
         if path != []:
@@ -151,6 +151,7 @@ def on_touch_up_chose_export_file(self):
 
 def on_touch_up_run_program(self):
     try:
+        MenagerAppBackEnd.cast_values_pairs_of_atom_to_correct_values_for_calc()
         MenagerAppBackEnd.make_queue()
         MenagerAppBackEnd.thread_calculations()
         button_text = "ok"

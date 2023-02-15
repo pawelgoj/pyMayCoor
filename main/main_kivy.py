@@ -24,7 +24,8 @@ from app_back_end import AppBackEnd
 
 # remove red dots on right mouse click (multitouch emulation)
 Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
-
+Config.set('graphics', 'multisamples', '3')
+Config.set('graphics', 'vsync', '2')
 Config.set('graphics', 'width', '1000')
 Config.set('graphics', 'height', '700')
 
@@ -115,9 +116,9 @@ class pyMayCoorApp(MDApp):
 
     text_input: str = None
     hover_color: tuple[float, float, float, float] = None
+    icon = "logo.png"
 
     def build(self):
-        self.icon = "logo.png"
         self.theme_cls.material_style = "M2"
 
     def on_start(self):
