@@ -6,40 +6,67 @@ collected 53 items
 
 test/test_calculations.py ..................
 test/test_calculations_for_atoms_lists.py ................
-test/test_end_to_end.py Done!, execution time: 6.86766505241394 s
+test/test_end_to_end.py Done!, execution time: 4.863013744354248 s
 python
 .
 test/test_input_data.py .................
-test/test_settings.py calculations:
-  bond_length: true
-  cn: true
-  connections: true
-  covalence: true
-  q_i:
-    bond_id: P=O
-    calc: true
-histogram:
-  calc: true
-  nr_bars: 10
-pairs_atoms_list:
-- atom_1: P
-  atom_2: O
-  id: P=O
-  mbo_max: INF
-  mbo_min: 1.2
-- atom_1: P
-  atom_2: O
-  id: P-O
-  mbo_max: INF
-  mbo_min: 0.02
-- atom_1: Al
-  atom_2: O
-  id: Al-O
-  mbo_max: INF
-  mbo_min: 0.02
+test/test_settings.py FE
 
-.
+==================================== ERRORS ====================================
+_______________ ERROR at teardown of TestSettings.test_save_data _______________
 
+request = <SubRequest 'env_for_end_to_end_tests_2' for <Function test_save_data>>
+
+    @pytest.fixture()
+    def env_for_end_to_end_tests_2(request):
+        file_name = "test_output.txt"
+        yield file_name
+>       os.remove(f'./{file_name}')
+E       FileNotFoundError: [Errno 2] No such file or directory: './test_output.txt'
+
+test/conftest.py:52: FileNotFoundError
+=================================== FAILURES ===================================
+_________________________ TestSettings.test_save_data __________________________
+
+self = <test.test_settings.TestSettings object at 0x7f1ef3956ec0>
+env_for_end_to_end_tests_2 = 'test_output.txt'
+
+    @pytest.mark.usefixtures("env_for_end_to_end_tests_2")
+    def test_save_data(self, env_for_end_to_end_tests_2):
+        data = {'calculations': {
+            'covalence': True,
+            'bond_length': True,
+            'cn': True,
+            'connections': True,
+            'q_i': {'bond_id': 'P=O', 'calc': True}},
+            'histogram': {'calc': True, 'nr_bars': 10},
+            'pairs_atoms_list':
+                [{
+                    'atom_1': 'P',
+                    'atom_2': 'O',
+                    'id': 'P=O',
+                    'mbo_max': 'INF',
+                    'mbo_min': 1.2
+                },
+            {
+                    'atom_1': 'P',
+                    'atom_2': 'O',
+                    'id': 'P-O',
+                    'mbo_max': 'INF',
+                    'mbo_min': 0.02
+                },
+            {
+                    'atom_1': 'Al',
+                    'atom_2': 'O',
+                    'id': 'Al-O',
+                    'mbo_max': 'INF',
+                    'mbo_min': 0.02}]}
+        settings = Settings(data)
+        settings.save_data(env_for_end_to_end_tests_2)
+>       with open(env_for_end_to_end_tests_2, 'r', encoding="utf-8") as file:
+E       FileNotFoundError: [Errno 2] No such file or directory: 'test_output.txt'
+
+test/test_settings.py:40: FileNotFoundError
 =============================== warnings summary ===============================
 test/test_calculations_for_atoms_lists.py:167
   /home/runner/work/pyMayCoor/pyMayCoor/test/test_calculations_for_atoms_lists.py:167: PytestUnknownMarkWarning: Unknown pytest.mark.slow - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
@@ -48,6 +75,10 @@ test/test_calculations_for_atoms_lists.py:167
 test/test_calculations_for_atoms_lists.py:181
   /home/runner/work/pyMayCoor/pyMayCoor/test/test_calculations_for_atoms_lists.py:181: PytestUnknownMarkWarning: Unknown pytest.mark.slow - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
     @pytest.mark.slow
+
+main/Settings/settings.py:211
+  /home/runner/work/pyMayCoor/pyMayCoor/main/Settings/settings.py:211: DeprecationWarning: invalid escape sequence '\.'
+    if re.search('.*\.yaml|.*\.yml', path) is not None:
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
 ----- generated xml file: /home/runner/work/pyMayCoor/pyMayCoor/pytest.xml -----
@@ -63,4 +94,7 @@ TOTAL                                                                           
 
 1 file skipped due to complete coverage.
 
-======================= 53 passed, 2 warnings in 27.23s ========================
+=========================== short test summary info ============================
+FAILED test/test_settings.py::TestSettings::test_save_data - FileNotFoundError: [Errno 2] No such file or directory: 'test_output.txt'
+ERROR test/test_settings.py::TestSettings::test_save_data - FileNotFoundError: [Errno 2] No such file or directory: './test_output.txt'
+============== 1 failed, 52 passed, 3 warnings, 1 error in 21.28s ==============
