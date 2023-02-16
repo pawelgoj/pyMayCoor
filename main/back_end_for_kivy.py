@@ -50,7 +50,6 @@ class MenagerAppBackEnd:
     conn_parent: Connection
     input_data: bool
     settings: bool
-    string_output: str
 
     @ classmethod
     def make_queue(cls) -> Connection:
@@ -83,9 +82,21 @@ class MenagerAppBackEnd:
         if cls.app_back_end.settings.histogram['calc']\
             and cls.app_back_end.settings\
                 .histogram.get('nr_bars', None) is not None:
-            hist_correct = True
+            try:
+                int(cls.app_back_end.settings
+                    .histogram['nr_bars'])
+                hist_correct = True
+            except ValueError:
+                hist_correct = False
         elif not cls.app_back_end.settings.histogram['calc']:
-            hist_correct = True
+            try:
+                int(cls.app_back_end.settings
+                    .histogram['nr_bars'])
+                hist_correct = True
+            except ValueError:
+                hist_correct = False
+            except KeyError:
+                hist_correct = True
         else:
             hist_correct = False
 
@@ -306,3 +317,42 @@ class MenagerAppBackEnd:
     @ classmethod
     def add_string_output(cls, string: str):
         cls.app_back_end._output_string = string
+
+    @ classmethod
+    def check_string_output(cls):
+        if cls.app_back_end._output_string is None:
+            return False
+        else:
+            return True
+
+    @ classmethod
+    def check_calculations_chosen(cls):
+        if cls.app_back_end.settings.histogram.get('calc', False):
+            return True
+        for key, value in cls.app_back_end.settings.calculations.items():
+            if key == 'q_i':
+                if value['calc']:
+                    return True
+            else:
+                if value:
+                    return True
+
+        return False
+
+    @ classmethod
+    def check_pairs_of_atoms(cls):
+        if cls.app_back_end.settings.pairs_atoms_list == []:
+            return False
+        for item in cls.app_back_end.settings.pairs_atoms_list:
+            if item.atom_1 == '':
+                return False
+            elif item.atom_2 == '':
+                return False
+            elif item.MBO_min is None:
+                return False
+            elif item.MBO_max is None:
+                return False
+            elif item.id == '':
+                return False
+
+        return True

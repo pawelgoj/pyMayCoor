@@ -1,15 +1,12 @@
 
-from kivymd.color_definitions import colors
-from kivy.utils import platform
-from kivy.core.window import Window
-from kivy.properties import ObjectProperty
-from kivy.lang.builder import Builder
 from kivymd.uix.floatlayout import MDFloatLayout
 from kivymd.app import MDApp
 from kivy.config import Config
 from kivy.properties import Clock
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
+from kivymd_extensions.title_bar import MDTitleBar
+from switchButton.switchButton import SwithButtonWidget
 
 from back_end_for_kivy import MenagerAppBackEnd
 from back_end_for_kivy import NoDataAndSettingsError
@@ -19,7 +16,6 @@ from mytextInput import mytextInput
 from ComponentChoseCalculations import componentChoseCalculations
 from switchButton import switchButton
 from NavBar.navBar import NavBar
-from app_back_end import AppBackEnd
 
 
 # remove red dots on right mouse click (multitouch emulation)
@@ -28,6 +24,7 @@ Config.set('graphics', 'multisamples', '3')
 Config.set('graphics', 'vsync', '2')
 Config.set('graphics', 'width', '1000')
 Config.set('graphics', 'height', '700')
+Config.set('graphics', 'custom_titlebar', '0')
 
 
 class MainFrameOfApp(MDFloatLayout):
@@ -102,6 +99,8 @@ class MainFrameOfApp(MDFloatLayout):
                 MenagerAppBackEnd.change_settings_item(
                     'histogram_bar', int(widget.text))
             except ValueError:
+                MenagerAppBackEnd.change_settings_item(
+                    'histogram_bar', widget.text)
                 if not self.on_wrong_histogram_input:
                     dialog_text = 'Bars must have int value!'
                     self._show_dialog(dialog_text, 'ok')
@@ -117,6 +116,9 @@ class pyMayCoorApp(MDApp):
     text_input: str = None
     hover_color: tuple[float, float, float, float] = None
     icon = "logo.png"
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
 
     def build(self):
         self.theme_cls.material_style = "M2"

@@ -70,14 +70,14 @@ def on_touch_up_load_settings(self):
             self.get_root_window().children[0].ids\
                 .chose_calculations.ids.q_i.deactive_button()
 
-            if settings['q_i'].get('bond_id', None):
+            if settings.calculations['q_i'].get('bond_id', None):
                 self.get_root_window().children[0].ids\
                     .chose_calculations.ids.q_i_text.text\
                     = ''
             else:
                 self.get_root_window().children[0].ids\
                     .chose_calculations.ids.q_i_text.text\
-                    = settings['q_i']['bond_id']
+                    = settings.calculations['q_i']['bond_id']
 
         if settings.calculations['connections']:
             self.get_root_window().children[0].ids\
@@ -114,10 +114,6 @@ def on_touch_up_load_settings(self):
         self.get_root_window().children[0].ids\
             .add_pairs_atoms.add_rows(nr_pairs_of_atoms - 1)
 
-        for atom_pair in settings.pairs_atoms_list:
-            self.get_root_window().children[0].ids\
-                .add_pairs_atoms.ids.grid_with_atoms
-
         ids_list = self.get_root_window().children[0].ids\
             .add_pairs_atoms.ids_list
 
@@ -144,27 +140,52 @@ def on_touch_up_load_settings(self):
 
 
 def on_touch_up_chose_export_file(self):
-    path = filechooser.save_file(title="save file..")
-    if path != []:
-        MenagerAppBackEnd.export_data(path[0])
+    if MenagerAppBackEnd.check_string_output():
+        path = filechooser.save_file(title="save file..")
+        if path != []:
+            MenagerAppBackEnd.export_data(path[0])
+    else:
+        button_text = "ok"
+        dialog_text = "To export results, first perform the calculations!"
+
+        self.dialog = MDDialog(
+            text=dialog_text,
+            buttons=[
+                MDFlatButton(
+                    text=button_text,
+                    theme_text_color="Custom",
+                    text_color=self.theme_cls.primary_color,
+                    on_press=remove_dialog
+                ),
+            ],
+        )
+        self.dialog.open()
 
 
 def on_touch_up_run_program(self):
+    button_text = "ok"
+    dialog_text = ''
+
     try:
-        MenagerAppBackEnd.cast_values_pairs_of_atom_to_correct_values_for_calc()
-        MenagerAppBackEnd.make_queue()
-        MenagerAppBackEnd.thread_calculations()
-        button_text = "ok"
-        dialog_text = "Calculations completed."
+        if not MenagerAppBackEnd.check_calculations_chosen():
+            dialog_text = "Select what you want to calculate!"
+        elif not MenagerAppBackEnd.check_pairs_of_atoms():
+            dialog_text = "You must enter correct data for pairs of atoms!"
+        elif MenagerAppBackEnd.check_settings_is_correct():
+            MenagerAppBackEnd\
+                .cast_values_pairs_of_atom_to_correct_values_for_calc()
+            MenagerAppBackEnd.make_queue()
+            MenagerAppBackEnd.thread_calculations()
 
-        self.get_root_window().children[0].ids.progress_bar\
-            .value = 0
-
+            self.get_root_window().children[0].ids.progress_bar\
+                .value = 0
+        else:
+            dialog_text = "Wrong settings!"
     except NoDataAndSettingsError:
-        button_text = "ok"
         dialog_text = "To perform calculations you must load correct"\
             + " input data!"
 
+    if dialog_text != '':
         self.dialog = MDDialog(
             text=dialog_text,
             buttons=[
