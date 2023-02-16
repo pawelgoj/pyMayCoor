@@ -13,6 +13,9 @@ def on_touch_up_find_input_file(self):
 
 
 def on_touch_up_save_settings(self):
+    MenagerAppBackEnd\
+        .del_empty_added_pair_of_atom_objects()
+
     if MenagerAppBackEnd.check_settings_is_correct():
         MenagerAppBackEnd.cast_values_pairs_of_atom_to_correct_values_for_calc()
         path = filechooser.save_file(title="save file..",
@@ -165,12 +168,17 @@ def on_touch_up_chose_export_file(self):
 def on_touch_up_run_program(self):
     button_text = "ok"
     dialog_text = ''
+    MenagerAppBackEnd\
+        .del_empty_added_pair_of_atom_objects()
+    print(MenagerAppBackEnd.app_back_end.settings.pairs_atoms_list)
 
     try:
         if not MenagerAppBackEnd.check_calculations_chosen():
             dialog_text = "Select what you want to calculate!"
         elif not MenagerAppBackEnd.check_pairs_of_atoms():
             dialog_text = "You must enter correct data for pairs of atoms!"
+        elif not MenagerAppBackEnd.check_q_i_calculations_have_correct_id():
+            dialog_text = "Bond id for Qi calculations not in pairs atoms list!"
         elif MenagerAppBackEnd.check_settings_is_correct():
             MenagerAppBackEnd\
                 .cast_values_pairs_of_atom_to_correct_values_for_calc()

@@ -340,6 +340,33 @@ class MenagerAppBackEnd:
         return False
 
     @ classmethod
+    def del_empty_added_pair_of_atom_objects(cls):
+        if cls.app_back_end.settings.pairs_atoms_list\
+                is not None:
+            new_list = []
+            for pair_of_atoms in\
+                    cls.app_back_end.settings.pairs_atoms_list:
+                if not (pair_of_atoms.atom_1 == ''
+                        and pair_of_atoms.atom_2 == ''
+                        and (pair_of_atoms.MBO_min is None
+                             or pair_of_atoms.MBO_min == '')
+                        and (pair_of_atoms.MBO_max is None
+                             or pair_of_atoms.MBO_max == '')
+                        and pair_of_atoms.id == ''):
+                    new_list.append(pair_of_atoms)
+
+            cls.app_back_end.settings.pairs_atoms_list = new_list
+
+    @ classmethod
+    def del_last_added_pair_of_atom_object(cls):
+        cls.app_back_end.settings\
+            .del_last_added_pair_of_atom_object()
+
+    @ classmethod
+    def del_all_pair_of_atom_object(cls):
+        cls.app_back_end.settings.pairs_atoms_list = []
+
+    @ classmethod
     def check_pairs_of_atoms(cls):
         if cls.app_back_end.settings.pairs_atoms_list == []:
             return False
@@ -356,3 +383,15 @@ class MenagerAppBackEnd:
                 return False
 
         return True
+
+    @ classmethod
+    def check_q_i_calculations_have_correct_id(cls):
+        if cls.app_back_end.settings.calculations.get('q_i', None)\
+                is not None:
+            if cls.app_back_end.settings.calculations['q_i']['calc']:
+                id = cls.app_back_end.settings.calculations['q_i']['bond_id']
+                for item in cls.app_back_end.settings.pairs_atoms_list:
+                    cls.app_back_end.settings.calculations.get('')
+                    if item.id == id:
+                        return True
+        return False

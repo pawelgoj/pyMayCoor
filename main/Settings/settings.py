@@ -245,6 +245,10 @@ PairOfAtoms(atom_1='Al', atom_2='O', MBO_min=0.02, MBO_max='INF', id='Al-O')]
                 return False
         return True
 
+    def del_last_added_pair_of_atom_object(self):
+        if self.pairs_atoms_list != []:
+            self.pairs_atoms_list.pop()
+
     def cast_stored_data_to_correct_typest(self):
 
         if self.histogram.get('nr_bars', None) is not None:

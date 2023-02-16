@@ -6,6 +6,7 @@ from kivymd.uix.widget import Widget
 from kivymd.uix.scrollview import ScrollView
 from kivy.lang.builder import Builder
 from enum import Enum
+from back_end_for_kivy import MenagerAppBackEnd
 
 Builder.load_file("ComponentAddPairsOfAtoms/ComponentAddPairsOfAtoms.kv")
 Builder.load_file("ComponentAddPairsOfAtoms/MyRectangleButton.kv")
@@ -89,6 +90,11 @@ class ComponentAddPairsOfAtoms(RelativeLayout):
             self.ids.grid_with_atoms.height -= (
                 self.ids.atom_id_1_0.height + dp(10))
 
+            if len(MenagerAppBackEnd.app_back_end.settings.pairs_atoms_list)\
+                    == (self.number_of_add_rows_to_widget + 1):
+
+                MenagerAppBackEnd.del_last_added_pair_of_atom_object()
+
             self.number_of_add_rows_to_widget -= 1
 
         if self.number_of_add_rows_to_widget == 0:
@@ -98,6 +104,7 @@ class ComponentAddPairsOfAtoms(RelativeLayout):
         for _ in range(self.number_of_add_rows_to_widget):
             self.delete_rows()
         self.hide_button_delete_row()
+        MenagerAppBackEnd.del_all_pair_of_atom_object()
 
     def add_rows(self, number: int):
         if number > 0:
