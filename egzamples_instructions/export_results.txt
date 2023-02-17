@@ -2,7 +2,7 @@
 # pyMayCoor v1.0.0
  Character encoding: UTF-8
 
-All atoms are correct!
+Wrong atoms: Al,  
 
 
 # Histograms 

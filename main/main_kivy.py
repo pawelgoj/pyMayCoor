@@ -114,12 +114,13 @@ class MainFrameOfApp(MDFloatLayout):
 class pyMayCoorApp(MDApp):
 
     text_input: str = None
-    hover_color: tuple[float, float, float, float] = None
-    icon = "logo.png"
+    hover_color: tuple[float, float, float, float] | None = None
+    icon: str = "logo.png"
+    progress_bar_color: tuple[float, float, float, float] | None = None
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-
+        self.progress_bar_color = (0.1, 0.1, 0.1, 0.4)
     def build(self):
         self.theme_cls.material_style = "M2"
 

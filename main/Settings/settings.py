@@ -118,8 +118,11 @@ PairOfAtoms(atom_1='Al', atom_2='O', MBO_min=0.02, MBO_max='INF', id='Al-O')]
                                  'covalence': False}
 
         else:
-            if self.check_keys_correct(data.keys(), self.VALID_KEYS_lEVEL_0) is False:
-                raise ValueError("Wrong keywords in yaml file!")
+            try:
+                if self.check_keys_correct(data.keys(), self.VALID_KEYS_lEVEL_0) is False:
+                    raise ValueError("Wrong keywords in yaml file!")
+            except AttributeError:
+                raise ValueError("Wrong yaml file!")
 
             for value in data.values():
                 if type(value) is dict:

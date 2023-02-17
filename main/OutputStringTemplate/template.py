@@ -35,6 +35,8 @@ class StringTemplate:
     @staticmethod
     def get_wrong_atoms_list(atoms: list[str]) -> str:
         string = ''
+        if atoms == []:
+            return f"All atoms are correct!\n\n"
         for item in atoms:
             string = item + ', '
         return f"Wrong atoms: {string} \n\n"

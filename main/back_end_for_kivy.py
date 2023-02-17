@@ -394,4 +394,7 @@ class MenagerAppBackEnd:
                     cls.app_back_end.settings.calculations.get('')
                     if item.id == id:
                         return True
+            else:
+                return True
+
         return False

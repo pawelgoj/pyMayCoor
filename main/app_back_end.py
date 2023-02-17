@@ -178,7 +178,7 @@ class AppBackEnd:
             queue.put((False, 21, None))
 
         if settings.calculations['cn'] is True:
-            output_string += StringTemplate.get_covalence_header()
+            output_string += StringTemplate.get_coordination_numbers_header()
             output_string += calculations_for_atoms_lists\
                 .CoordinationNumbersFromPairOfAtoms.calculate(pairs_atoms_list,
                                                               mayer_bond_orders)\
