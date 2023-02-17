@@ -6,7 +6,7 @@ collected 53 items
 
 test/test_calculations.py ..................
 test/test_calculations_for_atoms_lists.py ................
-test/test_end_to_end.py Done!, execution time: 5.106725215911865 s
+test/test_end_to_end.py Done!, execution time: 5.246609210968018 s
 python
 .
 test/test_input_data.py .................
@@ -28,7 +28,7 @@ test/conftest.py:52: FileNotFoundError
 =================================== FAILURES ===================================
 _________________________ TestSettings.test_save_data __________________________
 
-self = <test.test_settings.TestSettings object at 0x7feebe0ded70>
+self = <test.test_settings.TestSettings object at 0x7f22d4c5aec0>
 env_for_end_to_end_tests_2 = 'test_output.txt'
 
     @pytest.mark.usefixtures("env_for_end_to_end_tests_2")
@@ -76,8 +76,8 @@ test/test_calculations_for_atoms_lists.py:181
   /home/runner/work/pyMayCoor/pyMayCoor/test/test_calculations_for_atoms_lists.py:181: PytestUnknownMarkWarning: Unknown pytest.mark.slow - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
     @pytest.mark.slow
 
-main/Settings/settings.py:211
-  /home/runner/work/pyMayCoor/pyMayCoor/main/Settings/settings.py:211: DeprecationWarning: invalid escape sequence '\.'
+main/Settings/settings.py:214
+  /home/runner/work/pyMayCoor/pyMayCoor/main/Settings/settings.py:214: DeprecationWarning: invalid escape sequence '\.'
     if re.search('.*\.yaml|.*\.yml', path) is not None:
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
@@ -97,4 +97,4 @@ TOTAL                                                                           
 =========================== short test summary info ============================
 FAILED test/test_settings.py::TestSettings::test_save_data - FileNotFoundError: [Errno 2] No such file or directory: 'test_output.txt'
 ERROR test/test_settings.py::TestSettings::test_save_data - FileNotFoundError: [Errno 2] No such file or directory: './test_output.txt'
-============== 1 failed, 52 passed, 3 warnings, 1 error in 21.13s ==============
+============== 1 failed, 52 passed, 3 warnings, 1 error in 21.98s ==============
