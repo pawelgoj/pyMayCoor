@@ -7,6 +7,7 @@ from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
 from kivymd_extensions.title_bar import MDTitleBar
 from switchButton.switchButton import SwithButtonWidget
+from kivymd.uix.tab import MDTabsBase
 
 from back_end_for_kivy import MenagerAppBackEnd
 from back_end_for_kivy import NoDataAndSettingsError
@@ -25,6 +26,10 @@ Config.set('graphics', 'vsync', '2')
 Config.set('graphics', 'width', '1000')
 Config.set('graphics', 'height', '700')
 Config.set('graphics', 'custom_titlebar', '0')
+
+
+class Tab(MDFloatLayout, MDTabsBase):
+    pass
 
 
 class MainFrameOfApp(MDFloatLayout):
@@ -50,7 +55,12 @@ class MainFrameOfApp(MDFloatLayout):
                     MenagerAppBackEnd.end_of_process()
                     MenagerAppBackEnd.add_string_output(val[2])
                     dialog_text = "Calculations completed!!!"
+                    print('ok')
+                    print(self.ids.raport_viever)
+                    self.ids.raport_viever.report_text\
+                        = MenagerAppBackEnd.get_string_output()
                     self._show_dialog(dialog_text, 'ok')
+
         except AttributeError:
             pass
 
@@ -121,6 +131,7 @@ class pyMayCoorApp(MDApp):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.progress_bar_color = (0.1, 0.1, 0.1, 0.4)
+
     def build(self):
         self.theme_cls.material_style = "M2"
 

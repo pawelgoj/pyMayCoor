@@ -2,6 +2,7 @@ from kivymd.uix.button import MDIconButton
 from kivy.core.window import Window
 from kivymd.color_definitions import colors
 
+
 class MyRectangleButton(MDIconButton):
 
     def __init__(self, **kwargs):
@@ -10,7 +11,7 @@ class MyRectangleButton(MDIconButton):
 
     def on_mouseover(self, window, pos):
 
-        delta_height = (self.parent.content_in_MDScrollView_height
+        delta_height = (self.parent.parent.height
                         + self.parent.content_outside_MDScrollView_height
                         - Window.height)
 

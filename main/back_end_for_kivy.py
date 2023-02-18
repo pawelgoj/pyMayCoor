@@ -90,9 +90,15 @@ class MenagerAppBackEnd:
                 hist_correct = False
         elif not cls.app_back_end.settings.histogram['calc']:
             try:
-                int(cls.app_back_end.settings
-                    .histogram['nr_bars'])
-                hist_correct = True
+                if cls.app_back_end.settings\
+                   .histogram['nr_bars'] is None:
+                    cls.app_back_end.settings\
+                        .histogram['nr_bars'] = ''
+                    hist_correct = True
+                else:
+                    int(cls.app_back_end.settings
+                        .histogram['nr_bars'])
+                    hist_correct = True
             except ValueError:
                 hist_correct = False
             except KeyError:
@@ -317,6 +323,10 @@ class MenagerAppBackEnd:
     @ classmethod
     def add_string_output(cls, string: str):
         cls.app_back_end._output_string = string
+
+    @ classmethod
+    def get_string_output(cls):
+        return cls.app_back_end._output_string
 
     @ classmethod
     def check_string_output(cls):

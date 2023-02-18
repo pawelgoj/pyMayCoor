@@ -111,7 +111,8 @@ def on_touch_up_load_settings(self):
                 else:
                     self.get_root_window().children[0].ids\
                         .chose_calculations.ids.q_i_text.text\
-                        = settings.calculations['q_i']['bond_id']
+                        = '' if settings.calculations['q_i']['bond_id']\
+                        is None else settings.calculations['q_i']['bond_id']
 
             if settings.calculations['connections']:
                 self.get_root_window().children[0].ids\

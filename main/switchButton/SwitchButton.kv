@@ -1,10 +1,9 @@
 <SwithButtonWidget>:
-    active: False
     name_of_widget: 'default'
 
-    MDSwitch:
-        width: dp(48)
+    MySwitch:
         active: False
+        width: dp(48)
         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
         thumb_color_inactive: colors['Gray']['600']
         on_active: root.change_self_state(self)

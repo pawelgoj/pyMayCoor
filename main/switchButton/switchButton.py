@@ -1,4 +1,5 @@
 from kivymd.uix.relativelayout import RelativeLayout
+from kivymd.uix.selectioncontrol.selectioncontrol import MDSwitch
 from kivy.lang.builder import Builder
 from kivy.properties import BooleanProperty
 from kivy.properties import StringProperty
@@ -21,3 +22,17 @@ class SwithButtonWidget(RelativeLayout):
 
     def change_self_state(self, w):
         self.active = w.active
+
+
+class MySwitch(MDSwitch):
+
+    def on_touch_down(self, touch):
+        if touch.button == 'left':
+            if self.collide_point(*touch.pos):
+                if self.active:
+                    self.active = False
+                else:
+                    self.active = True
+
+    def on_touch_up(self, touch):
+        pass

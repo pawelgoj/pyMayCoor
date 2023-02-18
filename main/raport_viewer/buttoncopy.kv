@@ -1,0 +1,18 @@
+<ButtonCopy>:
+    theme_text_color: "Custom"
+    text_color: "white"
+    text: "Copy"
+    canvas.before:
+        Color: 
+            rgba: 
+                app.theme_cls.primary_color[0],\
+                app.theme_cls.primary_color[1],\
+                app.theme_cls.primary_color[2], 1
+        Mesh:
+            mode: 'triangle_fan'
+            vertices: 
+                self.center_x - dp(22), self.center_y - dp(12), 0, 0,\ 
+                self.center_x + dp(22), self.center_y - dp(12), 0, 0,\
+                self.center_x + dp(22), self.center_y + dp(12), 0, 0,\
+                self.center_x - dp(22), self.center_y + dp(12), 0, 0
+            indices: 0, 1, 2, 3

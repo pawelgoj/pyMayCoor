@@ -1,0 +1,38 @@
+#:import Report raport_viewer.report
+
+<RaportViewer>:
+    size_hint: None, None
+    orientation: 'horizontal'
+    MDScrollView:
+        id: report_scrollView_1
+        height: root.height
+        size_hint_x: 0.2
+        do_scroll_x: False
+        do_scroll_y: True
+        bar_width: dp(10)
+        StackLayout:
+            size_hint_y : None
+            height: 1000
+            orientation: 'lr-tb'
+            Label:
+                text: "super label"
+                canvas.before:
+                    Color: 
+                        rgba: 0.2, 0.2, 0.2, 1
+                    Rectangle:
+                        pos: self.pos 
+                        size: self.size
+    MDScrollView:
+        id: report_scrollView_2
+        height: root.height
+        size_hint_x: 0.8
+        do_scroll_x: False
+        do_scroll_y: True
+        bar_width: dp(10)
+        StackLayout:
+            size_hint_y : None
+            MDRelativeLayout:
+                height: report_label.height
+                Report:
+                    id: report_label
+                    name: 'report'
