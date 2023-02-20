@@ -6,9 +6,9 @@ collected 53 items
 
 test/test_calculations.py ..................
 test/test_calculations_for_atoms_lists.py ................
-test/test_end_to_end.py Done!, execution time: 6.332989692687988 s
+test/test_end_to_end.py Done!, execution time: 5.295100688934326 s
 python
-.
+F
 test/test_input_data.py .................
 test/test_settings.py FE
 
@@ -26,9 +26,37 @@ E       FileNotFoundError: [Errno 2] No such file or directory: './test_output.t
 
 test/conftest.py:52: FileNotFoundError
 =================================== FAILURES ===================================
+_________________ TestEndToEnd.test_execute_app_in_cmd[python] _________________
+
+self = <test.test_end_to_end.TestEndToEnd object at 0x7f455bef0610>
+python_command = 'python', env_for_end_to_end_tests_2 = 'test_output.txt'
+
+    @pytest.mark.usefixtures("env_for_end_to_end_tests_2")
+    def test_execute_app_in_cmd(self, python_command,
+                                env_for_end_to_end_tests_2):
+        fn = env_for_end_to_end_tests_2
+        print(python_command)
+        subprocess.run(
+            f'{python_command} ./main/main.py -i ./egzamples_instructions/out1.txt -s ./egzamples_instructions/settings.yaml -o "{fn}"', shell=True)
+    
+        with open(fn, 'r', encoding="utf-8") as file:
+            data = file.read()
+            check = ['# pyMayCoor', '# Histograms', '# Qⁱ numbers',
+                     '# Connections', '# Bond lengths', '# Covalence from Mayer bond orders']
+    
+        result = True
+        for item in check:
+            if item not in data:
+                result = False
+                break
+    
+>       assert result
+E       assert False
+
+test/test_end_to_end.py:25: AssertionError
 _________________________ TestSettings.test_save_data __________________________
 
-self = <test.test_settings.TestSettings object at 0x7fd48c1eff40>
+self = <test.test_settings.TestSettings object at 0x7f455c169120>
 env_for_end_to_end_tests_2 = 'test_output.txt'
 
     @pytest.mark.usefixtures("env_for_end_to_end_tests_2")
@@ -95,6 +123,7 @@ TOTAL                                                                           
 1 file skipped due to complete coverage.
 
 =========================== short test summary info ============================
+FAILED test/test_end_to_end.py::TestEndToEnd::test_execute_app_in_cmd[python] - assert False
 FAILED test/test_settings.py::TestSettings::test_save_data - FileNotFoundError: [Errno 2] No such file or directory: 'test_output.txt'
 ERROR test/test_settings.py::TestSettings::test_save_data - FileNotFoundError: [Errno 2] No such file or directory: './test_output.txt'
-============== 1 failed, 52 passed, 3 warnings, 1 error in 26.03s ==============
+============== 2 failed, 51 passed, 3 warnings, 1 error in 21.90s ==============
