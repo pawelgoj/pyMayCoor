@@ -26,3 +26,11 @@ class MyRectangleButton(MDIconButton):
             self.icon_color = colors['Gray']['800']
         else:
             self.icon_color = colors['Gray']['200']
+
+    def on_touch_up(self, touch):
+        if touch.button == 'left':
+            return super().on_touch_up(touch)
+
+    def on_touch_down(self, touch):
+        if touch.button == 'left':
+            return super().on_touch_down(touch)

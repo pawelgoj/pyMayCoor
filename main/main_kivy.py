@@ -8,6 +8,7 @@ from kivymd.uix.button import MDFlatButton
 from kivymd_extensions.title_bar import MDTitleBar
 from switchButton.switchButton import SwithButtonWidget
 from kivymd.uix.tab import MDTabsBase
+from kivymd.uix.tab import MDTabs
 
 from back_end_for_kivy import MenagerAppBackEnd
 from back_end_for_kivy import NoDataAndSettingsError
@@ -17,6 +18,7 @@ from mytextInput import mytextInput
 from ComponentChoseCalculations import componentChoseCalculations
 from switchButton import switchButton
 from NavBar.navBar import NavBar
+from report_viewer.report_viewer import ReportViewer
 
 
 # remove red dots on right mouse click (multitouch emulation)
@@ -26,6 +28,10 @@ Config.set('graphics', 'vsync', '2')
 Config.set('graphics', 'width', '1000')
 Config.set('graphics', 'height', '700')
 Config.set('graphics', 'custom_titlebar', '0')
+
+
+class MyTabs(MDTabs):
+    pass
 
 
 class Tab(MDFloatLayout, MDTabsBase):
@@ -41,7 +47,7 @@ class MainFrameOfApp(MDFloatLayout):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        Clock.schedule_interval(self.update, 0.25)
+        Clock.schedule_interval(self.update, 0.1)
         self.previous_state_of_thread = 0
         self.progress_bar_value = 0
 
@@ -55,10 +61,10 @@ class MainFrameOfApp(MDFloatLayout):
                     MenagerAppBackEnd.end_of_process()
                     MenagerAppBackEnd.add_string_output(val[2])
                     dialog_text = "Calculations completed!!!"
-                    print('ok')
-                    print(self.ids.raport_viever)
-                    self.ids.raport_viever.report_text\
-                        = MenagerAppBackEnd.get_string_output()
+                    self.ids.raport_viever.remove_report()
+                    self.ids.raport_viever.show_report(
+                        MenagerAppBackEnd.get_string_output())
+
                     self._show_dialog(dialog_text, 'ok')
 
         except AttributeError:

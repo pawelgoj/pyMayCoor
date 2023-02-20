@@ -4,7 +4,8 @@
 #:import mytextInput mytextInput.mytextInput
 #:import NavButton NavBar.navButton
 #:import NavBar NavBar.navBar
-#:import raport_viewer raport_viewer.raport_viewer
+#:import ReportViewer report_viewer.report_viewer
+#:import ShowHistograms show_histograms.show_histograms
 #:set paddings_histogram dp(10) 
 #:set header_label_paddings [dp(10), dp(10), dp(10), dp(10)]
 
@@ -16,21 +17,9 @@ MainFrameOfApp:
         size_hint_y: None
         height: root.height - bar_of_app.height
 
-        MDTabs:
+        MyTabs:
+            lock_swiping: True
             id: main_tabs_of_app
-            Tab:
-                title: "Raport"
-                FloatLayout:
-                    id: tab_report
-                    size_hint: None, None
-                    height: root.height - bar_of_app.height - main_tabs_of_app.tab_bar_height
-                    width: root.width
-                    RaportViewer:
-                        pos_hint: {'bottom': 0, 'left': 0}
-                        id: raport_viever
-                        height: tab_report.height
-                        width: tab_report.width
-                        nav_bar_hight: bar_of_app.height + main_tabs_of_app.tab_bar_height
 
             Tab:
                 title: "Settings"
@@ -49,7 +38,10 @@ MainFrameOfApp:
                             width: root.width
                             do_scroll_x: False
                             do_scroll_y: True
+                            scroll_type: ['bars', 'content']
                             bar_width: dp(10)
+                            smooth_scroll_end: 10
+                            always_overscroll: False
 
                             MDStackLayout:
                                 id: content_in_MDScrollView
@@ -152,7 +144,35 @@ MainFrameOfApp:
                                     row_default_height: '30dp'
                                     cols: 2
                                     padding: [dp(10), dp(10), content_in_MDScrollView.width * 0.4, dp(10)]
-                    
+
+            Tab:
+                title: "Report"
+                FloatLayout:
+                    id: tab_report
+                    size_hint: None, None
+                    height: root.height - bar_of_app.height - main_tabs_of_app.tab_bar_height
+                    width: root.width
+                    ReportViewer:
+                        pos_hint: {'bottom': 0, 'left': 0}
+                        id: raport_viever
+                        height: tab_report.height
+                        width: tab_report.width
+                        nav_bar_hight: bar_of_app.height + main_tabs_of_app.tab_bar_height
+
+            Tab:
+                title: "Histograms"
+                FloatLayout:
+                    id: tab_report
+                    size_hint: None, None
+                    height: root.height - bar_of_app.height - main_tabs_of_app.tab_bar_height
+                    width: root.width
+                    ShowHistograms:
+                        pos_hint: {'bottom': 0, 'left': 0}
+                        id: show_histograms
+                        height: tab_report.height
+                        width: tab_report.width
+                        nav_bar_hight: bar_of_app.height + main_tabs_of_app.tab_bar_height
+
     NavBar:
         id: bar_of_app
 
@@ -179,5 +199,3 @@ MainFrameOfApp:
             text: ""
             size_hint_x: None
             width: content_in_MDScrollView.width * 0.2
-
-

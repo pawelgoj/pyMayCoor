@@ -1,0 +1,22 @@
+#:import ReportSegment report_viewer.report_segment
+
+<ReportWrapper>:
+    size_hint_y: None
+    size_hint_x: 1
+    text_in_segment: 'Perform calculations to see the report'
+    height: report_label.height
+    canvas.before:
+        Color:
+            rgba: 0.2, 0.2, 0.2, 0.2
+        Rectangle:
+            pos: root.pos
+            size: root.size
+    MDFloatLayout:
+        ReportSegment:
+            id: report_label
+            name: 'default_section'
+            width: root.width
+            pos: root.pos
+            markup: True
+            text: root.text_in_segment
+            height: 30

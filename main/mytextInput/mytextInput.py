@@ -13,3 +13,11 @@ class MyTextInput(MDTextField):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+
+    def on_touch_up(self, touch):
+        if touch.button == 'left':
+            return super().on_touch_up(touch)
+
+    def on_touch_down(self, touch):
+        if touch.button == 'left':
+            return super().on_touch_down(touch)

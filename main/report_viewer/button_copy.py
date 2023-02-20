@@ -17,15 +17,15 @@ class ButtonCopy(MDTextButton):
             self.text_color = "white"
 
     def _recalculate_position_to_relative(self, x, y):
-        delta_height = (self.parent.parent.parent.parent.nav_bar_hight
-                        + self.parent.parent.height
+        delta_height = (self.parent.parent.parent.parent.parent.nav_bar_hight
+                        + self.parent.parent.parent.height
                         - Window.height)
 
         pos = (x, y + delta_height *
-               self.parent.parent.parent.scroll_y)
+               self.parent.parent.parent.parent.scroll_y)
 
-        x = pos[0] - self.parent.parent.parent.pos[0]
-        y = pos[1] - self.parent.pos[1]
+        x = pos[0] - self.parent.parent.parent.parent.pos[0]
+        y = pos[1] - self.parent.parent.parent.parent.pos[1]
         return x, y
 
     def _revers_y_coordinate(self, y):
@@ -46,6 +46,6 @@ class ButtonCopy(MDTextButton):
         Window.unbind(mouse_pos=self.on_mouseover)
         Window.unbind(on_mouse_down=self.on_mouse_down)
 
-        if self.parent.children[1].name == 'report':
+        if self.parent.children[1]:
             self.parent.children[1].button_copy = None
         self.parent.remove_widget(self)
