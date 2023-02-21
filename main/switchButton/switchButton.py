@@ -27,12 +27,19 @@ class SwithButtonWidget(RelativeLayout):
 class MySwitch(MDSwitch):
 
     def on_touch_down(self, touch):
+        temp = self.active
         if touch.button == 'left':
-            if self.collide_point(*touch.pos):
-                if self.active:
-                    self.active = False
-                else:
-                    self.active = True
+            for item in [(0, 0), (-10, 0), (10, 0)]:
+                if self.collide_point(
+                    touch.pos[0] + item[0],
+                    touch.pos[1] + item[1]
+                ):
+                    if self.active:
+                        temp = False
+                    else:
+                        temp = True
+                        break
+            self.active = temp
 
     def on_touch_up(self, touch):
         pass

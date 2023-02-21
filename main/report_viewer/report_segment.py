@@ -9,7 +9,7 @@ class ReportSegment(TextInput):
     name: StringProperty = StringProperty()
     selection: str = ''
     selection_range: tuple | None = None
-    from_select: tuple[int, int] | None = None
+    start_selection: bool = False
 
     def on_selection_text(self, instance, value):
 
@@ -32,64 +32,40 @@ class ReportSegment(TextInput):
                 if self.selection_range is not None:
                     self.select_text(*self.selection_range)
                     self.selection_range = None
-                    self.from_select = None
         else:
-            if touch.button == 'left'\
-                    and self.collide_point(*touch.pos):
-                self.from_select = self.cursor_index()
-
             super().on_touch_down(touch)
 
-    def keyboard_on_key_down(self, keyboard, keycode, text, modifiers):
+    def on_cursor(self, instance, value):
 
-        if keycode[1] in ('right', 'down', 'left', 'up'):
-
+        try:
             height_in_scroll = self.parent.parent.parent.height
             scroll_height = self.parent.parent.parent.parent.height
 
             if (((self.cursor_pos[1] - scroll_height + 30)
-                 / (height_in_scroll - scroll_height))
+                    / (height_in_scroll - scroll_height))
                 > self.parent.parent.parent.parent.scroll_y)\
                     and height_in_scroll > scroll_height:
 
                 self.parent.parent.parent.parent.scroll_y\
                     = ((self.cursor_pos[1] - scroll_height + 30)
-                       / (height_in_scroll - scroll_height))
+                        / (height_in_scroll - scroll_height))
 
             elif (((self.cursor_pos[1] - 60)
-                   / (height_in_scroll - scroll_height))
-                  < self.parent.parent.parent.parent.scroll_y)\
+                    / (height_in_scroll - scroll_height))
+                    < self.parent.parent.parent.parent.scroll_y)\
                     and height_in_scroll > scroll_height:
 
                 self.parent.parent.parent.parent.scroll_y\
                     = ((self.cursor_pos[1] - 60)
-                       / (height_in_scroll
-                          - scroll_height))
+                        / (height_in_scroll
+                            - scroll_height))
+        except (ZeroDivisionError, AttributeError):
+            pass
 
-        super().keyboard_on_key_down(keyboard, keycode, text, modifiers)
+        super().on_cursor(instance, value)
 
     def remove_reference_to_button_copy(self):
         self.button_copy = None
-        self.from_select = None
-
-    def on_touch_up(self, touch):
-        if touch.button == 'right':
-            self.from_select = None
-        else:
-            super().on_touch_up(touch)
-
-    def on_focus(self, instance, value):
-        self.from_select = None
-
-    # def on_touch_move(self, touch):
-    #     if self.collide_point(*touch.pos):
-    #         if self.from_select is None:
-    #             self._selection_to = self.cursor_index()
-    #         else:
-    #             self._selection_from = self.from_select
-    #             self.cursor = self.get_cursor_from_xy(touch.x, touch.y)
-    #             self._selection_to = self.cursor_index()
-    #             self._update_selection()
 
     def on_text(self, widget, text):
         number_of_rows = text.count('\n')

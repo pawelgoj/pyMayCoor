@@ -6,6 +6,7 @@
 #:import NavBar NavBar.navBar
 #:import ReportViewer report_viewer.report_viewer
 #:import ShowHistograms show_histograms.show_histograms
+#:import MyScrollView myscrollview.my_scroll_view
 #:set paddings_histogram dp(10) 
 #:set header_label_paddings [dp(10), dp(10), dp(10), dp(10)]
 
@@ -25,23 +26,24 @@ MainFrameOfApp:
                 title: "Settings"
 
                 FloatLayout:
+                    id: layout_in_settings_tab
                     size_hint: None, None
-                    height: root.height - bar_of_app.height - main_tabs_of_app.tab_bar_height
+                    height: 
+                        root.height\
+                        - bar_of_app.height\
+                        - main_tabs_of_app.tab_bar_height\
+                        - footer.height
                     width: root.width
+                    pos: 0, footer.height
 
                     MDWidget:
-                        pos_hint: {'bottom': 0, 'left': 0}
+                        pos: layout_in_settings_tab.pos
 
-                        MDScrollView:
+                        MyScrollView:
                             id: my_MDScrollView
-                            height: root.height - bar_of_app.height - main_tabs_of_app.tab_bar_height
+                            pos: layout_in_settings_tab.pos
+                            height: layout_in_settings_tab.height
                             width: root.width
-                            do_scroll_x: False
-                            do_scroll_y: True
-                            scroll_type: ['bars', 'content']
-                            bar_width: dp(10)
-                            smooth_scroll_end: 10
-                            always_overscroll: False
 
                             MDStackLayout:
                                 id: content_in_MDScrollView
@@ -94,6 +96,7 @@ MainFrameOfApp:
                                         pos_hint: {'center_x': .5, 'center_y': .6}
                                         text: "Calculate/show histograms"
                                         icon: "chart-histogram"
+                                        on_press: root.calculate_histograms(self)
 
                                 MDBoxLayout:
                                     adaptive_height: True
@@ -146,37 +149,56 @@ MainFrameOfApp:
                                     padding: [dp(10), dp(10), content_in_MDScrollView.width * 0.4, dp(10)]
 
             Tab:
+                id: tab_report_tab
                 title: "Report"
                 FloatLayout:
                     id: tab_report
                     size_hint: None, None
-                    height: root.height - bar_of_app.height - main_tabs_of_app.tab_bar_height
+                    height: 
+                        root.height\
+                        - bar_of_app.height\
+                        - main_tabs_of_app.tab_bar_height\
+                        - footer.height
+
                     width: root.width
+                    pos: 0, footer.height
                     ReportViewer:
-                        pos_hint: {'bottom': 0, 'left': 0}
+                        pos: tab_report.pos
                         id: raport_viever
                         height: tab_report.height
                         width: tab_report.width
-                        nav_bar_hight: bar_of_app.height + main_tabs_of_app.tab_bar_height
-
+                        nav_bar_hight: 
+                            bar_of_app.height\
+                            + main_tabs_of_app.tab_bar_height\
+                            + footer.height
             Tab:
                 title: "Histograms"
                 FloatLayout:
                     id: tab_report
                     size_hint: None, None
-                    height: root.height - bar_of_app.height - main_tabs_of_app.tab_bar_height
+                    height: 
+                        root.height\
+                        - bar_of_app.height\
+                        - main_tabs_of_app.tab_bar_height\
+                        - footer.height
+
                     width: root.width
+                    pos: 0, footer.height
                     ShowHistograms:
-                        pos_hint: {'bottom': 0, 'left': 0}
+                        pos: tab_report.pos
                         id: show_histograms
                         height: tab_report.height
                         width: tab_report.width
-                        nav_bar_hight: bar_of_app.height + main_tabs_of_app.tab_bar_height
+                        nav_bar_hight: 
+                            bar_of_app.height\
+                            + main_tabs_of_app.tab_bar_height\
+                            + footer.height
 
     NavBar:
         id: bar_of_app
 
     MDBoxLayout:
+        id: footer
         orientation: 'horizontal'
         pos_hint: {'bottom': 0, 'left': 0}
         size_hint: (None, None)

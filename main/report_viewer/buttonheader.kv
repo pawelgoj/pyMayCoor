@@ -6,6 +6,11 @@
     line_width: dp(1.5)
     canvas.before:
         Color: 
+            rgba: app.theme_cls.bg_dark
+        Rectangle:
+            pos: self.pos[0] - dp(8), self.pos[1]
+            size: self.size[0] + dp(8), self.size[1]
+        Color: 
             rgba: app.theme_cls.bg_normal
         Rectangle:
             pos: self.pos

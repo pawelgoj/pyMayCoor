@@ -28,6 +28,7 @@ Config.set('graphics', 'vsync', '2')
 Config.set('graphics', 'width', '1000')
 Config.set('graphics', 'height', '700')
 Config.set('graphics', 'custom_titlebar', '0')
+Config.set('graphics', 'min_state_time', '0.005')
 
 
 class MyTabs(MDTabs):
@@ -52,6 +53,7 @@ class MainFrameOfApp(MDFloatLayout):
         self.progress_bar_value = 0
 
     def update(self, dt):
+        
         try:
             if not MenagerAppBackEnd.queue.empty():
                 val = MenagerAppBackEnd.queue.get()
@@ -100,6 +102,14 @@ class MainFrameOfApp(MDFloatLayout):
             self.progress_bar_value += 12
             self.previous_state_of_thread = value
             self.ids.progress_bar.value = self.progress_bar_value
+
+    def calculate_histograms(self, widget):
+        if MenagerAppBackEnd.check_thread_run():
+            # TODO
+            pass
+        else: 
+            
+            print('press hist')
 
     def change_state_histogram_button(self, widget):
         if widget.active:

@@ -1,0 +1,22 @@
+<MyScrollView>:
+    do_scroll_x: False
+    do_scroll_y: True
+    scroll_type: ['bars', 'content']
+    bar_width: dp(12)
+    smooth_scroll_end: 10
+    always_overscroll: True
+    effect_cls: 'ScrollEffect'
+    # I have influence on_touch_down, an on_touch_move events 
+    # Inside scroll view
+    scroll_timeout: 0
+    scroll_distance: 1
+    bar_color: 
+        app.theme_cls.primary_color[0],\
+        app.theme_cls.primary_color[1],\
+        app.theme_cls.primary_color[2],\
+        0.8
+    bar_inactive_color: 
+        app.theme_cls.primary_color[0],\
+        app.theme_cls.primary_color[1],\
+        app.theme_cls.primary_color[2],\
+        0.6

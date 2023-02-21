@@ -7,7 +7,7 @@ from kivymd.uix.stacklayout import MDStackLayout
 from kivy.lang.builder import Builder
 from kivy.properties import StringProperty
 from kivy.properties import NumericProperty
-from copy import copy
+from kivy.properties import Clock
 
 
 Builder.load_file("report_viewer/reportviewer.kv")
@@ -56,6 +56,14 @@ class ReportViewer(MDBoxLayout):
                     .add_widget(self.report_wrappers_and_headers[i][0])
 
                 i += 1
+
+        self.get_root_window(
+        ).children[0].ids.main_tabs_of_app.switch_tab("Report")
+
+        Clock.schedule_once(self.update_report, 0)
+
+    def update_report(self, dt):
+        self.ids.report_scrollView_2.scroll_y = 1
 
     def remove_report(self):
         for item in self.report_wrappers_and_headers:
