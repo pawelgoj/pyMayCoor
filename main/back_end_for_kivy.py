@@ -292,9 +292,16 @@ class MenagerAppBackEnd:
         cls.app_back_end.save_output(path)
 
     @ classmethod
-    def calculate_histograms(cls):
-        # TODO
-        pass
+    @ NoDataAndSettingsError_deco
+    def calculate_histograms_thread(cls):
+        app_back_end = deepcopy(cls.app_back_end)
+        cls.p = Process(target=cls._thread_histograms,
+                        args=(app_back_end, cls.queue,))
+        cls.p.start()
+
+    @ staticmethod
+    def _thread_histograms(app_back_end, queue: Connection):
+        app_back_end.calculate_only_histograms(queue)
 
     @ classmethod
     def check_thread_run(cls):

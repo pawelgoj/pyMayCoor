@@ -65,9 +65,48 @@ class AppBackEnd:
     def settings(self, settings: Settings):
         self._settings = settings
 
-    def calculate_only_histograms(self):
-        # TODO
-        pass
+    def calculate_only_histograms(self, queue: Connection) -> None:
+
+        if queue is not None:
+            queue.put((True, 0, (None, None)))
+
+        wrong_atoms_names = check_atoms_symbols_in_loaded_data(self.mayer_bond_orders,
+                                                               self._settings.pairs_atoms_list)
+
+        pairs_atoms_list = remove_wrong_atoms(wrong_atoms_names,
+                                              self._settings.pairs_atoms_list)
+
+        # Calculate and generate output data:
+        output_string = StringTemplate.get_report_header()
+        output_string += StringTemplate.get_wrong_atoms_list(
+            wrong_atoms_names)
+
+        if self.settings.histogram['calc'] is True:
+            output_string = StringTemplate.get_histogram_header()
+            output = calculations_for_atoms_lists\
+                .HistogramsFromPairOfAtoms.calculate(pairs_atoms_list,
+                                                     self.mayer_bond_orders,
+                                                     self.settings.histogram['nr_bars'])
+
+            output_string += output.to_string()
+            list_of_mbos: list[tuple[str, list]] = []
+            for pair in pairs_atoms_list:
+                mbos = self.mayer_bond_orders\
+                    .get_mayer_bond_orders_list_between_two_atoms(
+                        pair.atom_1, pair.atom_2)
+                if pair.MBO_max == 'INF':
+                    mbos = [mbo for mbo in mbos if mbo > pair.MBO_min]
+                else:
+                    mbos = [mbo for mbo in mbos if mbo > pair.MBO_min
+                            and mbo < pair.MBO_max]
+                list_of_mbos.append((pair.id, mbos))
+        else:
+            output_string = ""
+
+        if queue is not None:
+            queue.put((True, 100, (list_of_mbos,
+                                   output_string)))
+        queue.close()
 
     def perform_calculations(self, queue: Connection | None = None)\
             -> None:

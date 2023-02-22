@@ -2,13 +2,15 @@
 from kivymd.uix.floatlayout import MDFloatLayout
 from kivymd.app import MDApp
 from kivy.config import Config
-from kivy.properties import Clock
+from kivy.properties import Clock, mainthread
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
 from kivymd_extensions.title_bar import MDTitleBar
 from switchButton.switchButton import SwithButtonWidget
 from kivymd.uix.tab import MDTabsBase
 from kivymd.uix.tab import MDTabs
+from copy import deepcopy
+
 
 from back_end_for_kivy import MenagerAppBackEnd
 from back_end_for_kivy import NoDataAndSettingsError
@@ -28,7 +30,7 @@ Config.set('graphics', 'vsync', '2')
 Config.set('graphics', 'width', '1000')
 Config.set('graphics', 'height', '700')
 Config.set('graphics', 'custom_titlebar', '0')
-Config.set('graphics', 'min_state_time', '0.005')
+# Config.set('graphics', 'min_state_time', '0.005')
 
 
 class MyTabs(MDTabs):
@@ -53,7 +55,7 @@ class MainFrameOfApp(MDFloatLayout):
         self.progress_bar_value = 0
 
     def update(self, dt):
-        
+
         try:
             if not MenagerAppBackEnd.queue.empty():
                 val = MenagerAppBackEnd.queue.get()
@@ -61,11 +63,30 @@ class MainFrameOfApp(MDFloatLayout):
 
                 if val[0] is True:
                     MenagerAppBackEnd.end_of_process()
-                    MenagerAppBackEnd.add_string_output(val[2])
+
                     dialog_text = "Calculations completed!!!"
-                    self.ids.raport_viever.remove_report()
-                    self.ids.raport_viever.show_report(
-                        MenagerAppBackEnd.get_string_output())
+
+                    if len(val[2]) == 2:
+                        if val[2] != (None, None):
+
+                            MenagerAppBackEnd.add_string_output(deepcopy(val[2][1]))
+
+                            settings = MenagerAppBackEnd.get_settings()
+
+                            bins = settings.histogram['nr_bars']
+
+                            list_of_mbos = val[2][0]
+
+                            for mbos in list_of_mbos:
+
+                                self.ids.show_histograms.make_hists(
+                                    mbos[0], mbos[1], bins)
+
+                    else:
+                        MenagerAppBackEnd.add_string_output(val[2])
+                        self.ids.raport_viever.remove_report()
+                        self.ids.raport_viever.show_report(
+                            MenagerAppBackEnd.get_string_output())
 
                     self._show_dialog(dialog_text, 'ok')
 
@@ -104,12 +125,29 @@ class MainFrameOfApp(MDFloatLayout):
             self.ids.progress_bar.value = self.progress_bar_value
 
     def calculate_histograms(self, widget):
+
         if MenagerAppBackEnd.check_thread_run():
-            # TODO
-            pass
-        else: 
-            
-            print('press hist')
+            dialog_text = 'Calculations is running!'
+            self._show_dialog(dialog_text, 'ok')
+        else:
+            MenagerAppBackEnd\
+                .del_empty_added_pair_of_atom_objects()
+            try:
+                if MenagerAppBackEnd.check_settings_is_correct():
+                    MenagerAppBackEnd\
+                        .cast_values_pairs_of_atom_to_correct_values_for_calc()
+                    MenagerAppBackEnd.make_queue()
+                    MenagerAppBackEnd.calculate_histograms_thread()
+
+                    self.ids.progress_bar\
+                        .value = 0
+                    self.ids.label_for_progrss_bar\
+                        .text = "Work in progress..."
+
+            except NoDataAndSettingsError:
+                dialog_text = "To perform calculations you must load correct"\
+                    + " input data!"
+                self._show_dialog(dialog_text, 'ok')
 
     def change_state_histogram_button(self, widget):
         if widget.active:

@@ -4,53 +4,18 @@
     size_hint: None, None
     orientation: 'horizontal'
     MyScrollView:
-        id: report_scrollView_1
+        id: report_scrollView_hist
         height: root.height
-        size_hint_x: 0.2
         MDStackLayout:
+            id: hist_stack_layout
             spacing: dp(10)
             size_hint_y : None
             height: self.minimum_height
             padding: dp(10)
             orientation: 'lr-tb'
-            Widget:
+            MDLabel:
+                id: info_label
                 size_hint: None, None
                 width: dp(200)
                 height: dp(200)
-                canvas.before:
-                    Color:
-                        rgb: 0.5, 0.2, 0.1
-                    Rectangle:
-                        pos: self.pos
-                        size: self.size
-            Widget:
-                size_hint: None, None
-                width: dp(200)
-                height: dp(200)
-                canvas.before:
-                    Color:
-                        rgb: 0.5, 0.2, 0.1
-                    Rectangle:
-                        pos: self.pos
-                        size: self.size
-            Widget:
-                size_hint: None, None
-                width: dp(200)
-                height: dp(200)
-                canvas.before:
-                    Color:
-                        rgb: 0.5, 0.2, 0.1
-                    Rectangle:
-                        pos: self.pos
-                        size: self.size
-
-            Widget:
-                size_hint: None, None
-                width: dp(200)
-                height: dp(200)
-                canvas.before:
-                    Color:
-                        rgb: 0.5, 0.2, 0.1
-                    Rectangle:
-                        pos: self.pos
-                        size: self.size
+                text: "No histograms calculated."
