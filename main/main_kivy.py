@@ -2,7 +2,7 @@
 from kivymd.uix.floatlayout import MDFloatLayout
 from kivymd.app import MDApp
 from kivy.config import Config
-from kivy.properties import Clock, mainthread
+from kivy.clock import Clock, mainthread
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
 from kivymd_extensions.title_bar import MDTitleBar
@@ -69,13 +69,15 @@ class MainFrameOfApp(MDFloatLayout):
                     if len(val[2]) == 2:
                         if val[2] != (None, None):
 
-                            MenagerAppBackEnd.add_string_output(deepcopy(val[2][1]))
+                            MenagerAppBackEnd.add_string_output(
+                                deepcopy(val[2][1]))
 
                             settings = MenagerAppBackEnd.get_settings()
 
                             bins = settings.histogram['nr_bars']
 
                             list_of_mbos = val[2][0]
+                            self.ids.show_histograms.remove_all_figs()
 
                             for mbos in list_of_mbos:
 
@@ -233,6 +235,8 @@ class pyMayCoorApp(MDApp):
                 self.text_input.focus = False
             except:
                 self.text_input = None
+
+        self.root.ids.show_histograms.update_text_inputs()
 
     def change_state(self, widget):
         self.text_input = widget

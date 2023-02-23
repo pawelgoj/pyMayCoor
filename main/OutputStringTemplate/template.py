@@ -18,7 +18,7 @@ class StringTemplate:
 
     @staticmethod
     def get_qi_units_header() -> str:
-        return f"\n# Qⁱ numbers \n\n"
+        return f"\n# Q_i numbers \n\n"
 
     @staticmethod
     def get_connections_header() -> str:
