@@ -81,7 +81,8 @@ class AppBackEnd:
         output_string += StringTemplate.get_wrong_atoms_list(
             wrong_atoms_names)
 
-        if self.settings.histogram['calc'] is True:
+        try:
+            self.settings.histogram['calc'] = True
             output_string = StringTemplate.get_histogram_header()
             output = calculations_for_atoms_lists\
                 .HistogramsFromPairOfAtoms.calculate(pairs_atoms_list,
@@ -100,8 +101,9 @@ class AppBackEnd:
                     mbos = [mbo for mbo in mbos if mbo > pair.MBO_min
                             and mbo < pair.MBO_max]
                 list_of_mbos.append((pair.id, mbos))
-        else:
+        except:
             output_string = ""
+            list_of_mbos = 'error'
 
         if queue is not None:
             queue.put((True, 100, (list_of_mbos,

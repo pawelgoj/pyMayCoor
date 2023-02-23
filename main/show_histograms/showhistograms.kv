@@ -14,8 +14,12 @@
             padding: dp(10)
             orientation: 'lr-tb'
             MDLabel:
+                id_widget: "label"
                 id: info_label
                 size_hint: None, None
                 width: dp(200)
-                height: dp(200)
-                text: "No histograms calculated."
+                height: dp(50)
+                text: "No histograms calculated"
+                valign: "top"
+                theme_text_color: "Custom"
+                text_color: app.theme_cls.primary_color

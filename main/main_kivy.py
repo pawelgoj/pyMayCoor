@@ -60,11 +60,9 @@ class MainFrameOfApp(MDFloatLayout):
             if not MenagerAppBackEnd.queue.empty():
                 val = MenagerAppBackEnd.queue.get()
                 self._update_progress_bar(val[1])
-
+                dialog_text = "Error!!!"
                 if val[0] is True:
                     MenagerAppBackEnd.end_of_process()
-
-                    dialog_text = "Calculations completed!!!"
 
                     if len(val[2]) == 2:
                         if val[2] != (None, None):
@@ -74,23 +72,28 @@ class MainFrameOfApp(MDFloatLayout):
 
                             settings = MenagerAppBackEnd.get_settings()
 
-                            bins = settings.histogram['nr_bars']
+                            bins = settings.histogram.get('nr_bars', None)
 
                             list_of_mbos = val[2][0]
-                            self.ids.show_histograms.remove_all_figs()
+                            if list_of_mbos == 'error' or bins is None:
+                                dialog_text = "Insert correct settings!!!"
+                            else:
+                                self.ids.show_histograms.remove_all_figs()
+                                dialog_text = "Calculations completed!!!"
+                                for mbos in list_of_mbos:
 
-                            for mbos in list_of_mbos:
-
-                                self.ids.show_histograms.make_hists(
-                                    mbos[0], mbos[1], bins)
+                                    self.ids.show_histograms.make_hists(
+                                        mbos[0], mbos[1], bins)
+                            self._show_dialog(dialog_text, 'ok')
 
                     else:
                         MenagerAppBackEnd.add_string_output(val[2])
                         self.ids.raport_viever.remove_report()
                         self.ids.raport_viever.show_report(
                             MenagerAppBackEnd.get_string_output())
+                        dialog_text = "Calculations completed!!!"
 
-                    self._show_dialog(dialog_text, 'ok')
+                        self._show_dialog(dialog_text, 'ok')
 
         except AttributeError:
             pass
@@ -135,7 +138,10 @@ class MainFrameOfApp(MDFloatLayout):
             MenagerAppBackEnd\
                 .del_empty_added_pair_of_atom_objects()
             try:
-                if MenagerAppBackEnd.check_settings_is_correct():
+                if MenagerAppBackEnd.check_settings_is_correct()\
+                    and (MenagerAppBackEnd.get_settings().pairs_atoms_list != []
+                         or MenagerAppBackEnd.get_settings().pairs_atoms_list is None):
+
                     MenagerAppBackEnd\
                         .cast_values_pairs_of_atom_to_correct_values_for_calc()
                     MenagerAppBackEnd.make_queue()
@@ -145,6 +151,10 @@ class MainFrameOfApp(MDFloatLayout):
                         .value = 0
                     self.ids.label_for_progrss_bar\
                         .text = "Work in progress..."
+                else:
+                    dialog_text = "To perform calculations you must insert"\
+                        + " correct settings!"
+                    self._show_dialog(dialog_text, 'ok')
 
             except NoDataAndSettingsError:
                 dialog_text = "To perform calculations you must load correct"\
