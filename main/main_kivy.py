@@ -91,19 +91,22 @@ class MainFrameOfApp(MDFloatLayout):
 
     @ mainthread
     def _show_dialog(self, dialog_text, button_text):
-        if not self.dialog:
-            self.dialog = MDDialog(
-                text=dialog_text,
-                buttons=[
-                    MDFlatButton(
-                        text=button_text,
-                        theme_text_color="Custom",
-                        text_color=myApp.theme_cls.primary_color,
-                        on_press=self.remove_dialog
-                    ),
-                ],
-            )
-            self.dialog.open()
+
+        if self.dialog is not None:
+            self.dialog = None
+
+        self.dialog = MDDialog(
+            text=dialog_text,
+            buttons=[
+                MDFlatButton(
+                    text=button_text,
+                    theme_text_color="Custom",
+                    text_color=myApp.theme_cls.primary_color,
+                    on_press=self.remove_dialog
+                ),
+            ],
+        )
+        self.dialog.open()
 
     @ mainthread
     def remove_dialog(self, widget):

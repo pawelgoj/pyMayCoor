@@ -2,8 +2,8 @@ from multiprocessing import Process, Pipe
 from multiprocessing.connection import Connection
 import yaml
 
-from OutputStringTemplate.template import StringTemplate
-from Settings.settings import Settings
+from output_string_template.template import StringTemplate
+from settings.settings import Settings
 from BondOrderProcessing.bond_order_processing\
     import calculations_for_atoms_lists, input_data
 from BondOrderProcessing.bond_order_processing.calculations\

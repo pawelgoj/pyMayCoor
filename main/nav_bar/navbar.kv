@@ -1,4 +1,4 @@
-#:import NavButton NavBar.navButton
+#:import NavButton nav_bar.nav_button
 
 <NavBar>:
     pos_hint: {'top': 1, 'left': 0}
@@ -9,13 +9,17 @@
     height: dp(85)
     md_bg_color: app.theme_cls.primary_color
 
+
     MDTopAppBar:
         md_bg_color: app.theme_cls.primary_color
         pos_hint: {'top': 1, 'left': 0}
         elevation: 0
         title: "pyMayCoor"
-        right_action_items: [["brightness-4", lambda x: app.switch_theme_style()], ["menu", lambda x: True]]
-    
+        right_action_items: [["brightness-4", lambda x: app.switch_theme_style()], ["menu", lambda x: root.show_menu_bar(x)]]
+        
+        
+        #  ["menu", lambda x: True]]
+
     MDBoxLayout:
         orientation: 'horizontal'
         NavButton:
@@ -29,7 +33,7 @@
             text: "Save settings"
             icon: "content-save-settings"
             on_release: NavBar.NavBar.on_touch_up_save_settings(self)
-        
+
         NavButton:
             pos: dp(300), dp(0)
             text: "Load settings"

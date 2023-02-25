@@ -3,7 +3,7 @@ from kivymd.uix.selectioncontrol.selectioncontrol import MDSwitch
 from kivy.lang.builder import Builder
 from kivy.properties import BooleanProperty
 from kivy.properties import StringProperty
-Builder.load_file("switchButton/SwitchButton.kv")
+Builder.load_file("switch_button/switchbutton.kv")
 
 
 class SwithButtonWidget(RelativeLayout):

@@ -1,5 +1,5 @@
-from Settings.globals import VERSION
-from Settings.globals import OUTPUT_FILE_CODING
+from settings.globals import VERSION
+from settings.globals import OUTPUT_FILE_CODING
 
 
 class StringTemplate:

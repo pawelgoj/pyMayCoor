@@ -4,7 +4,7 @@ from multiprocessing.connection import Connection
 from copy import deepcopy
 from typing import Callable
 
-from Settings.settings import Settings
+from settings.settings import Settings
 from BondOrderProcessing.bond_order_processing.calculations import PairOfAtoms
 
 

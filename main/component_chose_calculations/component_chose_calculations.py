@@ -4,7 +4,7 @@ from kivy.lang.builder import Builder
 from back_end_for_kivy import MenagerAppBackEnd
 
 
-Builder.load_file("ComponentChoseCalculations/ComponentChoseCalculations.kv")
+Builder.load_file("component_chose_calculations/componentchosecalculations.kv")
 
 
 class ComponentChoseCalculations(GridLayout):

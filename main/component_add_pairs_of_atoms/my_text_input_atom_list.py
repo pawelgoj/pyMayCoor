@@ -1,8 +1,8 @@
 from back_end_for_kivy import MenagerAppBackEnd
-from mytextInput.mytextInput import MyTextInput
+from my_text_input.my_text_input import MyTextInput
 import re
 from kivy.lang.builder import Builder
-Builder.load_file("ComponentAddPairsOfAtoms/MyTextInputAtomList.kv")
+Builder.load_file("component_add_pairs_of_atoms/mytextinputatomlist.kv")
 
 
 class MyTextInputAtomList(MyTextInput):

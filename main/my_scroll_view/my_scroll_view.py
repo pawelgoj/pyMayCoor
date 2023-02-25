@@ -2,7 +2,7 @@ from kivymd.uix.scrollview import MDScrollView
 from kivy.lang.builder import Builder
 
 
-Builder.load_file("myscrollview/myscrollview.kv")
+Builder.load_file("my_scroll_view/myscrollview.kv")
 
 
 class MyScrollView(MDScrollView):

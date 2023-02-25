@@ -3,7 +3,7 @@ from kivy.lang.builder import Builder
 from kivy.properties import StringProperty
 
 
-Builder.load_file("mytextInput/MyTextInput.kv")
+Builder.load_file("my_text_input/mytextInput.kv")
 
 
 class MyTextInput(MDTextField):
