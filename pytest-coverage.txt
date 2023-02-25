@@ -6,13 +6,24 @@ collected 53 items
 
 test/test_calculations.py ..................
 test/test_calculations_for_atoms_lists.py ................
-test/test_end_to_end.py Done!, execution time: 5.043928861618042 s
-python
-F
+test/test_end_to_end.py python
+FE
 test/test_input_data.py .................
 test/test_settings.py FE
 
 ==================================== ERRORS ====================================
+______ ERROR at teardown of TestEndToEnd.test_execute_app_in_cmd[python] _______
+
+request = <SubRequest 'env_for_end_to_end_tests_2' for <Function test_execute_app_in_cmd[python]>>
+
+    @pytest.fixture()
+    def env_for_end_to_end_tests_2(request):
+        file_name = "test_output.txt"
+        yield file_name
+>       os.remove(f'./{file_name}')
+E       FileNotFoundError: [Errno 2] No such file or directory: './test_output.txt'
+
+test/conftest.py:52: FileNotFoundError
 _______________ ERROR at teardown of TestSettings.test_save_data _______________
 
 request = <SubRequest 'env_for_end_to_end_tests_2' for <Function test_save_data>>
@@ -28,7 +39,7 @@ test/conftest.py:52: FileNotFoundError
 =================================== FAILURES ===================================
 _________________ TestEndToEnd.test_execute_app_in_cmd[python] _________________
 
-self = <test.test_end_to_end.TestEndToEnd object at 0x7f1fc6b6fc70>
+self = <test.test_end_to_end.TestEndToEnd object at 0x7f47349c7ca0>
 python_command = 'python', env_for_end_to_end_tests_2 = 'test_output.txt'
 
     @pytest.mark.usefixtures("env_for_end_to_end_tests_2")
@@ -39,24 +50,13 @@ python_command = 'python', env_for_end_to_end_tests_2 = 'test_output.txt'
         subprocess.run(
             f'{python_command} ./main/main.py -i ./egzamples_instructions/out1.txt -s ./egzamples_instructions/settings.yaml -o "{fn}"', shell=True)
     
-        with open(fn, 'r', encoding="utf-8") as file:
-            data = file.read()
-            check = ['# pyMayCoor', '# Histograms', '# Qⁱ numbers',
-                     '# Connections', '# Bond lengths', '# Covalence from Mayer bond orders']
-    
-        result = True
-        for item in check:
-            if item not in data:
-                result = False
-                break
-    
->       assert result
-E       assert False
+>       with open(fn, 'r', encoding="utf-8") as file:
+E       FileNotFoundError: [Errno 2] No such file or directory: 'test_output.txt'
 
-test/test_end_to_end.py:25: AssertionError
+test/test_end_to_end.py:14: FileNotFoundError
 _________________________ TestSettings.test_save_data __________________________
 
-self = <test.test_settings.TestSettings object at 0x7f1fc6bbf940>
+self = <test.test_settings.TestSettings object at 0x7f4734a1a410>
 env_for_end_to_end_tests_2 = 'test_output.txt'
 
     @pytest.mark.usefixtures("env_for_end_to_end_tests_2")
@@ -123,7 +123,8 @@ TOTAL                                                                           
 1 file skipped due to complete coverage.
 
 =========================== short test summary info ============================
-FAILED test/test_end_to_end.py::TestEndToEnd::test_execute_app_in_cmd[python] - assert False
+FAILED test/test_end_to_end.py::TestEndToEnd::test_execute_app_in_cmd[python] - FileNotFoundError: [Errno 2] No such file or directory: 'test_output.txt'
 FAILED test/test_settings.py::TestSettings::test_save_data - FileNotFoundError: [Errno 2] No such file or directory: 'test_output.txt'
+ERROR test/test_end_to_end.py::TestEndToEnd::test_execute_app_in_cmd[python] - FileNotFoundError: [Errno 2] No such file or directory: './test_output.txt'
 ERROR test/test_settings.py::TestSettings::test_save_data - FileNotFoundError: [Errno 2] No such file or directory: './test_output.txt'
-============== 2 failed, 51 passed, 3 warnings, 1 error in 20.97s ==============
+============= 2 failed, 51 passed, 3 warnings, 2 errors in 17.23s ==============
