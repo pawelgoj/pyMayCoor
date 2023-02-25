@@ -1,7 +1,6 @@
 from kivy.uix.textinput import TextInput
 from .button_copy import ButtonCopy
 from kivy.properties import StringProperty
-from kivy.core.text import markup
 
 
 class ReportSegment(TextInput):

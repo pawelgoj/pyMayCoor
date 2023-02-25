@@ -1,4 +1,3 @@
-from .myRectangelButton import MyRectangleButton
 from .MyTextInputAtomList import MyTextInputAtomList
 from kivymd.uix.relativelayout import RelativeLayout
 from kivy.metrics import dp

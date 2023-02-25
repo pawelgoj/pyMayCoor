@@ -1,5 +1,4 @@
 from kivymd.uix.button import MDTextButton
-from kivymd.color_definitions import colors
 from kivy.core.window import Window
 
 

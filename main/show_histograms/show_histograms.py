@@ -1,5 +1,4 @@
 import threading
-from copy import deepcopy
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivy.lang.builder import Builder
 import matplotlib.pyplot as plt
@@ -9,12 +8,9 @@ from kivy.garden.matplotlib.backend_kivyagg import FigureCanvasKivyAgg
 from kivy.metrics import dp
 from functools import partial
 from show_histograms.save_fig import SaveFig
-from kivymd.uix.floatlayout import MDFloatLayout
 from kivymd.uix.relativelayout import MDRelativeLayout
 from kivymd.uix.boxlayout import MDBoxLayout
-from kivymd.uix.widget import MDWidget
-from kivy.properties import Clock
-from main_kivy import myApp
+from kivy.clock import Clock, mainthread
 
 Builder.load_file("show_histograms/showhistograms.kv")
 Builder.load_file("show_histograms/savefig.kv")
@@ -36,6 +32,7 @@ class ShowHistograms(MDBoxLayout):
         fig_titles_data = []
         super().__init__(**kwargs)
 
+    @ mainthread
     def make_hists(self, pair: str, mbo: list[float], bins: int):
 
         if self.first_used:
@@ -81,6 +78,7 @@ class ShowHistograms(MDBoxLayout):
         self.free_index += 1
         self.figures.append(relative_layout)
 
+    @ mainthread
     @ staticmethod
     def figure_press(widget, touch):
         global on_save_fig
@@ -145,15 +143,12 @@ class ShowHistograms(MDBoxLayout):
                     widget.add_widget(widget_f)
                     on_save_fig = True
 
+    @ mainthread
     def save_fig(self, id: int, path, width: float,
                  height: float):
         global fig_titles_data
         pair, mbo, bins = fig_titles_data[id]
-        
-        threading.Thread(target=self._thread_save_fig,
-                         args=(width, height, pair, mbo, bins)).start()
 
-    def _thread_save_fig(self, width, height, pair, mbo, bins):
         fig_s, ax_s = plt.subplots(1)
         cm = 1 / 2.54
         fig_s.set_figwidth(width*cm)
@@ -169,6 +164,7 @@ class ShowHistograms(MDBoxLayout):
         fig_s.savefig(path)
         plt.close()
 
+    @ mainthread
     def remove_all_figs(self):
         self.ids.hist_stack_layout.clear_widgets()
         self.figures = []
@@ -180,6 +176,7 @@ class ShowHistograms(MDBoxLayout):
         global on_save_fig
         on_save_fig = False
 
+    @ mainthread
     def update_text_inputs(self):
         global on_save_fig
         # Because of problem of theming in TextInput in kivyMD
@@ -196,6 +193,7 @@ class ShowHistograms(MDBoxLayout):
 
                         Clock.schedule_once(partial(update, child_2), 0)
 
+    @ mainthread
     def set_on_save(self, value: bool):
         global on_save_fig
         on_save_fig = value

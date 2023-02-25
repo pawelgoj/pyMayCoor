@@ -4,7 +4,6 @@ from kivymd.uix.behaviors import CommonElevationBehavior
 from kivy.lang.builder import Builder
 from back_end_for_kivy import MenagerAppBackEnd
 
-from app_back_end import AppBackEnd
 Builder.load_file("NavBar/NavButton.kv")
 Builder.load_file("NavBar/NavBar.kv")
 

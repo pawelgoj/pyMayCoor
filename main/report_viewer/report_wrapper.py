@@ -1,4 +1,3 @@
-from .report_segment import ReportSegment
 from kivymd.uix.widget import MDWidget
 from kivy.properties import NumericProperty
 from kivy.properties import StringProperty
