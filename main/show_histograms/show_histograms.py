@@ -17,6 +17,7 @@ from main_kivy import myApp
 
 Builder.load_file("show_histograms/showhistograms.kv")
 Builder.load_file("show_histograms/savefig.kv")
+Builder.load_file("show_histograms/savefigtextinput.kv")
 
 
 class ShowHistograms(MDBoxLayout):
@@ -126,11 +127,22 @@ class ShowHistograms(MDBoxLayout):
                         Clock.schedule_once(update_f, 0)
                         widget.zooming = False
                 elif touch.button == 'right':
+                    pos_temp = list(widget.to_local(*touch.pos))
+
                     widget_f = SaveFig()
-                    widget_f.pos = widget.to_local(*touch.pos)
+
+                    box_width = widget_f.ids.save_fig_widget.width
+                    box_height = widget_f.ids.save_fig_widget.height
+
+                    if (pos_temp[0] + box_width) >= widget.width:
+                        pos_temp[0] = pos_temp[0] - box_width
+
+                    if (pos_temp[1] + box_height) >= widget.height:
+                        pos_temp[1] = pos_temp[1] - box_height
+
+                    widget_f.pos = tuple(pos_temp)
                     widget.add_widget(widget_f)
                     on_save_fig = True
-                    # ShowHistograms.save_fig(widget.fig_id)
 
     def save_fig(self, id: int, path, width: float,
                  height: float):
@@ -170,7 +182,6 @@ class ShowHistograms(MDBoxLayout):
             for child in self.ids.hist_stack_layout.children:
                 for child_2 in child.children:
                     if type(child_2) is SaveFig:
-                        print(child_2.ids)
 
                         def update(child_2, dt):
                             child_2.ids.save_fig_text_input_1.focus = True

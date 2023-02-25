@@ -8,9 +8,11 @@ Builder.load_file("myscrollview/myscrollview.kv")
 class MyScrollView(MDScrollView):
 
     def on_touch_down(self, touch):
+
         super().on_touch_down(touch)
 
     def on_touch_up(self, touch):
+
         super().on_touch_up(touch)
 
     def on_touch_move(self, touch):
@@ -40,9 +42,6 @@ class MyScrollView(MDScrollView):
                          and touch.pos[1] < self.pos[1] + self.height):
 
                     super().on_touch_move(touch)
-
-        else:
-            super().on_touch_move(touch)
 
     def on_bar_color(self, *args):
         # for update scroll after theme change

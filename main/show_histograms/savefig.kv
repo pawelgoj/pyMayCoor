@@ -1,9 +1,11 @@
 #:import NavButton NavBar.navButton
-#:set font_size sp(16) 
+#:import SaveFigTextInput show_histograms.save_fig_text_input
+#:set font_size sp(16)
+
+
 
 <SaveFig>:
     id_widget: "fig"
-    id: dupa
     Widget:
         id: save_fig_widget
         pos: root.pos
@@ -30,30 +32,14 @@
             theme_text_color: "Custom"
             text_color: app.theme_cls.primary_color
             text:'Save a picture with dimensions:' 
-        MDTextField:
+        SaveFigTextInput:
             id: save_fig_text_input_1
             hint_text: "width [cm]"
-            color_mode: "custom"
-            text_color_normal: app.theme_cls.text_color
-            text_color_focus: app.theme_cls.primary_color
-            hint_text_color_normal: app.theme_cls.text_color
-            hint_text_color_focus: app.theme_cls.primary_color
-            line_color_normal: app.theme_cls.text_color
-            line_color_focus: 1, 0.2, 0.2, 1
-            font_size: font_size
-            text:''
-        MDTextField:
+
+        SaveFigTextInput:
             id: save_fig_text_input_2
             hint_text: "height [cm]"
-            color_mode: "custom"
-            text_color_normal: app.theme_cls.text_color
-            text_color_focus: app.theme_cls.primary_color
-            hint_text_color_normal: app.theme_cls.text_color
-            hint_text_color_focus: app.theme_cls.primary_color
-            line_color_normal: app.theme_cls.text_color
-            line_color_focus: 1, 0.2, 0.2, 1
-            font_size: font_size
-            text:''
+
         MDBoxLayout:
             orientation: 'horizontal'
             spacing: dp(5)
@@ -67,5 +53,3 @@
                 padding: [dp(0), dp(1), dp(5), dp(1)]
                 text: 'cancel'
                 on_press: root.on_cancel(self)
-
-
