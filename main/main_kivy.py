@@ -5,8 +5,6 @@ from kivy.config import Config
 from kivy.clock import Clock, mainthread
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
-from kivymd_extensions.title_bar import MDTitleBar
-from switchButton.switchButton import SwithButtonWidget
 from kivymd.uix.tab import MDTabsBase
 from kivymd.uix.tab import MDTabs
 from copy import deepcopy
@@ -14,13 +12,6 @@ from copy import deepcopy
 
 from back_end_for_kivy import MenagerAppBackEnd
 from back_end_for_kivy import NoDataAndSettingsError
-from NavBar import navBar
-from ComponentAddPairsOfAtoms import componentAddPairsOfAtoms
-from mytextInput import mytextInput
-from ComponentChoseCalculations import componentChoseCalculations
-from switchButton import switchButton
-from NavBar.navBar import NavBar
-from report_viewer.report_viewer import ReportViewer
 
 
 # remove red dots on right mouse click (multitouch emulation)
@@ -30,7 +21,6 @@ Config.set('graphics', 'vsync', '2')
 Config.set('graphics', 'width', '1000')
 Config.set('graphics', 'height', '700')
 Config.set('graphics', 'custom_titlebar', '0')
-# Config.set('graphics', 'min_state_time', '0.005')
 
 
 class MyTabs(MDTabs):

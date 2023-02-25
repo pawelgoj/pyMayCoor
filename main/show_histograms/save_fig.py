@@ -1,11 +1,10 @@
 from kivymd.uix.floatlayout import MDFloatLayout
 from plyer import filechooser
-from kivymd.uix.relativelayout import MDRelativeLayout
 from kivy.properties import StringProperty
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.dialog import MDDialog
 from main_kivy import myApp
-from kivymd.uix.textfield import MDTextField
+
 
 class SaveFig(MDFloatLayout):
     id_widget: StringProperty = StringProperty()
