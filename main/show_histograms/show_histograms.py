@@ -1,3 +1,4 @@
+import threading
 from copy import deepcopy
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivy.lang.builder import Builder
@@ -148,7 +149,11 @@ class ShowHistograms(MDBoxLayout):
                  height: float):
         global fig_titles_data
         pair, mbo, bins = fig_titles_data[id]
+        
+        threading.Thread(target=self._thread_save_fig,
+                         args=(width, height, pair, mbo, bins)).start()
 
+    def _thread_save_fig(self, width, height, pair, mbo, bins):
         fig_s, ax_s = plt.subplots(1)
         cm = 1 / 2.54
         fig_s.set_figwidth(width*cm)

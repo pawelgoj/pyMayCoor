@@ -54,6 +54,7 @@ class MainFrameOfApp(MDFloatLayout):
         self.previous_state_of_thread = 0
         self.progress_bar_value = 0
 
+    @ mainthread
     def update(self, dt):
 
         try:
@@ -98,6 +99,7 @@ class MainFrameOfApp(MDFloatLayout):
         except AttributeError:
             pass
 
+    @ mainthread
     def _show_dialog(self, dialog_text, button_text):
         if not self.dialog:
             self.dialog = MDDialog(
@@ -113,11 +115,13 @@ class MainFrameOfApp(MDFloatLayout):
             )
             self.dialog.open()
 
+    @ mainthread
     def remove_dialog(self, widget):
         widget.parent.parent.parent.parent.parent.remove_widget(
             widget.parent.parent.parent.parent)
         self.dialog = None
 
+    @ mainthread
     def _update_progress_bar(self, value: int):
 
         if value == 100:
@@ -129,6 +133,7 @@ class MainFrameOfApp(MDFloatLayout):
             self.previous_state_of_thread = value
             self.ids.progress_bar.value = self.progress_bar_value
 
+    @ mainthread
     def calculate_histograms(self, widget):
 
         if MenagerAppBackEnd.check_thread_run():
@@ -161,6 +166,7 @@ class MainFrameOfApp(MDFloatLayout):
                     + " input data!"
                 self._show_dialog(dialog_text, 'ok')
 
+    @ mainthread
     def change_state_histogram_button(self, widget):
         if widget.active:
             MenagerAppBackEnd.change_settings_item(
@@ -169,6 +175,7 @@ class MainFrameOfApp(MDFloatLayout):
             MenagerAppBackEnd.change_settings_item(
                 'histogram_bool', False)
 
+    @ mainthread
     def change_state_bars_input_histogram(self, widget):
         if widget.text != '':
             try:
@@ -219,6 +226,7 @@ class pyMayCoorApp(MDApp):
         self.theme_cls.theme_style = "Light"
         self.theme_cls.hover_color = (0.63, 0.56, 0.76, 1)
 
+    @ mainthread
     def switch_theme_style(self):
         if self.text_input != None:
             # This statement is because strange preserved of MDtextInput
@@ -248,6 +256,7 @@ class pyMayCoorApp(MDApp):
 
         self.root.ids.show_histograms.update_text_inputs()
 
+    @ mainthread
     def change_state(self, widget):
         self.text_input = widget
 
