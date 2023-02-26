@@ -1,5 +1,7 @@
 from kivymd.uix.textfield import MDTextField
+from kivy.lang.builder import Builder
 
+Builder.load_file("show_histograms/savefigtextinput.kv")
 
 class SaveFigTextInput(MDTextField):
     def __init__(self, **kwargs):

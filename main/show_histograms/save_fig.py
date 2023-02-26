@@ -3,8 +3,10 @@ from plyer import filechooser
 from kivy.properties import StringProperty
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.dialog import MDDialog
+from kivy.lang.builder import Builder
 from main_kivy import myApp
 
+Builder.load_file("show_histograms/savefig.kv")
 
 class SaveFig(MDFloatLayout):
     id_widget: StringProperty = StringProperty()

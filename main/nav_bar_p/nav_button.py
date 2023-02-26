@@ -1,7 +1,9 @@
 from kivymd.uix.button import MDFillRoundFlatIconButton
 from kivymd.uix.behaviors import HoverBehavior
 from kivymd.uix.dialog import MDDialog
+from kivy.lang.builder import Builder
 
+Builder.load_file("nav_bar_p/navbutton.kv")
 
 class NavButton(MDFillRoundFlatIconButton, HoverBehavior):
     dialog: MDDialog

@@ -1,15 +1,12 @@
-from .nav_button import NavButton
 from kivymd.uix.relativelayout import MDRelativeLayout
 from kivymd.uix.behaviors import CommonElevationBehavior
 from kivy.lang.builder import Builder
 from back_end_for_kivy import MenagerAppBackEnd
 from kivymd.uix.menu import MDDropdownMenu
 from kivy.metrics import dp
-from main_kivy import myApp
 import webbrowser
 
-Builder.load_file("nav_bar/navbutton.kv")
-Builder.load_file("nav_bar/navbar.kv")
+Builder.load_file("nav_bar_p/navbar.kv")
 
 
 class MyDropdownMenu(MDDropdownMenu):
@@ -18,7 +15,7 @@ class MyDropdownMenu(MDDropdownMenu):
 
 
 class NavBar(MDRelativeLayout, CommonElevationBehavior):
-    from nav_bar.user_actions import on_touch_up_find_input_file, \
+    from .user_actions import on_touch_up_find_input_file, \
         on_touch_up_chose_export_file, on_touch_up_load_settings,\
         on_touch_up_save_settings, on_enters, on_touch_up_run_program,\
         remove_dialog
