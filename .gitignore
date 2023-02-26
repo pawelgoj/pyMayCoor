@@ -9,3 +9,5 @@ dist/
 *.egg-info
 *.coverage
 pytest-converage.txt
+app/
+garden_matplotlib/
