@@ -33,7 +33,7 @@ jobs:
         dir
         python -m pytest --doctest-modules main/BondOrderProcessing/bond_order_processing/input_data.py
         python -m pytest --doctest-modules main/BondOrderProcessing/bond_order_processing/__init__.py
-        python -m pytest --doctest-modules main/Settings/settings.py
+        python -m pytest --doctest-modules main/settings/settings.py
         python -m pytest --doctest-modules main/BondOrderProcessing/bond_order_processing/calculations_for_atoms_lists.py
         python -m pytest -s --junitxml=pytest.xml --cov-report=term-missing:skip-covered --cov=main/BondOrderProcessing/bond_order_processing test test/ | tee pytest-coverage.txt
     
