@@ -18,6 +18,8 @@ Example:
     >>> coordinations_numbers_stats = CoordinationNumbers.calculate(mayer_bond_orders, 'P', 'O', 'INF', 0.2, 'P-O').calculate_statistics()
     >>> coordinations_numbers_stats.statistics
     {4: 100.0}
+    
+.. include:: ../app.md
 
 """
 __docformat__ = "google"
