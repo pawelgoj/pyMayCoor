@@ -31,6 +31,7 @@ jobs:
           pip install pdoc
           pdoc -t ./templete ./bond_order_processing -o ./docs
           cp Logo-pyMayCoor.png docs/
+          cp app.png docs/
 
     - uses: actions/upload-pages-artifact@v1
       with:

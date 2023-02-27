@@ -26,4 +26,4 @@ Library version: 1.1.0
 
 Check: https://github.com/pawelgoj/pyMayCoor
 
-![app](app.png)
+![app](https://pawelgoj.github.io/pyMayCoor/app.png)
