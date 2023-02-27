@@ -1,0 +1,70 @@
+============================= test session starts ==============================
+platform linux -- Python 3.10.6, pytest-7.2.1, pluggy-1.0.0
+rootdir: /home/runner/work/pyMayCoor/pyMayCoor
+plugins: cov-4.0.0
+collected 53 items
+
+test/test_calculations.py ..................
+test/test_calculations_for_atoms_lists.py ................
+test/test_end_to_end.py Done!, execution time: 5.305400609970093 s
+python
+.
+test/test_input_data.py .................
+test/test_settings.py calculations:
+  bond_length: true
+  cn: true
+  connections: true
+  covalence: true
+  q_i:
+    bond_id: P=O
+    calc: true
+histogram:
+  calc: true
+  nr_bars: 10
+pairs_atoms_list:
+- atom_1: P
+  atom_2: O
+  id: P=O
+  mbo_max: INF
+  mbo_min: 1.2
+- atom_1: P
+  atom_2: O
+  id: P-O
+  mbo_max: INF
+  mbo_min: 0.02
+- atom_1: Al
+  atom_2: O
+  id: Al-O
+  mbo_max: INF
+  mbo_min: 0.02
+
+.
+
+=============================== warnings summary ===============================
+test/test_calculations_for_atoms_lists.py:167
+  /home/runner/work/pyMayCoor/pyMayCoor/test/test_calculations_for_atoms_lists.py:167: PytestUnknownMarkWarning: Unknown pytest.mark.slow - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.slow
+
+test/test_calculations_for_atoms_lists.py:181
+  /home/runner/work/pyMayCoor/pyMayCoor/test/test_calculations_for_atoms_lists.py:181: PytestUnknownMarkWarning: Unknown pytest.mark.slow - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.slow
+
+main/settings/settings.py:214
+  /home/runner/work/pyMayCoor/pyMayCoor/main/settings/settings.py:214: DeprecationWarning: invalid escape sequence '\.'
+    if re.search('.*\.yaml|.*\.yml', path) is not None:
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+----- generated xml file: /home/runner/work/pyMayCoor/pyMayCoor/pytest.xml -----
+
+---------- coverage: platform linux, python 3.10.6-final-0 -----------
+Name                                                                             Stmts   Miss  Cover   Missing
+--------------------------------------------------------------------------------------------------------------
+main/BondOrderProcessing/bond_order_processing/calculations.py                     352      9    97%   40, 44, 51, 171, 324, 505, 660, 662-663
+main/BondOrderProcessing/bond_order_processing/calculations_for_atoms_lists.py     166      3    98%   84-87
+main/BondOrderProcessing/bond_order_processing/input_data.py                       422     53    87%   88-100, 122-155, 185-189, 225, 234-238, 306, 319-320, 379-383, 430-441, 478-479, 485, 500, 507, 664, 671, 709, 738, 742, 765, 772, 818, 826, 872, 878, 892, 943, 955
+--------------------------------------------------------------------------------------------------------------
+TOTAL                                                                              941     65    93%
+
+1 file skipped due to complete coverage.
+
+======================= 53 passed, 3 warnings in 22.03s ========================
