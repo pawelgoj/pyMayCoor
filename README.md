@@ -1,22 +1,51 @@
 # pyMayCoor
 
-Program allows you to process Mayer bond orders from the CPMD output file. 
-
+Program allows you to process Mayer bond orders **MBO** from the CPMD software (<https://github.com/CPMD-code>) output file. It is planned to add the ability of the program to work with other software output files having the ability to calculate MBO.
 
 You can calculate from Mayer bond orders:
 
-- coordinations numbers,
+- coordination numbers,
 - Qi units,
 - Connections between atoms,
 - Relation between bond order and length
+- Covalence (The sum of the bond orders of a given atom. This  value is close to the valence if atom have only purely covalent bonds)
 
-Work in progress, program is not full functional yet.🔨
+### Calculations example
 
-![program](program.png)
+![calculations](claculations.gif)
 
-## At the moment only the cli interface is available
+### The application also allows you to see the MBO distribution for a given chemical bond
 
-Run App by:
+![figs](figs.gif)
+
+## Requirements
+
+### Installation
+
+- Application works fine with python 3.10. The application has not been tested on other python versions.
+
+- Before you run app, install dependencies by pip from requirements.txt
+
+- After installing requirements install "matplotlib" flower from kivy garden. Below cmd command:
+
+```
+  garden install garden.matplotlib
+```
+
+
+### Installation on windows by installer
+
+- If you ues windows you can install app, download "pyMayCoor.zip" (find it in Releases). Unpack it and run installer "pyMayCoor.exe".
+
+## Usage
+
+- launching the application gui:
+
+```
+py main.py
+```
+
+- launching the application in cmd:
 
 ```
 py main.py -i <input_file_from_CPMD> -s <settings.yaml> -o <output_file>
@@ -29,7 +58,6 @@ Command flags:
 `-s` - set path to settings file
 
 `-o` - set path for output file
-
 
 ### Example of settings file
 
@@ -75,3 +103,25 @@ calculations:
 - <https://github.com/pawelgoj/pyMayCoor/tree/master/main/BondOrderProcessing>
 
 - [Documentation page](https://pawelgoj.github.io/pyMayCoor/bond_order_processing)
+
+## Technologies and tools
+
+- python 3.10
+- kivy
+- kivyMD
+- multiprocessing
+- regex
+- numpy
+- pytest
+- player
+- mypy
+- yaml
+- PyYAML
+- pdoc
+- github actions
+- plyer
+- matplotlib
+- seaborn
+- pyinstaller
+- Inno Setup Compiler
+- Google Fonts

@@ -25,11 +25,11 @@ class PairOfAtoms:
 
     """
 
-    atom_1: str
-    atom_2: str
-    MBO_min: float
-    MBO_max: float | str
-    id: str
+    atom_1: str = ''
+    atom_2: str = ''
+    MBO_min: float | str | None = None
+    MBO_max: float | str | None = None
+    id: str = ''
 
 
 class Calculations(ABC):

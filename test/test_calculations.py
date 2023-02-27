@@ -336,7 +336,7 @@ class TestEndToEnd:
         from main.BondOrderProcessing.bond_order_processing.input_data\
             import InputDataFromCPMD
 
-        path_to_input_file = "egzamples_instructions/out1.txt"
+        path_to_input_file = "egzamples_instructions/cpmd_out1.txt"
         input_data = InputDataFromCPMD()
         input_data.load_input_data(
             path_to_input_file, LoadedData.MayerBondOrders)

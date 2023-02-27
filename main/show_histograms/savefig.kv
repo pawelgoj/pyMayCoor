@@ -1,0 +1,55 @@
+#:import NavButton nav_bar_p.nav_button
+#:import SaveFigTextInput show_histograms.save_fig_text_input
+#:set font_size sp(16)
+
+
+
+<SaveFig>:
+    id_widget: "fig"
+    Widget:
+        id: save_fig_widget
+        pos: root.pos
+        size_hint: None, None
+        height: dp(200)
+        width: dp(180)
+        canvas.before:
+            Color:
+                rgba: 
+                    app.theme_cls.bg_dark[0],\
+                    app.theme_cls.bg_dark[1],\
+                    app.theme_cls.bg_dark[2],\
+                    0.95
+            Rectangle:
+                pos: self.pos
+                size: self.size
+    MDBoxLayout:
+        size_hint: None, None
+        pos: root.pos
+        size: save_fig_widget.size
+        orientation: 'vertical'
+        padding: [dp(4), dp(0), dp(4), dp(0)]
+        MDLabel:
+            theme_text_color: "Custom"
+            text_color: app.theme_cls.primary_color
+            text:'Save a picture with dimensions:' 
+        SaveFigTextInput:
+            id: save_fig_text_input_1
+            hint_text: "width [cm]"
+
+        SaveFigTextInput:
+            id: save_fig_text_input_2
+            hint_text: "height [cm]"
+
+        MDBoxLayout:
+            orientation: 'horizontal'
+            spacing: dp(5)
+            padding: [dp(18), dp(10), dp(6), dp(4)]
+            NavButton:
+                padding: [dp(0), dp(1), dp(5), dp(1)]
+                text: 'ok'
+                on_press: root.on_ok(self)
+
+            NavButton:
+                padding: [dp(0), dp(1), dp(5), dp(1)]
+                text: 'cancel'
+                on_press: root.on_cancel(self)

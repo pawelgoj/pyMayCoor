@@ -16,15 +16,15 @@ if __name__ == '__main__':
     if parser.parse_args().input_file != ''\
             and parser.parse_args().file_with_settings != '':
         start = time.time()
-        from main_cli import AppForCli
+        from app_back_end import AppBackEnd
 
         data = parser.parse_args()
 
-        app_for_cli = AppForCli(
-            data.file_with_settings, data.input_file, data.output_file)
-
+        app_for_cli = AppBackEnd(False)
+        app_for_cli.load_data(data.input_file)
+        app_for_cli.load_settings(data.file_with_settings)
         app_for_cli.perform_calculations()
-        app_for_cli.save_output()
+        app_for_cli.save_output(data.output_file)
         end = time.time()
         print(f"Done!, execution time: {end - start} s")
 
@@ -37,3 +37,4 @@ if __name__ == '__main__':
 
     else:
         import main_kivy
+        main_kivy.run_app()

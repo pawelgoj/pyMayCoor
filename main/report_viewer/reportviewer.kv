@@ -1,0 +1,54 @@
+#:import ReportWrapper report_viewer.report_wrapper
+#:import MyScrollView my_scroll_view.my_scroll_view
+
+<ReportViewer>:
+    size_hint: None, None
+    orientation: 'horizontal'
+    MyScrollView:
+        id: report_scrollView_1
+        height: root.height
+        size_hint_x: 0.2
+        MDStackLayout:
+            size_hint_y : None
+            height: self.minimum_height
+            padding: [dp(8), 0, dp(8), 0]
+            orientation: 'lr-tb'
+            MDLabel:
+                padding_x: dp(8)
+                size_hint_y: None
+                height: dp(40)
+                theme_text_color: "Custom"
+                text_color: app.theme_cls.text_color
+                text: "[b]Report headers[/b]"
+                markup: True
+                canvas.before:
+                    Color: 
+                        rgba: app.theme_cls.bg_dark
+                    Rectangle:
+                        pos: self.pos[0] - dp(8), self.pos[1] - dp(100)
+                        size: self.size[0] + dp(8), self.size[1] + dp(800)
+            MDWidget:
+                size_hint_y: None
+                height: dp(10)
+                canvas.before:
+                    Color: 
+                        rgba: app.theme_cls.bg_dark
+                    Rectangle:
+                        pos: self.pos[0] - dp(8), self.pos[0] - 2000
+                        size: self.size[0] + dp(8), self.size[1] + 2000
+
+    MyScrollView:
+        id: report_scrollView_2
+        height: root.height
+        size_hint_x: 0.8
+
+        MDStackLayout:
+            orientation: "lr-tb"
+            spacing: dp(0)
+            size_hint: None, None
+            height: self.minimum_height
+            width: report_scrollView_2.width
+
+            ReportWrapper:
+                id: wraper1
+

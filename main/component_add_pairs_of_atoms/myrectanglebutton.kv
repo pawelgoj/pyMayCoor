@@ -1,0 +1,19 @@
+<MyRectangleButton>:
+    canvas.before:
+        Color:
+            rgba: app.theme_cls.primary_color[0], app.theme_cls.primary_color[1], app.theme_cls.primary_color[2], 0.2
+        Ellipse:
+            pos: self.pos[0], self.pos[1]
+            size: self.size[0], self.size[1]
+        Color:
+            rgba: app.theme_cls.primary_color[0], app.theme_cls.primary_color[1], app.theme_cls.primary_color[2], 0.5
+        Ellipse:
+            pos: self.pos[0] +0.5, self.pos[1] +0.5
+            size: self.size[0] -1, self.size[1] -1
+        Color:
+            rgba: app.theme_cls.primary_color
+        Ellipse:
+            pos: self.pos[0] + 1, self.pos[1] + 1
+            size: self.size[0] -2, self.size[1] -2
+    theme_icon_color: "Custom"
+    icon_color: colors['Gray']['200']

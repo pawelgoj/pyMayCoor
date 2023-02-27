@@ -1,0 +1,114 @@
+#:import switchButton switch_button.switch_button
+#:import MyTextInput my_text_input.my_text_input
+#:set row_height dp(40)
+#:set spacing_padding dp(10)
+
+<ComponentChoseCalculations>:
+    row_default_height: row_height
+    padding: [spacing_padding, spacing_padding, spacing_padding, spacing_padding]
+    spacing: spacing_padding
+    cols: 3
+    rows: 5
+    height: 5 * row_height  + 6 * spacing_padding
+
+    MDLabel: 
+        size_hint_x: 1.5
+        valign: 'middle'
+        text: u'Q[sup]i[/sup] calculations: '
+        theme_text_color: "Custom"
+        text_color: app.theme_cls.text_color
+        markup: True
+
+    SwithButtonWidget:
+        id: q_i
+        name_of_widget: 'q_i_button'
+        on_active: root.change_settings_calc(self)
+
+    MDRelativeLayout:
+        width: row_height
+        MyTextInput:
+            id: q_i_text
+            on_text: root.change_qi_id_in_settings(self)
+            helper_text: "ID eg. 'P=O', 'my bond' ...."
+            hint_text: "ID of bond: "
+            helper_text_mode: "persistent"
+            height: '30dp'
+            pos_hint: {"center_x": 0.5, "center_y": 0.66}
+
+    MDLabel: 
+        size_hint_x: 1.5
+        valign: 'middle'
+        text: "Coordination numbers: "
+        height: row_height
+        theme_text_color: "Custom"
+        text_color: app.theme_cls.text_color
+
+    SwithButtonWidget:
+        id: coord
+        name_of_widget: 'cn'
+        on_active: root.change_settings_calc(self)
+
+    MDLabel: 
+        valign: 'middle'
+        text: " "
+        height: row_height
+        theme_text_color: "Custom"
+        text_color: app.theme_cls.text_color
+
+    MDLabel: 
+        size_hint_x: 1.5
+        valign: 'middle'
+        text: "Connections between atoms: "
+        height: row_height
+        theme_text_color: "Custom"
+        text_color: app.theme_cls.text_color
+    
+    SwithButtonWidget:
+        id: coon
+        name_of_widget: 'connections'
+        on_active: root.change_settings_calc(self)
+
+    MDLabel: 
+        valign: 'middle'
+        text: " "
+        height: row_height
+        theme_text_color: "Custom"
+        text_color: app.theme_cls.text_color
+
+    MDLabel: 
+        size_hint_x: 1.5
+        valign: 'middle'
+        text: "Relation between bond order and bond length: "
+        height: row_height
+        theme_text_color: "Custom"
+        text_color: app.theme_cls.text_color
+
+    SwithButtonWidget:
+        id: length
+        name_of_widget: 'bond_length'
+        on_active: root.change_settings_calc(self)
+
+    MDLabel: 
+        valign: 'middle'
+        text: " "
+        height: row_height
+        theme_text_color: "Custom"
+        text_color: app.theme_cls.text_color
+
+    MDLabel: 
+        size_hint_x: 1.5
+        valign: 'middle'
+        text: "Covalence of atoms: "
+        height: row_height
+        theme_text_color: "Custom"
+        text_color: app.theme_cls.text_color
+
+    SwithButtonWidget:
+        id: cov
+        name_of_widget: 'covalence'
+        on_active: root.change_settings_calc(self)
+
+    MDLabel: 
+        valign: 'middle'
+        text: " "
+        height: row_height

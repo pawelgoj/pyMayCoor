@@ -1,0 +1,224 @@
+#:import componentAddPairsOfAtoms component_add_pairs_of_atoms.component_add_pairs_of_atoms
+#:import componentChoseCalculations component_chose_calculations.component_chose_calculations
+#:import switchButton switch_button.switch_button
+#:import MyTextInput my_text_input.my_text_input
+#:import NavBar nav_bar_p.nav_bar
+#:import NavButton nav_bar_p.nav_button
+#:import ReportViewer report_viewer.report_viewer
+#:import ShowHistograms show_histograms.show_histograms
+#:import MyScrollView my_scroll_view.my_scroll_view
+
+#:set paddings_histogram dp(10)
+#:set header_label_paddings [dp(10), dp(10), dp(10), dp(10)]
+
+MainFrameOfApp:
+
+<MainFrameOfApp>:
+    FloatLayout:
+        pos: 0, 0 
+        size_hint_y: None
+        height: root.height - bar_of_app.height
+
+        MyTabs:
+            lock_swiping: True
+            id: main_tabs_of_app
+
+            Tab:
+                title: "Settings"
+
+                FloatLayout:
+                    id: layout_in_settings_tab
+                    size_hint: None, None
+                    height: 
+                        root.height\
+                        - bar_of_app.height\
+                        - main_tabs_of_app.tab_bar_height\
+                        - footer.height
+                    width: root.width
+                    pos: 0, footer.height
+
+                    MDWidget:
+                        pos: layout_in_settings_tab.pos
+
+                        MyScrollView:
+                            id: my_MDScrollView
+                            pos: layout_in_settings_tab.pos
+                            height: layout_in_settings_tab.height
+                            width: root.width
+
+                            MDStackLayout:
+                                id: content_in_MDScrollView
+                                size_hint: None, None
+                                height: self.minimum_height
+                                orientation: "lr-tb"
+                                spacing: "10dp"
+                                width: root.width if root.width >= dp(767) else dp(767)
+
+                                MDBoxLayout:
+                                    adaptive_height: True
+                                    padding: header_label_paddings
+                                    MDLabel: 
+                                        adaptive_height: True
+                                        text: "Histogram: "
+                                        font_style: "H5"
+                                        theme_text_color: "Custom"
+                                        text_color: app.theme_cls.primary_color
+
+                                MDGridLayout:
+                                    size_hint: (None, None)
+                                    width: content_in_MDScrollView.width
+                                    adaptive_height: True
+                                    row_default_height: '40dp'
+                                    padding: [paddings_histogram, paddings_histogram, self.width * 0.3 , paddings_histogram]
+                                    cols: 3
+                                    rows: 1
+                                    spacing: dp(20)
+
+                                    SwithButtonWidget:
+                                        id: histogram_swith_button
+                                        size_hint_x: None
+                                        width: dp(80)
+                                        on_active: root.change_state_histogram_button(self)
+
+                                    MDRelativeLayout:
+                                        height: '40dp'
+                                        size_hint_x: None
+                                        width: dp(250)
+                                        MyTextInput:
+                                            id: histogram_nr_bars
+                                            height: '30dp'
+                                            pos_hint: {'center_x': .5, 'center_y': .6}
+                                            hint_text: "Number of bars in hostograms: "
+                                            helper_text: "int number"
+                                            helper_text_mode: "persistent"
+                                            on_text: root.change_state_bars_input_histogram(self)
+
+                                    NavButton:
+                                        pos_hint: {'center_x': .5, 'center_y': .6}
+                                        text: "Calculate/show histograms"
+                                        icon: "chart-histogram"
+                                        on_press: root.calculate_histograms(self)
+
+                                MDBoxLayout:
+                                    adaptive_height: True
+                                    padding: header_label_paddings
+                                    MDLabel:
+                                        size_hint: (None, None)
+                                        width: content_in_MDScrollView.width
+                                        adaptive_height: True
+                                        valign: 'middle'
+                                        text: "Enter the pairs of atoms for which the calculations will be performed: "
+                                        font_style: "H5"
+                                        theme_text_color: "Custom"
+                                        text_color: app.theme_cls.primary_color
+
+                                ComponentAddPairsOfAtoms:
+                                    id: add_pairs_atoms
+                                    size_hint: (None, None)
+                                    height: self.height 
+                                    width: content_in_MDScrollView.width * 0.95 
+                                    content_in_MDScrollView_height: content_in_MDScrollView.height
+                                    content_outside_MDScrollView_height: bar_of_app.height + main_tabs_of_app.tab_bar_height
+                                    scroll_view: my_MDScrollView
+
+                                MDBoxLayout:
+                                    adaptive_height: True
+                                    padding: header_label_paddings
+                                    MDLabel:
+                                        size_hint: (None, None)
+                                        width: content_in_MDScrollView.width
+                                        adaptive_height: True
+                                        text: "Chose type of calculations: "
+                                        font_style: "H5"
+                                        theme_text_color: "Primary"
+                                        theme_text_color: "Custom"
+                                        text_color: app.theme_cls.primary_color
+
+                                ComponentChoseCalculations:
+                                    id: chose_calculations
+                                    size_hint: (None, None)
+                                    width: content_in_MDScrollView.width * 0.90
+                                    height: self.height 
+                                    padding: [dp(10), dp(10), content_in_MDScrollView.width * 0.3, dp(10)]
+
+                                MDGridLayout:
+                                    adaptive_height: True
+                                    size_hint: (None, None)
+                                    width: content_in_MDScrollView.width
+                                    row_default_height: '30dp'
+                                    cols: 2
+                                    padding: [dp(10), dp(10), content_in_MDScrollView.width * 0.4, dp(10)]
+
+            Tab:
+                id: tab_report_tab
+                title: "Report"
+                FloatLayout:
+                    id: tab_report
+                    size_hint: None, None
+                    height: 
+                        root.height\
+                        - bar_of_app.height\
+                        - main_tabs_of_app.tab_bar_height\
+                        - footer.height
+
+                    width: root.width
+                    pos: 0, footer.height
+                    ReportViewer:
+                        pos: tab_report.pos
+                        id: raport_viever
+                        height: tab_report.height
+                        width: tab_report.width
+                        nav_bar_hight: 
+                            bar_of_app.height\
+                            + main_tabs_of_app.tab_bar_height\
+                            + footer.height
+            Tab:
+                title: "Histograms"
+                FloatLayout:
+                    id: tab_report
+                    size_hint: None, None
+                    height: 
+                        root.height\
+                        - bar_of_app.height\
+                        - main_tabs_of_app.tab_bar_height\
+                        - footer.height
+
+                    width: root.width
+                    pos: 0, footer.height
+                    ShowHistograms:
+                        id: show_histograms
+                        pos: tab_report.pos
+                        height: tab_report.height
+                        width: tab_report.width
+                        nav_bar_hight: 
+                            bar_of_app.height\
+                            + main_tabs_of_app.tab_bar_height\
+                            + footer.height
+
+    NavBar:
+        id: bar_of_app
+
+    MDBoxLayout:
+        id: footer
+        orientation: 'horizontal'
+        pos_hint: {'bottom': 0, 'left': 0}
+        size_hint: (None, None)
+        md_bg_color: app.theme_cls.primary_color
+        width: content_in_MDScrollView.width
+        adaptive_height: True
+        padding: [dp(10), dp(15), dp(10), dp(10)]
+
+        MDBoxLayout:
+            MDProgressBar:
+                id: progress_bar
+                value: 0
+                color: app.progress_bar_color
+                size_hint: 1, None 
+                height: "7dp"
+
+        MDLabel:
+            id: label_for_progrss_bar
+            halign: "center" 
+            text: ""
+            size_hint_x: None
+            width: content_in_MDScrollView.width * 0.2

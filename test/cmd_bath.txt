@@ -1,1 +1,1 @@
-python3_10 main.py -i ../egzamples_instructions/out1.txt -s ../egzamples_instructions/settings.yaml
+python3_10 main.py -i ../egzamples_instructions/cpmd_out1.txt -s ../egzamples_instructions/settings.yaml

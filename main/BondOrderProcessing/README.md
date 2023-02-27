@@ -19,4 +19,11 @@ Library version: 1.1.0
 - coordinations numbers,
 - Qi units,
 - Connections between atoms,
-- Relation between bond order and length
+- Relation between bond order and length,
+- Covalence (The sum of the bond orders of a given atom. This  value is close to the valence if atom have only purely covalent bonds)
+
+### You can also use application using this library.
+
+Check: https://github.com/pawelgoj/pyMayCoor
+
+![app](https://pawelgoj.github.io/pyMayCoor/app.png)

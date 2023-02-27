@@ -1,0 +1,25 @@
+#:import MyScrollView my_scroll_view.my_scroll_view
+
+<ShowHistograms>:
+    size_hint: None, None
+    orientation: 'horizontal'
+    MyScrollView:
+        id: report_scrollView_hist
+        height: root.height
+        MDStackLayout:
+            id: hist_stack_layout
+            spacing: dp(10)
+            size_hint_y : None
+            height: self.minimum_height
+            padding: dp(10)
+            orientation: 'lr-tb'
+            MDLabel:
+                id_widget: "label"
+                id: info_label
+                size_hint: None, None
+                width: dp(200)
+                height: dp(50)
+                text: "No histograms calculated"
+                valign: "top"
+                theme_text_color: "Custom"
+                text_color: app.theme_cls.primary_color

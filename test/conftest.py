@@ -8,7 +8,7 @@ import os
 
 @pytest.fixture()
 def path_to_input_file(request):
-    path_to_input_file = "egzamples_instructions/out1.txt"
+    path_to_input_file = "egzamples_instructions/cpmd_out1.txt"
 
     yield path_to_input_file
 
@@ -16,7 +16,7 @@ def path_to_input_file(request):
 @pytest.fixture()
 def input_data_object_with_loaded_data(request):
     input_data = InputDataFromCPMD()
-    path_to_input_file = "egzamples_instructions/out1.txt"
+    path_to_input_file = "egzamples_instructions/cpmd_out1.txt"
     input_data.load_input_data(path_to_input_file,
                                LoadedData.UnitCell,
                                LoadedData.MayerBondOrders,
@@ -48,5 +48,11 @@ def pytest_generate_tests(metafunc):
 @pytest.fixture()
 def env_for_end_to_end_tests_2(request):
     file_name = "test_output.txt"
+    yield file_name
+    os.remove(f'./{file_name}')
+    
+@pytest.fixture()
+def env_for_settings_tests(request):
+    file_name = "test_output.yaml"
     yield file_name
     os.remove(f'./{file_name}')
