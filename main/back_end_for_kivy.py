@@ -78,7 +78,7 @@ class MenagerAppBackEnd:
         return cls.app_back_end
 
     @ classmethod
-    def check_settings_is_correct(cls) -> bool:
+    def check_settings_are_correct(cls) -> bool:
         if cls.app_back_end.settings.histogram['calc']\
             and cls.app_back_end.settings\
                 .histogram.get('nr_bars', None) is not None:

@@ -5,6 +5,7 @@ from kivy.config import Config
 from kivy.clock import Clock, mainthread
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
+from kivy.uix.widget import Widget
 from kivymd.uix.tab import MDTabsBase
 from kivymd.uix.tab import MDTabs
 from copy import deepcopy
@@ -46,8 +47,7 @@ class MainFrameOfApp(MDFloatLayout):
         self.progress_bar_value = 0
 
     @ mainthread
-    def update(self, dt):
-
+    def update(self, dt: int):
         try:
             if not MenagerAppBackEnd.queue.empty():
                 val = MenagerAppBackEnd.queue.get()
@@ -91,7 +91,7 @@ class MainFrameOfApp(MDFloatLayout):
             pass
 
     @ mainthread
-    def _show_dialog(self, dialog_text, button_text):
+    def _show_dialog(self, dialog_text: str, button_text: str):
 
         if self.dialog is not None:
             self.dialog = None
@@ -110,7 +110,7 @@ class MainFrameOfApp(MDFloatLayout):
         self.dialog.open()
 
     @ mainthread
-    def remove_dialog(self, widget):
+    def remove_dialog(self, widget: Widget):
         widget.parent.parent.parent.parent.parent.remove_widget(
             widget.parent.parent.parent.parent)
         self.dialog = None
@@ -128,7 +128,7 @@ class MainFrameOfApp(MDFloatLayout):
             self.ids.progress_bar.value = self.progress_bar_value
 
     @ mainthread
-    def calculate_histograms(self, widget):
+    def calculate_histograms(self, widget: Widget):
 
         if MenagerAppBackEnd.check_thread_run():
             dialog_text = 'Calculations is running!'
@@ -137,7 +137,7 @@ class MainFrameOfApp(MDFloatLayout):
             MenagerAppBackEnd\
                 .del_empty_added_pair_of_atom_objects()
             try:
-                if MenagerAppBackEnd.check_settings_is_correct()\
+                if MenagerAppBackEnd.check_settings_are_correct()\
                     and (MenagerAppBackEnd.get_settings().pairs_atoms_list != []
                          or MenagerAppBackEnd.get_settings().pairs_atoms_list is None):
 
@@ -161,7 +161,7 @@ class MainFrameOfApp(MDFloatLayout):
                 self._show_dialog(dialog_text, 'ok')
 
     @ mainthread
-    def change_state_histogram_button(self, widget):
+    def change_state_histogram_button(self, widget: Widget):
         if widget.active:
             MenagerAppBackEnd.change_settings_item(
                 'histogram_bool', True)
@@ -170,7 +170,7 @@ class MainFrameOfApp(MDFloatLayout):
                 'histogram_bool', False)
 
     @ mainthread
-    def change_state_bars_input_histogram(self, widget):
+    def change_state_bars_input_histogram(self, widget: Widget):
         if widget.text != '':
             try:
                 MenagerAppBackEnd.change_settings_item(
@@ -251,7 +251,7 @@ class pyMayCoorApp(MDApp):
         self.root.ids.show_histograms.update_text_inputs()
 
     @ mainthread
-    def change_state(self, widget):
+    def change_state(self, widget: Widget):
         self.text_input = widget
 
 

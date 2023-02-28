@@ -32,7 +32,7 @@ def on_touch_up_save_settings(self):
     MenagerAppBackEnd\
         .del_empty_added_pair_of_atom_objects()
 
-    if MenagerAppBackEnd.check_settings_is_correct():
+    if MenagerAppBackEnd.check_settings_are_correct():
         MenagerAppBackEnd.cast_values_pairs_of_atom_to_correct_values_for_calc()
         path = filechooser.save_file(title="save file..",
                                      filters=[("*.yaml"), ("*.yml")])
@@ -66,7 +66,7 @@ def on_touch_up_load_settings(self):
         except ValueError:
             unreadable_file = True
 
-        if MenagerAppBackEnd.check_settings_is_correct()\
+        if MenagerAppBackEnd.check_settings_are_correct()\
                 and not unreadable_file:
 
             # Side effect: reset_rows also clear settings object!!!!
@@ -233,7 +233,7 @@ def on_touch_up_run_program(self):
                 dialog_text = "You must enter correct data for pairs of atoms!"
             elif not MenagerAppBackEnd.check_q_i_calculations_have_correct_id():
                 dialog_text = "Bond id for Qi calculations not in pairs atoms list!"
-            elif MenagerAppBackEnd.check_settings_is_correct():
+            elif MenagerAppBackEnd.check_settings_are_correct():
                 MenagerAppBackEnd\
                     .cast_values_pairs_of_atom_to_correct_values_for_calc()
                 MenagerAppBackEnd.make_queue()
