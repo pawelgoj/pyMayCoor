@@ -98,7 +98,7 @@ calculations:
   covalence: true
 ```
 
-## Also You can use the library associated with this project bond_order_processing
+## Also you can use the library associated with this project bond_order_processing
 
 - <https://github.com/pawelgoj/pyMayCoor/tree/master/main/BondOrderProcessing>
 
