@@ -6,7 +6,7 @@ from kivymd.uix.menu import MDDropdownMenu
 from kivy.metrics import dp
 import webbrowser
 
-Builder.load_file("nav_bar_p/navbar.kv")
+Builder.load_file("nav_bar/navbar.kv")
 
 
 class MyDropdownMenu(MDDropdownMenu):

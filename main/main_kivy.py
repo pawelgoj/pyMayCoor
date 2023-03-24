@@ -222,14 +222,15 @@ class pyMayCoorApp(MDApp):
 
     @ mainthread
     def switch_theme_style(self):
-        if self.text_input != None:
+
+        try:
+            if self.text_input != None:
             # This statement is because strange preserved of MDtextInput
             # Focused MDtextInput not correct change Theme
-            try:
                 self.text_input.focus = True
-            except:
-                # If ocurred: ReferenceError: weakly-referenced object no longer exists
-                self.text_input = None
+        except ReferenceError:
+            # If ocurred: ReferenceError: weakly-referenced object no longer exists
+            self.text_input = None
 
         self.theme_cls.primary_palette = (
             "DeepOrange" if self.theme_cls.primary_palette == "DeepPurple" else "DeepPurple"
@@ -242,11 +243,11 @@ class pyMayCoorApp(MDApp):
             self.theme_cls.theme_style = "Light"
             self.theme_cls.hover_color = (0.63, 0.56, 0.76, 1)
 
-        if self.text_input != None:
-            try:
+        try:
+            if self.text_input != None:
                 self.text_input.focus = False
-            except:
-                self.text_input = None
+        except ReferenceError:
+            self.text_input = None
 
         self.root.ids.show_histograms.update_text_inputs()
 
