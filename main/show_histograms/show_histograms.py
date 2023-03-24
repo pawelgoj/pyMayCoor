@@ -3,7 +3,8 @@ from kivymd.uix.boxlayout import MDBoxLayout
 from kivy.lang.builder import Builder
 import matplotlib.pyplot as plt
 import seaborn as sns
-from kivy.garden.matplotlib.backend_kivyagg import FigureCanvasKivyAgg
+#from kivy.garden.matplotlib.backend_kivyagg import FigureCanvasKivyAgg
+from garden_matplotlib.backend_kivyagg import FigureCanvasKivyAgg
 #from garden_matplotlib.backend_kivyagg import FigureCanvasKivyAgg
 
 from kivy.metrics import dp
