@@ -125,3 +125,12 @@ calculations:
 - pyinstaller
 - Inno Setup Compiler
 - Google Fonts
+
+## How cite 
+If you would like to cite the program in your work. The information below is provided.
+
+### Script was written by Paweł Goj and first used in: 
+
+1.	P. Stoch, P. Goj, M. Ciecińska, P. Jeleń, A. Błachowski, A. Stoch, I. Krakowiak, Influence of aluminum on structural properties of iron-polyphosphate glasses, Ceram. Int. 46 (2020) 19146–19157. doi:10.1016/j.ceramint.2020.04.250.
+
+
